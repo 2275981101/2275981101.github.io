@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2018-12-10T10:06:52.335Z</updated>
+  <updated>2018-12-11T08:46:51.078Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -17,22 +17,20 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>Hello,Hexo</title>
-    <link href="http://yoursite.com/2018/12/10/Hello-Hexo/"/>
-    <id>http://yoursite.com/2018/12/10/Hello-Hexo/</id>
+    <title>初识html</title>
+    <link href="http://yoursite.com/2018/12/10/html1/"/>
+    <id>http://yoursite.com/2018/12/10/html1/</id>
     <published>2018-12-10T09:16:33.000Z</published>
-    <updated>2018-12-10T10:06:52.335Z</updated>
+    <updated>2018-12-11T08:46:51.078Z</updated>
     
-    <content type="html"><![CDATA[<pre><code>你好,Hexo我的第一个Hexo博客......待续</code></pre>]]></content>
+    <content type="html"><![CDATA[<p>最近在复习以前学习的所有的前端知识点，总结一下，希望也对初学者有一些帮助。</p><h4 id="首先我们都听说过html，那么什么东西是html呢"><a href="#首先我们都听说过html，那么什么东西是html呢" class="headerlink" title="首先我们都听说过html，那么什么东西是html呢? "></a><p align="left"><font face="微软雅黑" color="red" size="4">首先我们都听说过html，那么什么东西是html呢? </font></p></h4><ul><li>html的全称是hyperText markup language， 超文本标记语言，在网页中所有的文字图片和组织架构都是由html来编写的，当然html能够完成的工作不止有这些。</li><li>需要注意的是html并不是一种编程语言，它只是一种计算机语言，html不具备像c/c++/java等编程语言中的变量或者函数等东西，它仅仅由标签组成。 <code>&lt;html&gt; &lt;/html&gt;</code></li><li>标签中的闭合标签可以和前面的标签直接写成一个单标签形式<html>，或者直接不写，浏览器也是可以识别的，但是这样不规范，最好写完整的闭合标签。</html></li><li>最后，由于html并不是编程语言，没有编译过程，所以我们可以用任何可以写字的软件来编写比如txt，不过我们一般使用<font color="green">sublime</font> 或者 <font color="green">vs code</font> 这两个软件编写前端程序~<h4 id="其次，我们可能会听说过css样式这个词语，那么什么又是css呢？"><a href="#其次，我们可能会听说过css样式这个词语，那么什么又是css呢？" class="headerlink" title="其次，我们可能会听说过css样式这个词语，那么什么又是css呢？"></a><p align="left"><font face="微软雅黑" color="red" size="4">其次，我们可能会听说过css样式这个词语，那么什么又是css呢？</font></p></h4></li><li>css是层叠样式表的意思，html的布局、样式修饰和一些简单的动画都是由css完成的。<h4 id="最后我们还知道一门语言叫做javascript，那么javascript又是做什么的呢？"><a href="#最后我们还知道一门语言叫做javascript，那么javascript又是做什么的呢？" class="headerlink" title="最后我们还知道一门语言叫做javascript，那么javascript又是做什么的呢？"></a><p align="left"><font face="微软雅黑" color="red" size="4">最后我们还知道一门语言叫做javascript，那么javascript又是做什么的呢？</font></p></h4></li><li>javascript作用是实现人机交互作用，具体的我们在javascript部分介绍。(其实javascript与java并没有什么关系哟~)<h4 id="认识了html、css和js以及他们的功能之后，我们正式进入html的学习部分。"><a href="#认识了html、css和js以及他们的功能之后，我们正式进入html的学习部分。" class="headerlink" title="认识了html、css和js以及他们的功能之后，我们正式进入html的学习部分。"></a><p align="left"><font face="微软雅黑" color="red" size="4">认识了html、css和js以及他们的功能之后，我们正式进入html的学习部分。</font></p></h4></li><li>前面我们提到过html语言里面的都是标签，而html这个标签则是根标签，其他的东西都要放在这个标签里面编写，次一级的两个结构是head标签和body标签 –&gt; <code>&lt;head&gt;&lt;/head&gt;</code> , <code>&lt;body&gt;&lt;/body&gt;</code>  ，  head是给浏览器看的，body是给整个页面的主体部分，我们其他的展示出来的东西一般都放在body标签下面。</li></ul><p>这个时候我们创建一个txt文件，把后缀改成html在里面写好html、head、body标签之后就可以在body里面随便写一些文字了，然后用自己的浏览器打开这个文件，我们就可以发现在页面上显示出来我们所写的文字了。</p><p><code>&lt;html&gt;</code></p><p><code>&lt;head&gt;&lt;/head&gt;</code></p><p><code>&lt;body&gt;qwer...&lt;/body&gt;</code></p><p> <code>&lt;/html&gt;</code></p><p>但是这个时候有一个问题，我们输入英文是没有问题很正常的显示，<font color="red">但是中文就会变成一堆乱码</font>，这是由于此时的浏览器还不识别中文字符，我们还需要加一些东西，设置编码格式。</p><ul><li>编码格式是通过<code>&lt;meta&gt;</code>标签来设置的，我们在<code>&lt;head&gt;</code>中添加一个<code>&lt;meta&gt;</code>标签，注意这个标签不需要写闭合标签，然后我们为<code>meta</code>设置一个属性chatset=”utf-8″   : <code>&lt;meta charset = “utf-8”&gt;</code></li><li>我们再来介绍一下编码集。编码集主要有gbk、gb2312、unicode、utf-8。gb2312是国标2312条，可以识别简中日韩等亚洲语言，gbk是国标扩展，可以识别繁体中文，unicode是万国码，世界各国语言都包括在内，现在的unicode的升级版本是<font color="red">utf-8</font>， 全称是 unicode transformation format 公用的是这个编码格式，可以识别所有的语言，所以前面三个基本不用(反正我没见过…)。</li><li>我们还可以在根标签<code>&lt;html&gt;</code>里面来加一条属性lang 来告诉搜索引擎爬虫我们网站使用什么语言写的，zh-cn是中文，en是英文，一般二者一起写en,zn-cn   <code>&lt;html lang=”en, zh-cn”&gt;</code></li><li>其实<code>meta</code>还有很多其他的用处，比如设置移动端的页面显示大小，为网页被搜索的时候设置关键字等等。</li></ul><p>现在我们再刷新一下网页，刚才书写的<code>中文</code>已经可以显示出来了哟~</p><p>下面我们介绍一下<code>&lt;head&gt;</code>标签里面的另一个标签，<code>&lt;title&gt;</code></p><ul><li><code>&lt;title&gt;</code>标签是用来改变页面的标题的，每一个网页都有自己的名字，这个名字就是通过<code>&lt;title&gt;</code>标签设置的。我们现在在<code>&lt;head&gt;&lt;/head&gt;</code>里面加一个<code>&lt;title&gt;</code>HelloWorld<code>&lt;/title&gt;</code>来看看效果，网页的标题已经变成HelloWorld了哟~<h4 id="最后我们介绍一下非常非常重要的专业素养：当前世界上的主流浏览器都有什么呢？"><a href="#最后我们介绍一下非常非常重要的专业素养：当前世界上的主流浏览器都有什么呢？" class="headerlink" title="最后我们介绍一下非常非常重要的专业素养：当前世界上的主流浏览器都有什么呢？"></a><p align="left"><font face="微软雅黑" color="red" size="4">最后我们介绍一下非常非常重要的专业素养：当前世界上的主流浏览器都有什么呢？</font></p></h4></li><li><code>ie</code>这个我们都知道,微软的绑定浏览器</li><li><code>chrome</code>  这个我们也都知道，谷歌浏览器，我们开发一般都用chrome来调试，因此每一个前端工程师都要有一个chrome哟~</li><li><code>firefox</code> 火狐浏览器</li><li><code>opera</code> 这是欧洲的一个浏览器，特点是兼容性很强</li><li><code>safari</code> 我们也都知道</li><li>主流浏览器只有以上5个！(UC搜狗什么的都不是哟~)</li></ul><p>当然只知道这些是不够的，我们还需要知道这些主流浏览器的内核都是什么呢？这才是最重要的！</p><p></p><p align="left"><font face="微软雅黑" color="red" size="3">首先我们要知道每一个浏览器都由两部分组成：外壳+内核，外壳就是我们能看到的部分，而内核则是我们所需要掌握的知识。</font></p><br>浏览器|内核<br>–|:–:|–:<br><code>ie</code>|<code>trident</code><br><code>chrome</code>|<code>Blink/webkit</code><br><code>firefox</code>|<code>Gecko</code><br> <code>opera</code>|<code>presto</code><br> <code>safari</code>|<code>webkit</code><br>谷歌以前和<code>safari</code>一起开发过所以以前用的是<code>webkit</code>，现在已经把<code>webkit</code>里面的核心内容提取出来单独做了一款新的内核叫做<code>Blink</code>。<br>以上就是第一次总结的东西，希望对大家有帮助哟~<p></p>]]></content>
     
     <summary type="html">
     
       
       
-        &lt;pre&gt;&lt;code&gt;你好,Hexo
-我的第一个Hexo博客
-......待续
-&lt;/code&gt;&lt;/pre&gt;
+        &lt;p&gt;最近在复习以前学习的所有的前端知识点，总结一下，希望也对初学者有一些帮助。&lt;/p&gt;
+&lt;h4 id=&quot;首先我们都听说过html，那么什么东西是html呢&quot;&gt;&lt;a href=&quot;#首先我们都听说过html，那么什么东西是html呢&quot; class=&quot;headerlink&quot; titl
       
     
     </summary>
