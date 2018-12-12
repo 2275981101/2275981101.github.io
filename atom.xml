@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2018-12-12T05:50:42.633Z</updated>
+  <updated>2018-12-12T09:27:49.006Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,118 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>CSS美化checkbox</title>
+    <link href="http://yoursite.com/2018/12/12/blog4/"/>
+    <id>http://yoursite.com/2018/12/12/blog4/</id>
+    <published>2018-12-12T08:29:58.000Z</published>
+    <updated>2018-12-12T09:27:49.006Z</updated>
+    
+    <content type="html"><![CDATA[<p><img src="https://i.imgur.com/G7TYoeP.png" alt=""></p><pre><code>&lt;style&gt;    .myCheck{        display: none;    }    .myleb{        display: inline-block;        width: 16px;        height: 16px;        position: relative;        border: 1px solid #abcdef;        border-radius: 15%;        margin-right: 3px;        vertical-align: middle;    }    .myleb::before{        content: &quot;&quot;;        width: 10px;        height: 10px;        position: absolute;        top: 3px;        left: 3px;        background-color: #abcdef;        border-radius: 15%;        display: none;    }    .myCheck:checked+.myleb::before{        display: block;    }&lt;/style&gt;&lt;label for=&quot;cb1&quot;&gt;    &lt;input type=&quot;checkbox&quot; class=&quot;myCheck&quot; name=&quot;cb1&quot; id=&quot;cb1&quot;&gt;    &lt;span for=&quot;cb1&quot; class=&quot;myleb&quot;&gt;&lt;/span&gt;熊猫&lt;/label&gt;&lt;label for=&quot;cb2&quot;&gt;        &lt;input type=&quot;checkbox&quot; class=&quot;myCheck&quot; name=&quot;cb2&quot; id=&quot;cb2&quot;&gt;        &lt;span for=&quot;cb2&quot; class=&quot;myleb&quot;&gt;&lt;/span&gt;老虎&lt;/label&gt;&lt;label for=&quot;cb3&quot;&gt;        &lt;input type=&quot;checkbox&quot; class=&quot;myCheck&quot; name=&quot;cb3&quot; id=&quot;cb3&quot;&gt;        &lt;span for=&quot;cb3&quot; class=&quot;myleb&quot;&gt;&lt;/span&gt;大象&lt;/label&gt;</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;&lt;img src=&quot;https://i.imgur.com/G7TYoeP.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;style&amp;gt;
+    .myCheck{
+        display: none;
+    }
+    .myleb{
+  
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>CSS溢出文本打点展示</title>
+    <link href="http://yoursite.com/2018/12/12/blog5/"/>
+    <id>http://yoursite.com/2018/12/12/blog5/</id>
+    <published>2018-12-12T08:29:58.000Z</published>
+    <updated>2018-12-12T09:27:17.134Z</updated>
+    
+    <content type="html"><![CDATA[<p><img src="https://i.imgur.com/B4Yhu4R.png" alt=""></p><h4 id="1-单行文本"><a href="#1-单行文本" class="headerlink" title="1.单行文本"></a>1.单行文本</h4><pre><code>p{   white-space: nowrap;//强制不换行      overflow: hidden;      text-overflow: ellipsis;}</code></pre><h4 id="2-多行文本"><a href="#2-多行文本" class="headerlink" title="2.多行文本"></a>2.多行文本</h4><p>多行文本要<font color="red">截断</font></p><pre><code>p{    height: n;    line-height: n/2; //要放几行就除多少    voerflow: hidden;  }</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;&lt;img src=&quot;https://i.imgur.com/B4Yhu4R.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;h4 id=&quot;1-单行文本&quot;&gt;&lt;a href=&quot;#1-单行文本&quot; class=&quot;headerlink&quot; title=&quot;1.单行文本&quot;&gt;&lt;/a&gt;1.单行文本&lt;/h4
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>CSS常用布局</title>
+    <link href="http://yoursite.com/2018/12/12/blog6/"/>
+    <id>http://yoursite.com/2018/12/12/blog6/</id>
+    <published>2018-12-12T08:29:58.000Z</published>
+    <updated>2018-12-12T08:58:24.360Z</updated>
+    
+    <content type="html"><![CDATA[<h4 id="常用布局"><a href="#常用布局" class="headerlink" title="常用布局"></a><font color="red">常用布局</font></h4><p><strong><font color="red">“display”属性</font></strong></p><p>  display 是CSS中最重要的用于控制布局的属性</p><ol><li><font color="red">display:block</font><p>div 是一个标准的<font color="red">块级</font>元素。一个块级元素会新开始一行并且尽可能撑满容器。而且block元素可以设置其高度与宽度。</p><p>(h1-h6 p ol ul li div form table address等)</p></li><li><font color="red">display:inline</font><p>span 是一个标准的<font color="red">行内</font>元素。一个行内元素可以在段落中 <span> 像这样 </span> 包裹一些文字而不会打乱段落的布局</p><p>inline元素无法设置其高度与宽度，它的高度和宽度完全取决于其内容的高和宽(a em strong br span select)</p></li><li><font color="red">display:inline-block</font><p>inline-block 综合了inline和block两种属性的特质,既可以给其设置宽高，又让其不会独占行。而且可以用这个属性模拟float进行布局</p></li><li><font color="red">display:none</font><p>display:none 通常被 JavaScript 用来在<font color="red">不删除元素的情况下隐藏或显示元素</font>。它和visibility属性不一样,把display设置成none元素不会占据它本来应该显示的空间,但是设置成visibility: hidden;<font color="red">还会占据空间</font>。</p></li></ol><p><strong><font color="red">水平居中</font></strong></p><p>  #main{ width: 600px; margin: 0 auto;}</p><p><font color="red">设置块级元素的 width 可以防止它从左到右撑满整个容器</font>。然后你就可以设置左右外边距为auto来使其<font color="red">水平居中</font>。<br>元素会占据你所指定的宽度,然后剩余的宽度会一分为二成为左右外边距。</p><p>  #main{ max-width: 600px; margin: 0 auto;}</p><p><font color="red">当浏览器窗口比元素的宽度还要窄时</font> 在这种情况下使用max-width替代width可以使浏览器更好地处理小窗口的情况。</p><p><strong><font color="red">盒模型</font></strong></p><p>当你设置了元素的宽度，实际展现的元素却超出你的设置:这是因为元素的边框和内边距会撑开元素。<br>看下面的例子，两个相同宽度的元素显示的实际宽度却不一样。</p><p>  <style><br>  .small{<br>            width: 500px;<br>            height: 300px;<br>            margin: 20px auto;<br>            background-color: pink;<br>            box-sizing: border-box;<br>        }<br>        .big{<br>            width: 500px;<br>            height: 300px;<br>            margin: 20px auto;<br>            padding: 50px;<br>            border: 10px solid black;<br>            background-color: crimson;<br>        }<br>  </style><br>  <div class="small"></div><br>  <div class="big"></div></p><p><img src="https://i.imgur.com/pU3yaUM.png" alt=""></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h4 id=&quot;常用布局&quot;&gt;&lt;a href=&quot;#常用布局&quot; class=&quot;headerlink&quot; title=&quot;常用布局&quot;&gt;&lt;/a&gt;&lt;font color=&quot;red&quot;&gt;常用布局&lt;/font&gt;&lt;/h4&gt;&lt;p&gt;&lt;strong&gt;&lt;font color=&quot;red&quot;&gt;“display”属性
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>CSS实现微信对话框</title>
+    <link href="http://yoursite.com/2018/12/12/blog7/"/>
+    <id>http://yoursite.com/2018/12/12/blog7/</id>
+    <published>2018-12-12T08:29:58.000Z</published>
+    <updated>2018-12-12T09:26:01.647Z</updated>
+    
+    <content type="html"><![CDATA[<h4 id="实现原理"><a href="#实现原理" class="headerlink" title="实现原理"></a><font color="red">实现原理</font></h4><p><strong>此效果利用了一个高度、宽度均为0的伪元素实现。</strong></p><p><strong>当某元素的高度、宽度均为0,并且设置边框之后,其边框将变为4个顶角相对的三角形,如下图</strong></p><p><img src="https://i.imgur.com/hAfGuSn.png" alt=""></p><pre><code>&lt;style&gt;    .box{        height: 0;        width: 0;        border: 100px solid;        border-color: #25a23b #abcdef #0000ff crimson;    }&lt;/style&gt;&lt;div class=&quot;box&quot;&gt;&lt;/div&gt;</code></pre><p><img src="https://i.imgur.com/7nd7UsQ.png" alt=""></p><pre><code>&lt;style&gt;.demo{      position: relative;      left: 200px;      max-width: 150px;      max-height: 90px;      background: #25a23b;      -webkit-border-radius: 5px;      -moz-border-radius: 5px;      border-radius: 5px;      font-size: 14px;      padding: 5px;      color: white;      word-break: break-word;    }    .demo::before{        content: &quot;&quot;;        position: absolute;        width: 0;        height: 0;        left: -18px;        top: 17px;        border: 9px solid;        border-color: transparent #25a23b transparent transparent;    }&lt;/style&gt;&lt;div class=&quot;demo&quot;&gt;background background background background background   background &lt;/div&gt;</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h4 id=&quot;实现原理&quot;&gt;&lt;a href=&quot;#实现原理&quot; class=&quot;headerlink&quot; title=&quot;实现原理&quot;&gt;&lt;/a&gt;&lt;font color=&quot;red&quot;&gt;实现原理&lt;/font&gt;&lt;/h4&gt;&lt;p&gt;&lt;strong&gt;此效果利用了一个高度、宽度均为0的伪元素实现。&lt;/stro
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>CSS实现六边形效果</title>
+    <link href="http://yoursite.com/2018/12/12/blog8/"/>
+    <id>http://yoursite.com/2018/12/12/blog8/</id>
+    <published>2018-12-12T08:29:58.000Z</published>
+    <updated>2018-12-12T09:25:22.822Z</updated>
+    
+    <content type="html"><![CDATA[<h4 id="实现方案"><a href="#实现方案" class="headerlink" title="实现方案"></a><font color="red">实现方案</font></h4><p><strong>思路:拆分成一个长方形和两个正方形</strong></p><ol><li><strong>三角形是正方形的一半</strong></li></ol><ol start="2"><li><strong>用伪元素实现一个正方形</strong></li></ol><ol start="3"><li><strong>旋转45度(transform:rotate(45deg))</strong></li></ol><p><img src="https://i.imgur.com/7LhlkSW.png" alt=""></p><pre><code>&lt;style&gt;    *{    margin: 0;    padding: 0;}div{    border-top: 2px solid #00f;    border-bottom: 2px solid #00f;    width: 200px;    height: 100px;    line-height: 100px;    position: relative;    top: 100px;    margin: 0 auto;    text-align: center;    vertical-align: middle;    background-color: crimson;}div::before{    content: &quot;&quot;;    width: 71px;    height: 71px;    position: absolute;    top: 14px;    left: -36px;    transform: rotate(45deg);    background-color: crimson;    border-left: 2px solid #00f;    border-bottom: 2px solid #00f;}div::after{    content: &quot;&quot;;    width: 71px;    height: 71px;    position: absolute;    top: 14px;    right: -36px;    transform: rotate(45deg);    background-color: crimson;    border-right: 2px solid #00f;    border-top: 2px solid #00f;}       &lt;/style&gt;                      &lt;div&gt;aaa&lt;/div&gt;</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h4 id=&quot;实现方案&quot;&gt;&lt;a href=&quot;#实现方案&quot; class=&quot;headerlink&quot; title=&quot;实现方案&quot;&gt;&lt;/a&gt;&lt;font color=&quot;red&quot;&gt;实现方案&lt;/font&gt;&lt;/h4&gt;&lt;p&gt;&lt;strong&gt;思路:拆分成一个长方形和两个正方形&lt;/strong&gt;&lt;/p
+      
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>html初识</title>
@@ -31,6 +143,27 @@
       
         &lt;p&gt; 最近在复习以前学习的所有的前端知识点，总结一下，希望也对初学者有一些帮助。&lt;/p&gt;
 &lt;h4 id=&quot;首先我们都听说过html，那么什么东西是html呢&quot;&gt;&lt;a href=&quot;#首先我们都听说过html，那么什么东西是html呢&quot; class=&quot;headerlink&quot; tit
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>CSS3之盒子模型</title>
+    <link href="http://yoursite.com/2018/12/10/blog3/"/>
+    <id>http://yoursite.com/2018/12/10/blog3/</id>
+    <published>2018-12-10T09:16:33.000Z</published>
+    <updated>2018-12-12T08:13:43.214Z</updated>
+    
+    <content type="html"><![CDATA[<h4 id="盒子模型"><a href="#盒子模型" class="headerlink" title="盒子模型"></a><font color="red">盒子模型</font></h4><p>css中的每个元素都是一个盒模型,包括html body元素,浏览器解析css的时候也会把每个元素看成一个盒子来解析</p><p>盒模型具备的属性有：<font color="red"> content 、padding 、margin、border 、background</font> 等</p><h4 id="盒模型的分类"><a href="#盒模型的分类" class="headerlink" title="盒模型的分类"></a><font color="red">盒模型的分类</font></h4><ol><li><font color="red">border-box</font>: 俗称混杂盒模型</li><li><font color="red">content-box</font>: 是w3c组织定义的盒模型</li></ol><p>IE6混杂盒模型: 触发怪异模式 怪异模式下可以给行内元素加宽高,图片的padding值会失效 margin:0 auto不好使</p><p>触发怪异模式并不能让页面对页面中的盒子用IE6混杂盒模型来解析 怎么能用IE6混杂模式盒模型来解析呢 ? 怪异模式 + IE6浏览器<br>css3中的可以选择盒模型的类型: box-sizing: border-box/content-box;</p><pre><code>&lt;style&gt; *{        margin: 0;        padding: 0;    }    .wrapper{        width: 960px;        color: #fff;        font-size: 30px;        text-align: center;        /* 后加 */        background: #ccc;        box-sizing: border-box;    }    #header{        height: 100px;        background: black;        margin-bottom: 10px;        /* 后加 */        padding: 10px;        width: 100%;        box-sizing: border-box;    }    .sidebar{        float: left;        width: 220px;        height: 300px;        margin-right: 20px;        margin-bottom: 10px;        background: greenyellow;        /* 后加 */         padding: 10px;        border: 1px solid #000;         box-sizing: border-box;    }    .content{        float: left;        width: 720px;        height: 300px;        margin-bottom: 10px;        background: red;        box-sizing: border-box;    }    #footer{        background: burlywood;        height: 100px;        clear: both;        box-sizing: border-box;    }&lt;/style&gt;&lt;div class=&quot;wrapper&quot;&gt;    &lt;div id=&quot;header&quot;&gt;header&lt;/div&gt;    &lt;div class=&quot;sidebar&quot;&gt;侧边栏&lt;/div&gt;    &lt;div class=&quot;content&quot;&gt;内容区&lt;/div&gt;    &lt;div id=&quot;footer&quot;&gt;底部&lt;/div&gt;&lt;/div&gt;</code></pre><p><img src="https://i.imgur.com/ThNO6NA.png" alt=""></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h4 id=&quot;盒子模型&quot;&gt;&lt;a href=&quot;#盒子模型&quot; class=&quot;headerlink&quot; title=&quot;盒子模型&quot;&gt;&lt;/a&gt;&lt;font color=&quot;red&quot;&gt;盒子模型&lt;/font&gt;&lt;/h4&gt;&lt;p&gt;css中的每个元素都是一个盒模型,包括html body元素,浏览器解析c
       
     
     </summary>
@@ -61,19 +194,19 @@
   </entry>
   
   <entry>
-    <title>CSS3之盒子模型</title>
-    <link href="http://yoursite.com/2018/12/10/blog3/"/>
-    <id>http://yoursite.com/2018/12/10/blog3/</id>
+    <title>CSS定位与层模型</title>
+    <link href="http://yoursite.com/2018/12/10/blog9/"/>
+    <id>http://yoursite.com/2018/12/10/blog9/</id>
     <published>2018-12-10T09:16:33.000Z</published>
-    <updated>2018-12-12T08:13:43.214Z</updated>
+    <updated>2018-12-12T10:21:31.957Z</updated>
     
-    <content type="html"><![CDATA[<h4 id="盒子模型"><a href="#盒子模型" class="headerlink" title="盒子模型"></a><font color="red">盒子模型</font></h4><p>css中的每个元素都是一个盒模型,包括html body元素,浏览器解析css的时候也会把每个元素看成一个盒子来解析</p><p>盒模型具备的属性有：<font color="red"> content 、padding 、margin、border 、background</font> 等</p><h4 id="盒模型的分类"><a href="#盒模型的分类" class="headerlink" title="盒模型的分类"></a><font color="red">盒模型的分类</font></h4><ol><li><font color="red">border-box</font>: 俗称混杂盒模型</li><li><font color="red">content-box</font>: 是w3c组织定义的盒模型</li></ol><p>IE6混杂盒模型: 触发怪异模式 怪异模式下可以给行内元素加宽高,图片的padding值会失效 margin:0 auto不好使</p><p>触发怪异模式并不能让页面对页面中的盒子用IE6混杂盒模型来解析 怎么能用IE6混杂模式盒模型来解析呢 ? 怪异模式 + IE6浏览器<br>css3中的可以选择盒模型的类型: box-sizing: border-box/content-box;</p><pre><code>&lt;style&gt; *{        margin: 0;        padding: 0;    }    .wrapper{        width: 960px;        color: #fff;        font-size: 30px;        text-align: center;        /* 后加 */        background: #ccc;        box-sizing: border-box;    }    #header{        height: 100px;        background: black;        margin-bottom: 10px;        /* 后加 */        padding: 10px;        width: 100%;        box-sizing: border-box;    }    .sidebar{        float: left;        width: 220px;        height: 300px;        margin-right: 20px;        margin-bottom: 10px;        background: greenyellow;        /* 后加 */         padding: 10px;        border: 1px solid #000;         box-sizing: border-box;    }    .content{        float: left;        width: 720px;        height: 300px;        margin-bottom: 10px;        background: red;        box-sizing: border-box;    }    #footer{        background: burlywood;        height: 100px;        clear: both;        box-sizing: border-box;    }&lt;/style&gt;&lt;div class=&quot;wrapper&quot;&gt;    &lt;div id=&quot;header&quot;&gt;header&lt;/div&gt;    &lt;div class=&quot;sidebar&quot;&gt;侧边栏&lt;/div&gt;    &lt;div class=&quot;content&quot;&gt;内容区&lt;/div&gt;    &lt;div id=&quot;footer&quot;&gt;底部&lt;/div&gt;&lt;/div&gt;</code></pre><p><img src="https://i.imgur.com/ThNO6NA.png" alt=""></p>]]></content>
+    <content type="html"><![CDATA[<h3 id="层模型"><a href="#层模型" class="headerlink" title="层模型"></a><center><font color="red" size="5">层模型</font></center></h3><p>css中元素的层次模型主要是由<font color="red">position</font>这个属性来决定的。</p><p>position属性：position的意思是定位，同样这个属性的作用就是<font color="red">给元素施加定位</font>。它一共有四个值，分别是<font color="red">static、absolute、relative、fixed</font>。</p><p><strong><font color="red" size="4">static</font></strong></p><p>• static是<font color="red">默认</font>的属性，当我们没有写position属性的时候，元素默认的定位就是static定位。</p><p><strong><font color="red" size="4">absolute</font></strong></p><p> • absolute是<font color="red">绝对定位</font>的意思，它会使元素<font color="red">脱离本来的位置</font>再进行定位，它会使元素像立交桥一样出现空间上的分层，当元素脱离原来的位置之后，其他的元素就会看不到这个元素。同时，<font color="red">absolute也可以触发bfc</font>。</p><p>• 同时，当我们改变定位之后，这个元素就有四个属性可以使用了，分别是<font color="red">left、right、top、bottom</font>。这四个属性分别可以设置当前元素距离左边、右边、上边和下边的距离为多少，但是四个属性很少一起出现，一般都是两两一对出现，其中left和top是一对，right和bottom是一对。</p><pre><code>div {  width: 100px;  height:100px;  position: absolute;  left: 100px;  top: 100px;}</code></pre><p>这个div就会脱离原来的位置，然后距离浏览器上边框和左边框分别100px的距离。</p><p> • 最后一点，absolute的参照物是<font color="red">距离它最近的有定位（除了static）的父级</font>，当每一个父级都没有定位的时候，元素会相对于<font color="red">浏览器边框</font>进行定位。</p><p><strong><font color="red" size="4">relative</font></strong></p><p>• relative是<font color="red">相对定位</font>的意思，它会让元素保留原来的位置再进行定位，后面的元素可以看到它本来的位置。</p><p>• 当position改成relative之后，left、top、right、bottom进行的定位就会变成<font color="red">相对于自身的位置</font>进行移动了。</p><p>• relative的<font color="red">参照物是元素自身</font>。</p><p>• 当我们仅仅给元素设置position:relative;并没有设置left、right、top、bottom属性的时候，元素的定位是没有发生任何改变的，因为这个特性，一般在开发中，<font color="red">relative都是用作设置参照物的</font>，一个absolute元素要相对于那个元素进行移动，就给那个元素设置relative的定位就可以了。</p><font color="red">我们通过例子来看一下absolute和relative的区别。</font><pre><code>&lt;div class=”wrapper”&gt;  &lt;div class=”box”&gt;        &lt;div class=”content”&gt;&lt;/div&gt;  &lt;/div&gt;&lt;/div&gt;.wrapper {   width: 200px;  height: 200px;  background-color: orange;  margin-top: 100px;  margin-left: 100px;}.box{      width:100px;      height: 100px;      background-color: black;      margin-left:100px;}.content{      width: 50px;      height: 50px;      background-color: yellow;}</code></pre><p>这个时候时候我们在浏览器中看到的样式是这个样子的：</p><p><img src="https://i.imgur.com/CqeccHD.png" alt=""></p><p>现在我们给content加上定位的样式。</p><pre><code>.content{  position:absolute;  left: 50px;  width: 50px;  height: 50px;  background-color: yellow;}</code></pre><p>这个时候浏览器中的样式就会发生改变，content那个黄色的小方块会跑到橘黄色的方块外面：</p><p><img src="https://i.imgur.com/gBrUDKu.png" alt=""></p><p>这是因为，当我们给content设置position:absolute;之后，浏览器在渲染的时候，会先向上找到box这个div，看看这个div有没有定位，因为没有，所以继续向上找wrapper，依然没有，再向上找body，还是没有，所以最后就是<font color="red">相对于浏览器边框定位</font>，这个时候content的left属性就是相对于浏览器边框左边有50px的距离的意思。</p><p>现在我们把content的定位换成relative，浏览器中的结果变成了这个样子：</p><p><img src="https://i.imgur.com/rHbXfuf.png" alt=""></p><p>本来content黄色小方块在黑色方块的左上角，然后relative相对与自身的位置进行定位，这个时候的left属性的意思就是相对于本来在黑色左上角的那个位置向右移动了50px的距离，也就是现在这个黄色小方块所在的位置。</p><p>因此，总结一下absolute和relative的特点如下：</p><p>• <font color="red"><strong>absolute：</strong></font></p><font color="red">1.脱离原来位置进行定位</font><font color="red">2.相对于最近的有定位的父级进行定位，如果没有那么相对于浏览器边框定位。</font><p>• <font color="red"><strong>relative：</strong></font></p><font color="red">1.保留原来位置定位</font><font color="red">2.相对于最近的有定位的父级进行定位</font><font color="red">一般被用来设置参照物</font><p><strong><font color="red" size="4">fixed</font></strong></p><p>fixed定位是<font color="red">相对于视口</font>的定位，我们在网页上都见过左右两边不随着滚轮滚动而改变位置的广告栏，这种广告栏就是用fixed定位的。</p><p><code>&lt;div class=”fixed”&gt;&lt;/div&gt;</code></p><pre><code>.fixed {  position: fixed;  right: 0px;  top: 200px;  height: 200px;  width: 50px;  background-color: red;}</code></pre><p>这段代码中，div.fixed这个元素就是一直在视口的右边，不随着我们滚动而改变相对于视口的位置。</p><p><strong><font color="red" size="4">最后提一点</font></strong></p><p>• 值得注意的是，当我们写这样一段代码的时候：</p><p><code>&lt;div class=”demo”&gt;&lt;/div&gt;</code></p><pre><code>.demo{  position: absolute;  margin-top: 200px;  height: 200px;  width: 50px;  background-color: red;}</code></pre><p>我们把absolute换成relative之后，会发现整个div会向上移动一小段距离，这是为什么呢？</p><p>答案其实就是<font color="red">margin合并</font>问题——body标签本身有8px的margin，而四个方向的margin自然包括了margin-bottom，我们为div.demo设置了margin-top，就会导致margin合并的问题发生，当position是relative的时候，并没有触发bfc，所以中间的距离会取二者的最大值，也就是200px，当position是absolute的时候，因为触发了bfc效果，从而消除掉margin合并的bug，因此中间的距离是200+8=208px。</p><p><strong><font color="red" size="4">一点小应用</font></strong></p><p>1.我们学习了定位之后，就可以实现前面文章提到的<font color="red">元素水平垂直居中</font>的效果了哟~</p><p>  只要我们给一个div加上下面的样式：</p><pre><code>div {  width: 100px;  height: 100px;  position: absolute;  left: 50%;  top: 50%;  margin-left: -50px;  margin-top: -50px;  background-color: red;}</code></pre><p>这个div就会在<font color="red">有定位的父级</font>里面是<font color="red">水平垂直居中</font>了哟~</p><p>2.我们还可以实现多栏布局了！</p><p>首先我们写三个div，分别起类名为left、mid、right，然后分别加上如下的样式：</p><font color="blue"><code>&lt;div class=”left”&gt;&lt;/div&gt;</code></font><font color="blue"><code>&lt;div class=”right”&gt;&lt;/div&gt;</code></font><font color="red"><code>&lt;div class=”mid”&gt;&lt;/div&gt;</code></font><pre><code>    * {  margin: 0px;  padding: 0px;}div {  height: 100px;}.left {  position: absolute;  left: 0;  width: 100px;  background-color: yellow;}.right {  position: absolute;  right: 0;  width: 100px;  background-color: #ffc;}.mid {  margin-left: 100px;  margin-right: 100px;  background-color: #fcc;}</code></pre><p><img src="https://i.imgur.com/78XewWd.png" alt=""></p><p>我们首先固定左侧和右侧的两个div，然后让中间的div分别给左侧和右侧留出一个固定宽度的margin之后，让自身自适应屏幕的大小即可实现三栏布局效果。</p><p>• 要注意的是，div.mid记得<font color="red">写在后面</font>，如果写在最前面的话，因为div是block块级元素会独占一行，这样就会把左侧和右侧的div给挤到下一行了。当然我们给.left和.right都加上<font color="red">top:0px;</font>之后，这个问题也就不用考虑了。</p><p>这次的层模型总结就到这里了，希望对大家有帮助哟~</p><font color="red"></font>]]></content>
     
     <summary type="html">
     
       
       
-        &lt;h4 id=&quot;盒子模型&quot;&gt;&lt;a href=&quot;#盒子模型&quot; class=&quot;headerlink&quot; title=&quot;盒子模型&quot;&gt;&lt;/a&gt;&lt;font color=&quot;red&quot;&gt;盒子模型&lt;/font&gt;&lt;/h4&gt;&lt;p&gt;css中的每个元素都是一个盒模型,包括html body元素,浏览器解析c
+        &lt;h3 id=&quot;层模型&quot;&gt;&lt;a href=&quot;#层模型&quot; class=&quot;headerlink&quot; title=&quot;层模型&quot;&gt;&lt;/a&gt;&lt;center&gt;&lt;font color=&quot;red&quot; size=&quot;5&quot;&gt;层模型&lt;/font&gt;&lt;/center&gt;&lt;/h3&gt;&lt;p&gt;css中元素的层次模型主要是由
       
     
     </summary>
