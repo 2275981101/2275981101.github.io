@@ -108,17 +108,19 @@
 
 
 
-  <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+  <meta name="description" content="盒子模型css中的每个元素都是一个盒模型,包括html body元素,浏览器解析css的时候也会把每个元素看成一个盒子来解析 盒模型具备的属性有： content 、padding 、margin、border 、background 等 盒模型的分类 border-box: 俗称混杂盒模型 content-box: 是w3c组织定义的盒模型  IE6混杂盒模型: 触发怪异模式 怪异模式下可以给行">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="http://yoursite.com/2018/12/10/hello-world/index.html">
+<meta property="og:title" content="CSS3之盒子模型">
+<meta property="og:url" content="http://yoursite.com/2018/12/10/blog3/index.html">
 <meta property="og:site_name" content="welcome">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta property="og:description" content="盒子模型css中的每个元素都是一个盒模型,包括html body元素,浏览器解析css的时候也会把每个元素看成一个盒子来解析 盒模型具备的属性有： content 、padding 、margin、border 、background 等 盒模型的分类 border-box: 俗称混杂盒模型 content-box: 是w3c组织定义的盒模型  IE6混杂盒模型: 触发怪异模式 怪异模式下可以给行">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-12-10T08:50:32.805Z">
+<meta property="og:image" content="https://i.imgur.com/ThNO6NA.png">
+<meta property="og:updated_time" content="2018-12-12T08:13:43.214Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hello World">
-<meta name="twitter:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta name="twitter:title" content="CSS3之盒子模型">
+<meta name="twitter:description" content="盒子模型css中的每个元素都是一个盒模型,包括html body元素,浏览器解析css的时候也会把每个元素看成一个盒子来解析 盒模型具备的属性有： content 、padding 、margin、border 、background 等 盒模型的分类 border-box: 俗称混杂盒模型 content-box: 是w3c组织定义的盒模型  IE6混杂盒模型: 触发怪异模式 怪异模式下可以给行">
+<meta name="twitter:image" content="https://i.imgur.com/ThNO6NA.png">
 
 
 
@@ -127,7 +129,7 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/12/10/hello-world/">
+  <link rel="canonical" href="http://yoursite.com/2018/12/10/blog3/">
 
 
 
@@ -137,7 +139,7 @@
   };
 </script>
 
-  <title>Hello World | welcome</title>
+  <title>CSS3之盒子模型 | welcome</title>
   
 
 
@@ -306,7 +308,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/10/hello-world/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/10/blog3/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Wanghai">
@@ -323,7 +325,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Hello World
+          <h1 class="post-title" itemprop="name headline">CSS3之盒子模型
 
               
             
@@ -349,9 +351,25 @@
                 
               
 
-              <time title="Created: 2018-12-10 16:50:32" itemprop="dateCreated datePublished" datetime="2018-12-10T16:50:32+08:00">2018-12-10</time>
+              <time title="Created: 2018-12-10 17:16:33" itemprop="dateCreated datePublished" datetime="2018-12-10T17:16:33+08:00">2018-12-10</time>
             
 
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2018-12-12 16:13:43" itemprop="dateModified" datetime="2018-12-12T16:13:43+08:00">2018-12-12</time>
+              
             
           </span>
 
@@ -383,15 +401,71 @@
       
 
       
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+        <h4 id="盒子模型"><a href="#盒子模型" class="headerlink" title="盒子模型"></a><font color="red">盒子模型</font></h4><p>css中的每个元素都是一个盒模型,包括html body元素,浏览器解析css的时候也会把每个元素看成一个盒子来解析</p>
+<p>盒模型具备的属性有：<font color="red"> content 、padding 、margin、border 、background</font> 等</p>
+<h4 id="盒模型的分类"><a href="#盒模型的分类" class="headerlink" title="盒模型的分类"></a><font color="red">盒模型的分类</font></h4><ol>
+<li><font color="red">border-box</font>: 俗称混杂盒模型</li>
+<li><font color="red">content-box</font>: 是w3c组织定义的盒模型</li>
+</ol>
+<p>IE6混杂盒模型: 触发怪异模式 怪异模式下可以给行内元素加宽高,图片的padding值会失效 margin:0 auto不好使</p>
+<p>触发怪异模式并不能让页面对页面中的盒子用IE6混杂盒模型来解析 怎么能用IE6混杂模式盒模型来解析呢 ? 怪异模式 + IE6浏览器<br>css3中的可以选择盒模型的类型: box-sizing: border-box/content-box;</p>
+<pre><code>&lt;style&gt;
+ *{
+        margin: 0;
+        padding: 0;
+    }
+    .wrapper{
+        width: 960px;
+        color: #fff;
+        font-size: 30px;
+        text-align: center;
+        /* 后加 */
+        background: #ccc;
+        box-sizing: border-box;
+    }
+    #header{
+        height: 100px;
+        background: black;
+        margin-bottom: 10px;
+        /* 后加 */
+        padding: 10px;
+        width: 100%;
+        box-sizing: border-box;
+    }
+    .sidebar{
+        float: left;
+        width: 220px;
+        height: 300px;
+        margin-right: 20px;
+        margin-bottom: 10px;
+        background: greenyellow;
+        /* 后加 */ 
+        padding: 10px;
+        border: 1px solid #000; 
+        box-sizing: border-box;
+    }
+    .content{
+        float: left;
+        width: 720px;
+        height: 300px;
+        margin-bottom: 10px;
+        background: red;
+        box-sizing: border-box;
+    }
+    #footer{
+        background: burlywood;
+        height: 100px;
+        clear: both;
+        box-sizing: border-box;
+    }
+&lt;/style&gt;
+&lt;div class=&quot;wrapper&quot;&gt;
+    &lt;div id=&quot;header&quot;&gt;header&lt;/div&gt;
+    &lt;div class=&quot;sidebar&quot;&gt;侧边栏&lt;/div&gt;
+    &lt;div class=&quot;content&quot;&gt;内容区&lt;/div&gt;
+    &lt;div id=&quot;footer&quot;&gt;底部&lt;/div&gt;
+&lt;/div&gt;
+</code></pre><p><img src="https://i.imgur.com/ThNO6NA.png" alt=""></p>
 
       
     </div>
@@ -422,14 +496,18 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2018/12/10/hello-world/" rel="next" title="Hello World">
+                <i class="fa fa-chevron-left"></i> Hello World
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/12/10/blog3/" rel="prev" title="CSS3之盒子模型">
-                CSS3之盒子模型 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/12/10/blog2/" rel="prev" title="html标签介绍">
+                html标签介绍 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -546,7 +624,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Quick-Start"><span class="nav-number">1.</span> <span class="nav-text">Quick Start</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Create-a-new-post"><span class="nav-number">1.1.</span> <span class="nav-text">Create a new post</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Run-server"><span class="nav-number">1.2.</span> <span class="nav-text">Run server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Generate-static-files"><span class="nav-number">1.3.</span> <span class="nav-text">Generate static files</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Deploy-to-remote-sites"><span class="nav-number">1.4.</span> <span class="nav-text">Deploy to remote sites</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#盒子模型"><span class="nav-number">1.</span> <span class="nav-text">盒子模型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#盒模型的分类"><span class="nav-number">2.</span> <span class="nav-text">盒模型的分类</span></a></li></ol></div>
             
 
           </div>

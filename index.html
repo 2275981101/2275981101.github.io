@@ -904,6 +904,224 @@ c.e
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/10/blog3/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wanghai">
+      <meta itemprop="description" content="Wanghai个人站，主要涉及前端知识共享、实践教程、前沿技术共同学习等方面">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="welcome">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2018/12/10/blog3/" class="post-title-link" itemprop="http://yoursite.com/index.html">CSS3之盒子模型</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-12-10 17:16:33" itemprop="dateCreated datePublished" datetime="2018-12-10T17:16:33+08:00">2018-12-10</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2018-12-12 16:13:43" itemprop="dateModified" datetime="2018-12-12T16:13:43+08:00">2018-12-12</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="盒子模型"><a href="#盒子模型" class="headerlink" title="盒子模型"></a><font color="red">盒子模型</font></h4><p>css中的每个元素都是一个盒模型,包括html body元素,浏览器解析css的时候也会把每个元素看成一个盒子来解析</p>
+<p>盒模型具备的属性有：<font color="red"> content 、padding 、margin、border 、background</font> 等</p>
+<h4 id="盒模型的分类"><a href="#盒模型的分类" class="headerlink" title="盒模型的分类"></a><font color="red">盒模型的分类</font></h4><ol>
+<li><font color="red">border-box</font>: 俗称混杂盒模型</li>
+<li><font color="red">content-box</font>: 是w3c组织定义的盒模型</li>
+</ol>
+<p>IE6混杂盒模型: 触发怪异模式 怪异模式下可以给行内元素加宽高,图片的padding值会失效 margin:0 auto不好使</p>
+<p>触发怪异模式并不能让页面对页面中的盒子用IE6混杂盒模型来解析 怎么能用IE6混杂模式盒模型来解析呢 ? 怪异模式 + IE6浏览器<br>css3中的可以选择盒模型的类型: box-sizing: border-box/content-box;</p>
+<pre><code>&lt;style&gt;
+ *{
+        margin: 0;
+        padding: 0;
+    }
+    .wrapper{
+        width: 960px;
+        color: #fff;
+        font-size: 30px;
+        text-align: center;
+        /* 后加 */
+        background: #ccc;
+        box-sizing: border-box;
+    }
+    #header{
+        height: 100px;
+        background: black;
+        margin-bottom: 10px;
+        /* 后加 */
+        padding: 10px;
+        width: 100%;
+        box-sizing: border-box;
+    }
+    .sidebar{
+        float: left;
+        width: 220px;
+        height: 300px;
+        margin-right: 20px;
+        margin-bottom: 10px;
+        background: greenyellow;
+        /* 后加 */ 
+        padding: 10px;
+        border: 1px solid #000; 
+        box-sizing: border-box;
+    }
+    .content{
+        float: left;
+        width: 720px;
+        height: 300px;
+        margin-bottom: 10px;
+        background: red;
+        box-sizing: border-box;
+    }
+    #footer{
+        background: burlywood;
+        height: 100px;
+        clear: both;
+        box-sizing: border-box;
+    }
+&lt;/style&gt;
+&lt;div class=&quot;wrapper&quot;&gt;
+    &lt;div id=&quot;header&quot;&gt;header&lt;/div&gt;
+    &lt;div class=&quot;sidebar&quot;&gt;侧边栏&lt;/div&gt;
+    &lt;div class=&quot;content&quot;&gt;内容区&lt;/div&gt;
+    &lt;div id=&quot;footer&quot;&gt;底部&lt;/div&gt;
+&lt;/div&gt;
+</code></pre><p><img src="https://i.imgur.com/ThNO6NA.png" alt=""></p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/10/hello-world/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1078,7 +1296,7 @@ c.e
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">3</span>
+                    <span class="site-state-item-count">4</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>

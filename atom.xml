@@ -61,6 +61,27 @@
   </entry>
   
   <entry>
+    <title>CSS3之盒子模型</title>
+    <link href="http://yoursite.com/2018/12/10/blog3/"/>
+    <id>http://yoursite.com/2018/12/10/blog3/</id>
+    <published>2018-12-10T09:16:33.000Z</published>
+    <updated>2018-12-12T08:13:43.214Z</updated>
+    
+    <content type="html"><![CDATA[<h4 id="盒子模型"><a href="#盒子模型" class="headerlink" title="盒子模型"></a><font color="red">盒子模型</font></h4><p>css中的每个元素都是一个盒模型,包括html body元素,浏览器解析css的时候也会把每个元素看成一个盒子来解析</p><p>盒模型具备的属性有：<font color="red"> content 、padding 、margin、border 、background</font> 等</p><h4 id="盒模型的分类"><a href="#盒模型的分类" class="headerlink" title="盒模型的分类"></a><font color="red">盒模型的分类</font></h4><ol><li><font color="red">border-box</font>: 俗称混杂盒模型</li><li><font color="red">content-box</font>: 是w3c组织定义的盒模型</li></ol><p>IE6混杂盒模型: 触发怪异模式 怪异模式下可以给行内元素加宽高,图片的padding值会失效 margin:0 auto不好使</p><p>触发怪异模式并不能让页面对页面中的盒子用IE6混杂盒模型来解析 怎么能用IE6混杂模式盒模型来解析呢 ? 怪异模式 + IE6浏览器<br>css3中的可以选择盒模型的类型: box-sizing: border-box/content-box;</p><pre><code>&lt;style&gt; *{        margin: 0;        padding: 0;    }    .wrapper{        width: 960px;        color: #fff;        font-size: 30px;        text-align: center;        /* 后加 */        background: #ccc;        box-sizing: border-box;    }    #header{        height: 100px;        background: black;        margin-bottom: 10px;        /* 后加 */        padding: 10px;        width: 100%;        box-sizing: border-box;    }    .sidebar{        float: left;        width: 220px;        height: 300px;        margin-right: 20px;        margin-bottom: 10px;        background: greenyellow;        /* 后加 */         padding: 10px;        border: 1px solid #000;         box-sizing: border-box;    }    .content{        float: left;        width: 720px;        height: 300px;        margin-bottom: 10px;        background: red;        box-sizing: border-box;    }    #footer{        background: burlywood;        height: 100px;        clear: both;        box-sizing: border-box;    }&lt;/style&gt;&lt;div class=&quot;wrapper&quot;&gt;    &lt;div id=&quot;header&quot;&gt;header&lt;/div&gt;    &lt;div class=&quot;sidebar&quot;&gt;侧边栏&lt;/div&gt;    &lt;div class=&quot;content&quot;&gt;内容区&lt;/div&gt;    &lt;div id=&quot;footer&quot;&gt;底部&lt;/div&gt;&lt;/div&gt;</code></pre><p><img src="https://i.imgur.com/ThNO6NA.png" alt=""></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h4 id=&quot;盒子模型&quot;&gt;&lt;a href=&quot;#盒子模型&quot; class=&quot;headerlink&quot; title=&quot;盒子模型&quot;&gt;&lt;/a&gt;&lt;font color=&quot;red&quot;&gt;盒子模型&lt;/font&gt;&lt;/h4&gt;&lt;p&gt;css中的每个元素都是一个盒模型,包括html body元素,浏览器解析c
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
     <title>Hello World</title>
     <link href="http://yoursite.com/2018/12/10/hello-world/"/>
     <id>http://yoursite.com/2018/12/10/hello-world/</id>
