@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.6.0" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/icon.jpg?v=6.6.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/icon.jpg?v=6.6.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/icon.jpg?v=6.6.0">
+
+
+  <link rel="mask-icon" href="/images/icon.jpg?v=6.6.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.6.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="最近在复习以前学习的所有的前端知识点，总结一下，希望也对初学者有一些帮助。 首先我们都听说过html，那么什么东西是html呢? html的全称是hyperText markup language， 超文本标记语言，在网页中所有的文字图片和组织架构都是由html来编写的，当然html能够完成的工作不止有这些。 需要注意的是html并不是一种编程语言，它只是一种计算机语言，html不具备像c/c+">
+<meta property="og:type" content="article">
+<meta property="og:title" content="html初识">
+<meta property="og:url" content="http://yoursite.com/2018/11/01/blog1/index.html">
+<meta property="og:site_name" content="welcome">
+<meta property="og:description" content="最近在复习以前学习的所有的前端知识点，总结一下，希望也对初学者有一些帮助。 首先我们都听说过html，那么什么东西是html呢? html的全称是hyperText markup language， 超文本标记语言，在网页中所有的文字图片和组织架构都是由html来编写的，当然html能够完成的工作不止有这些。 需要注意的是html并不是一种编程语言，它只是一种计算机语言，html不具备像c/c+">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2018-12-13T07:37:18.763Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="html初识">
+<meta name="twitter:description" content="最近在复习以前学习的所有的前端知识点，总结一下，希望也对初学者有一些帮助。 首先我们都听说过html，那么什么东西是html呢? html的全称是hyperText markup language， 超文本标记语言，在网页中所有的文字图片和组织架构都是由html来编写的，当然html能够完成的工作不止有这些。 需要注意的是html并不是一种编程语言，它只是一种计算机语言，html不具备像c/c+">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="welcome" type="application/atom+xml">
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/11/01/blog1/">
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>html初识 | welcome</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">welcome</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">求知若饥，虚心若愚</p>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/01/blog1/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wanghai">
+      <meta itemprop="description" content="Wanghai个人站，主要涉及前端知识共享、实践教程、前沿技术共同学习等方面">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="welcome">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">html初识
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-11-01 17:16:33" itemprop="dateCreated datePublished" datetime="2018-11-01T17:16:33+08:00">2018-11-01</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2018-12-13 15:37:18" itemprop="dateModified" datetime="2018-12-13T15:37:18+08:00">2018-12-13</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p> 最近在复习以前学习的所有的前端知识点，总结一下，希望也对初学者有一些帮助。</p>
+<h4 id="首先我们都听说过html，那么什么东西是html呢"><a href="#首先我们都听说过html，那么什么东西是html呢" class="headerlink" title="首先我们都听说过html，那么什么东西是html呢?"></a><font color="red">首先我们都听说过html，那么什么东西是html呢?</font></h4><ul>
+<li>html的全称是hyperText markup language， 超文本标记语言，在网页中所有的文字图片和组织架构都是由html来编写的，当然html能够完成的工作不止有这些。</li>
+<li>需要注意的是html并不是一种编程语言，它只是一种计算机语言，html不具备像c/c++/java等编程语言中的变量或者函数等东西，它仅仅由标签组成。 <code>&lt;html&gt; &lt;/html&gt;</code></li>
+<li>标签中的闭合标签可以和前面的标签直接写成一个单标签形式，或者直接不写，浏览器也是可以识别的，但是这样不规范，最好写完整的闭合标签。</li>
+<li>最后，由于html并不是编程语言，没有编译过程，所以我们可以用任何可以写字的软件来编写比如txt，不过我们一般使用<font color="green">sublime</font> 或者<font color="green"> vs code</font> 这两个软件编写前端程序~</li>
+</ul>
+<h4 id="其次，我们可能会听说过css样式这个词语，那么什么又是css呢？"><a href="#其次，我们可能会听说过css样式这个词语，那么什么又是css呢？" class="headerlink" title="其次，我们可能会听说过css样式这个词语，那么什么又是css呢？"></a><font color="red">其次，我们可能会听说过css样式这个词语，那么什么又是css呢？</font></h4><ul>
+<li>css是层叠样式表的意思，html的布局、样式修饰和一些简单的动画都是由css完成的。</li>
+</ul>
+<h4 id="最后我们还知道一门语言叫做javascript，那么javascript又是做什么的呢？"><a href="#最后我们还知道一门语言叫做javascript，那么javascript又是做什么的呢？" class="headerlink" title="最后我们还知道一门语言叫做javascript，那么javascript又是做什么的呢？"></a><font color="red">最后我们还知道一门语言叫做javascript，那么javascript又是做什么的呢？</font></h4><ul>
+<li>javascript作用是实现人机交互作用，具体的我们在javascript部分介绍。(其实javascript与java并没有什么关系哟~)</li>
+</ul>
+<h4 id="认识了html、css和js以及他们的功能之后，我们正式进入html的学习部分。"><a href="#认识了html、css和js以及他们的功能之后，我们正式进入html的学习部分。" class="headerlink" title="认识了html、css和js以及他们的功能之后，我们正式进入html的学习部分。"></a><font color="red">认识了html、css和js以及他们的功能之后，我们正式进入html的学习部分。</font></h4><ul>
+<li>前面我们提到过html语言里面的都是标签，而html这个标签则是根标签，其他的东西都要放在这个标签里面编写，次一级的两个结构是head标签和body标签 –&gt; <code>&lt;head&gt;&lt;/head&gt; , &lt;body&gt;&lt;/body&gt;</code> ， head是给浏览器看的，body是给整个页面的主体部分，我们其他的展示出来的东西一般都放在body标签下面。</li>
+</ul>
+<p>这个时候我们创建一个txt文件，把后缀改成html在里面写好html、head、body标签之后就可以在body里面随便写一些文字了，然后用自己的浏览器打开这个文件，我们就可以发现在页面上显示出来我们所写的文字了。</p>
+<pre><code>&lt;html&gt;
+
+&lt;head&gt;&lt;/head&gt;
+
+&lt;body&gt;qwert...&lt;/body&gt;
+
+&lt;/html&gt;
+</code></pre><p>但是这个时候有一个问题，我们输入英文是没有问题很正常的显示，<font color="red">但是中文就会变成一堆乱码</font>，这是由于此时的浏览器还不识别中文字符，我们还需要加一些东西，设置编码格式。</p>
+<ul>
+<li>编码格式是通过<code>&lt;meta&gt;</code>标签来设置的，我们在<code>&lt;head&gt;</code>中添加一个<code>&lt;meta&gt;</code>标签，注意这个标签不需要写闭合标签，然后我们为meta设置一个属性chatset=”utf-8″ : <code>&lt;meta charset = “utf-8”&gt;</code></li>
+<li>我们再来介绍一下编码集。编码集主要有gbk、gb2312、unicode、utf-8。gb2312是国标2312条，可以识别简中日韩等亚洲语言，gbk是国标扩展，可以识别繁体中文，unicode是万国码，世界各国语言都包括在内，现在的unicode的升级版本是<font color="red">utf-8</font>， 全称是 unicode transformation format 公用的是这个编码格式，可以识别所有的语言，所以前面三个基本不用(反正我没见过…)。</li>
+<li>我们还可以在根标签<code>&lt;html&gt;</code>里面来加一条属性lang 来告诉搜索引擎爬虫我们网站使用什么语言写的，zh-cn是中文，en是英文，一般二者一起写en,zn-cn ——&gt;<code>&lt;html lang=”en, zh-cn”&gt;</code></li>
+<li>其实meta还有很多其他的用处，比如设置移动端的页面显示大小，为网页被搜索的时候设置关键字等等。</li>
+</ul>
+<p>下面我们介绍一下<code>&lt;head&gt;</code>标签里面的另一个标签，<code>&lt;title&gt;</code></p>
+<ul>
+<li><code>&lt;title&gt;</code>标签是用来改变页面的标题的，每一个网页都有自己的名字，这个名字就是通过<code>&lt;title&gt;</code>标签设置的。我们现在在<code>&lt;head&gt;&lt;/head&gt;</code>里面加一个<code>&lt;title&gt;</code>HelloWorld<code>&lt;/title&gt;</code>来看看效果，网页的标题已经变成HelloWorld了哟~ </li>
+</ul>
+<h4 id="最后我们介绍一下非常非常重要的专业素养：当前世界上的主流浏览器都有什么呢？"><a href="#最后我们介绍一下非常非常重要的专业素养：当前世界上的主流浏览器都有什么呢？" class="headerlink" title="最后我们介绍一下非常非常重要的专业素养：当前世界上的主流浏览器都有什么呢？"></a><font color="red">最后我们介绍一下非常非常重要的专业素养：当前世界上的主流浏览器都有什么呢？</font></h4><ul>
+<li>ie这个我们都知道,微软的绑定浏览器</li>
+<li>chrome 这个我们也都知道，谷歌浏览器，我们开发一般都用chrome来调试，因此每一个前端工程师都要有一个chrome哟~</li>
+<li>firefox 火狐浏览器</li>
+<li>opera 这是欧洲的一个浏览器，特点是兼容性很强</li>
+<li>safari 我们也都知道</li>
+<li>主流浏览器只有以上5个！(UC搜狗什么的都不是哟~)</li>
+</ul>
+<font color="red">&nbsp;&nbsp;&nbsp;&nbsp;浏览器  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;内核</font>
+
+<ul>
+<li><font color="red">ie  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;trident</font></li>
+<li><font color="red">chrome  &nbsp;&nbsp;Blink/webkit</font></li>
+<li><font color="red">firefox  &nbsp;&nbsp;&nbsp;&nbsp;Gecko</font></li>
+<li><font color="red">opera  &nbsp;&nbsp;&nbsp;&nbsp;presto</font></li>
+<li><font color="red">safari  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;webkit</font>
+
+</li>
+</ul>
+<p>谷歌以前和safari一起开发过所以以前用的是webkit，现在已经把webkit里面的核心内容提取出来单独做了一款新的内核叫做Blink。</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/11/02/blog2/" rel="prev" title="html标签介绍">
+                html标签介绍 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Wanghai</p>
+              <p class="site-description motion-element" itemprop="description">Wanghai个人站，主要涉及前端知识共享、实践教程、前沿技术共同学习等方面</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">18</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#首先我们都听说过html，那么什么东西是html呢"><span class="nav-number">1.</span> <span class="nav-text">首先我们都听说过html，那么什么东西是html呢?</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#其次，我们可能会听说过css样式这个词语，那么什么又是css呢？"><span class="nav-number">2.</span> <span class="nav-text">其次，我们可能会听说过css样式这个词语，那么什么又是css呢？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#最后我们还知道一门语言叫做javascript，那么javascript又是做什么的呢？"><span class="nav-number">3.</span> <span class="nav-text">最后我们还知道一门语言叫做javascript，那么javascript又是做什么的呢？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#认识了html、css和js以及他们的功能之后，我们正式进入html的学习部分。"><span class="nav-number">4.</span> <span class="nav-text">认识了html、css和js以及他们的功能之后，我们正式进入html的学习部分。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#最后我们介绍一下非常非常重要的专业素养：当前世界上的主流浏览器都有什么呢？"><span class="nav-number">5.</span> <span class="nav-text">最后我们介绍一下非常非常重要的专业素养：当前世界上的主流浏览器都有什么呢？</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Wanghai</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v6.6.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.6.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.6.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.6.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.6.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.6.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
