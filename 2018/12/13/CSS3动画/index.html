@@ -108,18 +108,20 @@
 
 
 
-  <meta name="description" content="&amp;lt;style&amp;gt;         *{             margin: 0;             padding: 0;         }         body{             background-color: #fde3A7;             font-family: &amp;apos;Indie Flower&amp;apos;, cursive;/*字体">
+  <meta name="description" content="CSS3，我们可以创建动画，它可以取代许多网页动画图像，Flash动画，和JAVAScripts。              #ppxiong{                 width: 76px;                 height: 47px;                 background: #92B901 none repeat scroll 0% 0%;">
 <meta property="og:type" content="article">
-<meta property="og:title" content="CSS3图片翻书展示()">
-<meta property="og:url" content="http://yoursite.com/2018/11/17/CSS3图片翻书展示/index.html">
+<meta property="og:title" content="CSS3动画">
+<meta property="og:url" content="http://yoursite.com/2018/12/13/CSS3动画/index.html">
 <meta property="og:site_name" content="welcome">
-<meta property="og:description" content="&amp;lt;style&amp;gt;         *{             margin: 0;             padding: 0;         }         body{             background-color: #fde3A7;             font-family: &amp;apos;Indie Flower&amp;apos;, cursive;/*字体">
+<meta property="og:description" content="CSS3，我们可以创建动画，它可以取代许多网页动画图像，Flash动画，和JAVAScripts。              #ppxiong{                 width: 76px;                 height: 47px;                 background: #92B901 none repeat scroll 0% 0%;">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-12-13T07:44:35.226Z">
+<meta property="og:updated_time" content="2018-12-13T09:45:32.903Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="CSS3图片翻书展示()">
-<meta name="twitter:description" content="&amp;lt;style&amp;gt;         *{             margin: 0;             padding: 0;         }         body{             background-color: #fde3A7;             font-family: &amp;apos;Indie Flower&amp;apos;, cursive;/*字体">
+<meta name="twitter:title" content="CSS3动画">
+<meta name="twitter:description" content="CSS3，我们可以创建动画，它可以取代许多网页动画图像，Flash动画，和JAVAScripts。              #ppxiong{                 width: 76px;                 height: 47px;                 background: #92B901 none repeat scroll 0% 0%;">
 
+
+  
 
 
   <link rel="alternate" href="/atom.xml" title="welcome" type="application/atom+xml">
@@ -127,7 +129,7 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/11/17/CSS3图片翻书展示/">
+  <link rel="canonical" href="http://yoursite.com/2018/12/13/CSS3动画/">
 
 
 
@@ -137,7 +139,7 @@
   };
 </script>
 
-  <title>CSS3图片翻书展示() | welcome</title>
+  <title>CSS3动画 | welcome</title>
   
 
 
@@ -306,7 +308,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/17/CSS3图片翻书展示/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/13/CSS3动画/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Wanghai">
@@ -323,7 +325,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">CSS3图片翻书展示()
+          <h1 class="post-title" itemprop="name headline">CSS3动画
 
               
             
@@ -349,24 +351,12 @@
                 
               
 
-              <time title="Created: 2018-11-17 17:20:12" itemprop="dateCreated datePublished" datetime="2018-11-17T17:20:12+08:00">2018-11-17</time>
+              <time title="Created: 2018-12-13 17:55:59 / Modified: 17:45:32" itemprop="dateCreated datePublished" datetime="2018-12-13T17:55:59+08:00">2018-12-13</time>
             
 
             
               
 
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2018-12-13 15:44:35" itemprop="dateModified" datetime="2018-12-13T15:44:35+08:00">2018-12-13</time>
               
             
           </span>
@@ -399,111 +389,210 @@
       
 
       
-        <pre><code>&lt;style&gt;
-        *{
-            margin: 0;
-            padding: 0;
+        <p><strong>CSS3，我们可以创建动画，它可以取代许多网页动画图像，Flash动画，和JAVAScripts。</strong></p>
+<style>
+            #ppxiong{
+                width: 76px;
+                height: 47px;
+                background: #92B901 none repeat scroll 0% 0%;
+                position: relative;
+                color: #fff;
+                font-weight: bold;
+                font-size: 20px;
+                padding: 10px;
+                border-radius: 5px;
+                animation: first 5s ease 0s normal none 1 running;
+            }
+
+            @keyframes first
+            {
+                0% {background: red;  transform: rotate(0deg);left: 0;}
+
+                25%{background: pink; transform: rotate(20deg);left: 0;}
+
+                50%{background: blue; transform: rotate(0deg);left: 500px;}
+
+                55%{background: green; transform: rotate(0deg);left: 500px;}
+
+                70%{background: #1ec7e6; transform: rotate(0deg);left: 500px;}
+
+                100% {background: yellow; transform: rotate(-360deg);left: 0;}
+            }
+</style>
+
+<div id="ppxiong">CSS3</div>
+
+<p>浏览器支持<br>Internet Explorer 10、Firefox 以及 Opera 支持 @keyframes 规则和 animation 属性。</p>
+<p>当在@keyframe创建动画，把它绑定到一个选择器，否则动画不会有任何效果。<br>指定至少这两个CSS3的动画属性绑定向一个选择器：</p>
+<ul>
+<li><p>规定动画的名称</p>
+</li>
+<li><p>规定动画的时长</p>
+</li>
+</ul>
+<style>
+        #showtime{
+            width: 100px;
+            height: 100px;
+            background: red;
+            animation: myfirst 5s;
         }
-        body{
-            background-color: #fde3A7;
-            font-family: &apos;Indie Flower&apos;, cursive;/*字体  草书*/
+
+        @keyframes myfirst
+        {
+            from {background: red;}
+            to {background: yellow;}
         }
-        .card{
-            width: 270px;
-            height: 400px;
-            position: absolute;
-            left: 50%;
-            top: 50%;
-            /* transform: translateX(-50%) translateY(-50%);CSS3 平移 */
-            margin-top: -200px;
-            margin-left: -150px;
-            box-shadow: inset 300px 0px 50px rgba(0, 0, 0, .5),20px 0 60px rgba(0, 0, 0, .5);/*阴影*/
-            perspective: 2000px;
-            transform-style: preserve-3d;
-            /* transform-origin: center center; */
-            transition:  all 1s ease-in-out;
-            background-color: #fff;
-        }
-        .card::before{  /*伪类和伪元素的区别  伪元素是真实存在的元素,能在html元素中存在的*/
-            content: &quot;&quot;;
-            display: inline-block;
-            width: 100%;
-            height: 5px;
-            background-color: #BAC1BA;
-            position: absolute;
-            top: -5px;
-            transform: skewX(-45deg);/*CSS3 扭曲*/
-            transform-origin: bottom;/*改变旋转中心*/
-        }
-        .card::after{
-            position: absolute;
-            right: -5px; 
-            top: 0;
-            content: &quot;&quot;;
-            display: inline-block;
-            height: 100%;
-            width: 5px;
-            background-color: #BAC1BA;
-            transform: skewY(-45deg);/*CSS3 扭曲*/
-            transform-origin: left;
-        }
-        .card .imgBox{
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            transform-origin: left;
-            transition:  all .7s ease-in-out;/*过渡*/
-        }
-        .card .imgBox .bark{
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background-color: #fff;
-            opacity: 0;
-            transition: all .6s ease-in-out;
-        }
-        .card .imgBox img{
-            width: 100%;
-        }
-        .card .details{
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            z-index: -1;
-        }
-        .card:hover{   /*伪类是当前动作触发的*/ 
-            transform: rotateZ(15deg) scale(1.2);   
-            box-shadow: inset 30px 0px 50px rgba(0, 0, 0, .5), 20px 0px 60px rgba(0, 0, 0, .5);
-        }
-        .card:hover .imgBox{
-            transform: rotateY(-135deg);
-        }
-        .card:hover .imgBox .bark{
-            opacity: 1;
-            transition:  all .6s ease-in-out;
-            box-shadow: inset 300px 200px 100px rgba(0, 0, 0, .5); 
-        }
-    &lt;/style&gt;
+</style>
+
+<div id="showtime"></div>
 
 
-    &lt;div class=&quot;card&quot;&gt;
-        &lt;div class=&quot;imgBox&quot;&gt;
-            &lt;div class=&quot;bark&quot;&gt;&lt;/div&gt;
-            &lt;img src=&quot;./images/pic.jpg&quot; alt=&quot;&quot;&gt;
-        &lt;/div&gt;
-        &lt;!-- 翻开展示内容 --&gt;
-        &lt;div class=&quot;details&quot;&gt;
-            &lt;!-- 这里没有写第二页内容用图片代替 --&gt;
-            &lt;img src=&quot;./images/pic_.jpg&quot; alt=&quot;&quot;&gt;
 
-            &lt;!-- &lt;h4 class=&quot;title1&quot;&gt;内容标题1&lt;/h4&gt;
-            &lt;h4 class=&quot;title2&quot;&gt;内容标题2&lt;/h4&gt;
-            &lt;p&gt;内容...&lt;/p&gt;
-            &lt;p&gt;内容...&lt;/p&gt; --&gt;
-        &lt;/div&gt;
-    &lt;/div&gt;
+<pre><code>把 &quot;myfirst&quot; 动画捆绑到 div 元素，时长：5 秒：
+&lt;style&gt;
+   div{
+        width: 100px;
+        height: 100px;
+        background: red;
+        animation: myfirst 5s;
+    }
+
+   @keyframes myfirst
+   {
+        from {background:red;}
+        to {background:yellow;}
+    }
+&lt;/style&gt;
+&lt;div&gt;&lt;/div&gt;
+</code></pre><p>必须定义动画的名称和动画的持续时间。如果省略的持续时间，动画将无法运行，因为默认值是0。</p>
+<font color="red"><strong>CSS3动画是什么？</strong></font>
+
+<p>• 动画是使元素从一种样式逐渐变化为另一种样式的效果。</p>
+<p>• 您可以改变任意多的样式任意多的次数。</p>
+<p>• 请用百分比来规定变化发生的时间，或用关键词 “from” 和 “to”，等同于 0% 和 100%。</p>
+<p>• 0% 是动画的开始，100% 是动画的完成。</p>
+<p>• 为了得到最佳的浏览器支持，您应该始终定义 0% 和 100% 选择器。</p>
+<pre><code>&lt;style&gt; 
+div
+{
+    width:100px;
+    height:100px;
+    background:red;
+    animation:myfirst 5s;
+    -moz-animation:myfirst 5s; /* Firefox */
+    -webkit-animation:myfirst 5s; /* Safari and Chrome */
+    -o-animation:myfirst 5s; /* Opera */
+}
+
+@keyframes myfirst
+{
+    0%   {background:red;}
+    25%  {background:yellow;}
+    50%  {background:blue;}
+    100% {background:green;}
+}
+
+@-moz-keyframes myfirst /* Firefox */
+{
+    0%   {background:red;}
+    25%  {background:yellow;}
+    50%  {background:blue;}
+    100% {background:green;}
+}
+
+@-webkit-keyframes myfirst /* Safari and Chrome */
+{
+    0%   {background:red;}
+    25%  {background:yellow;}
+    50%  {background:blue;}
+    100% {background:green;}
+}
+
+@-o-keyframes myfirst /* Opera */
+{
+    0%   {background:red;}
+    25%  {background:yellow;}
+    50%  {background:blue;}
+    100% {background:green;}
+}
+&lt;/style&gt;
+
+&lt;div&gt;&lt;/div&gt; 
+</code></pre><font color="red"><strong>CSS3的动画属性</strong></font>
+
+<pre><code>@keyframes                  关键帧: 规定动画
+animation                   所有动画属性的简写属性,除了animation-play-state 
+animation-name              规定 @keyframes 动画的名称
+animation-duration          规定动画完成一个周期所花费的秒或毫秒。默认是 0
+animation-timing-function   规定动画的速度曲线(运动速度函数)。默认是 &quot;ease&quot;
+animation-delay             规定动画何时开始(延迟时间)。默认是 0
+animation-iteration-count   规定动画执行的次数  infinite(无限循环)
+animation-direction         规定动画是否在下一周期逆向地播放。默认是 &quot;normal&quot;
+animation-fill-mode         属性规定动画在播放之前或之后，其动画效果是否可见
+animation-play-state        规定动画是否正在运行或暂停。默认是 &quot;running&quot;
+</code></pre><style>
+    #CSS3animation{
+        width: 100px;
+        height: 100px;
+        background: red;
+        position: relative;
+        animation: animationdemo 3s ease 2s infinite alternate-reverse running;
+    }  
+    @keyframes animationdemo
+    {
+        0%   {background:red; left:0px; top:0px;}
+        15%  {background:yellow; left:300px; top:0px;}
+        30%  {background:blue; left:300px; top:100px;}
+        45%  {background:green; left:600px; top:100px;}
+        60%  {background:green; left:300px; top:100px;}
+        75%  {background:yellow; left:300px; top:0px;}
+        100%   {background:red; left:0px; top:0px;}
+    }
+    @-webkit-keyframes animationdemo
+    {
+        0%   {background:red; left:0px; top:0px;}
+        15%  {background:yellow; left:300px; top:0px;}
+        30%  {background:blue; left:300px; top:100px;}
+        45%  {background:green; left:600px; top:100px;}
+        60%  {background:green; left:300px; top:100px;}
+        75%  {background:yellow; left:300px; top:0px;}
+        100%   {background:red; left:0px; top:0px;}
+    }   
+</style>
+
+<div id="CSS3animation"></div>
+
+<pre><code>&lt;style&gt;
+#demo{
+    width: 100px;
+    height: 100px;
+    background: red;
+    position: relative;
+    animation: animationdemo 3s ease 2s infinite alternate-reverse running;
+}  
+@keyframes animationdemo
+{
+    0%   {background:red; left:0px; top:0px;}
+    15%  {background:yellow; left:300px; top:0px;}
+    30%  {background:blue; left:300px; top:100px;}
+    45%  {background:green; left:600px; top:100px;}
+    60%  {background:green; left:300px; top:100px;}
+    75%  {background:yellow; left:300px; top:0px;}
+    100%   {background:red; left:0px; top:0px;}
+}
+@-webkit-keyframes animationdemo
+{
+    0%   {background:red; left:0px; top:0px;}
+    15%  {background:yellow; left:300px; top:0px;}
+    30%  {background:blue; left:300px; top:100px;}
+    45%  {background:green; left:600px; top:100px;}
+    60%  {background:green; left:300px; top:100px;}
+    75%  {background:yellow; left:300px; top:0px;}
+    100%   {background:red; left:0px; top:0px;}
+}   
+&lt;/style&gt;
+&lt;div id=&quot;demo&quot;&gt;&lt;/div&gt;
 </code></pre>
       
     </div>
@@ -534,8 +623,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/11/16/CSS3之calc()/" rel="next" title="CSS3之calc()">
-                <i class="fa fa-chevron-left"></i> CSS3之calc()
+              <a href="/2018/12/12/CSS3图片翻书展示/" rel="next" title="CSS3图片翻书展示()">
+                <i class="fa fa-chevron-left"></i> CSS3图片翻书展示()
               </a>
             
           </div>
@@ -543,10 +632,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/11/17/CSS3动画/" rel="prev" title="CSS3动画">
-                CSS3动画 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -607,7 +692,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">18</span>
+                    <span class="site-state-item-count">19</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
