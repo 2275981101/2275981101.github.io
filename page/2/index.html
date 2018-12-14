@@ -306,6 +306,197 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/10/CSS图片代替文本/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wanghai">
+      <meta itemprop="description" content="Wanghai个人站，主要涉及前端知识共享、实践教程、前沿技术共同学习等方面">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="welcome">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2018/11/10/CSS图片代替文本/" class="post-title-link" itemprop="http://yoursite.com/page/2/index.html">CSS图片代替文本</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-11-10 17:16:33" itemprop="dateCreated datePublished" datetime="2018-11-10T17:16:33+08:00">2018-11-10</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2018-12-13 15:38:44" itemprop="dateModified" datetime="2018-12-13T15:38:44+08:00">2018-12-13</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><strong><font color="red">在浏览网站时</font>有这样一种情况:</strong></p>
+<p>如果可能网速不好的时候，如果本来要加载图片的位置加载不出来，而且用户需要点击改图片实现其他操作这个时候，无法点击图片怎么办?</p>
+<p>我们用图片代替文本，在网速不好的时候或者没有CSS，JS的时候依然能使用或展示出来功能</p>
+<pre><code>方法一:
+&lt;style&gt;
+ a{
+      display: inline-block;
+      text-decoration: none;
+      color: #424242;
+      border:1px solid black;
+      background-image:url();
+      background-size: 190px 90px;
+      width: 190px;
+      height: 0px;      
+      padding-top: 90px;    
+      overflow: hidden; 
+    }
+&lt;/style&gt;
+&lt;a href=&quot;http://www.taobao.com&quot; target=&quot;_blank&quot;&gt;淘宝网&lt;/a&gt;
+
+方法二:
+&lt;style&gt;
+ a{
+      display: inline-block;
+      text-decoration: none;
+      color: #424242;
+      border:1px solid black;
+      background-image:url();
+      background-size: 190px 90px;
+      width: 190px;
+      height: 90px;
+      text-indent: 200px;   
+      white-space: nowrap;  
+      overflow: hidden; 
+    }
+&lt;/style&gt;
+&lt;a href=&quot;http://www.taobao.com&quot; target=&quot;_blank&quot;&gt;淘宝网&lt;/a&gt;
+</code></pre><p>  因为padding可以展示图片</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/09/blog9/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -2416,7 +2607,7 @@ c.e
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">19</span>
+                    <span class="site-state-item-count">20</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>

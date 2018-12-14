@@ -108,17 +108,17 @@
 
 
 
-  <meta name="description" content="&amp;lt;style&amp;gt;         *{             margin: 0;             padding: 0;         }         body{             background-color: #fde3A7;             font-family: &amp;apos;Indie Flower&amp;apos;, cursive;/*字体">
+  <meta name="description" content="Wanghai个人站，主要涉及前端知识共享、实践教程、前沿技术共同学习等方面">
 <meta property="og:type" content="article">
-<meta property="og:title" content="CSS3图片翻书展示()">
-<meta property="og:url" content="http://yoursite.com/2018/12/12/CSS3图片翻书展示/index.html">
+<meta property="og:title" content="CSS3弹性盒子">
+<meta property="og:url" content="http://yoursite.com/2018/11/18/CSS3弹性盒子/index.html">
 <meta property="og:site_name" content="welcome">
-<meta property="og:description" content="&amp;lt;style&amp;gt;         *{             margin: 0;             padding: 0;         }         body{             background-color: #fde3A7;             font-family: &amp;apos;Indie Flower&amp;apos;, cursive;/*字体">
+<meta property="og:description" content="Wanghai个人站，主要涉及前端知识共享、实践教程、前沿技术共同学习等方面">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-12-13T10:08:08.007Z">
+<meta property="og:updated_time" content="2018-12-14T02:53:19.569Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="CSS3图片翻书展示()">
-<meta name="twitter:description" content="&amp;lt;style&amp;gt;         *{             margin: 0;             padding: 0;         }         body{             background-color: #fde3A7;             font-family: &amp;apos;Indie Flower&amp;apos;, cursive;/*字体">
+<meta name="twitter:title" content="CSS3弹性盒子">
+<meta name="twitter:description" content="Wanghai个人站，主要涉及前端知识共享、实践教程、前沿技术共同学习等方面">
 
 
 
@@ -127,7 +127,7 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/12/12/CSS3图片翻书展示/">
+  <link rel="canonical" href="http://yoursite.com/2018/11/18/CSS3弹性盒子/">
 
 
 
@@ -137,7 +137,7 @@
   };
 </script>
 
-  <title>CSS3图片翻书展示() | welcome</title>
+  <title>CSS3弹性盒子 | welcome</title>
   
 
 
@@ -306,7 +306,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/12/CSS3图片翻书展示/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/18/CSS3弹性盒子/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Wanghai">
@@ -323,7 +323,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">CSS3图片翻书展示()
+          <h1 class="post-title" itemprop="name headline">CSS3弹性盒子
 
               
             
@@ -349,7 +349,7 @@
                 
               
 
-              <time title="Created: 2018-12-12 17:20:12" itemprop="dateCreated datePublished" datetime="2018-12-12T17:20:12+08:00">2018-12-12</time>
+              <time title="Created: 2018-11-18 17:55:59" itemprop="dateCreated datePublished" datetime="2018-11-18T17:55:59+08:00">2018-11-18</time>
             
 
             
@@ -366,7 +366,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2018-12-13 18:08:08" itemprop="dateModified" datetime="2018-12-13T18:08:08+08:00">2018-12-13</time>
+                <time title="Modified: 2018-12-14 10:53:19" itemprop="dateModified" datetime="2018-12-14T10:53:19+08:00">2018-12-14</time>
               
             
           </span>
@@ -399,112 +399,7 @@
       
 
       
-        <pre><code>&lt;style&gt;
-        *{
-            margin: 0;
-            padding: 0;
-        }
-        body{
-            background-color: #fde3A7;
-            font-family: &apos;Indie Flower&apos;, cursive;/*字体  草书*/
-        }
-        .card{
-            width: 270px;
-            height: 400px;
-            position: absolute;
-            left: 50%;
-            top: 50%;
-            /* transform: translateX(-50%) translateY(-50%);CSS3 平移 */
-            margin-top: -200px;
-            margin-left: -150px;
-            box-shadow: inset 300px 0px 50px rgba(0, 0, 0, .5),20px 0 60px rgba(0, 0, 0, .5);/*阴影*/
-            perspective: 2000px;
-            transform-style: preserve-3d;
-            /* transform-origin: center center; */
-            transition:  all 1s ease-in-out;
-            background-color: #fff;
-        }
-        .card::before{  /*伪类和伪元素的区别  伪元素是真实存在的元素,能在html元素中存在的*/
-            content: &quot;&quot;;
-            display: inline-block;
-            width: 100%;
-            height: 5px;
-            background-color: #BAC1BA;
-            position: absolute;
-            top: -5px;
-            transform: skewX(-45deg);/*CSS3 扭曲*/
-            transform-origin: bottom;/*改变旋转中心*/
-        }
-        .card::after{
-            position: absolute;
-            right: -5px; 
-            top: 0;
-            content: &quot;&quot;;
-            display: inline-block;
-            height: 100%;
-            width: 5px;
-            background-color: #BAC1BA;
-            transform: skewY(-45deg);/*CSS3 扭曲*/
-            transform-origin: left;
-        }
-        .card .imgBox{
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            transform-origin: left;
-            transition:  all .7s ease-in-out;/*过渡*/
-        }
-        .card .imgBox .bark{
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background-color: #fff;
-            opacity: 0;
-            transition: all .6s ease-in-out;
-        }
-        .card .imgBox img{
-            width: 100%;
-        }
-        .card .details{
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            z-index: -1;
-        }
-        .card:hover{   /*伪类是当前动作触发的*/ 
-            transform: rotateZ(15deg) scale(1.2);   
-            box-shadow: inset 30px 0px 50px rgba(0, 0, 0, .5), 20px 0px 60px rgba(0, 0, 0, .5);
-        }
-        .card:hover .imgBox{
-            transform: rotateY(-135deg);
-        }
-        .card:hover .imgBox .bark{
-            opacity: 1;
-            transition:  all .6s ease-in-out;
-            box-shadow: inset 300px 200px 100px rgba(0, 0, 0, .5); 
-        }
-    &lt;/style&gt;
-
-
-    &lt;div class=&quot;card&quot;&gt;
-        &lt;div class=&quot;imgBox&quot;&gt;
-            &lt;div class=&quot;bark&quot;&gt;&lt;/div&gt;
-            &lt;img src=&quot;./images/pic.jpg&quot; alt=&quot;&quot;&gt;
-        &lt;/div&gt;
-        &lt;!-- 翻开展示内容 --&gt;
-        &lt;div class=&quot;details&quot;&gt;
-            &lt;!-- 这里没有写第二页内容用图片代替 --&gt;
-            &lt;img src=&quot;./images/pic_.jpg&quot; alt=&quot;&quot;&gt;
-
-            &lt;!-- &lt;h4 class=&quot;title1&quot;&gt;内容标题1&lt;/h4&gt;
-            &lt;h4 class=&quot;title2&quot;&gt;内容标题2&lt;/h4&gt;
-            &lt;p&gt;内容...&lt;/p&gt;
-            &lt;p&gt;内容...&lt;/p&gt; --&gt;
-        &lt;/div&gt;
-    &lt;/div&gt;
-</code></pre>
+        
       
     </div>
 
@@ -534,8 +429,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/11/17/CSS3弹性盒子/" rel="next" title="CSS3弹性盒子">
-                <i class="fa fa-chevron-left"></i> CSS3弹性盒子
+              <a href="/2018/11/17/CSS3图片翻书展示/" rel="next" title="CSS3图片翻书展示()">
+                <i class="fa fa-chevron-left"></i> CSS3图片翻书展示()
               </a>
             
           </div>
@@ -544,8 +439,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/12/13/CSS3动画/" rel="prev" title="CSS3动画">
-                CSS3动画 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/12/12/CSS3渐变/" rel="prev" title="CSS3渐变">
+                CSS3渐变 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -607,7 +502,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">19</span>
+                    <span class="site-state-item-count">20</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>

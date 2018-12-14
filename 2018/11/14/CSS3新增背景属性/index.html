@@ -108,13 +108,14 @@
 
 
 
-  <meta name="description" content="1.background-origin 背景的起始位置 background-origin: border-box || padding-box || content-box; 效果: 设置的盒子存在 border padding content(用户设置的width height) 1.padding-box(默认值); 设置背景图片的位置从padding(内边距)开始放置 将border设置为">
+  <meta name="description" content="1.background-origin 背景的起始位置 background-origin: border-box || padding-box || content-box;  background-Origin属性指定了背景图像的位置区域。  content-box, padding-box,和 border-box区域内可以放置背景图像。  效果: 设置的盒子存在 border paddin">
 <meta property="og:type" content="article">
 <meta property="og:title" content="CSS3新增背景属性">
 <meta property="og:url" content="http://yoursite.com/2018/11/14/CSS3新增背景属性/index.html">
 <meta property="og:site_name" content="welcome">
-<meta property="og:description" content="1.background-origin 背景的起始位置 background-origin: border-box || padding-box || content-box; 效果: 设置的盒子存在 border padding content(用户设置的width height) 1.padding-box(默认值); 设置背景图片的位置从padding(内边距)开始放置 将border设置为">
+<meta property="og:description" content="1.background-origin 背景的起始位置 background-origin: border-box || padding-box || content-box;  background-Origin属性指定了背景图像的位置区域。  content-box, padding-box,和 border-box区域内可以放置背景图像。  效果: 设置的盒子存在 border paddin">
 <meta property="og:locale" content="en">
+<meta property="og:image" content="https://i.imgur.com/6sqcM3E.png">
 <meta property="og:image" content="https://i.imgur.com/FfrdQdM.png">
 <meta property="og:image" content="https://i.imgur.com/HqhZHyP.png">
 <meta property="og:image" content="https://i.imgur.com/cGEPCMS.png">
@@ -127,11 +128,12 @@
 <meta property="og:image" content="https://i.imgur.com/CHOZHYs.png">
 <meta property="og:image" content="https://i.imgur.com/Dmn7xVl.png">
 <meta property="og:image" content="https://i.imgur.com/bRo38OL.png">
-<meta property="og:updated_time" content="2018-12-13T07:39:25.989Z">
+<meta property="og:image" content="https://i.imgur.com/DlCySK9.png">
+<meta property="og:updated_time" content="2018-12-14T02:49:30.944Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CSS3新增背景属性">
-<meta name="twitter:description" content="1.background-origin 背景的起始位置 background-origin: border-box || padding-box || content-box; 效果: 设置的盒子存在 border padding content(用户设置的width height) 1.padding-box(默认值); 设置背景图片的位置从padding(内边距)开始放置 将border设置为">
-<meta name="twitter:image" content="https://i.imgur.com/FfrdQdM.png">
+<meta name="twitter:description" content="1.background-origin 背景的起始位置 background-origin: border-box || padding-box || content-box;  background-Origin属性指定了背景图像的位置区域。  content-box, padding-box,和 border-box区域内可以放置背景图像。  效果: 设置的盒子存在 border paddin">
+<meta name="twitter:image" content="https://i.imgur.com/6sqcM3E.png">
 
 
 
@@ -379,7 +381,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2018-12-13 15:39:25" itemprop="dateModified" datetime="2018-12-13T15:39:25+08:00">2018-12-13</time>
+                <time title="Modified: 2018-12-14 10:49:30" itemprop="dateModified" datetime="2018-12-14T10:49:30+08:00">2018-12-14</time>
               
             
           </span>
@@ -413,6 +415,9 @@
 
       
         <h4 id="1-background-origin-背景的起始位置"><a href="#1-background-origin-背景的起始位置" class="headerlink" title="1.background-origin 背景的起始位置"></a><font color="red">1.background-origin 背景的起始位置</font></h4><p> background-origin: border-box || padding-box || content-box;</p>
+<p> background-Origin属性指定了背景图像的位置区域。</p>
+<p> content-box, padding-box,和 border-box区域内可以放置背景图像。</p>
+<p><img src="https://i.imgur.com/6sqcM3E.png" alt=""></p>
 <p>效果: 设置的盒子存在 border padding content(用户设置的width height)</p>
 <p>1.padding-box(默认值); 设置背景图片的位置从padding(内边距)开始放置</p>
 <pre><code>将border设置为透明，方便查看不同属性的效果
@@ -560,7 +565,26 @@ div{
         background-size: 400px 400px;
     }
 </code></pre><p><img src="https://i.imgur.com/bRo38OL.png" alt=""></p>
-<h4 id="4-background-position-背景定位"><a href="#4-background-position-背景定位" class="headerlink" title="4.background-position 背景定位"></a><font color="red">4.background-position 背景定位</font></h4><p>  background-position: left top || left bottom || right top || right bottom || center center || 像素值 || 百分比</p>
+<h4 id="4-background-image-背景图片"><a href="#4-background-image-背景图片" class="headerlink" title="4.background-image 背景图片"></a><font color="red">4.background-image 背景图片</font></h4><p>CSS3中可以通过background-image属性添加背景图片。</p>
+<p>不同的背景图像和图像用逗号隔开，所有的图片中显示在最顶端的为第一张。</p>
+<pre><code>&lt;style&gt;
+#examplel{
+        width: 658px;
+        height: 1059px;
+        background-image: url(&apos;./images/bg2.png&apos;), 
+        url(&apos;./images/cat1.png&apos;), url(&apos;./images/cat2.png&apos;), 
+        url(&apos;./images/cat3.png&apos;), url(&apos;./images/cat4.png&apos;), 
+        url(&apos;./images/cat5.png&apos;), url(&apos;./images/cat6.png&apos;);
+        background-position: left top ,
+        left top, right top, center top, 
+        left center, center, 200px 200px;
+        background-repeat: no-repeat;
+        padding: 15px;
+}
+&lt;/style&gt;
+&lt;div id=&quot;examplel&quot;&gt;&lt;/div&gt;
+</code></pre><p><img src="https://i.imgur.com/DlCySK9.png" alt=""></p>
+<h4 id="5-background-position-背景定位"><a href="#5-background-position-背景定位" class="headerlink" title="5.background-position 背景定位"></a><font color="red">5.background-position 背景定位</font></h4><p>  background-position: left top || left bottom || right top || right bottom || center center || 像素值 || 百分比</p>
 <p>(注: 没写的参数都是默认值center)</p>
 <p>1.设置background-position:left top 代表背景图片要放在内容区的左上角的位置（默认值）</p>
 <p>2.设置background-position: left; 将背景图片要放在内容区的左侧中间的位置 </p>
@@ -686,7 +710,7 @@ div{
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">19</span>
+                    <span class="site-state-item-count">20</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -732,7 +756,7 @@ div{
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-background-origin-背景的起始位置"><span class="nav-number">1.</span> <span class="nav-text">1.background-origin 背景的起始位置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-background-clip-背景裁剪"><span class="nav-number">2.</span> <span class="nav-text">2.background-clip 背景裁剪</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-background-size-背景图片大小"><span class="nav-number">3.</span> <span class="nav-text">3.background-size 背景图片大小</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-background-position-背景定位"><span class="nav-number">4.</span> <span class="nav-text">4.background-position 背景定位</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-background-origin-背景的起始位置"><span class="nav-number">1.</span> <span class="nav-text">1.background-origin 背景的起始位置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-background-clip-背景裁剪"><span class="nav-number">2.</span> <span class="nav-text">2.background-clip 背景裁剪</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-background-size-背景图片大小"><span class="nav-number">3.</span> <span class="nav-text">3.background-size 背景图片大小</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-background-image-背景图片"><span class="nav-number">4.</span> <span class="nav-text">4.background-image 背景图片</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-background-position-背景定位"><span class="nav-number">5.</span> <span class="nav-text">5.background-position 背景定位</span></a></li></ol></div>
             
 
           </div>
