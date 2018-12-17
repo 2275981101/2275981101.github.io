@@ -98,6 +98,28 @@
   </entry>
   
   <entry>
+    <title>预编译</title>
+    <link href="http://yoursite.com/2018/11/19/js%E9%A2%84%E7%BC%96%E8%AF%91/"/>
+    <id>http://yoursite.com/2018/11/19/js预编译/</id>
+    <published>2018-11-19T09:16:33.000Z</published>
+    <updated>2018-12-17T10:02:18.066Z</updated>
+    
+    <content type="html"><![CDATA[<p>• 我们在书写js代码的时候，会发现两点和c/c++语言不同的地方。第一个是当我们在后面定义了一个函数之后，我们在定义函数之前使用这个函数也是可以的。第二个是我们在后面声明的一个变量，但是在前面调用这个变量的时候并不会报错而是undefiend。</p><p>这两点不同在js中被称为<font color="red"><strong>函数声明提升</strong></font>和<font color="red"><strong>变量声明提升</strong></font>，函数声明提升是一种<font color="red"><strong>整体提升</strong></font>，它会把函数声明和函数体一起提升到前面。变量声明提升则是一种<font color="red"><strong>局部提升</strong></font>，它仅仅将变量的声明提前了，但是并没有将赋值也一起提前。</p><p>那么为什么会出现这种提升的现象呢？</p><p>这是因为js运行的时候有一个阶段叫做预编译阶段，而我们的声明提升现象都是发生在预编译的时候哟~</p><h4 id="预编译"><a href="#预编译" class="headerlink" title="预编译"></a><font color="red">预编译</font></h4><p>• js运行三部曲</p><p>1.语法分析</p><p>2.<font color="red">预编译</font></p><p>3.解释执行</p><p>语法分析：js引擎在解析js代码之前，会先通篇扫描一下，找出低级的语法错误，比如写错大括号之类的。</p><p>编译执行：js是一种解释型语言，编译一行执行一行，当语法分析没有问题，并且已经完成预编译阶段之后，就开始解释执行代码。</p><p>这里我们着重介绍预编译。</p><font color="red">预编译前奏</font><p>在介绍预编译之前，我们有两个重要概念需要掌握。</p><p>1.<font color="red">imply global 暗示全局变量。</font></p><p>如果任何变量未经声明就赋值使用，此变量就会为全局对象window所有，并且成为window对象的一个属性。</p><pre><code>window.a = 123;window.a === a ;// true</code></pre><p>或者</p><pre><code>a = 123;window.a === a ;// true</code></pre><p>2.一切<font color="red">声明</font>的全局变量，都是window的属性。</p><pre><code>var a = 123;console.log(window.a);// 123</code></pre><p>•这样看不论全局变量有没有声明，似乎都会成为全局对象上的属性，那么两者之间有什么区别呢？<br>区别在于：<font color="red">经过声明的全局变量不能通过delete操作来删除，但是未经声明的全局变量可以被删除。</font></p><pre><code>a = 123;console.log(window.a === a);// truedelete window.a;console.log(window.a);// undefiendvar b = 123;delete window.b;console.log(window.b);// 123</code></pre><p>正是这一种特性，导致es5有一种弊端，我们总会在无形中声明一些全局变量。</p><pre><code>function test(){    var a = b = 0;}</code></pre><p>这段代码的原意是：在函数体中声明两个变量a、b，然后初始化a、b都是0。但是我们这么写之后，a经过了声明，但是b却没有声明，这时候b就会成为一个全局变量。</p><font color="red">预编译的过程我总结为以下四步：</font><p>1.创建<font color="red">AO对象</font>。</p><p>2.<font color="red">寻找形参和变量声明</font>，将变量和形参作为AO对象的属性名添加到对象中，值为undefined。值得注意的是，函数声明不叫变量。</p><p>3.将<font color="red">实参值和形参值</font>相统一。</p><p>4.在函数体里面寻找<font color="red">函数声明</font>，将函数名作为属性名，值为这个函数的函数体。</p><p>函数在执行的前一刻会<font color="red">产生一个上下文</font>，这个上下文就是Activeaction Object对象，简称AO对象。</p><pre><code>即AO = {}</code></pre><p>这个对象是空的，但是里面有一些我们看不到的却存在的隐式属性，比如<font color="red">this: window</font>属性和<font color="red">arguments: [];</font>属性</p><p>这个对象用来存放一些属性和方法，这些属性和方法就按照前面的四步来产生。</p><p>这里我们用这一个样例代码来简单介绍一下预编译的过程。</p><pre><code>function fn(a, b){                       console.log(a);             function a(){}               a = 222;                 console.log(a);                                  function b (){}             console.log(b);         var b = 111;         var a ;                  }                                fn(1);  </code></pre><p>第一步:创建一个AO对象</p><pre><code>var AO = {};</code></pre><p>第二步:寻找形参值和变量声明，并且将值赋为undefined</p><pre><code>AO = {      a: undefiend,        b: undefiend}</code></pre><p>第三步:将实参值和形参值相统一</p><pre><code>AO = {     a: 1,     b: undefiend}</code></pre><p>第四步:寻找函数声明，将函数体赋值给属性</p><pre><code>AO = {     a: function(){},     b: function(){}}</code></pre><p>第一个console.log a –&gt; function () {}</p><p>第二个console.log a –&gt; 222 因为执行了a = 222这一行代码，所以重新赋值了。</p><p>第三个console.log b –&gt; function () {}</p><p>• <font color="red">var b = function () {}</font>这种不叫做函数声明，这个函数是赋值给b变量的，b变量是声明。</p><h4 id="更多例子"><a href="#更多例子" class="headerlink" title="更多例子"></a><font color="red">更多例子</font></h4><p>例1</p><pre><code>function test(a, b){        console.log(a);        c = 0;        var c;        a = 3;        b = 2;        console.log(b);        function b(){}        function d(){}        console.log(b);}test(1);// 可以只传一个参数，即a=1 b=undefinedAO = {     a : 1     b : function b(){}     c : undefined     d : function d(){}}函数执行AO = {     a : 3     b : 2     c : 0     d : function d(){}}输出结果:1 2 2</code></pre><p>例2</p><pre><code>function test(a, b){        console.log(a);        console.log(b);        var b = 234;        console.log(b);        a = 123;        console.log(a);        function a(){}        var a;        b = 567;        var b = function(){}        console.log(a);        console.log(b);}test(1);AO = {     a : function a(){}     b : undefined }函数执行 AO = {     a : 123      b : function(){}}输出结果: function a(){} undefined 234 123 123 function(){}</code></pre><p>例3</p><pre><code>var a = 123;function a(){} 此时生成了一个GO 对象 Global Object     即GO===window   GO = {     a : 123} </code></pre><p>例4</p><pre><code>function test(){    var a = b = 123;    console.log(window.b);    console.log(window.a);}test();GO = {    b : 123}AO = {    a : undefiend}输出结果: 123 undefined</code></pre><p>例5</p><pre><code>console.log(test);function test(test){        console.log(test);        var test = 234;        console.log(test);        function test(){}}test(1);var test = 123;GO = {    test : function(){        // ...    }}AO = {    test : function test(){}}输出结果: function test(test){ ... } function test(){} 234</code></pre><p>例6</p><pre><code>global = 100;function fn(){        console.log(global);        global = 200;        console.log(global);        var global = 300;}fn();var global;GO = {    global : 100    fn : function fn(){}}AO = {    global : undefiend}输出结果: undefined 200</code></pre><p>例7</p><pre><code>function test(){        console.log(b);        if(a){          // a = undefined 不走if            var b = 100;        }        console.log(b);        c = 234;        console.log(c);}var a;test();a = 10;console.log(c);GO = {    a : undefiend    test : function test(){}    c : undefiend}AO = {    b : undefiend}输出结果: undefiend undefiend 234 234</code></pre><p>例8</p><pre><code>function bar(){        return foo;// 后面不走 直接返回        foo = 10;        function foo(){}        var foo = 11;}console.log(bar());GO = {    bar : function(){}}AO = {    foo : function foo(){} }输出结果: function foo(){}</code></pre><p>例9</p><pre><code>console.log(bar());function bar(){        foo = 10;        function foo(){}        var foo = 11;        return foo;}   GO = {    bar : function bar(){}}AO = {    foo : function foo(){}}输出结果: 11</code></pre><p>例10</p><pre><code>a = 100;function demo(e){    function e(){}    arguments[0] = 2;    console.log(e);    if(a){        var b = 123;        function c(){}    }    var c;    a = 10;    var a;    console.log(b);    f = 123;    console.log(c);    console.log(a);}var a;demo(1);console.log(a);console.log(f);GO = {    a : 100    demo : function (){}    f : 123}AO = {    a : undefiend    b : undefiend    c : undefiend    e : function e(){}}输出结果: 2 undefined undefined 10 100 123</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;• 我们在书写js代码的时候，会发现两点和c/c++语言不同的地方。第一个是当我们在后面定义了一个函数之后，我们在定义函数之前使用这个函数也是可以的。第二个是我们在后面声明的一个变量，但是在前面调用这个变量的时候并不会报错而是undefiend。&lt;/p&gt;
+&lt;p&gt;这两点不同在
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
     <title>类型转换</title>
     <link href="http://yoursite.com/2018/11/18/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2/"/>
     <id>http://yoursite.com/2018/11/18/数据类型转换/</id>
@@ -432,27 +454,6 @@
     }
     .myleb{
   
-      
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>CSS3之盒子模型</title>
-    <link href="http://yoursite.com/2018/11/03/blog3/"/>
-    <id>http://yoursite.com/2018/11/03/blog3/</id>
-    <published>2018-11-03T09:16:33.000Z</published>
-    <updated>2018-12-13T10:09:25.938Z</updated>
-    
-    <content type="html"><![CDATA[<h4 id="盒子模型"><a href="#盒子模型" class="headerlink" title="盒子模型"></a><font color="red">盒子模型</font></h4><p>css中的每个元素都是一个盒模型,包括html body元素,浏览器解析css的时候也会把每个元素看成一个盒子来解析</p><p>盒模型具备的属性有：<font color="red"> content 、padding 、margin、border 、background</font> 等</p><h4 id="盒模型的分类"><a href="#盒模型的分类" class="headerlink" title="盒模型的分类"></a><font color="red">盒模型的分类</font></h4><ol><li><font color="red">border-box</font>: 俗称混杂盒模型</li><li><font color="red">content-box</font>: 是w3c组织定义的盒模型</li></ol><p>IE6混杂盒模型: 触发怪异模式 怪异模式下可以给行内元素加宽高,图片的padding值会失效 margin:0 auto不好使</p><p>触发怪异模式并不能让页面对页面中的盒子用IE6混杂盒模型来解析 怎么能用IE6混杂模式盒模型来解析呢 ? 怪异模式 + IE6浏览器<br>css3中的可以选择盒模型的类型: box-sizing: border-box/content-box;</p><pre><code>&lt;style&gt; *{        margin: 0;        padding: 0;    }    .wrapper{        width: 960px;        color: #fff;        font-size: 30px;        text-align: center;        /* 后加 */        background: #ccc;        box-sizing: border-box;    }    #header{        height: 100px;        background: black;        margin-bottom: 10px;        /* 后加 */        padding: 10px;        width: 100%;        box-sizing: border-box;    }    .sidebar{        float: left;        width: 220px;        height: 300px;        margin-right: 20px;        margin-bottom: 10px;        background: greenyellow;        /* 后加 */         padding: 10px;        border: 1px solid #000;         box-sizing: border-box;    }    .content{        float: left;        width: 720px;        height: 300px;        margin-bottom: 10px;        background: red;        box-sizing: border-box;    }    #footer{        background: burlywood;        height: 100px;        clear: both;        box-sizing: border-box;    }&lt;/style&gt;&lt;div class=&quot;wrapper&quot;&gt;    &lt;div id=&quot;header&quot;&gt;header&lt;/div&gt;    &lt;div class=&quot;sidebar&quot;&gt;侧边栏&lt;/div&gt;    &lt;div class=&quot;content&quot;&gt;内容区&lt;/div&gt;    &lt;div id=&quot;footer&quot;&gt;底部&lt;/div&gt;&lt;/div&gt;</code></pre><p><img src="https://i.imgur.com/ekky5oz.png" alt=""></p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h4 id=&quot;盒子模型&quot;&gt;&lt;a href=&quot;#盒子模型&quot; class=&quot;headerlink&quot; title=&quot;盒子模型&quot;&gt;&lt;/a&gt;&lt;font color=&quot;red&quot;&gt;盒子模型&lt;/font&gt;&lt;/h4&gt;&lt;p&gt;css中的每个元素都是一个盒模型,包括html body元素,浏览器解析c
       
     
     </summary>

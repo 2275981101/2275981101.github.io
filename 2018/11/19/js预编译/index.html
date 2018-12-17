@@ -1,0 +1,1049 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.6.0" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/icon.jpg?v=6.6.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/icon.jpg?v=6.6.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/icon.jpg?v=6.6.0">
+
+
+  <link rel="mask-icon" href="/images/icon.jpg?v=6.6.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.6.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="• 我们在书写js代码的时候，会发现两点和c/c++语言不同的地方。第一个是当我们在后面定义了一个函数之后，我们在定义函数之前使用这个函数也是可以的。第二个是我们在后面声明的一个变量，但是在前面调用这个变量的时候并不会报错而是undefiend。 这两点不同在js中被称为函数声明提升和变量声明提升，函数声明提升是一种整体提升，它会把函数声明和函数体一起提升到前面。变量声明提升则是一种局部提升，它仅">
+<meta property="og:type" content="article">
+<meta property="og:title" content="预编译">
+<meta property="og:url" content="http://yoursite.com/2018/11/19/js预编译/index.html">
+<meta property="og:site_name" content="welcome">
+<meta property="og:description" content="• 我们在书写js代码的时候，会发现两点和c/c++语言不同的地方。第一个是当我们在后面定义了一个函数之后，我们在定义函数之前使用这个函数也是可以的。第二个是我们在后面声明的一个变量，但是在前面调用这个变量的时候并不会报错而是undefiend。 这两点不同在js中被称为函数声明提升和变量声明提升，函数声明提升是一种整体提升，它会把函数声明和函数体一起提升到前面。变量声明提升则是一种局部提升，它仅">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2018-12-17T10:02:18.066Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="预编译">
+<meta name="twitter:description" content="• 我们在书写js代码的时候，会发现两点和c/c++语言不同的地方。第一个是当我们在后面定义了一个函数之后，我们在定义函数之前使用这个函数也是可以的。第二个是我们在后面声明的一个变量，但是在前面调用这个变量的时候并不会报错而是undefiend。 这两点不同在js中被称为函数声明提升和变量声明提升，函数声明提升是一种整体提升，它会把函数声明和函数体一起提升到前面。变量声明提升则是一种局部提升，它仅">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="welcome" type="application/atom+xml">
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/11/19/js预编译/">
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>预编译 | welcome</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">welcome</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">求知若饥，虚心若愚</p>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/19/js预编译/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wanghai">
+      <meta itemprop="description" content="Wanghai个人站，主要涉及前端知识共享、实践教程、前沿技术共同学习等方面">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="welcome">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">预编译
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-11-19 17:16:33" itemprop="dateCreated datePublished" datetime="2018-11-19T17:16:33+08:00">2018-11-19</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2018-12-17 18:02:18" itemprop="dateModified" datetime="2018-12-17T18:02:18+08:00">2018-12-17</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>• 我们在书写js代码的时候，会发现两点和c/c++语言不同的地方。第一个是当我们在后面定义了一个函数之后，我们在定义函数之前使用这个函数也是可以的。第二个是我们在后面声明的一个变量，但是在前面调用这个变量的时候并不会报错而是undefiend。</p>
+<p>这两点不同在js中被称为<font color="red"><strong>函数声明提升</strong></font>和<font color="red"><strong>变量声明提升</strong></font>，函数声明提升是一种<font color="red"><strong>整体提升</strong></font>，它会把函数声明和函数体一起提升到前面。变量声明提升则是一种<font color="red"><strong>局部提升</strong></font>，它仅仅将变量的声明提前了，但是并没有将赋值也一起提前。</p>
+<p>那么为什么会出现这种提升的现象呢？</p>
+<p>这是因为js运行的时候有一个阶段叫做预编译阶段，而我们的声明提升现象都是发生在预编译的时候哟~</p>
+<h4 id="预编译"><a href="#预编译" class="headerlink" title="预编译"></a><font color="red">预编译</font></h4><p>• js运行三部曲</p>
+<p>1.语法分析</p>
+<p>2.<font color="red">预编译</font></p>
+<p>3.解释执行</p>
+<p>语法分析：js引擎在解析js代码之前，会先通篇扫描一下，找出低级的语法错误，比如写错大括号之类的。</p>
+<p>编译执行：js是一种解释型语言，编译一行执行一行，当语法分析没有问题，并且已经完成预编译阶段之后，就开始解释执行代码。</p>
+<p>这里我们着重介绍预编译。</p>
+<font color="red">预编译前奏</font>
+
+<p>在介绍预编译之前，我们有两个重要概念需要掌握。</p>
+<p>1.<font color="red">imply global 暗示全局变量。</font></p>
+<p>如果任何变量未经声明就赋值使用，此变量就会为全局对象window所有，并且成为window对象的一个属性。</p>
+<pre><code>window.a = 123;
+window.a === a ;// true
+</code></pre><p>或者</p>
+<pre><code>a = 123;
+window.a === a ;// true
+</code></pre><p>2.一切<font color="red">声明</font>的全局变量，都是window的属性。</p>
+<pre><code>var a = 123;
+console.log(window.a);// 123
+</code></pre><p>•这样看不论全局变量有没有声明，似乎都会成为全局对象上的属性，那么两者之间有什么区别呢？<br>区别在于：<font color="red">经过声明的全局变量不能通过delete操作来删除，但是未经声明的全局变量可以被删除。</font></p>
+<pre><code>a = 123;
+console.log(window.a === a);// true
+delete window.a;
+console.log(window.a);// undefiend
+var b = 123;
+delete window.b;
+console.log(window.b);// 123
+</code></pre><p>正是这一种特性，导致es5有一种弊端，我们总会在无形中声明一些全局变量。</p>
+<pre><code>function test(){
+    var a = b = 0;
+}
+</code></pre><p>这段代码的原意是：在函数体中声明两个变量a、b，然后初始化a、b都是0。但是我们这么写之后，a经过了声明，但是b却没有声明，这时候b就会成为一个全局变量。</p>
+<font color="red">预编译的过程我总结为以下四步：</font>
+
+<p>1.创建<font color="red">AO对象</font>。</p>
+<p>2.<font color="red">寻找形参和变量声明</font>，将变量和形参作为AO对象的属性名添加到对象中，值为undefined。值得注意的是，函数声明不叫变量。</p>
+<p>3.将<font color="red">实参值和形参值</font>相统一。</p>
+<p>4.在函数体里面寻找<font color="red">函数声明</font>，将函数名作为属性名，值为这个函数的函数体。</p>
+<p>函数在执行的前一刻会<font color="red">产生一个上下文</font>，这个上下文就是Activeaction Object对象，简称AO对象。</p>
+<pre><code>即AO = {}
+</code></pre><p>这个对象是空的，但是里面有一些我们看不到的却存在的隐式属性，比如<font color="red">this: window</font>属性和<font color="red">arguments: [];</font>属性</p>
+<p>这个对象用来存放一些属性和方法，这些属性和方法就按照前面的四步来产生。</p>
+<p>这里我们用这一个样例代码来简单介绍一下预编译的过程。</p>
+<pre><code>function fn(a, b){              
+         console.log(a);    
+         function a(){}      
+         a = 222;        
+         console.log(a);                         
+         function b (){}    
+         console.log(b);
+         var b = 111;
+         var a ;                 
+ }                               
+ fn(1);  
+</code></pre><p>第一步:创建一个AO对象</p>
+<pre><code>var AO = {};
+</code></pre><p>第二步:寻找形参值和变量声明，并且将值赋为undefined</p>
+<pre><code>AO = {
+      a: undefiend,  
+      b: undefiend
+}
+</code></pre><p>第三步:将实参值和形参值相统一</p>
+<pre><code>AO = {
+     a: 1,
+     b: undefiend
+}
+</code></pre><p>第四步:寻找函数声明，将函数体赋值给属性</p>
+<pre><code>AO = {
+     a: function(){},
+     b: function(){}
+}
+</code></pre><p>第一个console.log a –&gt; function () {}</p>
+<p>第二个console.log a –&gt; 222 因为执行了a = 222这一行代码，所以重新赋值了。</p>
+<p>第三个console.log b –&gt; function () {}</p>
+<p>• <font color="red">var b = function () {}</font>这种不叫做函数声明，这个函数是赋值给b变量的，b变量是声明。</p>
+<h4 id="更多例子"><a href="#更多例子" class="headerlink" title="更多例子"></a><font color="red">更多例子</font></h4><p>例1</p>
+<pre><code>function test(a, b){
+        console.log(a);
+        c = 0;
+        var c;
+        a = 3;
+        b = 2;
+        console.log(b);
+        function b(){}
+        function d(){}
+        console.log(b);
+}
+test(1);// 可以只传一个参数，即a=1 b=undefined
+
+AO = {
+     a : 1
+     b : function b(){}
+     c : undefined
+     d : function d(){}
+}
+函数执行
+AO = {
+     a : 3
+     b : 2
+     c : 0
+     d : function d(){}
+}
+
+输出结果:1 2 2
+</code></pre><p>例2</p>
+<pre><code>function test(a, b){
+        console.log(a);
+        console.log(b);
+        var b = 234;
+        console.log(b);
+        a = 123;
+        console.log(a);
+        function a(){}
+        var a;
+        b = 567;
+        var b = function(){}
+        console.log(a);
+        console.log(b);
+}
+test(1);
+
+AO = {
+     a : function a(){}
+     b : undefined 
+}
+函数执行
+ AO = {
+     a : 123 
+     b : function(){}
+}
+
+输出结果: function a(){} undefined 234 123 123 function(){}
+</code></pre><p>例3</p>
+<pre><code>var a = 123;
+function a(){} 
+此时生成了一个GO 对象 Global Object     即GO===window   
+GO = {
+     a : 123
+} 
+</code></pre><p>例4</p>
+<pre><code>function test(){
+    var a = b = 123;
+    console.log(window.b);
+    console.log(window.a);
+}
+test();
+
+GO = {
+    b : 123
+}
+AO = {
+    a : undefiend
+}
+
+输出结果: 123 undefined
+</code></pre><p>例5</p>
+<pre><code>console.log(test);
+function test(test){
+        console.log(test);
+        var test = 234;
+        console.log(test);
+        function test(){}
+}
+test(1);
+var test = 123;
+
+GO = {
+    test : function(){
+        // ...
+    }
+}
+AO = {
+    test : function test(){}
+}
+
+输出结果: function test(test){ ... } function test(){} 234
+</code></pre><p>例6</p>
+<pre><code>global = 100;
+function fn(){
+        console.log(global);
+        global = 200;
+        console.log(global);
+        var global = 300;
+}
+fn();
+var global;
+
+GO = {
+    global : 100
+    fn : function fn(){}
+}
+AO = {
+    global : undefiend
+}
+
+输出结果: undefined 200
+</code></pre><p>例7</p>
+<pre><code>function test(){
+        console.log(b);
+        if(a){          // a = undefined 不走if
+            var b = 100;
+        }
+        console.log(b);
+        c = 234;
+        console.log(c);
+}
+var a;
+test();
+a = 10;
+console.log(c);
+
+GO = {
+    a : undefiend
+    test : function test(){}
+    c : undefiend
+}
+AO = {
+    b : undefiend
+}
+
+输出结果: undefiend undefiend 234 234
+</code></pre><p>例8</p>
+<pre><code>function bar(){
+        return foo;// 后面不走 直接返回
+        foo = 10;
+        function foo(){}
+        var foo = 11;
+}
+console.log(bar());
+
+GO = {
+    bar : function(){}
+}
+AO = {
+    foo : function foo(){} 
+}
+
+输出结果: function foo(){}
+</code></pre><p>例9</p>
+<pre><code>console.log(bar());
+function bar(){
+        foo = 10;
+        function foo(){}
+        var foo = 11;
+        return foo;
+}   
+
+GO = {
+    bar : function bar(){}
+}
+AO = {
+    foo : function foo(){}
+}
+
+输出结果: 11
+</code></pre><p>例10</p>
+<pre><code>a = 100;
+function demo(e){
+    function e(){}
+    arguments[0] = 2;
+    console.log(e);
+    if(a){
+        var b = 123;
+        function c(){}
+    }
+    var c;
+    a = 10;
+    var a;
+    console.log(b);
+    f = 123;
+    console.log(c);
+    console.log(a);
+}
+var a;
+demo(1);
+console.log(a);
+console.log(f);
+
+GO = {
+    a : 100
+    demo : function (){}
+    f : 123
+}
+AO = {
+    a : undefiend
+    b : undefiend
+    c : undefiend
+    e : function e(){}
+}
+
+输出结果: 2 undefined undefined 10 100 123
+</code></pre>
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/11/18/数据类型转换/" rel="next" title="类型转换">
+                <i class="fa fa-chevron-left"></i> 类型转换
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/12/10/CSS常用命名规范/" rel="prev" title="CSS常用命名规范">
+                CSS常用命名规范 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Wanghai</p>
+              <p class="site-description motion-element" itemprop="description">Wanghai个人站，主要涉及前端知识共享、实践教程、前沿技术共同学习等方面</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">23</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#预编译"><span class="nav-number">1.</span> <span class="nav-text">预编译</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#更多例子"><span class="nav-number">2.</span> <span class="nav-text">更多例子</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Wanghai</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v6.6.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.6.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.6.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.6.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.6.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.6.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

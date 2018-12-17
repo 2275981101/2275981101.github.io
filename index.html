@@ -1278,6 +1278,455 @@ background: linear-gradient(red, orange,  yellow, green, blue, indigo, violet);
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/19/js预编译/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wanghai">
+      <meta itemprop="description" content="Wanghai个人站，主要涉及前端知识共享、实践教程、前沿技术共同学习等方面">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="welcome">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2018/11/19/js预编译/" class="post-title-link" itemprop="http://yoursite.com/index.html">预编译</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-11-19 17:16:33" itemprop="dateCreated datePublished" datetime="2018-11-19T17:16:33+08:00">2018-11-19</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2018-12-17 18:02:18" itemprop="dateModified" datetime="2018-12-17T18:02:18+08:00">2018-12-17</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>• 我们在书写js代码的时候，会发现两点和c/c++语言不同的地方。第一个是当我们在后面定义了一个函数之后，我们在定义函数之前使用这个函数也是可以的。第二个是我们在后面声明的一个变量，但是在前面调用这个变量的时候并不会报错而是undefiend。</p>
+<p>这两点不同在js中被称为<font color="red"><strong>函数声明提升</strong></font>和<font color="red"><strong>变量声明提升</strong></font>，函数声明提升是一种<font color="red"><strong>整体提升</strong></font>，它会把函数声明和函数体一起提升到前面。变量声明提升则是一种<font color="red"><strong>局部提升</strong></font>，它仅仅将变量的声明提前了，但是并没有将赋值也一起提前。</p>
+<p>那么为什么会出现这种提升的现象呢？</p>
+<p>这是因为js运行的时候有一个阶段叫做预编译阶段，而我们的声明提升现象都是发生在预编译的时候哟~</p>
+<h4 id="预编译"><a href="#预编译" class="headerlink" title="预编译"></a><font color="red">预编译</font></h4><p>• js运行三部曲</p>
+<p>1.语法分析</p>
+<p>2.<font color="red">预编译</font></p>
+<p>3.解释执行</p>
+<p>语法分析：js引擎在解析js代码之前，会先通篇扫描一下，找出低级的语法错误，比如写错大括号之类的。</p>
+<p>编译执行：js是一种解释型语言，编译一行执行一行，当语法分析没有问题，并且已经完成预编译阶段之后，就开始解释执行代码。</p>
+<p>这里我们着重介绍预编译。</p>
+<font color="red">预编译前奏</font>
+
+<p>在介绍预编译之前，我们有两个重要概念需要掌握。</p>
+<p>1.<font color="red">imply global 暗示全局变量。</font></p>
+<p>如果任何变量未经声明就赋值使用，此变量就会为全局对象window所有，并且成为window对象的一个属性。</p>
+<pre><code>window.a = 123;
+window.a === a ;// true
+</code></pre><p>或者</p>
+<pre><code>a = 123;
+window.a === a ;// true
+</code></pre><p>2.一切<font color="red">声明</font>的全局变量，都是window的属性。</p>
+<pre><code>var a = 123;
+console.log(window.a);// 123
+</code></pre><p>•这样看不论全局变量有没有声明，似乎都会成为全局对象上的属性，那么两者之间有什么区别呢？<br>区别在于：<font color="red">经过声明的全局变量不能通过delete操作来删除，但是未经声明的全局变量可以被删除。</font></p>
+<pre><code>a = 123;
+console.log(window.a === a);// true
+delete window.a;
+console.log(window.a);// undefiend
+var b = 123;
+delete window.b;
+console.log(window.b);// 123
+</code></pre><p>正是这一种特性，导致es5有一种弊端，我们总会在无形中声明一些全局变量。</p>
+<pre><code>function test(){
+    var a = b = 0;
+}
+</code></pre><p>这段代码的原意是：在函数体中声明两个变量a、b，然后初始化a、b都是0。但是我们这么写之后，a经过了声明，但是b却没有声明，这时候b就会成为一个全局变量。</p>
+<font color="red">预编译的过程我总结为以下四步：</font>
+
+<p>1.创建<font color="red">AO对象</font>。</p>
+<p>2.<font color="red">寻找形参和变量声明</font>，将变量和形参作为AO对象的属性名添加到对象中，值为undefined。值得注意的是，函数声明不叫变量。</p>
+<p>3.将<font color="red">实参值和形参值</font>相统一。</p>
+<p>4.在函数体里面寻找<font color="red">函数声明</font>，将函数名作为属性名，值为这个函数的函数体。</p>
+<p>函数在执行的前一刻会<font color="red">产生一个上下文</font>，这个上下文就是Activeaction Object对象，简称AO对象。</p>
+<pre><code>即AO = {}
+</code></pre><p>这个对象是空的，但是里面有一些我们看不到的却存在的隐式属性，比如<font color="red">this: window</font>属性和<font color="red">arguments: [];</font>属性</p>
+<p>这个对象用来存放一些属性和方法，这些属性和方法就按照前面的四步来产生。</p>
+<p>这里我们用这一个样例代码来简单介绍一下预编译的过程。</p>
+<pre><code>function fn(a, b){              
+         console.log(a);    
+         function a(){}      
+         a = 222;        
+         console.log(a);                         
+         function b (){}    
+         console.log(b);
+         var b = 111;
+         var a ;                 
+ }                               
+ fn(1);  
+</code></pre><p>第一步:创建一个AO对象</p>
+<pre><code>var AO = {};
+</code></pre><p>第二步:寻找形参值和变量声明，并且将值赋为undefined</p>
+<pre><code>AO = {
+      a: undefiend,  
+      b: undefiend
+}
+</code></pre><p>第三步:将实参值和形参值相统一</p>
+<pre><code>AO = {
+     a: 1,
+     b: undefiend
+}
+</code></pre><p>第四步:寻找函数声明，将函数体赋值给属性</p>
+<pre><code>AO = {
+     a: function(){},
+     b: function(){}
+}
+</code></pre><p>第一个console.log a –&gt; function () {}</p>
+<p>第二个console.log a –&gt; 222 因为执行了a = 222这一行代码，所以重新赋值了。</p>
+<p>第三个console.log b –&gt; function () {}</p>
+<p>• <font color="red">var b = function () {}</font>这种不叫做函数声明，这个函数是赋值给b变量的，b变量是声明。</p>
+<h4 id="更多例子"><a href="#更多例子" class="headerlink" title="更多例子"></a><font color="red">更多例子</font></h4><p>例1</p>
+<pre><code>function test(a, b){
+        console.log(a);
+        c = 0;
+        var c;
+        a = 3;
+        b = 2;
+        console.log(b);
+        function b(){}
+        function d(){}
+        console.log(b);
+}
+test(1);// 可以只传一个参数，即a=1 b=undefined
+
+AO = {
+     a : 1
+     b : function b(){}
+     c : undefined
+     d : function d(){}
+}
+函数执行
+AO = {
+     a : 3
+     b : 2
+     c : 0
+     d : function d(){}
+}
+
+输出结果:1 2 2
+</code></pre><p>例2</p>
+<pre><code>function test(a, b){
+        console.log(a);
+        console.log(b);
+        var b = 234;
+        console.log(b);
+        a = 123;
+        console.log(a);
+        function a(){}
+        var a;
+        b = 567;
+        var b = function(){}
+        console.log(a);
+        console.log(b);
+}
+test(1);
+
+AO = {
+     a : function a(){}
+     b : undefined 
+}
+函数执行
+ AO = {
+     a : 123 
+     b : function(){}
+}
+
+输出结果: function a(){} undefined 234 123 123 function(){}
+</code></pre><p>例3</p>
+<pre><code>var a = 123;
+function a(){} 
+此时生成了一个GO 对象 Global Object     即GO===window   
+GO = {
+     a : 123
+} 
+</code></pre><p>例4</p>
+<pre><code>function test(){
+    var a = b = 123;
+    console.log(window.b);
+    console.log(window.a);
+}
+test();
+
+GO = {
+    b : 123
+}
+AO = {
+    a : undefiend
+}
+
+输出结果: 123 undefined
+</code></pre><p>例5</p>
+<pre><code>console.log(test);
+function test(test){
+        console.log(test);
+        var test = 234;
+        console.log(test);
+        function test(){}
+}
+test(1);
+var test = 123;
+
+GO = {
+    test : function(){
+        // ...
+    }
+}
+AO = {
+    test : function test(){}
+}
+
+输出结果: function test(test){ ... } function test(){} 234
+</code></pre><p>例6</p>
+<pre><code>global = 100;
+function fn(){
+        console.log(global);
+        global = 200;
+        console.log(global);
+        var global = 300;
+}
+fn();
+var global;
+
+GO = {
+    global : 100
+    fn : function fn(){}
+}
+AO = {
+    global : undefiend
+}
+
+输出结果: undefined 200
+</code></pre><p>例7</p>
+<pre><code>function test(){
+        console.log(b);
+        if(a){          // a = undefined 不走if
+            var b = 100;
+        }
+        console.log(b);
+        c = 234;
+        console.log(c);
+}
+var a;
+test();
+a = 10;
+console.log(c);
+
+GO = {
+    a : undefiend
+    test : function test(){}
+    c : undefiend
+}
+AO = {
+    b : undefiend
+}
+
+输出结果: undefiend undefiend 234 234
+</code></pre><p>例8</p>
+<pre><code>function bar(){
+        return foo;// 后面不走 直接返回
+        foo = 10;
+        function foo(){}
+        var foo = 11;
+}
+console.log(bar());
+
+GO = {
+    bar : function(){}
+}
+AO = {
+    foo : function foo(){} 
+}
+
+输出结果: function foo(){}
+</code></pre><p>例9</p>
+<pre><code>console.log(bar());
+function bar(){
+        foo = 10;
+        function foo(){}
+        var foo = 11;
+        return foo;
+}   
+
+GO = {
+    bar : function bar(){}
+}
+AO = {
+    foo : function foo(){}
+}
+
+输出结果: 11
+</code></pre><p>例10</p>
+<pre><code>a = 100;
+function demo(e){
+    function e(){}
+    arguments[0] = 2;
+    console.log(e);
+    if(a){
+        var b = 123;
+        function c(){}
+    }
+    var c;
+    a = 10;
+    var a;
+    console.log(b);
+    f = 123;
+    console.log(c);
+    console.log(a);
+}
+var a;
+demo(1);
+console.log(a);
+console.log(f);
+
+GO = {
+    a : 100
+    demo : function (){}
+    f : 123
+}
+AO = {
+    a : undefiend
+    b : undefiend
+    c : undefiend
+    e : function e(){}
+}
+
+输出结果: 2 undefined undefined 10 100 123
+</code></pre>
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/18/数据类型转换/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -2558,248 +3007,6 @@ div{
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/13/margin合并与塌陷BUG及解法/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Wanghai">
-      <meta itemprop="description" content="Wanghai个人站，主要涉及前端知识共享、实践教程、前沿技术共同学习等方面">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="welcome">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2018/11/13/margin合并与塌陷BUG及解法/" class="post-title-link" itemprop="http://yoursite.com/index.html">margin合并与塌陷BUG及解法</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2018-11-13 17:16:33" itemprop="dateCreated datePublished" datetime="2018-11-13T17:16:33+08:00">2018-11-13</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2018-12-13 15:39:16" itemprop="dateModified" datetime="2018-12-13T15:39:16+08:00">2018-12-13</time>
-              
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>其实css也不是极其完善的，其中也存在着或多或少的bug，有些我们可能从来不会遇到，有些我们可能会经常遇到，这次介绍的两个bug是属于cssbug中的很经典的两个bug——margin合并与margin塌陷问题。</p>
-<h4 id="margin合并现象"><a href="#margin合并现象" class="headerlink" title="margin合并现象"></a><font color="red">margin合并现象</font></h4><p>   • 我们现在写两个span标签，并且给它们两个分别加上margin-right和margin-left的样式。</p>
-<pre><code> &lt;span class=”left”&gt;left&lt;/span&gt;
- &lt;span class=”right”&gt;right&lt;/span&gt;
- .left {
-    margin-right: 10px;
-    background-color: red;
-}
- .right {
-    margin-left: 10px;
-    background-color: yellow;
-}
-</code></pre><p><img src="https://i.imgur.com/hZPjk7D.png" alt=""></p>
-<p>我们会发现，这两个span之间的距离正是我们所想的那样是20px的宽度，但是我们现在再写两个div，然后分别给它们加上<font color="red">margin-bottom</font>和<font color="red">margin-top</font>的样式，我们再来看看效果。</p>
-<pre><code>&lt;div class=”top”&gt;top&lt;/div&gt;
-&lt;div class=”bottom”&gt;bottom&lt;/div&gt;
-
- .top {
-    margin-bottom: 10px;
-    background-color: red;
-}
-.bottom {
-    margin-top: 10px;
-    background-color: yellow;
-}
-</code></pre><p><img src="https://i.imgur.com/stB73S6.png" alt=""></p>
-<p>这次我们惊奇的发现，<font color="red">这两个div上下之间的距离，并不是我们所想的那样是相加的20px，而是只有10px！</font></p>
-<p>这个现象就是标题所说的<font color="red">margin上下合并现象</font>。</p>
-<p>我们尝试改变每一个div的margin-top或者margin-bottom的值，最后发现：二者上下之间的距离是取得两个数值之中的<font color="red">最大值</font>。</p>
-<p>如果div.top的margin-bottom是100px，div.bottom的margin-top是50px的话，那么二者之间的距离就是100px。</p>
-<h4 id="margin塌陷现象"><a href="#margin塌陷现象" class="headerlink" title="margin塌陷现象"></a><font color="red">margin塌陷现象</font></h4><p>  • 我们现在写两个span标签，并且给它们两个分别加上margin-right和margin-left的样式。</p>
-<pre><code>&lt;div class=”wrapper”&gt;
-  &lt;div class=”content”&gt;&lt;/div&gt;
-&lt;/div&gt;
-
- .wrapper {
-      width: 100px;
-      height: 100px;
-      margin-top: 100px;
-      margin-left: 100px;
-      background-color: yellow;
-    }
- .content {
-        width: 50px;
-        height: 50px;
-        margin-top: 50px;
-        margin-left: 50px;
-        background-color: red;
-    }
-</code></pre><p>我们写这段代码的原意是想要一个100100大小的父级div，然后里面有一个5050大小的子级div，然后让这个div在父级div的右下角，同时父级div距离浏览器的边框有100px的距离。</p>
-<p><img src="https://i.imgur.com/zFVpZHv.png" alt=""></p>
-<p>当我们运行这段代码的时候，我们会发现，子级div的margin-left生效了但是好像margin-top并没有生效？</p>
-<p><img src="https://i.imgur.com/SyDpNRF.png" alt=""></p>
-<p>其实并不是，margin-top也生效了，但是这里的margin-top的效果并不是我们所想的那样距离父级div的距离是50px，而是子级的div距离浏览器边框的距离是50px，由于本身父级div有一个margin-top的值，所以就导致了我们子级的margin-top的效果并没有显现出来，我们再改变一下子级div的margin-top的值，改成200px，我们又会惊奇的发现，子级div不仅没有距离父级div有了一段距离，<font color="red">反而带动了父级div一起向下移动了</font>！这就是margin塌陷现象。</p>
-<h4 id="那么对于这两个问题我们要怎么解决呢？"><a href="#那么对于这两个问题我们要怎么解决呢？" class="headerlink" title="那么对于这两个问题我们要怎么解决呢？"></a><font color="red">那么对于这两个问题我们要怎么解决呢？</font></h4><p><strong><font color="red">margin塌陷的解法</font></strong></p>
-<p>解法一共有两种：</p>
-<p>1.利用<font color="red">border</font>来触发<font color="red">bfc</font>的效果。</p>
-<p>2.利用<font color="red">overflow</font>属性来触发<font color="red">bfc</font>的效果。</p>
-<p>• <font color="red">那么什么是bfc呢？</font></p>
-<p>bfc全称是block format context——块级格式化上下文，我们有一些css语法会触发bfc，从而带来的效果是我们触发bfc的元素的渲染规则和普通元素的渲染规则变得不一样，从而可以解决塌陷问题。</p>
-<p>margin塌陷的问题很容易让我们联想到，子级div之所以没有相对父级移动，是因为它看不到父级的边界，只能看到浏览器的边界，这样我们给父级加一个子级能看到的边界，这个问题是不是就解决了？</p>
-<p>所以我们在父级div.wrapper里面添加一个属性<font color="blue">：border-top: 1px solid red;</font>现在我们再来看一下效果，发现果然content和wrapper解除了绑定，子级div能看到父级的边界了。但是这样就会改变父级div的样式，不符合开发要求，<font color="red">因此这种方法虽然可以解决问题但是是完全无法使用的</font>。</p>
-<p>• <font color="red">什么又是overflow呢？</font></p>
-<p>overflow是一个css属性，它可以设置当内容区超过了当前元素的区域的时候，我们采取怎样的处理方式，这个属性也可以触发bfc。</p>
-<p>现在我们可以在父级div.wrapper里面加一条属性<font color="blue">：overflow:hidden;</font>这条属性的意思是溢出隐藏。现在我们可以发现，在外观没有改变的同时，子级div和父级div解除了绑定，也可能正常移动了！<font color="red">因此我们一般采用这种方式来解决margin塌陷的问题</font>。</p>
-<p>虽然overflow:hidden;的方式可以采用，但是也不是没有缺点的，一旦我们用过js代码改变了子级div的位置，就会有导致子级一部分内容因为溢出被隐藏的风险。</p>
-<p><strong><font color="red">margin合并的解法</font></strong></p>
-<p>了解了margin塌陷的解法之后，我们就很容易可以理解margin合并的解法了。</p>
-<p>我们给每一个div分别加上一个父级包裹层，然后给父级包裹层都加上<font color="red">overflow:hidden;</font></p>
-<pre><code>&lt;div class=”wrapper”&gt;
-  &lt;div class=”top”&gt;top&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;div class=”wrapper”&gt;
-  &lt;div class=”bottom”&gt;bottom&lt;/div&gt;
-&lt;/div&gt;
-
-  .wrapper{
-    overflow: hidden;
-  }
-  .top {
-    margin-bottom: 100px;
-    background-color: red;
-  }
-  .bottom {
-     margin-top: 100px;
-     background-color: red;
-  }
-</code></pre><p>这样通过父级div来触发bfc就可以解决margin合并的问题了。</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2847,7 +3054,7 @@ div{
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">22</span>
+                    <span class="site-state-item-count">23</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
