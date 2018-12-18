@@ -115,7 +115,7 @@
 <meta property="og:site_name" content="welcome">
 <meta property="og:description" content="• 我们在书写js代码的时候，会发现两点和c/c++语言不同的地方。第一个是当我们在后面定义了一个函数之后，我们在定义函数之前使用这个函数也是可以的。第二个是我们在后面声明的一个变量，但是在前面调用这个变量的时候并不会报错而是undefiend。 这两点不同在js中被称为函数声明提升和变量声明提升，函数声明提升是一种整体提升，它会把函数声明和函数体一起提升到前面。变量声明提升则是一种局部提升，它仅">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-12-17T10:02:18.066Z">
+<meta property="og:updated_time" content="2018-12-18T08:56:17.643Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="预编译">
 <meta name="twitter:description" content="• 我们在书写js代码的时候，会发现两点和c/c++语言不同的地方。第一个是当我们在后面定义了一个函数之后，我们在定义函数之前使用这个函数也是可以的。第二个是我们在后面声明的一个变量，但是在前面调用这个变量的时候并不会报错而是undefiend。 这两点不同在js中被称为函数声明提升和变量声明提升，函数声明提升是一种整体提升，它会把函数声明和函数体一起提升到前面。变量声明提升则是一种局部提升，它仅">
@@ -366,7 +366,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2018-12-17 18:02:18" itemprop="dateModified" datetime="2018-12-17T18:02:18+08:00">2018-12-17</time>
+                <time title="Modified: 2018-12-18 16:56:17" itemprop="dateModified" datetime="2018-12-18T16:56:17+08:00">2018-12-18</time>
               
             
           </span>
@@ -695,6 +695,18 @@ AO = {
 }
 
 输出结果: 2 undefined undefined 10 100 123
+</code></pre><p>例11</p>
+<pre><code>var x = 1,y = z = 0;
+function add(n){
+    return n = n +1;
+}
+y = add(x);
+function add(n){
+    return n = n + 3;
+}
+z = add(x);
+
+输出结果: x = 1 y = 4 z = 4
 </code></pre>
       
     </div>
@@ -735,8 +747,8 @@ AO = {
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/12/10/CSS常用命名规范/" rel="prev" title="CSS常用命名规范">
-                CSS常用命名规范 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/11/20/对象与构造函数与包装类/" rel="prev" title="对象与构造函数与包装类">
+                对象与构造函数与包装类 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -807,7 +819,7 @@ AO = {
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">23</span>
+                    <span class="site-state-item-count">33</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>

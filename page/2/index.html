@@ -306,7 +306,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/13/margin合并与塌陷BUG及解法/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/23/继承/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Wanghai">
@@ -326,7 +326,7 @@
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2018/11/13/margin合并与塌陷BUG及解法/" class="post-title-link" itemprop="http://yoursite.com/page/2/index.html">margin合并与塌陷BUG及解法</a>
+                <a href="/2018/11/23/继承/" class="post-title-link" itemprop="http://yoursite.com/page/2/index.html">继承</a>
               
             
           </h1>
@@ -351,7 +351,7 @@
                 
               
 
-              <time title="Created: 2018-11-13 17:16:33" itemprop="dateCreated datePublished" datetime="2018-11-13T17:16:33+08:00">2018-11-13</time>
+              <time title="Created: 2018-11-23 17:16:33" itemprop="dateCreated datePublished" datetime="2018-11-23T17:16:33+08:00">2018-11-23</time>
             
 
             
@@ -368,7 +368,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2018-12-13 15:39:16" itemprop="dateModified" datetime="2018-12-13T15:39:16+08:00">2018-12-13</time>
+                <time title="Modified: 2018-12-18 16:08:51" itemprop="dateModified" datetime="2018-12-18T16:08:51+08:00">2018-12-18</time>
               
             
           </span>
@@ -403,341 +403,73 @@
       
         
           
-            <p>其实css也不是极其完善的，其中也存在着或多或少的bug，有些我们可能从来不会遇到，有些我们可能会经常遇到，这次介绍的两个bug是属于cssbug中的很经典的两个bug——margin合并与margin塌陷问题。</p>
-<h4 id="margin合并现象"><a href="#margin合并现象" class="headerlink" title="margin合并现象"></a><font color="red">margin合并现象</font></h4><p>   • 我们现在写两个span标签，并且给它们两个分别加上margin-right和margin-left的样式。</p>
-<pre><code> &lt;span class=”left”&gt;left&lt;/span&gt;
- &lt;span class=”right”&gt;right&lt;/span&gt;
- .left {
-    margin-right: 10px;
-    background-color: red;
+            <p>1.<strong>传统形式 ——原型链 (过多的继承了没用的属性)</strong></p>
+<p>2.<strong>借用构造函数 (不能继承借用构造函数的原型,每次构造函数都要多走一个函数)</strong></p>
+<p>3.<strong>共享原型 (不能随便改动自己的原型)</strong></p>
+<p>4.<strong>圣杯模式 (以上三种模式都不用)</strong></p>
+<h4 id="模式一"><a href="#模式一" class="headerlink" title="模式一"></a><font color="red">模式一</font></h4><pre><code>Grand.prototype.lastName = &quot;Deng&quot;;
+function Grand(){
 }
- .right {
-    margin-left: 10px;
-    background-color: yellow;
+var grand = new Grand();
+Father.prototype = grand;
+function Father(){ 
+    this.name = &quot;hehe&quot;;
 }
-</code></pre><p><img src="https://i.imgur.com/hZPjk7D.png" alt=""></p>
-<p>我们会发现，这两个span之间的距离正是我们所想的那样是20px的宽度，但是我们现在再写两个div，然后分别给它们加上<font color="red">margin-bottom</font>和<font color="red">margin-top</font>的样式，我们再来看看效果。</p>
-<pre><code>&lt;div class=”top”&gt;top&lt;/div&gt;
-&lt;div class=”bottom”&gt;bottom&lt;/div&gt;
+var father = new Father();
+Son.prototype = father;
+function Son(){
 
- .top {
-    margin-bottom: 10px;
-    background-color: red;
 }
-.bottom {
-    margin-top: 10px;
-    background-color: yellow;
+var son = new Son();
+</code></pre><h4 id="模式二"><a href="#模式二" class="headerlink" title="模式二"></a><font color="red">模式二</font></h4><pre><code>function Person(name, age, sex){
+    this.name = name;
+    this.age = age;
+    this.sex = sex;
 }
-</code></pre><p><img src="https://i.imgur.com/stB73S6.png" alt=""></p>
-<p>这次我们惊奇的发现，<font color="red">这两个div上下之间的距离，并不是我们所想的那样是相加的20px，而是只有10px！</font></p>
-<p>这个现象就是标题所说的<font color="red">margin上下合并现象</font>。</p>
-<p>我们尝试改变每一个div的margin-top或者margin-bottom的值，最后发现：二者上下之间的距离是取得两个数值之中的<font color="red">最大值</font>。</p>
-<p>如果div.top的margin-bottom是100px，div.bottom的margin-top是50px的话，那么二者之间的距离就是100px。</p>
-<h4 id="margin塌陷现象"><a href="#margin塌陷现象" class="headerlink" title="margin塌陷现象"></a><font color="red">margin塌陷现象</font></h4><p>  • 我们现在写两个span标签，并且给它们两个分别加上margin-right和margin-left的样式。</p>
-<pre><code>&lt;div class=”wrapper”&gt;
-  &lt;div class=”content”&gt;&lt;/div&gt;
-&lt;/div&gt;
+function Student(name, age, sex, grade){
+    Person.call(this, name, age, sex);
+    this.grade = grade;
+}
+var student = new Student();
+</code></pre><h4 id="模式三"><a href="#模式三" class="headerlink" title="模式三"></a><font color="red">模式三</font></h4><pre><code>Father.prototype.lastName = &quot;Deng&quot;;
+function Father(){ 
 
- .wrapper {
-      width: 100px;
-      height: 100px;
-      margin-top: 100px;
-      margin-left: 100px;
-      background-color: yellow;
-    }
- .content {
-        width: 50px;
-        height: 50px;
-        margin-top: 50px;
-        margin-left: 50px;
-        background-color: red;
-    }
-</code></pre><p>我们写这段代码的原意是想要一个100100大小的父级div，然后里面有一个5050大小的子级div，然后让这个div在父级div的右下角，同时父级div距离浏览器的边框有100px的距离。</p>
-<p><img src="https://i.imgur.com/zFVpZHv.png" alt=""></p>
-<p>当我们运行这段代码的时候，我们会发现，子级div的margin-left生效了但是好像margin-top并没有生效？</p>
-<p><img src="https://i.imgur.com/SyDpNRF.png" alt=""></p>
-<p>其实并不是，margin-top也生效了，但是这里的margin-top的效果并不是我们所想的那样距离父级div的距离是50px，而是子级的div距离浏览器边框的距离是50px，由于本身父级div有一个margin-top的值，所以就导致了我们子级的margin-top的效果并没有显现出来，我们再改变一下子级div的margin-top的值，改成200px，我们又会惊奇的发现，子级div不仅没有距离父级div有了一段距离，<font color="red">反而带动了父级div一起向下移动了</font>！这就是margin塌陷现象。</p>
-<h4 id="那么对于这两个问题我们要怎么解决呢？"><a href="#那么对于这两个问题我们要怎么解决呢？" class="headerlink" title="那么对于这两个问题我们要怎么解决呢？"></a><font color="red">那么对于这两个问题我们要怎么解决呢？</font></h4><p><strong><font color="red">margin塌陷的解法</font></strong></p>
-<p>解法一共有两种：</p>
-<p>1.利用<font color="red">border</font>来触发<font color="red">bfc</font>的效果。</p>
-<p>2.利用<font color="red">overflow</font>属性来触发<font color="red">bfc</font>的效果。</p>
-<p>• <font color="red">那么什么是bfc呢？</font></p>
-<p>bfc全称是block format context——块级格式化上下文，我们有一些css语法会触发bfc，从而带来的效果是我们触发bfc的元素的渲染规则和普通元素的渲染规则变得不一样，从而可以解决塌陷问题。</p>
-<p>margin塌陷的问题很容易让我们联想到，子级div之所以没有相对父级移动，是因为它看不到父级的边界，只能看到浏览器的边界，这样我们给父级加一个子级能看到的边界，这个问题是不是就解决了？</p>
-<p>所以我们在父级div.wrapper里面添加一个属性<font color="blue">：border-top: 1px solid red;</font>现在我们再来看一下效果，发现果然content和wrapper解除了绑定，子级div能看到父级的边界了。但是这样就会改变父级div的样式，不符合开发要求，<font color="red">因此这种方法虽然可以解决问题但是是完全无法使用的</font>。</p>
-<p>• <font color="red">什么又是overflow呢？</font></p>
-<p>overflow是一个css属性，它可以设置当内容区超过了当前元素的区域的时候，我们采取怎样的处理方式，这个属性也可以触发bfc。</p>
-<p>现在我们可以在父级div.wrapper里面加一条属性<font color="blue">：overflow:hidden;</font>这条属性的意思是溢出隐藏。现在我们可以发现，在外观没有改变的同时，子级div和父级div解除了绑定，也可能正常移动了！<font color="red">因此我们一般采用这种方式来解决margin塌陷的问题</font>。</p>
-<p>虽然overflow:hidden;的方式可以采用，但是也不是没有缺点的，一旦我们用过js代码改变了子级div的位置，就会有导致子级一部分内容因为溢出被隐藏的风险。</p>
-<p><strong><font color="red">margin合并的解法</font></strong></p>
-<p>了解了margin塌陷的解法之后，我们就很容易可以理解margin合并的解法了。</p>
-<p>我们给每一个div分别加上一个父级包裹层，然后给父级包裹层都加上<font color="red">overflow:hidden;</font></p>
-<pre><code>&lt;div class=”wrapper”&gt;
-  &lt;div class=”top”&gt;top&lt;/div&gt;
-&lt;/div&gt;
+}
+function Son(){
+}
+Son.prototype = Father.prototype; 
+var son = new Son();
+//或抽象出一个继承方法    但是如果son想修改原型father也会发生改变
+Father.prototype.lastName = &quot;Deng&quot;;
+function Father(){ 
 
-&lt;div class=”wrapper”&gt;
-  &lt;div class=”bottom”&gt;bottom&lt;/div&gt;
-&lt;/div&gt;
+}
+function Son(){
+}
+function inherit(Target, Origin){
+    Target.prototype = Origin.prototype;
+}
+inherit(Son, Father);
+var son = new Son();
+var father = new Father();
+</code></pre><h4 id="模式四"><a href="#模式四" class="headerlink" title="模式四"></a><font color="red">模式四</font></h4><pre><code>function inherit(Target, Origin){
+    function F(){};
+    F.prototype = Origin.prototype;
+    Target.prototype = new F();
+    Target.prototype.constuctor = Target;//将构造器归位
+    Target.prototype.uber = Origin.prototype;//继承自 找到自己的超类(uber==super)
+}
+Father.prototype.lastName = &quot;Deng&quot;;
+function Father(){ 
 
-  .wrapper{
-    overflow: hidden;
-  }
-  .top {
-    margin-bottom: 100px;
-    background-color: red;
-  }
-  .bottom {
-     margin-top: 100px;
-     background-color: red;
-  }
-</code></pre><p>这样通过父级div来触发bfc就可以解决margin合并的问题了。</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/12/CSS之div居中方式/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Wanghai">
-      <meta itemprop="description" content="Wanghai个人站，主要涉及前端知识共享、实践教程、前沿技术共同学习等方面">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="welcome">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2018/11/12/CSS之div居中方式/" class="post-title-link" itemprop="http://yoursite.com/page/2/index.html">CSS之div居中方式</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2018-11-12 17:16:33" itemprop="dateCreated datePublished" datetime="2018-11-12T17:16:33+08:00">2018-11-12</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2018-12-13 15:39:07" itemprop="dateModified" datetime="2018-12-13T15:39:07+08:00">2018-12-13</time>
-              
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <pre><code>    方法一:
-.wrapper {
-    position: relative;
-  }
-  .demo {
-    width: 200px;
-    height: 100px;
-    background: red;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    margin-top: -50px;
-    margin-left: -100px;
-  }
-&lt;div class=&quot;wrapper&quot;&gt;
-  &lt;div class=&quot;demo&quot;&gt;&lt;/div&gt;
-&lt;/div&gt;
-
-方法二:
-.wrapper {
-    position: relative;
-  }
-  .demo {
-    width: 200px;
-    height: 100px;
-    background: red;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }
-&lt;div class=&quot;wrapper&quot;&gt;
-  &lt;div class=&quot;demo&quot;&gt;&lt;/div&gt;
-&lt;/div&gt;
-
-方法三:
- .wrapper {
-    width: 500px;
-    height: 500px;
-    border: 1px solid black;
-    position: relative;
-  }
-  .demo {
-    width: 200px;
-    height: 100px;
-    background: red;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    margin: auto;
-  }
-&lt;div class=&quot;wrapper&quot;&gt;
-  &lt;div class=&quot;demo&quot;&gt;&lt;/div&gt;
-&lt;/div&gt;
-
-方法四:
-.wrapper {
-    width: 500px;
-    height: 500px;
-    border: 1px solid black;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .demo {
-    width: 200px;
-    height: 100px;
-    background: red;
-  }
-&lt;div class=&quot;wrapper&quot;&gt;
-  &lt;div class=&quot;demo&quot;&gt;&lt;/div&gt;
-&lt;/div&gt;
-
-方法五:
-.wrapper {
-    width: 500px;
-    height: 500px;
-    border: 1px solid black;
-    line-height: 500px;
-    text-align: center;
-  }
-  .demo {
-    width: 200px;
-    height: 100px;
-    background: red;
-    display: inline-block;
-    vertical-align: middle;
-  }
-&lt;div class=&quot;wrapper&quot;&gt;
-  &lt;div class=&quot;demo&quot;&gt;&lt;/div&gt;
-&lt;/div&gt;
+}
+function Son(){
+}
+inherit(Son, Father);
+var son = new Son();
+var father = new Father();
+Son.prototype.sex = &quot;male&quot;;
+//此时修改son的原型上的属性不会影响father
 </code></pre>
           
         
@@ -794,7 +526,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/11/CSS之switch控件/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/22/函数作用域与闭包/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Wanghai">
@@ -814,7 +546,7 @@
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2018/11/11/CSS之switch控件/" class="post-title-link" itemprop="http://yoursite.com/page/2/index.html">CSS之switch控件</a>
+                <a href="/2018/11/22/函数作用域与闭包/" class="post-title-link" itemprop="http://yoursite.com/page/2/index.html">函数作用域与闭包</a>
               
             
           </h1>
@@ -839,7 +571,7 @@
                 
               
 
-              <time title="Created: 2018-11-11 17:16:33" itemprop="dateCreated datePublished" datetime="2018-11-11T17:16:33+08:00">2018-11-11</time>
+              <time title="Created: 2018-11-22 17:16:33" itemprop="dateCreated datePublished" datetime="2018-11-22T17:16:33+08:00">2018-11-22</time>
             
 
             
@@ -856,7 +588,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2018-12-13 18:18:15" itemprop="dateModified" datetime="2018-12-13T18:18:15+08:00">2018-12-13</time>
+                <time title="Modified: 2018-12-18 16:04:24" itemprop="dateModified" datetime="2018-12-18T16:04:24+08:00">2018-12-18</time>
               
             
           </span>
@@ -891,59 +623,135 @@
       
         
           
-            <p><img src="https://i.imgur.com/p6gJepo.png" alt=""><img src="https://i.imgur.com/C2YEtAp.png" alt=""></p>
-<pre><code>&lt;style&gt;
-    .switch{
-        width: 400px;
-        height: 400px;
-        position: absolute;
-        left: 50%;
-        top: 50%;
-        margin-top: -200px;
-        margin-left: -100px;
+            <h2 id="函数部分"><a href="#函数部分" class="headerlink" title="函数部分"></a><font color="red">函数部分</font></h2><p>我们的函数声明有两种方式：</p>
+<p>1.<font color="red">var demo = function () {} 函数表达式</font></p>
+<pre><code>注意: 下面这些也属于函数表达式  
+       = function(){}     
+       ! function(){}
+       + function(){}
+       - function(){}
+</code></pre><p>2.<font color="red">function demo () {} 函数声明</font></p>
+<p>3.var demo = function xxx() {} 命名函数表达式</p>
+<p>• 每一个函数里面都有一个类似数组的<font color="red">类数组属性arguments</font>，这个属性里面存的就是<font color="red">实参</font>。</p>
+<p>arguments[0]就可以查看我们传递的第一个实参了。</p>
+<p>函数有一个<font color="red">length属性</font>，这个length储存的是<font color="red">形参的数量</font>。</p>
+<p>• 每一个函数都会有一个return，如果不写的话函数会自动加上一个return;</p>
+<p>return的功能有两个：</p>
+<p>1.返回这个函数的<font color="red">执行结果</font>。</p>
+<p>2.<font color="red">终止函数的执行</font>。</p>
+<pre><code>function test(a, b){
+    console.log(a + b);
+    return ;
+    console.log(&apos;hello&apos;);
+}
+test(1, 2);// 3 没有打印hello
+</code></pre><h2 id="作用域"><a href="#作用域" class="headerlink" title="作用域"></a><font color="red">作用域</font></h2><p>定义：变量（变量作用域又称为上下文）和函数生效（能被访问）的区域。</p>
+<p><font color="red"><strong>javascript的函数，是可以产生作用域的！！</strong></font><br>es5中的作用域大概只有全局作用域和函数作用域两种，es6中新添加了块级作用域。</p>
+<pre><code>var demo = 123;// 全局变量
+function test(){
+    var demo = 234;// 局部变量
+    console.log(demo);
+    var demo1 = &apos;hello&apos;;
+}
+test();// 234 就近打印局部变量，没有局部变量的时候才会打印全局的。
+console.log(demo1); // 报错 我们的全局作用域无法访问函数的局部作用域
+</code></pre><p>• 有一点要注意的是，如果在函数作用域里面声明变量<font color="red">没有用var的话</font>，那么就声明了一个全局变量。<br>• 同时，两个不同作用域（除了全局作用域）之间是不能互相访问的。</p>
+<h2 id="作用域链"><a href="#作用域链" class="headerlink" title="作用域链"></a><font color="red">作用域链</font></h2><p>既然函数存在函数作用域，函数又可以嵌套，那么作用域之间自然就会产生嵌套关系，这个时候就产生了作用域链。<br>当代码在一个环境中执行时，会创建变量对象的一个作用域链（scope chain）来保证对执行环境<font color="red">有权</font>访问的变量和函数的<font color="red">有序</font>访问。作用域第一个对象始终是当前执行代码所在环境的变量对象。</p>
+<pre><code>function demo() {
+    var demo_a = 1;
+    function test() {
+        var demo_a = 2;
+        console.log(demo_a);
     }
-    .switch input{
-        display: none;
+    test();
+}
+demo();
+</code></pre><p>• 在这个例子中，demo运行的时候，首先创建了一个demo的作用域，但是window本身还有一个全局作用域，这就让demo产生了一个作用域链。本着对执行环境的有权和有序访问，每个函数的自身的作用域总是在作用域链的最顶层，下一层是这个函数的父级函数的作用域，再下面是父级的父级的作用域，直到全局作用域。</p>
+<p>• 因此这个例子中的test函数执行时候打印的demo_a是它本身的作用域中的demo_a，而不是demo函数作用域下的demo_a，如果test函数作用域中没有demo_a这个变量的话，系统才会沿着作用域链向下找到demo作用域中的demo_a变量。</p>
+<h2 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a><font color="red">闭包</font></h2><p>闭包是一个非常非常重要的知识点，我在网上看到过许多的定义，但是都有点繁琐，这里的知识点是我简单化的总结的。</p>
+<p>什么是闭包？</p>
+<p>我的理解是，<font color="red"><strong>闭包就是能够读取其他函数内部变量的函数</strong></font>。</p>
+<p>我们前面提到过，不同作用域之间不能够互相访问，但是我们如果在一个<font color="red">函数内部再定义一个函数</font>，并且这个<font color="red">内部函数与外部函数的变量有关联</font>，那么我们就可以通过<font color="red">返回这个内部的函数</font>，然后<font color="red">来访问外部函数里面的变量</font>。</p>
+<p>所以，在本质上，闭包就是将函数内部和函数外部连接起来的一座桥梁。</p>
+<pre><code>function a(){
+    var demo1 = 123;
+    add = function(){
+        demo1++;
+    } 
+    return function(){
+        console.log(demo1);
+    };
+}
+var demo = a();
+demo();// 123
+add();
+demo();// 124
+</code></pre><p>当函数执行完之后，函数的执行上下文就会被销毁，自然我们就无法访问里面的变量了，但是我们这个函数返回了一个<font color="red">依赖于这个函数的新函数，也就是说这个没有被销毁的新函数的作用域链中还存在着对原本函数的作用域的引用</font>，就导致我们原本的函数的上下文不会被销毁，我们<font color="red">称返回的这个新函数是原本函数的闭包函数</font>。</p>
+<p>在上面的例子中，a函数内部有一个全局的函数add和一个局部变量demo1，我们这个把返回函数给了一个全局变量demo进入到了内存中，但是由于这个返回的新函数依赖于本来的a函数，这就导致本来的a函数的上下文不会被销毁。</p>
+<p>这里我们的打印函数一共运行了两次，都能打印出来值，说明a函数的demo1变量在函数执行完之后并没有被销毁而是存到了内存中。</p>
+<p>其次，add的值是一个匿名函数，而这个匿名函数本身也是一个闭包，所以add相当于是一个setter叠加器，可以在函数外部对函数内部的局部变量进行操作。</p>
+<p><strong><font color="red">使用闭包的注意点</font></strong></p>
+<p>1.由于闭包会使得函数中的变量都被保存在内存中，<font color="red">内存消耗很大</font>，所以不能滥用闭包，否则会造成网页的性能问题，在IE中可能导致<font color="red">内存泄露</font>。</p>
+<p>解决方法是，<font color="red">在退出函数之前，将不使用的局部变量全部删除</font>。</p>
+<p>2.闭包会在父函数外部，改变父函数内部变量的值。所以，如果你把<font color="red">父函数当作对象</font>使用，把<font color="red">闭包当作它的公用方法</font>，把<font color="red">内部变量当作它的私有属性</font>，这时一定要小心，<strong><font color="red">不要随便改变父函数内部变量的值</font></strong>。</p>
+<p><strong><font color="red">闭包的作用</font></strong></p>
+<p><strong>1.实现公有变量</strong></p>
+<pre><code>function add(){
+    var count = 0;
+    function demo(){
+        count ++;
+        console.log(count);
     }
-    .switch label{
-        font-size: 100px;
-        position: absolute;
-        top: 20px;
-        display: block;
+    return demo;
+}
+var counter = add();
+counter();counter();counter();counter();
+</code></pre><p><strong>2.可以做缓存</strong></p>
+<pre><code> function test(){
+    var num = 100;
+    function a(){
+        num ++;
+        console.log(num);
+    }   
+    function b(){
+        num --;
+        console.log(num);
     }
-    .switch label::before{
-        content: &apos;&apos;;
-        position: absolute;
-        width: 2em;
-        height: 1em; 
-        left: 0;
-        border-radius: 50px;
-        background: #ff5000;
-        box-shadow: inset 0px 2px 5px rgba(238, 93, 10, 0.993);
+    return [a, b];
+}
+var myArr = test();
+myArr[0]();
+myArr[1]();
+</code></pre><p><strong>3.可以实现封装，属性私有化</strong></p>
+<pre><code>function Deng(name, wife){
+     var prepareWife = &quot;xiaozhang&quot;
+    this.name = name;
+    this.wife = wife;
+    this.divorce = function (){
+        this.wife = prepareWife;
     }
-    .switch label::after{
-        content: &apos;&apos;;
-        position: absolute;
-        width: 1em;
-        height: 1em;
-        left: 0;
-        border-radius: 50px;
-        background: #fcfff4;
-        box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, .3);
-        transition: .8s;
+    this.changePrepareWife = function(target){
+        prepareWife = target;
     }
-    #ckbx:checked +label::before{
-        background: #70c183;
-        box-shadow: inset 0px 1px 1px rgba(84, 153, 0, .3);
+    this.sayPrepareWife = function(){
+        console.log(prepareWife);
     }
-    #ckbx:checked +label::after{
-        left: 1.1em;
-    }
-&lt;/style&gt;
-&lt;div class=&quot;switch&quot;&gt;
-    &lt;input type=&quot;checkbox&quot; id=&quot;ckbx&quot;&gt;
-    &lt;label for=&quot;ckbx&quot;&gt;&lt;/label&gt;
-&lt;/div&gt;
+
+}
+var deng = new Deng(&apos;deng&apos;, &apos;xiaoliu&apos;)
+//里面三个函数和Deng这个函数都形成了闭包,只能通过函数去修改prepareWife属性
+</code></pre><h2 id="立即执行函数"><a href="#立即执行函数" class="headerlink" title="立即执行函数"></a><font color="red">立即执行函数</font></h2><p>立即执行函数是解闭包的一个重要方法。但是注意<font color="red">闭包是没有办法解除</font>的，我们只能通过另一个新闭包来消除上一个闭包的影响。</p>
+<p><strong>定义：立即执行函数不需要被定义，直接执行，执行完毕之后直接释放。</strong></p>
+<p>立即执行函数的写法：</p>
+<p><strong>1.(function (a) {})(num);</strong></p>
+<p><strong>2.(function (a) {} (num))</strong>   W3C建议第二种</p>
+<p>传递的参数是a，a的实参值是num，num是我们在外面定义的变量。</p>
+<p><strong>例</strong></p>
+<pre><code>(function (a,b,c){
+    var d = a+b+c;
+    return d;
+}(1,2,3));
+// 打印6
 </code></pre>
           
         
@@ -1000,7 +808,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/10/CSS图片代替文本/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/21/原型/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Wanghai">
@@ -1020,7 +828,7 @@
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2018/11/10/CSS图片代替文本/" class="post-title-link" itemprop="http://yoursite.com/page/2/index.html">CSS图片代替文本</a>
+                <a href="/2018/11/21/原型/" class="post-title-link" itemprop="http://yoursite.com/page/2/index.html">原型</a>
               
             
           </h1>
@@ -1045,7 +853,7 @@
                 
               
 
-              <time title="Created: 2018-11-10 17:16:33" itemprop="dateCreated datePublished" datetime="2018-11-10T17:16:33+08:00">2018-11-10</time>
+              <time title="Created: 2018-11-21 17:16:33" itemprop="dateCreated datePublished" datetime="2018-11-21T17:16:33+08:00">2018-11-21</time>
             
 
             
@@ -1062,7 +870,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2018-12-13 15:38:44" itemprop="dateModified" datetime="2018-12-13T15:38:44+08:00">2018-12-13</time>
+                <time title="Modified: 2018-12-18 14:23:06" itemprop="dateModified" datetime="2018-12-18T14:23:06+08:00">2018-12-18</time>
               
             
           </span>
@@ -1097,45 +905,154 @@
       
         
           
-            <p><strong><font color="red">在浏览网站时</font>有这样一种情况:</strong></p>
-<p>如果可能网速不好的时候，如果本来要加载图片的位置加载不出来，而且用户需要点击改图片实现其他操作这个时候，无法点击图片怎么办?</p>
-<p>我们用图片代替文本，在网速不好的时候或者没有CSS，JS的时候依然能使用或展示出来功能</p>
-<pre><code>方法一:
-&lt;style&gt;
- a{
-      display: inline-block;
-      text-decoration: none;
-      color: #424242;
-      border:1px solid black;
-      background-image:url();
-      background-size: 190px 90px;
-      width: 190px;
-      height: 0px;      
-      padding-top: 90px;    
-      overflow: hidden; 
-    }
-&lt;/style&gt;
-&lt;a href=&quot;http://www.taobao.com&quot; target=&quot;_blank&quot;&gt;淘宝网&lt;/a&gt;
+            <h2 id="原型"><a href="#原型" class="headerlink" title="原型"></a><font color="red">原型</font></h2><p>1.<strong><font color="red">定义</font></strong>:原型是function对象的一个<font color="red">属性</font>，它定义了构造函数制造出的对象的<font color="red">公共祖先</font>。<br>通过该构造函数产生的对象，可以<font color="red">继承该原型的属性和方法</font>。<strong><font color="red">原型也是对象</font></strong><br>2.利用原型特点和概念，可以提取共有属性<br>3.对象如何查看原型–&gt;隐式属性<strong>proto</strong><br>4.对象如何查看对象的构造函数–&gt;constructor</p>
+<pre><code>//Person.prototype      -- 原型
+//Person.prototype = {}     是祖先
+</code></pre><p>1.<font color="red">增</font></p>
+<pre><code>Person.prototype.name = &quot;hehe&quot;;
+function Person() {
 
-方法二:
-&lt;style&gt;
- a{
-      display: inline-block;
-      text-decoration: none;
-      color: #424242;
-      border:1px solid black;
-      background-image:url();
-      background-size: 190px 90px;
-      width: 190px;
-      height: 90px;
-      text-indent: 200px;   
-      white-space: nowrap;  
-      overflow: hidden; 
-    }
-&lt;/style&gt;
-&lt;a href=&quot;http://www.taobao.com&quot; target=&quot;_blank&quot;&gt;淘宝网&lt;/a&gt;
-</code></pre><p>  因为padding可以展示图片</p>
+}
+var person = new Person();
+console.log(person.name);// &quot;hehe&quot;
+</code></pre><p>2.<font color="red">改</font></p>
+<pre><code>Person.prototype.name = &quot;haha&quot;;
+console.log(person.name);// &quot;haha&quot;
+</code></pre><p>3.<font color="red">删</font></p>
+<pre><code>Person.prototype.name = &quot;hehe&quot;;
+function Person() {}
+var person = new Person();
+delete Person.prototype.name;
+console.log(person.name);// undefined
+</code></pre><p>我们可以在prototype上面添加属性和方法，每一个构造出来的对象都可以继承这些属性和方法。</p>
+<p>虽然每一个对象都是独立的，但是他们都有共同的祖先，当我们访问这个对象的属性的时候，<font color="red">如果它没有这个属性，就会向上找到它的原型，然后在原型上访问这个属性</font>。</p>
+<p><strong>例1.</strong>提取共有属性  </p>
+<pre><code>Car.prototype.height = 1400;
+Car.prototype.lang = 4900;
+Car.prototype.carName = &quot;BMW&quot;;
+function Car(color, owner){
+    this.color = color;
+    this.owner = owner;
+}
+var car = new Car(&apos;red&apos;, &apos;prof.ji&apos;);
+var car1 = new Car(&apos;blue&apos;, &apos;abc&apos;);
+</code></pre><p><strong>例2.</strong></p>
+<pre><code> Car.prototype = {
+    height : 1400,
+    lang : 4900,
+    carName : &quot;BMW&quot;
+}
+function Car(){
+}
+var car = new Car();
+</code></pre><p><strong><font color="red">对象如何查看原型</font></strong></p>
+<p>前面我们提到了构造函数可以通过.prototype的方法来查看构造函数的原型，那么我们怎么查看对象的原型呢？<br>我们前面提到过用构造函数构造对象的时候，会隐式创建一个this对象，这个this对象里面有一个默认的属性叫做<font color="red">proto</font>属性，这个属性的值就是指向的这个对象的原型。</p>
+<pre><code>var this = {
+    // xxx
+    __proto: Person.prototype;
+}
+</code></pre><p>注意:Person对象的原型<font color="red">未必一定</font>是Person.prototype 可以修改、<font color="red">prototype是函数的属性，proto是对象的属性</font>。</p>
+<p>当查找的属性是自身没有的属性的时候，就会先查找proto这个属性，然后这个属性指向了原型，所以就到原型上面继续查找属性了。</p>
+<p><strong><font color="red">对象如何查看构造自身的构造函数</font></strong></p>
+<p>在prototype里面，有一个隐式的属性叫做<font color="red">constructor</font>，这个属性记录的就是<font color="red">对象的构造器</font>，里面存的就是构造函数。</p>
+<pre><code>Person.prototype.name = &quot;hehe&quot;;
+function Person() {}
+var person = new Person();
+console.log(person.constructor);// Person();
+</code></pre><h2 id="原型链"><a href="#原型链" class="headerlink" title="原型链"></a><font color="red">原型链</font></h2><p>有了原型，原型还是一个对象，那么这个名为原型的对象自然还有自己的原型，这样的原型上还有原型的结构就构成了原型链。</p>
+<pre><code>Grand.prototype.lastName = &quot;Deng&quot;;
+function Grand(){
+}
+var grand = new Grand();
+Father.prototype = grand;
+function Father(){ 
+    this.name = &quot;xuming&quot;;
+    this.fortune = {
+        card1 : &apos;visa&apos;
+    };
+    this.num = 100;
+}
+var father = new Father();
+Son.prototype = father;
+function Son(){
+    this.hobbit = &quot;smoke&quot;;
+}
+var son = new Son();
+</code></pre><p>son可以访问到father以及grand的属性 甚至可以访问到Object.prototype的所有属性<br>调用引用值修改(仅限引用值)<br>其实，<font color="red">绝大部分的对象最终都会继承自<strong>Object.prototype</strong>这个对象</font>。</p>
+<p><font color="red">我们没有规定原型的对象，它们的原型就是<strong>Object.prototype</strong></font>。</p>
+<pre><code>son.fortune.card2 = &quot;master&quot;;
+son.num++
+console.log(son.num);// 101
+console.log(father.num);// 100
+</code></pre><p>但是<font color="red">并不是所有的对象都有原型</font>。</p>
+<p>我们上一篇提到过第三种构造对象的方法，使用<font color="red">Object.create</font>方法。</p>
+<p>Object.create()方法需要写一个参数，这个参数就是我们这个对象的<font color="red">原型</font>。如果我们想要构造和var obj = {};一样的空对象，那么就需要写：</p>
+<pre><code>var obj = Object.create(Object.prototype);
+</code></pre><p>但是，当我们写<font color="red">参数为null</font>的时候，我们就构造出来了一个<font color="red">没有原型的对象</font>。</p>
+<pre><code>var obj = Object.create(null);
+console.log(obj.proto);// undefined
+</code></pre><p><font color="red">undefined null也都没有原型</font>。它们之所以能打印出来，是因为不调用任何方法的，直接打印出来。</p>
+<h4 id="更多例子"><a href="#更多例子" class="headerlink" title="更多例子"></a><font color="red">更多例子</font></h4><p><strong>例1</strong></p>
+<pre><code>Person.prototype.name = &quot;sunny&quot;;
+function Person(){
 
+}
+var person = new Person();
+Person.prototype.name = &quot;cherry&quot;;//此处只是改变原对象里面的值 即Person.prototype = {name : &apos;xxx&apos;}
+console.log(person.name);
+</code></pre><p><strong>例2</strong></p>
+<pre><code>Person.prototype.name = &quot;sunny&quot;;
+function Person(){
+
+}
+var person = new Person();
+Person.prototype = {    // 新引用
+    name : &quot;cherry&quot;
+}
+console.log(person.name);
+
+//person.prototype的引用指向并没有发生改变
+//解释: Person.prototype = {name : &apos;a&apos;};
+//      __proto__ = Person.prototype;
+//      Person.prototype = {name : &apos;b&apos;};
+</code></pre><p><strong>例3</strong></p>
+<pre><code>Person.prototype.name = &quot;sunny&quot;;
+function Person(){
+
+}
+Person.prototype = {    
+   name : &quot;cherry&quot;
+}
+var person = new Person();
+console.log(person.name);
+
+//person.prototype的引用指向了新的Person.prototype
+</code></pre><p><strong>例4</strong></p>
+<pre><code>Person.prototype = {
+    name : &apos;a&apos;,
+    sayName : function(){
+        console.log(this.name);
+    }
+}
+function Person(){
+    this.name = &apos;b&apos;;
+}
+var person = new Person();
+
+//a.sayName()   sayName里面的this指向是，谁调用的这个方法，this就是指向谁
+//person.sayName();// b
+//person.prototype.sayName();// a
+</code></pre><p>方法的重写:将原型链上的toString方法重写</p>
+<pre><code>Person.prototype = {
+    toString : function(){
+        return &quot;hehe&quot;;
+    }
+}
+function Person(){
+}
+var person = new Person();
+person.toString();// &quot;hehe&quot;
+</code></pre>
           
         
       
@@ -1191,7 +1108,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/09/blog9/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/20/对象与构造函数与包装类/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Wanghai">
@@ -1211,7 +1128,7 @@
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2018/11/09/blog9/" class="post-title-link" itemprop="http://yoursite.com/page/2/index.html">CSS定位与层模型</a>
+                <a href="/2018/11/20/对象与构造函数与包装类/" class="post-title-link" itemprop="http://yoursite.com/page/2/index.html">对象与构造函数与包装类</a>
               
             
           </h1>
@@ -1236,7 +1153,7 @@
                 
               
 
-              <time title="Created: 2018-11-09 17:16:33" itemprop="dateCreated datePublished" datetime="2018-11-09T17:16:33+08:00">2018-11-09</time>
+              <time title="Created: 2018-11-20 17:16:33" itemprop="dateCreated datePublished" datetime="2018-11-20T17:16:33+08:00">2018-11-20</time>
             
 
             
@@ -1253,7 +1170,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2018-12-13 15:38:01" itemprop="dateModified" datetime="2018-12-13T15:38:01+08:00">2018-12-13</time>
+                <time title="Modified: 2018-12-18 16:53:35" itemprop="dateModified" datetime="2018-12-18T16:53:35+08:00">2018-12-18</time>
               
             
           </span>
@@ -1288,169 +1205,1368 @@
       
         
           
-            <h3 id="层模型"><a href="#层模型" class="headerlink" title="层模型"></a><center><font color="red" size="5">层模型</font></center></h3><p>css中元素的层次模型主要是由<font color="red">position</font>这个属性来决定的。</p>
-<p>position属性：position的意思是定位，同样这个属性的作用就是<font color="red">给元素施加定位</font>。它一共有四个值，分别是<font color="red">static、absolute、relative、fixed</font>。</p>
-<p><strong><font color="red" size="4">static</font></strong></p>
-<p>• static是<font color="red">默认</font>的属性，当我们没有写position属性的时候，元素默认的定位就是static定位。</p>
-<p><strong><font color="red" size="4">absolute</font></strong></p>
-<p> • absolute是<font color="red">绝对定位</font>的意思，它会使元素<font color="red">脱离本来的位置</font>再进行定位，它会使元素像立交桥一样出现空间上的分层，当元素脱离原来的位置之后，其他的元素就会看不到这个元素。同时，<font color="red">absolute也可以触发bfc</font>。</p>
-<p>• 同时，当我们改变定位之后，这个元素就有四个属性可以使用了，分别是<font color="red">left、right、top、bottom</font>。这四个属性分别可以设置当前元素距离左边、右边、上边和下边的距离为多少，但是四个属性很少一起出现，一般都是两两一对出现，其中left和top是一对，right和bottom是一对。</p>
-<pre><code>div {
-
-  width: 100px;
-
-  height:100px;
-
-  position: absolute;
-
-  left: 100px;
-
-  top: 100px;
-
+            <h2 id="对象创建方法"><a href="#对象创建方法" class="headerlink" title="对象创建方法"></a><font color="red">对象创建方法</font></h2><p>对象的创建方法有三种：</p>
+<ol>
+<li><p><strong><font color="red">对象字面量</font></strong></p>
+<pre><code>var obj = {}
+</code></pre></li>
+</ol>
+<p>这样的方式就叫做字面量，也是我们<font color="red">创建对象最简单最常用</font>的方法。</p>
+<p>对象里面有属性，属性之间用逗号分隔，每一条属性都有属性名和属性值，属性名和属性值之间用分号分隔。</p>
+<ol start="2">
+<li><strong><font color="red">构造函数</font></strong></li>
+</ol>
+<p>构造函数也分两种：<font color="red">系统自带的构造函数</font>和我们<font color="red">自定义的构造函数</font>。</p>
+<p>• <font color="red">系统自带的构造函数</font></p>
+<p>创建对象的构造函数是Object()。</p>
+<pre><code>var obj = new Object();
+</code></pre><p>它的作用和var obj = {};的作用是一样的。</p>
+<p>系统自带的构造函数还有很多，比如Number()、String()、Boolean()、Array()这些都是构造函数。</p>
+<p>• <font color="red">自定义构造函数</font></p>
+<p>自定义的构造函数是我们平时<font color="red">最常用的一种构造函数</font>。</p>
+<p>构造函数也是正常的函数，我们为了区分它和别的正常函数，把构造函数的首字母大写。</p>
+<pre><code>function Persion(){}
+</code></pre><p>有了构造函数之后，我们就可以用new操作符来创建对象了。</p>
+<pre><code>var oPerson = new Person();
+typeof oPerson;// object
+</code></pre><p>这样我们也创建了一个对象oPerson，不过现在这个对象是空对象，因为我们的构造函数什么都没有写，我们也没有给这个对象添加任何属性。</p>
+<p>另外，用new操作符创建出来的对象，尽管都是使用的同一个构造函数，但是之间是没有关联的。</p>
+<pre><code>var person1 = new Person();
+var person2 = new Person();
+person1.name = &apos;111&apos;;
+console.log(person2.name);// undefined
+</code></pre><p>我们可以在构造函数里面写一些对象天生就有的默认属性。</p>
+<pre><code>function Person() {
+    this.name = &apos;scarlett&apos;,
+    this.age = 17
 }
-</code></pre><p>这个div就会脱离原来的位置，然后距离浏览器上边框和左边框分别100px的距离。</p>
-<p> • 最后一点，absolute的参照物是<font color="red">距离它最近的有定位（除了static）的父级</font>，当每一个父级都没有定位的时候，元素会相对于<font color="red">浏览器边框</font>进行定位。</p>
-<p><strong><font color="red" size="4">relative</font></strong></p>
-<p>• relative是<font color="red">相对定位</font>的意思，它会让元素保留原来的位置再进行定位，后面的元素可以看到它本来的位置。</p>
-<p>• 当position改成relative之后，left、top、right、bottom进行的定位就会变成<font color="red">相对于自身的位置</font>进行移动了。</p>
-<p>• relative的<font color="red">参照物是元素自身</font>。</p>
-<p>• 当我们仅仅给元素设置position:relative;并没有设置left、right、top、bottom属性的时候，元素的定位是没有发生任何改变的，因为这个特性，一般在开发中，<font color="red">relative都是用作设置参照物的</font>，一个absolute元素要相对于那个元素进行移动，就给那个元素设置relative的定位就可以了。</p>
-<font color="red">我们通过例子来看一下absolute和relative的区别。</font>
+var person = new Person();
+person.name;// scarlett
+</code></pre><p>当然构造函数既然是函数，那么就可以传参数。</p>
+<pre><code>function Person(name, age) {
+    this.name = name,
+    this.age = age
+}
+var person = new Person(&apos;scarlett&apos;, 18);
+person.age;// 18
+</code></pre><p>创建对象的时候，<font color="red">只有new才会有this</font>。</p>
+<p>这里有一个重点，<font color="red">为什么我们通过new操作符可以创建互相独立的对象呢</font>？</p>
+<p>其实，当我们用new操作符的时候，这个new在我们的构造函数里面隐式创建了一个this对象，并且最后返回了这个this对象，这也就是为什么我们通过new可以最后创建一个对象的原因了。</p>
+<pre><code>function Person(name) {
+    // var this = {};
+    this.name = name;
+    // return this;
+}
+</code></pre><p>如果我们在构造函数首行手动创建一个对象，比如that对象，然后最后返回了that，那么里面的this就没有用了，我们要为属性赋值就要用that了。</p>
+<pre><code>function person(name) {
+       var that = {
+            name : &apos;scarlett&apos;
+       };
+       that.name = name;
+       return that;
+}
+var person = new Person(&apos;demo&apos;);
+person.name;// demo
+</code></pre><font color="red">重点：如果我们最后返回的对象，那么this就失效，但是如果最后显示返回的是原始值，那么this还是有效的。</font>
 
-<pre><code>&lt;div class=”wrapper”&gt;
+<pre><code>function person(name) {
+       var that = {};
+       that.name = &apos;that&apos;;
+       this.name = &apos;this&apos;;
+       return 123;
+}
+var person = new Person();
+person.name;// this
+</code></pre><ol start="3">
+<li><strong><font color="red">Object.create(原型)</font></strong></li>
+</ol>
+<p>后面原型里面在具体说明</p>
+<h2 id="属性的增删改查"><a href="#属性的增删改查" class="headerlink" title="属性的增删改查"></a><font color="red">属性的增删改查</font></h2><p>1.<strong>增</strong></p>
+<pre><code>var obj = {};
+obj.name = &apos;scarlett&apos;;
+obj.name;// scarlett
+</code></pre><p>我们可以通过对象名+点+属性名的方法来给对象添加新的属性并且赋值。</p>
+<p>这个时候如果我们调用obj.age属性的话，这个属性并不存在，但是obj这个对象是存在的，因此浏览器不会报错，只会打印undefined。</p>
+<p>2.<strong>改</strong></p>
+<p>修改的操作和增加的操作其实是一样的，只要调用相同的属性名然后赋一个新的值就可以了。</p>
+<pre><code>var obj = {
+    name : &apos;scarlett&apos;
+};
+obj.name = &apos;demo&apos;;
+obj.name;// demo
+</code></pre><p>3.<strong>查</strong></p>
+<pre><code>obj.name = &apos;demo&apos;;
+console.log(obj.name);// demo
+</code></pre><p>4.<strong>删</strong></p>
+<p>删除属性的操作我们需要借助<font color="red">delete</font>操作符，这个操作符的作用就是来删除属性的。</p>
+<pre><code>var obj = {
+    name : &apos;scarlett&apos;
+}
+obj.name;// scarlett
+delete obj.name;
+obj.name;// undefined
+</code></pre><h2 id="内置对象和包装类型"><a href="#内置对象和包装类型" class="headerlink" title="内置对象和包装类型"></a><font color="red">内置对象和包装类型</font></h2><p><strong><font color="red">内置对象</font></strong></p>
+<p><strong>内置对象</strong>:就是ES标准中规定的浏览器厂商已经实现的API都叫做内置对象。一共11个</p>
+<p><strong><font color="red">String Number Boolean Array Date Math RegExp Error  Function Object Global全局(Window)</font></strong></p>
+<p>这十一个对象都干了两件事,第一是装数据的,第二为了简化你的操作,提供了很多现成的API让你去操作数据</p>
+<p><strong><font color="red">包装类型</font></strong></p>
+<p><strong>包装类型</strong>:专门封装原始类型的值,并提供操作值得API的对象.</p>
+<p>包装类型的值做了两件事,第一件事:封装一个值,然后还提供了对这个值操作的API.</p>
+<p>如何使用:他都是自动创建,自动销毁</p>
+<p>什么时候创建:在试图用原始类型的值,调用函数时,会自动创建对应类型的包装类型对象.调用完函数后自动释放</p>
+<pre><code>var str = ‘abcd’;
+// var str1 = String(‘abcd’);
+str.length = 2; // str1.length = 2;
+//销毁str1
+console.log(str); // abcd 长度还是4
 
-  &lt;div class=”box”&gt;
+var n = 123.456;
+n.toFixed(2);// &quot;123.46&quot; 内部其实是 new Number(n).toFixed(2);
 
-        &lt;div class=”content”&gt;&lt;/div&gt;
+&quot;张&quot;.charCodeAt();// 24352 内部其实发生了 new String(&quot;张&quot;).charCodeAt();
 
-  &lt;/div&gt;
+// 为什么要有包装类型:因为原始类型的值本身不能有任何属性和函数,放不下
 
-&lt;/div&gt;
+var str = &quot;abc&quot;;
+str += 1;
+var test = typeof(str);
+if(test.length == 6){
+    test.sign = &quot;typeof的返回结果可能为String&quot;;
+    // new String(test).sign = &apos;xxx&apos;;
+}
+// new String(test).sign
+console.log(test.sign);// undefined
+</code></pre>
+          
+        
+      
+    </div>
 
-.wrapper { 
-  width: 200px;
-  height: 200px;
-  background-color: orange;
-  margin-top: 100px;
-  margin-left: 100px;
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/19/js预编译/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wanghai">
+      <meta itemprop="description" content="Wanghai个人站，主要涉及前端知识共享、实践教程、前沿技术共同学习等方面">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="welcome">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2018/11/19/js预编译/" class="post-title-link" itemprop="http://yoursite.com/page/2/index.html">预编译</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-11-19 17:16:33" itemprop="dateCreated datePublished" datetime="2018-11-19T17:16:33+08:00">2018-11-19</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2018-12-18 16:56:17" itemprop="dateModified" datetime="2018-12-18T16:56:17+08:00">2018-12-18</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>• 我们在书写js代码的时候，会发现两点和c/c++语言不同的地方。第一个是当我们在后面定义了一个函数之后，我们在定义函数之前使用这个函数也是可以的。第二个是我们在后面声明的一个变量，但是在前面调用这个变量的时候并不会报错而是undefiend。</p>
+<p>这两点不同在js中被称为<font color="red"><strong>函数声明提升</strong></font>和<font color="red"><strong>变量声明提升</strong></font>，函数声明提升是一种<font color="red"><strong>整体提升</strong></font>，它会把函数声明和函数体一起提升到前面。变量声明提升则是一种<font color="red"><strong>局部提升</strong></font>，它仅仅将变量的声明提前了，但是并没有将赋值也一起提前。</p>
+<p>那么为什么会出现这种提升的现象呢？</p>
+<p>这是因为js运行的时候有一个阶段叫做预编译阶段，而我们的声明提升现象都是发生在预编译的时候哟~</p>
+<h4 id="预编译"><a href="#预编译" class="headerlink" title="预编译"></a><font color="red">预编译</font></h4><p>• js运行三部曲</p>
+<p>1.语法分析</p>
+<p>2.<font color="red">预编译</font></p>
+<p>3.解释执行</p>
+<p>语法分析：js引擎在解析js代码之前，会先通篇扫描一下，找出低级的语法错误，比如写错大括号之类的。</p>
+<p>编译执行：js是一种解释型语言，编译一行执行一行，当语法分析没有问题，并且已经完成预编译阶段之后，就开始解释执行代码。</p>
+<p>这里我们着重介绍预编译。</p>
+<font color="red">预编译前奏</font>
+
+<p>在介绍预编译之前，我们有两个重要概念需要掌握。</p>
+<p>1.<font color="red">imply global 暗示全局变量。</font></p>
+<p>如果任何变量未经声明就赋值使用，此变量就会为全局对象window所有，并且成为window对象的一个属性。</p>
+<pre><code>window.a = 123;
+window.a === a ;// true
+</code></pre><p>或者</p>
+<pre><code>a = 123;
+window.a === a ;// true
+</code></pre><p>2.一切<font color="red">声明</font>的全局变量，都是window的属性。</p>
+<pre><code>var a = 123;
+console.log(window.a);// 123
+</code></pre><p>•这样看不论全局变量有没有声明，似乎都会成为全局对象上的属性，那么两者之间有什么区别呢？<br>区别在于：<font color="red">经过声明的全局变量不能通过delete操作来删除，但是未经声明的全局变量可以被删除。</font></p>
+<pre><code>a = 123;
+console.log(window.a === a);// true
+delete window.a;
+console.log(window.a);// undefiend
+var b = 123;
+delete window.b;
+console.log(window.b);// 123
+</code></pre><p>正是这一种特性，导致es5有一种弊端，我们总会在无形中声明一些全局变量。</p>
+<pre><code>function test(){
+    var a = b = 0;
+}
+</code></pre><p>这段代码的原意是：在函数体中声明两个变量a、b，然后初始化a、b都是0。但是我们这么写之后，a经过了声明，但是b却没有声明，这时候b就会成为一个全局变量。</p>
+<font color="red">预编译的过程我总结为以下四步：</font>
+
+<p>1.创建<font color="red">AO对象</font>。</p>
+<p>2.<font color="red">寻找形参和变量声明</font>，将变量和形参作为AO对象的属性名添加到对象中，值为undefined。值得注意的是，函数声明不叫变量。</p>
+<p>3.将<font color="red">实参值和形参值</font>相统一。</p>
+<p>4.在函数体里面寻找<font color="red">函数声明</font>，将函数名作为属性名，值为这个函数的函数体。</p>
+<p>函数在执行的前一刻会<font color="red">产生一个上下文</font>，这个上下文就是Activeaction Object对象，简称AO对象。</p>
+<pre><code>即AO = {}
+</code></pre><p>这个对象是空的，但是里面有一些我们看不到的却存在的隐式属性，比如<font color="red">this: window</font>属性和<font color="red">arguments: [];</font>属性</p>
+<p>这个对象用来存放一些属性和方法，这些属性和方法就按照前面的四步来产生。</p>
+<p>这里我们用这一个样例代码来简单介绍一下预编译的过程。</p>
+<pre><code>function fn(a, b){              
+         console.log(a);    
+         function a(){}      
+         a = 222;        
+         console.log(a);                         
+         function b (){}    
+         console.log(b);
+         var b = 111;
+         var a ;                 
+ }                               
+ fn(1);  
+</code></pre><p>第一步:创建一个AO对象</p>
+<pre><code>var AO = {};
+</code></pre><p>第二步:寻找形参值和变量声明，并且将值赋为undefined</p>
+<pre><code>AO = {
+      a: undefiend,  
+      b: undefiend
+}
+</code></pre><p>第三步:将实参值和形参值相统一</p>
+<pre><code>AO = {
+     a: 1,
+     b: undefiend
+}
+</code></pre><p>第四步:寻找函数声明，将函数体赋值给属性</p>
+<pre><code>AO = {
+     a: function(){},
+     b: function(){}
+}
+</code></pre><p>第一个console.log a –&gt; function () {}</p>
+<p>第二个console.log a –&gt; 222 因为执行了a = 222这一行代码，所以重新赋值了。</p>
+<p>第三个console.log b –&gt; function () {}</p>
+<p>• <font color="red">var b = function () {}</font>这种不叫做函数声明，这个函数是赋值给b变量的，b变量是声明。</p>
+<h4 id="更多例子"><a href="#更多例子" class="headerlink" title="更多例子"></a><font color="red">更多例子</font></h4><p>例1</p>
+<pre><code>function test(a, b){
+        console.log(a);
+        c = 0;
+        var c;
+        a = 3;
+        b = 2;
+        console.log(b);
+        function b(){}
+        function d(){}
+        console.log(b);
+}
+test(1);// 可以只传一个参数，即a=1 b=undefined
+
+AO = {
+     a : 1
+     b : function b(){}
+     c : undefined
+     d : function d(){}
+}
+函数执行
+AO = {
+     a : 3
+     b : 2
+     c : 0
+     d : function d(){}
+}
+
+输出结果:1 2 2
+</code></pre><p>例2</p>
+<pre><code>function test(a, b){
+        console.log(a);
+        console.log(b);
+        var b = 234;
+        console.log(b);
+        a = 123;
+        console.log(a);
+        function a(){}
+        var a;
+        b = 567;
+        var b = function(){}
+        console.log(a);
+        console.log(b);
+}
+test(1);
+
+AO = {
+     a : function a(){}
+     b : undefined 
+}
+函数执行
+ AO = {
+     a : 123 
+     b : function(){}
+}
+
+输出结果: function a(){} undefined 234 123 123 function(){}
+</code></pre><p>例3</p>
+<pre><code>var a = 123;
+function a(){} 
+此时生成了一个GO 对象 Global Object     即GO===window   
+GO = {
+     a : 123
+} 
+</code></pre><p>例4</p>
+<pre><code>function test(){
+    var a = b = 123;
+    console.log(window.b);
+    console.log(window.a);
+}
+test();
+
+GO = {
+    b : 123
+}
+AO = {
+    a : undefiend
+}
+
+输出结果: 123 undefined
+</code></pre><p>例5</p>
+<pre><code>console.log(test);
+function test(test){
+        console.log(test);
+        var test = 234;
+        console.log(test);
+        function test(){}
+}
+test(1);
+var test = 123;
+
+GO = {
+    test : function(){
+        // ...
+    }
+}
+AO = {
+    test : function test(){}
+}
+
+输出结果: function test(test){ ... } function test(){} 234
+</code></pre><p>例6</p>
+<pre><code>global = 100;
+function fn(){
+        console.log(global);
+        global = 200;
+        console.log(global);
+        var global = 300;
+}
+fn();
+var global;
+
+GO = {
+    global : 100
+    fn : function fn(){}
+}
+AO = {
+    global : undefiend
+}
+
+输出结果: undefined 200
+</code></pre><p>例7</p>
+<pre><code>function test(){
+        console.log(b);
+        if(a){          // a = undefined 不走if
+            var b = 100;
+        }
+        console.log(b);
+        c = 234;
+        console.log(c);
+}
+var a;
+test();
+a = 10;
+console.log(c);
+
+GO = {
+    a : undefiend
+    test : function test(){}
+    c : undefiend
+}
+AO = {
+    b : undefiend
+}
+
+输出结果: undefiend undefiend 234 234
+</code></pre><p>例8</p>
+<pre><code>function bar(){
+        return foo;// 后面不走 直接返回
+        foo = 10;
+        function foo(){}
+        var foo = 11;
+}
+console.log(bar());
+
+GO = {
+    bar : function(){}
+}
+AO = {
+    foo : function foo(){} 
+}
+
+输出结果: function foo(){}
+</code></pre><p>例9</p>
+<pre><code>console.log(bar());
+function bar(){
+        foo = 10;
+        function foo(){}
+        var foo = 11;
+        return foo;
+}   
+
+GO = {
+    bar : function bar(){}
+}
+AO = {
+    foo : function foo(){}
+}
+
+输出结果: 11
+</code></pre><p>例10</p>
+<pre><code>a = 100;
+function demo(e){
+    function e(){}
+    arguments[0] = 2;
+    console.log(e);
+    if(a){
+        var b = 123;
+        function c(){}
+    }
+    var c;
+    a = 10;
+    var a;
+    console.log(b);
+    f = 123;
+    console.log(c);
+    console.log(a);
+}
+var a;
+demo(1);
+console.log(a);
+console.log(f);
+
+GO = {
+    a : 100
+    demo : function (){}
+    f : 123
+}
+AO = {
+    a : undefiend
+    b : undefiend
+    c : undefiend
+    e : function e(){}
+}
+
+输出结果: 2 undefined undefined 10 100 123
+</code></pre><p>例11</p>
+<pre><code>var x = 1,y = z = 0;
+function add(n){
+    return n = n +1;
+}
+y = add(x);
+function add(n){
+    return n = n + 3;
+}
+z = add(x);
+
+输出结果: x = 1 y = 4 z = 4
+</code></pre>
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/18/数据类型转换/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wanghai">
+      <meta itemprop="description" content="Wanghai个人站，主要涉及前端知识共享、实践教程、前沿技术共同学习等方面">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="welcome">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2018/11/18/数据类型转换/" class="post-title-link" itemprop="http://yoursite.com/page/2/index.html">类型转换</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-11-18 17:16:33" itemprop="dateCreated datePublished" datetime="2018-11-18T17:16:33+08:00">2018-11-18</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2018-12-17 16:08:39" itemprop="dateModified" datetime="2018-12-17T16:08:39+08:00">2018-12-17</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="显示类型转换"><a href="#显示类型转换" class="headerlink" title=" 显示类型转换"></a><font color="red"> 显示类型转换</font></h4><p>类型转换，自然是把数据的类型改变了，那么我们怎么才能知道数据的类型是否发生了改变呢？</p>
+<p>我们有一个操作符<font color="red">typeof</font>可以检测数据的类型。</p>
+<pre><code>console.log(typeof(123)); // number
+</code></pre><p>typeof能返回的类型一共只有6种：</p>
+<font color="red"><strong>numner、string、boolean、undefined、object、function</strong></font>
+
+<p>• <font color="red">数组和null</font>类型的都属于<font color="red">object</font>。其实null并不是一种对象，只是因为历史遗留性的问题，null通常用来作为对象占位符，所以被浏览器归到了object里面了。</p>
+<p>• <font color="red">NaN</font>属于<font color="red">number</font>类型。虽然是非数，但是非数也是数字的一种。</p>
+<p>• 同时，typeof返回的结果其实是一种字符串，我们可以用typeof来测试。</p>
+<pre><code>console.log( typeof(typeof(a))); // string
+</code></pre><h4 id="1、转字符串"><a href="#1、转字符串" class="headerlink" title="1、转字符串"></a>1、转字符串</h4><p> 其实在js中，一切数据除了null 和undefined之外都自带一个函数，toString </p>
+<pre><code>var n = 132.456
+n.toString();// &quot;123.456&quot;
+</code></pre><p>任何东西，都有toString 函数，toString函数可以将任何类型转换为string类型。</p>
+<font color="red">但是</font>，有两个值没有toString ，<font color="red">null</font> 和 <font color="red">undefined</font>
+
+<p>事实上在开发当中，String（x）这个用的绝对多，.toString(x)这个用的反而不多。</p>
+<p>而且String(x)他是万能的，他可以转null 和 undefined</p>
+<pre><code>var n = null;
+String(n);// &quot;null&quot;
+var a = undefined;
+String(n);// &quot;undefined&quot;
+</code></pre><h4 id="2、转数字"><a href="#2、转数字" class="headerlink" title="2、转数字"></a>2、转数字</h4><p>两种情况，第一种任意类型转数字，第二种专门的字符串转数字。<br>第一种 Number(x) 。它跟String(x)可不一样，它可不是万能的<br>只能转换纯数字组成的内容。还可以转布尔值。强调几点如下:</p>
+<pre><code>Number(null); // 0
+Number(undefined); //NaN
+Number(&quot;&quot;); // 0
+Number([]); // 0
+</code></pre><p>接下来字符串转数字，parseInt(str) 和 parseFloat(str)</p>
+<font color="red"><strong>parseInt(string, radix)</strong></font>
+
+<p>这个方法是将字符串转换成整型类型数字的。其中第二个参数radix基底是可以选择的参数。<br>当radix为空的时候，这个函数的作用仅仅是将字符串转换成数字。<br>当参数string里面既包括数字字符串又包括其他字符串的时候，它会将看到其他字符串就停止了，不会继续转换后面的数字型字符串了。</p>
+<p>当radix不为空的时候，这个函数可以用来作为进制转换，第二个参数的作用则是，我们把第一个参数的数字<font color="red">当成几进制的数字来转换成十进制</font>。</p>
+<p>• radix参数的范围是2-36。</p>
+<pre><code>parseInt(3, 8);     //3       3以8进制为基础转换成10进制
+parseInt(3, 2);     //NaN     2进制里面没有三
+parseInt(3, 0);     //NaN     不存在0进制
+parseInt(&quot;010&quot;);    //未定：返回 10 或 8
+parseInt(&quot;1a&quot;);    //1
+parseInt(&quot;1234blue&quot;); //1234
+parseInt(‘abc123’) // NaN
+parseInt(&quot;&quot;);       //NaN
+parseInt(&quot;0xA&quot;)     //10(十六进制)
+parseInt(&quot;22.5&quot;);   //22
+</code></pre><h4 id="3、转布尔"><a href="#3、转布尔" class="headerlink" title="3、转布尔"></a>3、转布尔</h4><p>只有一个Boolean(x)，这个函数太强大了其他任何类型几乎都能转成布尔，只有五个值会被转成false</p>
+<pre><code>Boolean(0);
+Boolean(NaN);
+Boolean(null);
+Boolean(undefined);
+Boolean(&quot;&quot;);
+</code></pre><h4 id="隐式类型转换"><a href="#隐式类型转换" class="headerlink" title=" 隐式类型转换"></a><font color="red"> 隐式类型转换</font></h4><p><strong>1.<font color="red">isNaN()</font></strong></p>
+<p>这个方法可以检测数据是不是非数类型。</p>
+<pre><code>isNaN(NaN); // true
+isNaN(‘abc’); // true
+isNaN(123); // false
+</code></pre><p>这中间隐含了一个隐式转换，它会先将你传的参数调用一下<font color="red">Number</font>方法之后，再看看结果是不是NaN，不过这个方法可以检测NaN本身。</p>
+<p><strong>2.<font color="red">算术运算符</font></strong></p>
+<p><strong>• ++就是现将数据调用一遍Number之后，再自加一。</strong></p>
+<pre><code>var demo = &apos;abc&apos;;
+demo ++;// NaN
+demo = &apos;123&apos;;
+++demo;// 124
+demo = &apos;123&apos;;
+demo ++;// 123
+</code></pre><p><strong>• 同样一目运算符也可以进行类型转换。</strong></p>
+<pre><code>var num = false;
++num ;// 0
+var demo = true;
+-demo ;// -1
+var demo = &apos;abc&apos;;
++demo ;// NaN
+1 * &apos;2&apos; ;// 2
+true * false ;// 0
+false / false ;// NaN
+true / false ;// infinity无穷大
+-true / false ;// -infinity
+</code></pre><p><strong>• 逻辑运算符也会隐式调用类型转换</strong></p>
+<p>&amp;&amp;和||都是先把表达式调用Boolean，换成布尔值再进行判断，看看是true还是false，不过返回的结果还是本身表达式的结果。</p>
+<pre><code>!&apos;abc&apos;;// false
+</code></pre><p><strong>• 当然也有不发生类型转换的比较运算符</strong></p>
+<font color="red">===严格等于</font>
+
+<font color="red">!==严格不等于</font>
+
+<pre><code>‘123’ === 123; // false;
+ true === ‘true’; // false
+ 1 !== ‘1’; // true
+ 1 !== 1; // false
+</code></pre>
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/17/CSS3图片翻书展示/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wanghai">
+      <meta itemprop="description" content="Wanghai个人站，主要涉及前端知识共享、实践教程、前沿技术共同学习等方面">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="welcome">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2018/11/17/CSS3图片翻书展示/" class="post-title-link" itemprop="http://yoursite.com/page/2/index.html">CSS3图片翻书展示()</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-11-17 17:20:12" itemprop="dateCreated datePublished" datetime="2018-11-17T17:20:12+08:00">2018-11-17</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2018-12-14 10:53:13" itemprop="dateModified" datetime="2018-12-14T10:53:13+08:00">2018-12-14</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <pre><code>&lt;style&gt;
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        body{
+            background-color: #fde3A7;
+            font-family: &apos;Indie Flower&apos;, cursive;/*字体  草书*/
+        }
+        .card{
+            width: 270px;
+            height: 400px;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            /* transform: translateX(-50%) translateY(-50%);CSS3 平移 */
+            margin-top: -200px;
+            margin-left: -150px;
+            box-shadow: inset 300px 0px 50px rgba(0, 0, 0, .5),20px 0 60px rgba(0, 0, 0, .5);/*阴影*/
+            perspective: 2000px;
+            transform-style: preserve-3d;
+            /* transform-origin: center center; */
+            transition:  all 1s ease-in-out;
+            background-color: #fff;
+        }
+        .card::before{  /*伪类和伪元素的区别  伪元素是真实存在的元素,能在html元素中存在的*/
+            content: &quot;&quot;;
+            display: inline-block;
+            width: 100%;
+            height: 5px;
+            background-color: #BAC1BA;
+            position: absolute;
+            top: -5px;
+            transform: skewX(-45deg);/*CSS3 扭曲*/
+            transform-origin: bottom;/*改变旋转中心*/
+        }
+        .card::after{
+            position: absolute;
+            right: -5px; 
+            top: 0;
+            content: &quot;&quot;;
+            display: inline-block;
+            height: 100%;
+            width: 5px;
+            background-color: #BAC1BA;
+            transform: skewY(-45deg);/*CSS3 扭曲*/
+            transform-origin: left;
+        }
+        .card .imgBox{
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            transform-origin: left;
+            transition:  all .7s ease-in-out;/*过渡*/
+        }
+        .card .imgBox .bark{
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: #fff;
+            opacity: 0;
+            transition: all .6s ease-in-out;
+        }
+        .card .imgBox img{
+            width: 100%;
+        }
+        .card .details{
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+        .card:hover{   /*伪类是当前动作触发的*/ 
+            transform: rotateZ(15deg) scale(1.2);   
+            box-shadow: inset 30px 0px 50px rgba(0, 0, 0, .5), 20px 0px 60px rgba(0, 0, 0, .5);
+        }
+        .card:hover .imgBox{
+            transform: rotateY(-135deg);
+        }
+        .card:hover .imgBox .bark{
+            opacity: 1;
+            transition:  all .6s ease-in-out;
+            box-shadow: inset 300px 200px 100px rgba(0, 0, 0, .5); 
+        }
+    &lt;/style&gt;
+
+
+    &lt;div class=&quot;card&quot;&gt;
+        &lt;div class=&quot;imgBox&quot;&gt;
+            &lt;div class=&quot;bark&quot;&gt;&lt;/div&gt;
+            &lt;img src=&quot;./images/pic.jpg&quot; alt=&quot;&quot;&gt;
+        &lt;/div&gt;
+        &lt;!-- 翻开展示内容 --&gt;
+        &lt;div class=&quot;details&quot;&gt;
+            &lt;!-- 这里没有写第二页内容用图片代替 --&gt;
+            &lt;img src=&quot;./images/pic_.jpg&quot; alt=&quot;&quot;&gt;
+
+            &lt;!-- &lt;h4 class=&quot;title1&quot;&gt;内容标题1&lt;/h4&gt;
+            &lt;h4 class=&quot;title2&quot;&gt;内容标题2&lt;/h4&gt;
+            &lt;p&gt;内容...&lt;/p&gt;
+            &lt;p&gt;内容...&lt;/p&gt; --&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+</code></pre>
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/16/CSS3之calc()/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wanghai">
+      <meta itemprop="description" content="Wanghai个人站，主要涉及前端知识共享、实践教程、前沿技术共同学习等方面">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="welcome">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2018/11/16/CSS3之calc()/" class="post-title-link" itemprop="http://yoursite.com/page/2/index.html">CSS3之calc()</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-11-16 17:18:33" itemprop="dateCreated datePublished" datetime="2018-11-16T17:18:33+08:00">2018-11-16</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2018-12-13 15:39:40" itemprop="dateModified" datetime="2018-12-13T15:39:40+08:00">2018-12-13</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><font color="red"></font></p>
+<h4 id="什么是calc"><a href="#什么是calc" class="headerlink" title="什么是calc()?"></a><font color="red">什么是calc()?</font></h4><p><strong>calc()</strong>从字面我们可以把他理解为一个函数function.其实calc是英文单词calculate(计算)的缩写,是css3的一个新增的功能,用来指定元素的长度.比如说,你可以使用calc()给元素的border、margin、pading、font-size和width等属性设置<font color="red">动态值</font>.为何说是动态值呢?因为我们使用的表达式来得到的值.不过calc()最大的好处就是用在流体布局上,可以通过calc()计算得到元素的宽度.</p>
+<h4 id="calc-能做什么"><a href="#calc-能做什么" class="headerlink" title="calc()能做什么?"></a><font color="red">calc()能做什么?</font></h4><p><font color="red">calc()能让你给元素的做计算</font>,你可以给一个div元素,使用百分比、em、px和rem单位值计算出其宽度或者高度,比如说”width:calc(50% + 2em)”,这样一来你就不用考虑元素DIV的宽度值到底是多少,而把这个烦人的任务交由浏览器去计算.</p>
+<h4 id="calc-语法"><a href="#calc-语法" class="headerlink" title="calc()语法"></a><font color="red">calc()语法</font></h4><p>calc()语法非常简单,就像我们小时候学加(+)、减(-)、乘(*)、除(/)一样,使用数学表达式来表示:</p>
+<pre><code>.elm{
+    width: calc(expression)
+}
+</code></pre><p>其中”expression”是一个表达式，用来计算长度的表达式.</p>
+<h4 id="calc-的运算规则"><a href="#calc-的运算规则" class="headerlink" title="calc()的运算规则"></a><font color="red">calc()的运算规则</font></h4><p>calc()使用通用的数学运算规则,但是也提供更智能的功能:</p>
+<p>• 使用”+”、”-“、”*” 和 “/“四则运算;</p>
+<p>• 可以使用百分比、px、em、rem等单位;</p>
+<p>• 可以混合使用各种单位进行计算;</p>
+<p>• 表达式中有”+”和”-“时,其<font color="red">前后必须要有空格</font>,如”widht: calc(12%+5em)”这种没有空格的写法是错误的;</p>
+<p>• 表达式中有”*”和”/“时,其<font color="red">前后可以没有空格</font>,但建议留有空格.</p>
+<h4 id="浏览器的兼容性"><a href="#浏览器的兼容性" class="headerlink" title="浏览器的兼容性"></a><font color="red">浏览器的兼容性</font></h4><p>浏览器对calc()的兼容性还算不错,在IE9+、FF4.0+、Chrome19+、Safari6+都得到较好支持,同样需要在其前面加上各浏览器厂商的识别符,不过可惜的是,移动端的浏览器还没仅有“firefox for android 14.0”支持,其他的全军覆没.大家在实际使用时,同样需要添加浏览器的前缀</p>
+<pre><code>.elm {
+    //Firefox
+    -moz-calc(expression);
+    //chrome safari
+    -webkit-calc(expression);
+    //Standard
+    calc();
+}
+</code></pre><p><strong>例1.</strong></p>
+<pre><code>.demo{
+    width: 300px;
+    background: #60f;
+    padding: 3px 0;
 }
 .box{
-      width:100px;
-      height: 100px;
-      background-color: black;
-      margin-left:100px;
+    background: #f60;
+    height: 50px;
+    padding: 10px;
+    border: 5px solid green;
+    width: 90%;/*写给不支持calc()的浏览器*/
+    width: -moz-calc(100% - (10px + 5px) * 2);
+    width: -webkit-calc(100% - (10px + 5px) * 2);
+    width: calc(100% - (10px + 5px) * 2);
 }
-.content{
-      width: 50px;
-      height: 50px;
-      background-color: yellow;
-}
-</code></pre><p>这个时候时候我们在浏览器中看到的样式是这个样子的：</p>
-<p><img src="https://i.imgur.com/CqeccHD.png" alt=""></p>
-<p>现在我们给content加上定位的样式。</p>
-<pre><code>.content{
-  position:absolute;
-  left: 50px;
-  width: 50px;
-  height: 50px;
-  background-color: yellow;
-}
-</code></pre><p>这个时候浏览器中的样式就会发生改变，content那个黄色的小方块会跑到橘黄色的方块外面：</p>
-<p><img src="https://i.imgur.com/gBrUDKu.png" alt=""></p>
-<p>这是因为，当我们给content设置position:absolute;之后，浏览器在渲染的时候，会先向上找到box这个div，看看这个div有没有定位，因为没有，所以继续向上找wrapper，依然没有，再向上找body，还是没有，所以最后就是<font color="red">相对于浏览器边框定位</font>，这个时候content的left属性就是相对于浏览器边框左边有50px的距离的意思。</p>
-<p>现在我们把content的定位换成relative，浏览器中的结果变成了这个样子：</p>
-<p><img src="https://i.imgur.com/rHbXfuf.png" alt=""></p>
-<p>本来content黄色小方块在黑色方块的左上角，然后relative相对与自身的位置进行定位，这个时候的left属性的意思就是相对于本来在黑色左上角的那个位置向右移动了50px的距离，也就是现在这个黄色小方块所在的位置。</p>
-<p>因此，总结一下absolute和relative的特点如下：</p>
-<p>• <font color="red"><strong>absolute：</strong></font></p>
-<font color="red">1.脱离原来位置进行定位</font>
+&lt;div class=&quot;demo&quot;&gt;
+    &lt;div class=&quot;box&quot;&gt;&lt;/div&gt;
+&lt;/div&gt;&lt;hr&gt;
+</code></pre><p><img src="https://i.imgur.com/HugB59A.png" alt=""></p>
+<p><strong>例2.</strong></p>
+<pre><code>body{
+       background: #E8EADD;
+       color: #3C323A;
+       padding: 20px;
+   }
+   /*设置主容器&quot;wrapper&quot;
+     主容器的宽度是:&quot;100% - 20px * 2,并且水平居中&quot;
+   */
+   .wrapper{
+       width: 1024px;/*写给不支持calc()的浏览器*/
+       width: -moz-calc(100% - 40px);
+       width: -webkit-calc(100% - 40px);
+       width: calc(100% - 40px);
+       margin: auto;
+   }
+   /*给header和footer设置样式
+     对应的宽度是:&quot;100% - 20px * 2
+   */
+   #header{
+       background: #f60;
+       padding: 20px;
+       width: 984px;
+       width: -moz-calc(100% - 40px);
+       width: -webkit-calc(100% - 40px);
+       width: calc(100% - 40px);
+   }
+   #footer{
+       clear: both;
+       background: #000;
+       padding: 20px;
+       color: #fff;
+       width: 984px;
+       width: -moz-calc(100% - 40px);
+       width: -webkit-calc(100% - 40px);
+       width: calc(100% - 40px);
+   }
+   /*给主内容设置样式
+     给主内容设置一个8px的边框,20px的内距,并且向左浮动,同时设置一个向右的外边距&quot;20&quot;px
+     关键之处,我们主内容占容器宽度的75%,这样一来,主内容的宽度应该是:
+     &quot;75% - 8px * 2 - 20px * 2&quot;
+   */
+   #main{
+       border: 8px solid #B8C172;
+       float: left;
+       padding: 20px;
+       margin-right: 20px;
+       margin-bottom: 20px;
+       width: 704px;
+       width: -moz-calc(75% - 20px * 2 - 8px * 2);
+       width: -webkit-calc(75% - 20px * 2 - 8px * 2);
+       width: calc(75% - 20px * 2 - 8px * 2);
+   }
+   /*设置右边栏样式
+     给边栏设置一个25%的宽度,其除了包含8px的边框,10px的内距外,还有主内容外距20px也要去掉
+     不然整个宽度与容器会相差20px,换句话说就会撑破容器掉下来.因此边栏的实际宽度应该是:
+     &quot;25% - 10px * 2 - 8px * 2 -20px&quot;  
+   */
+   #accessory{
+       border: 8px solid #B8C172;
+       float: left;
+       padding: 10px;
+       width: 208px;
+       width: -moz-calc(25% - 10px * 2 - 8px * 2 - 20px);
+       width: -webkit-calc(25% - 10px * 2 - 8px * 2 - 20px);
+       width: calc(25% - 10px * 2 - 8px * 2 - 20px);
+   }
 
-<font color="red">2.相对于最近的有定位的父级进行定位，如果没有那么相对于浏览器边框定位。</font>
+   &lt;div class=&quot;wrapper&quot;&gt;
+       &lt;div id=&quot;header&quot;&gt;header&lt;/div&gt;
+       &lt;div id=&quot;main&quot;&gt;main&lt;/div&gt;
+       &lt;div id=&quot;accessory&quot;&gt;accessory&lt;/div&gt;
+       &lt;div id=&quot;footer&quot;&gt;footer&lt;/div&gt;
+   &lt;/div&gt;
+</code></pre><p><img src="https://i.imgur.com/gF8nD6v.png" alt=""></p>
 
-<p>• <font color="red"><strong>relative：</strong></font></p>
-<font color="red">1.保留原来位置定位</font>
-
-<font color="red">2.相对于最近的有定位的父级进行定位</font>
-
-<font color="red">一般被用来设置参照物</font>
-
-
-<p><strong><font color="red" size="4">fixed</font></strong></p>
-<p>fixed定位是<font color="red">相对于视口</font>的定位，我们在网页上都见过左右两边不随着滚轮滚动而改变位置的广告栏，这种广告栏就是用fixed定位的。</p>
-<p><code>&lt;div class=”fixed”&gt;&lt;/div&gt;</code></p>
-<pre><code>.fixed {
-  position: fixed;
-  right: 0px;
-  top: 200px;
-  height: 200px;
-  width: 50px;
-  background-color: red;
-}
-</code></pre><p>这段代码中，div.fixed这个元素就是一直在视口的右边，不随着我们滚动而改变相对于视口的位置。</p>
-<p><strong><font color="red" size="4">最后提一点</font></strong></p>
-<p>• 值得注意的是，当我们写这样一段代码的时候：</p>
-<p><code>&lt;div class=”demo”&gt;&lt;/div&gt;</code></p>
-<pre><code>.demo{
-  position: absolute;
-  margin-top: 200px;
-  height: 200px;
-  width: 50px;
-  background-color: red;
-}
-</code></pre><p>我们把absolute换成relative之后，会发现整个div会向上移动一小段距离，这是为什么呢？</p>
-<p>答案其实就是<font color="red">margin合并</font>问题——body标签本身有8px的margin，而四个方向的margin自然包括了margin-bottom，我们为div.demo设置了margin-top，就会导致margin合并的问题发生，当position是relative的时候，并没有触发bfc，所以中间的距离会取二者的最大值，也就是200px，当position是absolute的时候，因为触发了bfc效果，从而消除掉margin合并的bug，因此中间的距离是200+8=208px。</p>
-<p><strong><font color="red" size="4">一点小应用</font></strong></p>
-<p>1.我们学习了定位之后，就可以实现前面文章提到的<font color="red">元素水平垂直居中</font>的效果了哟~</p>
-<p>  只要我们给一个div加上下面的样式：</p>
-<pre><code>div {
-  width: 100px;
-  height: 100px;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  margin-left: -50px;
-  margin-top: -50px;
-  background-color: red;
-}
-</code></pre><p>这个div就会在<font color="red">有定位的父级</font>里面是<font color="red">水平垂直居中</font>了哟~</p>
-<p>2.我们还可以实现多栏布局了！</p>
-<p>首先我们写三个div，分别起类名为left、mid、right，然后分别加上如下的样式：</p>
-<font color="blue"><code>&lt;div class=”left”&gt;&lt;/div&gt;</code></font>
-
-<font color="blue"><code>&lt;div class=”right”&gt;&lt;/div&gt;</code></font>
-
-<font color="red"><code>&lt;div class=”mid”&gt;&lt;/div&gt;</code></font>
-
-
-<pre><code>    * {
-  margin: 0px;
-  padding: 0px;
-}
-div {
-  height: 100px;
-}
-.left {
-  position: absolute;
-  left: 0;
-  width: 100px;
-  background-color: yellow;
-}
-.right {
-  position: absolute;
-  right: 0;
-  width: 100px;
-  background-color: #ffc;
-}
-.mid {
-  margin-left: 100px;
-  margin-right: 100px;
-  background-color: #fcc;
-}
-</code></pre><p><img src="https://i.imgur.com/78XewWd.png" alt=""></p>
-<p>我们首先固定左侧和右侧的两个div，然后让中间的div分别给左侧和右侧留出一个固定宽度的margin之后，让自身自适应屏幕的大小即可实现三栏布局效果。</p>
-<p>• 要注意的是，div.mid记得<font color="red">写在后面</font>，如果写在最前面的话，因为div是block块级元素会独占一行，这样就会把左侧和右侧的div给挤到下一行了。当然我们给.left和.right都加上<font color="red">top:0px;</font>之后，这个问题也就不用考虑了。</p>
-<p>这次的层模型总结就到这里了，希望对大家有帮助哟~</p>
-<font color="red"></font>
           
         
       
@@ -1506,7 +2622,7 @@ div {
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/08/blog8/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/15/CSS3之阴影/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Wanghai">
@@ -1526,7 +2642,7 @@ div {
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2018/11/08/blog8/" class="post-title-link" itemprop="http://yoursite.com/page/2/index.html">CSS实现六边形效果</a>
+                <a href="/2018/11/15/CSS3之阴影/" class="post-title-link" itemprop="http://yoursite.com/page/2/index.html">CSS3之阴影</a>
               
             
           </h1>
@@ -1551,7 +2667,7 @@ div {
                 
               
 
-              <time title="Created: 2018-11-08 16:29:58" itemprop="dateCreated datePublished" datetime="2018-11-08T16:29:58+08:00">2018-11-08</time>
+              <time title="Created: 2018-11-15 17:17:33" itemprop="dateCreated datePublished" datetime="2018-11-15T17:17:33+08:00">2018-11-15</time>
             
 
             
@@ -1568,7 +2684,7 @@ div {
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2018-12-13 15:37:56" itemprop="dateModified" datetime="2018-12-13T15:37:56+08:00">2018-12-13</time>
+                <time title="Modified: 2018-12-13 15:39:36" itemprop="dateModified" datetime="2018-12-13T15:39:36+08:00">2018-12-13</time>
               
             
           </span>
@@ -1603,801 +2719,380 @@ div {
       
         
           
-            <h4 id="实现方案"><a href="#实现方案" class="headerlink" title="实现方案"></a><font color="red">实现方案</font></h4><p><strong>思路:拆分成一个长方形和两个正方形</strong></p>
+            <h4 id="1-盒子阴影"><a href="#1-盒子阴影" class="headerlink" title="1. 盒子阴影"></a><font color="red">1. 盒子阴影</font></h4><font color="red"><strong>box-shadow: X轴偏移量 Y轴偏移量 [阴影模糊半径] [阴影扩展半径] [阴影颜色] [投影方式];</strong></font>
+
+<p>例如  box-shadow:4px 2px 6px 7px #333333 inset;</p>
+<p>同一盒子，可以同时加多个阴影，阴影之间用”,”隔开</p>
+<p>例如  box-shadow:4px 2px 6px #f00,-4px -2px 6px #000,0px 0px 12px 5px #33CC00 inset;</p>
+<h4 id="2-字体阴影"><a href="#2-字体阴影" class="headerlink" title="2. 字体阴影"></a><font color="red">2. 字体阴影</font></h4><p>text-shadow:X-Offset Y-Offset blur color;</p>
 <ol>
-<li><strong>三角形是正方形的一半</strong></li>
+<li><font color="red">X-Offset</font>:表示阴影的水平偏移距离,其值为正值时阴影向右偏移,反之向左偏移;</li>
+<li><font color="red">Y-Offset</font>:是指阴影的垂直偏移距离,如果其值是正值时,阴影向下偏移,反之向上偏移;</li>
+<li><font color="red">Blur</font>:是指阴影的模糊程度,其值不能是负值,如果值越大,阴影越模糊,反之阴影越清晰,如果不需要阴影模糊可以将Blur值设置为0;</li>
+<li><font color="red">Color</font>:是指阴影的颜色,其可以使用rgba色;</li>
 </ol>
-<ol start="2">
-<li><strong>用伪元素实现一个正方形</strong></li>
-</ol>
-<ol start="3">
-<li><strong>旋转45度(transform:rotate(45deg))</strong></li>
-</ol>
-<p><img src="https://i.imgur.com/7LhlkSW.png" alt=""></p>
-<pre><code>&lt;style&gt;
-    *{
+<pre><code>*{
     margin: 0;
     padding: 0;
 }
 div{
-    border-top: 2px solid #00f;
-    border-bottom: 2px solid #00f;
+    /*3. 实现书摆放在桌子上的效果*/
     width: 200px;
-    height: 100px;
-    line-height: 100px;
-    position: relative;
-    top: 100px;
-    margin: 0 auto;
+    height: 200px;
+    background-color: red;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    background: #e0e1dc;
     text-align: center;
-    vertical-align: middle;
-    background-color: crimson;
+    line-height: 200px;
+    color: #fff;
+    font-weight: 900;
+    font-size: 24px;
+    text-shadow: 5px 2px 3px grey;
+    box-shadow: 10px 0 10px 0 grey;
 }
-div::before{
-    content: &quot;&quot;;
-    width: 71px;
-    height: 71px;
-    position: absolute;
-    top: 14px;
-    left: -36px;
-    transform: rotate(45deg);
-    background-color: crimson;
-    border-left: 2px solid #00f;
-    border-bottom: 2px solid #00f;
+&lt;div&gt;This is a page&lt;/div&gt;
+</code></pre><p><img src="https://i.imgur.com/nllEayT.png" alt=""></p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/14/CSS3新增背景属性/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wanghai">
+      <meta itemprop="description" content="Wanghai个人站，主要涉及前端知识共享、实践教程、前沿技术共同学习等方面">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="welcome">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2018/11/14/CSS3新增背景属性/" class="post-title-link" itemprop="http://yoursite.com/page/2/index.html">CSS3新增背景属性</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-11-14 17:17:33" itemprop="dateCreated datePublished" datetime="2018-11-14T17:17:33+08:00">2018-11-14</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2018-12-14 10:49:30" itemprop="dateModified" datetime="2018-12-14T10:49:30+08:00">2018-12-14</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="1-background-origin-背景的起始位置"><a href="#1-background-origin-背景的起始位置" class="headerlink" title="1.background-origin 背景的起始位置"></a><font color="red">1.background-origin 背景的起始位置</font></h4><p> background-origin: border-box || padding-box || content-box;</p>
+<p> background-Origin属性指定了背景图像的位置区域。</p>
+<p> content-box, padding-box,和 border-box区域内可以放置背景图像。</p>
+<p><img src="https://i.imgur.com/6sqcM3E.png" alt=""></p>
+<p>效果: 设置的盒子存在 border padding content(用户设置的width height)</p>
+<p>1.padding-box(默认值); 设置背景图片的位置从padding(内边距)开始放置</p>
+<pre><code>将border设置为透明，方便查看不同属性的效果
+
+div{
+        width: 600px;
+        height: 400px; 
+        padding: 30px;
+        border: 50px solid rgba(104, 104, 98, .3);
+        background-image: url(&apos;./images/g.jpg&apos;);
+        background-repeat: no-repeat;
+        background-size: 100%;
+        background-origin: padding-box;
+    }
+&lt;div&gt;&lt;/div&gt;
+</code></pre><p><img src="https://i.imgur.com/FfrdQdM.png" alt=""></p>
+<p>2.border-box; 设置背景图片的起始位置从border开始 </p>
+<pre><code>div{
+        width: 600px;
+        height: 400px; 
+        padding: 30px;
+        border: 50px solid rgba(104, 104, 98, .3);
+        background-image: url(&apos;./images/g.jpg&apos;);
+        background-repeat: no-repeat;
+        background-size: 100%;
+        background-origin: border-box;
+    }
+</code></pre><p><img src="https://i.imgur.com/HqhZHyP.png" alt=""></p>
+<p>3.content-box; 设置背景图片的位置从用户设置的内容区开始放置</p>
+<pre><code>div{
+        width: 600px;
+        height: 400px; 
+        padding: 30px;
+        border: 50px solid rgba(104, 104, 98, .3);
+        background-image: url(&apos;./images/g.jpg&apos;);
+        background-repeat: no-repeat;
+        background-size: 100%;
+        background-origin: content-box
+    }
+</code></pre><p><img src="https://i.imgur.com/cGEPCMS.png" alt=""></p>
+<h4 id="2-background-clip-背景裁剪"><a href="#2-background-clip-背景裁剪" class="headerlink" title="2.background-clip 背景裁剪"></a><font color="red">2.background-clip 背景裁剪</font></h4><p>   background-clip: border-box || padding-box || content-box || no-clip</p>
+<p>效果:背景图片默认不裁剪 案例设置了背景图片的起始位置 为boder部分开始 </p>
+<p>1.no-clip（默认值）; 不裁剪背景图片。</p>
+<pre><code>div{
+    width: 600px;
+    height: 400px; 
+    padding: 30px;
+    border: 50px solid rgba(104, 104, 98, .3);
+    background-image: url(&apos;./images/g.jpg&apos;);
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-clip: no-clip;
 }
-div::after{
-    content: &quot;&quot;;
-    width: 71px;
-    height: 71px;
-    position: absolute;
-    top: 14px;
-    right: -36px;
-    transform: rotate(45deg);
-    background-color: crimson;
-    border-right: 2px solid #00f;
-    border-top: 2px solid #00f;
-}       
-&lt;/style&gt;                      
-&lt;div&gt;aaa&lt;/div&gt;
-</code></pre>
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/07/blog7/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Wanghai">
-      <meta itemprop="description" content="Wanghai个人站，主要涉及前端知识共享、实践教程、前沿技术共同学习等方面">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="welcome">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2018/11/07/blog7/" class="post-title-link" itemprop="http://yoursite.com/page/2/index.html">CSS实现微信对话框</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2018-11-07 16:29:58" itemprop="dateCreated datePublished" datetime="2018-11-07T16:29:58+08:00">2018-11-07</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2018-12-13 15:37:49" itemprop="dateModified" datetime="2018-12-13T15:37:49+08:00">2018-12-13</time>
-              
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h4 id="实现原理"><a href="#实现原理" class="headerlink" title="实现原理"></a><font color="red">实现原理</font></h4><p><strong>此效果利用了一个高度、宽度均为0的伪元素实现。</strong></p>
-<p><strong>当某元素的高度、宽度均为0,并且设置边框之后,其边框将变为4个顶角相对的三角形,如下图</strong></p>
-<p><img src="https://i.imgur.com/hAfGuSn.png" alt=""></p>
-<pre><code>&lt;style&gt;
-    .box{
-        height: 0;
-        width: 0;
-        border: 100px solid;
-        border-color: #25a23b #abcdef #0000ff crimson;
-    }
-&lt;/style&gt;
-&lt;div class=&quot;box&quot;&gt;&lt;/div&gt;
-</code></pre><p><img src="https://i.imgur.com/7nd7UsQ.png" alt=""></p>
-<pre><code>&lt;style&gt;
-.demo{
-      position: relative;
-      left: 200px;
-      max-width: 150px;
-      max-height: 90px;
-      background: #25a23b;
-      -webkit-border-radius: 5px;
-      -moz-border-radius: 5px;
-      border-radius: 5px;
-      font-size: 14px;
-      padding: 5px;
-      color: white;
-      word-break: break-word;
-    }
-    .demo::before{
-        content: &quot;&quot;;
-        position: absolute;
-        width: 0;
-        height: 0;
-        left: -18px;
-        top: 17px;
-        border: 9px solid;
-        border-color: transparent #25a23b transparent transparent;
-    }
-&lt;/style&gt;
-&lt;div class=&quot;demo&quot;&gt;background background background background background   background 
-&lt;/div&gt;
-</code></pre>
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/06/blog6/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Wanghai">
-      <meta itemprop="description" content="Wanghai个人站，主要涉及前端知识共享、实践教程、前沿技术共同学习等方面">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="welcome">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2018/11/06/blog6/" class="post-title-link" itemprop="http://yoursite.com/page/2/index.html">CSS常用布局</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2018-11-06 16:29:58" itemprop="dateCreated datePublished" datetime="2018-11-06T16:29:58+08:00">2018-11-06</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2018-12-13 15:37:44" itemprop="dateModified" datetime="2018-12-13T15:37:44+08:00">2018-12-13</time>
-              
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h4 id="常用布局"><a href="#常用布局" class="headerlink" title="常用布局"></a><font color="red">常用布局</font></h4><p><strong><font color="red">“display”属性</font></strong></p>
-<p>  display 是CSS中最重要的用于控制布局的属性</p>
-<ol>
-<li><font color="red">display:block</font>
-
-<p>div 是一个标准的<font color="red">块级</font>元素。一个块级元素会新开始一行并且尽可能撑满容器。而且block元素可以设置其高度与宽度。</p>
-<p>(h1-h6 p ol ul li div form table address等)</p>
-</li>
-<li><font color="red">display:inline</font>
-
-<p>span 是一个标准的<font color="red">行内</font>元素。一个行内元素可以在段落中 <span> 像这样 </span> 包裹一些文字而不会打乱段落的布局</p>
-<p>inline元素无法设置其高度与宽度，它的高度和宽度完全取决于其内容的高和宽(a em strong br span select)</p>
-</li>
-<li><font color="red">display:inline-block</font>
-
-<p>inline-block 综合了inline和block两种属性的特质,既可以给其设置宽高，又让其不会独占行。而且可以用这个属性模拟float进行布局</p>
-</li>
-<li><font color="red">display:none</font>
-
-<p>display:none 通常被 JavaScript 用来在<font color="red">不删除元素的情况下隐藏或显示元素</font>。它和visibility属性不一样,把display设置成none元素不会占据它本来应该显示的空间,但是设置成visibility: hidden;<font color="red">还会占据空间</font>。</p>
-</li>
-</ol>
-<p><strong><font color="red">水平居中</font></strong></p>
-<p>  #main{ width: 600px; margin: 0 auto;}</p>
-<p><font color="red">设置块级元素的 width 可以防止它从左到右撑满整个容器</font>。然后你就可以设置左右外边距为auto来使其<font color="red">水平居中</font>。<br>元素会占据你所指定的宽度,然后剩余的宽度会一分为二成为左右外边距。</p>
-<p>  #main{ max-width: 600px; margin: 0 auto;}</p>
-<p><font color="red">当浏览器窗口比元素的宽度还要窄时</font> 在这种情况下使用max-width替代width可以使浏览器更好地处理小窗口的情况。</p>
-<p><strong><font color="red">盒模型</font></strong></p>
-<p>当你设置了元素的宽度，实际展现的元素却超出你的设置:这是因为元素的边框和内边距会撑开元素。<br>看下面的例子，两个相同宽度的元素显示的实际宽度却不一样。</p>
-<p>  <style><br>  .small{<br>            width: 500px;<br>            height: 300px;<br>            margin: 20px auto;<br>            background-color: pink;<br>            box-sizing: border-box;<br>        }<br>        .big{<br>            width: 500px;<br>            height: 300px;<br>            margin: 20px auto;<br>            padding: 50px;<br>            border: 10px solid black;<br>            background-color: crimson;<br>        }<br>  </style><br>  <div class="small"></div><br>  <div class="big"></div></p>
-<p><img src="https://i.imgur.com/pU3yaUM.png" alt=""></p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/05/blog5/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Wanghai">
-      <meta itemprop="description" content="Wanghai个人站，主要涉及前端知识共享、实践教程、前沿技术共同学习等方面">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="welcome">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2018/11/05/blog5/" class="post-title-link" itemprop="http://yoursite.com/page/2/index.html">CSS溢出文本打点展示</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2018-11-05 16:29:58" itemprop="dateCreated datePublished" datetime="2018-11-05T16:29:58+08:00">2018-11-05</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2018-12-13 15:37:37" itemprop="dateModified" datetime="2018-12-13T15:37:37+08:00">2018-12-13</time>
-              
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><img src="https://i.imgur.com/B4Yhu4R.png" alt=""></p>
-<h4 id="1-单行文本"><a href="#1-单行文本" class="headerlink" title="1.单行文本"></a>1.单行文本</h4><pre><code>p{
-   white-space: nowrap;//强制不换行
-      overflow: hidden;
-      text-overflow: ellipsis;
+&lt;div&gt;&lt;/div&gt;
+</code></pre><p><img src="https://i.imgur.com/cIcEAfG.png" alt=""></p>
+<p>2.padding-box; 保留padding + content 部分的背景图片将padding以外的背景图片裁剪掉</p>
+<pre><code>div{
+    width: 600px;
+    height: 400px; 
+    padding: 30px;
+    border: 50px solid rgba(104, 104, 98, .3);
+    background-image: url(&apos;./images/g.jpg&apos;);
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-clip: padding-box;
 }
-</code></pre><h4 id="2-多行文本"><a href="#2-多行文本" class="headerlink" title="2.多行文本"></a>2.多行文本</h4><p>多行文本要<font color="red">截断</font></p>
-<pre><code>p{
-    height: n;
-    line-height: n/2; //要放几行就除多少
-    voerflow: hidden;
-  }
-</code></pre>
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/04/blog4/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Wanghai">
-      <meta itemprop="description" content="Wanghai个人站，主要涉及前端知识共享、实践教程、前沿技术共同学习等方面">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="welcome">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2018/11/04/blog4/" class="post-title-link" itemprop="http://yoursite.com/page/2/index.html">CSS美化checkbox</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2018-11-04 16:29:58" itemprop="dateCreated datePublished" datetime="2018-11-04T16:29:58+08:00">2018-11-04</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2018-12-13 15:37:30" itemprop="dateModified" datetime="2018-12-13T15:37:30+08:00">2018-12-13</time>
-              
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><img src="https://i.imgur.com/G7TYoeP.png" alt=""></p>
+</code></pre><p><img src="https://i.imgur.com/5TTaZxn.png" alt=""></p>
+<p>3.content-box; 保留content 部分的背景图片将content以外的背景图片裁剪掉</p>
+<pre><code>    div{
+    width: 600px;
+    height: 400px; 
+    padding: 30px;
+    border: 50px solid rgba(104, 104, 98, .3);
+    background-image: url(&apos;./images/g.jpg&apos;);
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-clip: content-box;
+}
+</code></pre><p><img src="https://i.imgur.com/JDUlVmS.png" alt=""></p>
+<p>4.border-box; 保留border以内的背景图片将border以外的背景图片裁剪掉。</p>
+<pre><code>        div{
+    width: 600px;
+    height: 400px; 
+    padding: 30px;
+    border: 50px solid rgba(104, 104, 98, .3);
+    background-image: url(&apos;./images/g.jpg&apos;);
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-clip: border-box;
+}
+</code></pre><p><img src="https://i.imgur.com/fpuDeW0.png" alt=""></p>
+<p> 注意: border-box和no-clip 的效果相同 但是含义不同</p>
+<h4 id="3-background-size-背景图片大小"><a href="#3-background-size-背景图片大小" class="headerlink" title="3.background-size 背景图片大小"></a><font color="red">3.background-size 背景图片大小</font></h4><p>  background-size: cover || contain || 百分比 || 像素值</p>
+<pre><code>div{
+    width: 600px;
+    height: 400px; 
+    padding: 30px;
+    border: 10px solid rgba(104, 104, 98, .5);
+    background-image: url(&apos;./images/g.jpg&apos;);
+    background-repeat: no-repeat;
+}
+&lt;div&gt;&lt;/div&gt;
+</code></pre><p><img src="https://i.imgur.com/JmaEys4.png" alt=""></p>
+<p>1.cover: 覆盖 图片会按照指定比例放大或缩小的填充,放大缩小的比例取决于图片的宽:放置的盒子的内容区的宽和图片的高:放置在盒子的内容区的高的大小的取较大的一个。</p>
+<pre><code>div{
+        width: 600px;
+        height: 400px; 
+        padding: 30px;
+        border: 10px solid rgba(104, 104, 98, .5);
+        background-image: url(&apos;./images/g.jpg&apos;);
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+</code></pre><p><img src="https://i.imgur.com/48yV8Pg.png" alt=""></p>
+<p>2.contain: 包含 图片会按照指定比例扩大或缩小的填充,放大缩小的比例取决于图片的宽:放置的盒子的内容区的宽和图片的高:放置在盒子的内容区的高的大小的取较小的一个。</p>
+<pre><code>div{
+        width: 600px;
+        height: 400px; 
+        padding: 30px;
+        border: 10px solid rgba(104, 104, 98, .5);
+        background-image: url(&apos;./images/g.jpg&apos;);
+        background-repeat: no-repeat;
+        background-size: contain;
+    }
+</code></pre><p><img src="https://i.imgur.com/CHOZHYs.png" alt=""></p>
+<p>3.一个具体像素值(若是百分比则表示相对于可显示区的大小)代表的是图片的宽度扩大或缩放到该像素值,而图片的宽高比是不变的</p>
+<pre><code>div{
+        width: 600px;
+        height: 400px; 
+        padding: 30px;
+        border: 10px solid rgba(104, 104, 98, .5);
+        background-image: url(&apos;./images/g.jpg&apos;);
+        background-repeat: no-repeat;
+        background-size: 210px;
+    }
+</code></pre><p><img src="https://i.imgur.com/Dmn7xVl.png" alt=""></p>
+<p>4.两个具体像素值(若是百分比则表示相对于可显示区的大小)代表的是图片的宽度和高度分别缩放或扩大到指定像素值,图片的宽高比取决于设置的像素比</p>
+<pre><code>div{
+        width: 600px;
+        height: 400px; 
+        padding: 30px;
+        border: 10px solid rgba(104, 104, 98, .5);
+        background-image: url(&apos;./images/g.jpg&apos;);
+        background-repeat: no-repeat;
+        background-size: 400px 400px;
+    }
+</code></pre><p><img src="https://i.imgur.com/bRo38OL.png" alt=""></p>
+<h4 id="4-background-image-背景图片"><a href="#4-background-image-背景图片" class="headerlink" title="4.background-image 背景图片"></a><font color="red">4.background-image 背景图片</font></h4><p>CSS3中可以通过background-image属性添加背景图片。</p>
+<p>不同的背景图像和图像用逗号隔开，所有的图片中显示在最顶端的为第一张。</p>
 <pre><code>&lt;style&gt;
-    .myCheck{
-        display: none;
-    }
-    .myleb{
-        display: inline-block;
-        width: 16px;
-        height: 16px;
-        position: relative;
-        border: 1px solid #abcdef;
-        border-radius: 15%;
-        margin-right: 3px;
-        vertical-align: middle;
-    }
-    .myleb::before{
-        content: &quot;&quot;;
-        width: 10px;
-        height: 10px;
-        position: absolute;
-        top: 3px;
-        left: 3px;
-        background-color: #abcdef;
-        border-radius: 15%;
-        display: none;
-    }
-    .myCheck:checked+.myleb::before{
-        display: block;
-    }
+#examplel{
+        width: 658px;
+        height: 1059px;
+        background-image: url(&apos;./images/bg2.png&apos;), 
+        url(&apos;./images/cat1.png&apos;), url(&apos;./images/cat2.png&apos;), 
+        url(&apos;./images/cat3.png&apos;), url(&apos;./images/cat4.png&apos;), 
+        url(&apos;./images/cat5.png&apos;), url(&apos;./images/cat6.png&apos;);
+        background-position: left top ,
+        left top, right top, center top, 
+        left center, center, 200px 200px;
+        background-repeat: no-repeat;
+        padding: 15px;
+}
 &lt;/style&gt;
+&lt;div id=&quot;examplel&quot;&gt;&lt;/div&gt;
+</code></pre><p><img src="https://i.imgur.com/DlCySK9.png" alt=""></p>
+<h4 id="5-background-position-背景定位"><a href="#5-background-position-背景定位" class="headerlink" title="5.background-position 背景定位"></a><font color="red">5.background-position 背景定位</font></h4><p>  background-position: left top || left bottom || right top || right bottom || center center || 像素值 || 百分比</p>
+<p>(注: 没写的参数都是默认值center)</p>
+<p>1.设置background-position:left top 代表背景图片要放在内容区的左上角的位置（默认值）</p>
+<p>2.设置background-position: left; 将背景图片要放在内容区的左侧中间的位置 </p>
+<p>   设置background-position: left bottom; 将背景图片要放在内容区的左下角的位置</p>
+<p>3.设置background-position: right; 将背景图片要放在内容区的右侧中间的位置</p>
+<p>4.设置background-position: right top; 将背景图片要放在内容区的右侧上角的位置</p>
+<p>5.设置background-position: right bottom; 将背景图片要放在内容区的右侧下角的位置</p>
+<p>6.设置background-position: center; 将背景图片要放在内容区中间的位置</p>
+<p>7.设置background-position: 100px;       即沿x轴平移100px;</p>
+<p>8.设置background-position: 100px 100px; 将背景图片要放在内容区水平位置100px 垂直位置100px的位置,即沿x轴平移100px，沿y轴平移100px</p>
+<p>9.设置background-position: 20%;      将背景图片要放在内容区水平位置20%的位置。 </p>
+<p>10.设置background-position: 20% 20%; 将背景图片要放在内容区水平位置20%，竖直位置20% 的位置。</p>
+<p>第一个参数:0%是最左边 100%是最右边 中间平分。第二个参数： 0%是最上边，100%是最下边 中间平分。</p>
 
-&lt;label for=&quot;cb1&quot;&gt;
-    &lt;input type=&quot;checkbox&quot; class=&quot;myCheck&quot; name=&quot;cb1&quot; id=&quot;cb1&quot;&gt;
-    &lt;span for=&quot;cb1&quot; class=&quot;myleb&quot;&gt;&lt;/span&gt;熊猫
-&lt;/label&gt;
-&lt;label for=&quot;cb2&quot;&gt;
-        &lt;input type=&quot;checkbox&quot; class=&quot;myCheck&quot; name=&quot;cb2&quot; id=&quot;cb2&quot;&gt;
-        &lt;span for=&quot;cb2&quot; class=&quot;myleb&quot;&gt;&lt;/span&gt;老虎
-&lt;/label&gt;
-&lt;label for=&quot;cb3&quot;&gt;
-        &lt;input type=&quot;checkbox&quot; class=&quot;myCheck&quot; name=&quot;cb3&quot; id=&quot;cb3&quot;&gt;
-        &lt;span for=&quot;cb3&quot; class=&quot;myleb&quot;&gt;&lt;/span&gt;大象
-&lt;/label&gt;
-</code></pre>
           
         
       
@@ -2442,7 +3137,7 @@ div::after{
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -2485,7 +3180,7 @@ div::after{
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">23</span>
+                    <span class="site-state-item-count">33</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>

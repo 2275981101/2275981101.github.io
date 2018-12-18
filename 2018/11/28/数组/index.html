@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.6.0" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/icon.jpg?v=6.6.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/icon.jpg?v=6.6.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/icon.jpg?v=6.6.0">
+
+
+  <link rel="mask-icon" href="/images/icon.jpg?v=6.6.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.6.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="数组两种构造方法: 1.字面量 var arr = [1,2,,,,3,4];  上面这种数组属于稀松数组 2.构造函数 var arr = new Array(1,2,3,4);  JavaScript里的数组是基于对象的  即数组是一种特殊的对象 var arr = new Array(10); var arr1 = [10];  这里arr创建了10个空数组，而arr1创建了1个参数为10的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数组">
+<meta property="og:url" content="http://yoursite.com/2018/11/28/数组/index.html">
+<meta property="og:site_name" content="welcome">
+<meta property="og:description" content="数组两种构造方法: 1.字面量 var arr = [1,2,,,,3,4];  上面这种数组属于稀松数组 2.构造函数 var arr = new Array(1,2,3,4);  JavaScript里的数组是基于对象的  即数组是一种特殊的对象 var arr = new Array(10); var arr1 = [10];  这里arr创建了10个空数组，而arr1创建了1个参数为10的">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2018-12-18T10:27:50.233Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="数组">
+<meta name="twitter:description" content="数组两种构造方法: 1.字面量 var arr = [1,2,,,,3,4];  上面这种数组属于稀松数组 2.构造函数 var arr = new Array(1,2,3,4);  JavaScript里的数组是基于对象的  即数组是一种特殊的对象 var arr = new Array(10); var arr1 = [10];  这里arr创建了10个空数组，而arr1创建了1个参数为10的">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="welcome" type="application/atom+xml">
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/11/28/数组/">
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>数组 | welcome</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">welcome</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">求知若饥，虚心若愚</p>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/28/数组/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wanghai">
+      <meta itemprop="description" content="Wanghai个人站，主要涉及前端知识共享、实践教程、前沿技术共同学习等方面">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="welcome">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">数组
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-11-28 17:16:33" itemprop="dateCreated datePublished" datetime="2018-11-28T17:16:33+08:00">2018-11-28</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2018-12-18 18:27:50" itemprop="dateModified" datetime="2018-12-18T18:27:50+08:00">2018-12-18</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="数组"><a href="#数组" class="headerlink" title="数组"></a><font color="red">数组</font></h4><p><strong><font color="red">两种构造方法:</font></strong></p>
+<p>1.字面量</p>
+<pre><code>var arr = [1,2,,,,3,4];
+</code></pre><p> 上面这种数组属于<font color="red">稀松数组</font></p>
+<p>2.构造函数</p>
+<pre><code>var arr = new Array(1,2,3,4);
+</code></pre><p> JavaScript里的数组是基于对象的  即数组是一种特殊的对象</p>
+<pre><code>var arr = new Array(10);
+var arr1 = [10];
+</code></pre><p> 这里arr创建了10个空数组，而arr1创建了1个参数为10的数组</p>
+<h4 id="判断数组类型"><a href="#判断数组类型" class="headerlink" title="判断数组类型"></a><font color="red">判断数组类型</font></h4><p> 给定一个未知对象,判定他是否为数组 在es5中可以使用Array.isArray()函数来判断</p>
+<pre><code>Array.isArray([]);// true
+Array.isArray({});// false
+Array.isArray(1);// false
+</code></pre><p>在es5之前,大家可能想到利用typeof操作符来判断,但是无论是数组还是对象,均返回对象</p>
+<pre><code>typeof [];// object
+typeof {};// object
+</code></pre><p>在es3中isArray()可以使用Object.prototype.toString.call(arr) === ‘[object Array]’代替</p>
+<pre><code>Object.prototype.toString.call([]);// &apos;[object Array]&apos;
+Object.prototype.toString.call({});// &apos;[object Object]&apos;
+</code></pre><p><strong><font color="red">数组的添加和删除</font></strong></p>
+<p>• <strong>添加</strong><br>    1.最简单的方法：为新索引赋值<br>    2.使用push()和unshift()方法</p>
+<p>• <strong>删除</strong><br>    1.delete运算符删除数组元素(不会修改数组的length属性)<br>    2.使用pop()和shuift()方法</p>
+<h4 id="数组的常用方法"><a href="#数组的常用方法" class="headerlink" title="数组的常用方法"></a><font color="red">数组的常用方法</font></h4><p> • <strong><font color="red">改变原数组: push, pop, shift, unshift, sort, reverse, splice</font></strong></p>
+<p> • <strong><font color="red">不改变原数组: concat, join , split, toString, slice</font></strong></p>
+<h4 id="push-在最后一位添加"><a href="#push-在最后一位添加" class="headerlink" title="push (在最后一位添加)"></a><font color="red">push (在最后一位添加)</font></h4><pre><code>var arr = [1,2];
+Array.prototype.push = function (){
+for(var i=0;i&lt;arguments.length;i++){
+    this[this.length] = arguments[i];
+}
+    return this.length;
+}
+</code></pre><h4 id="pop-在最后一位剪切"><a href="#pop-在最后一位剪切" class="headerlink" title="pop (在最后一位剪切)"></a><font color="red">pop (在最后一位剪切)</font></h4><h4 id="shift-在最前面剪切"><a href="#shift-在最前面剪切" class="headerlink" title="shift (在最前面剪切)"></a><font color="red">shift (在最前面剪切)</font></h4><h4 id="unshift-在最前面添加"><a href="#unshift-在最前面添加" class="headerlink" title="unshift (在最前面添加)"></a><font color="red">unshift (在最前面添加)</font></h4><h4 id="reverse-反转"><a href="#reverse-反转" class="headerlink" title="reverse (反转)"></a><font color="red">reverse (反转)</font></h4><pre><code>var arr = [1, 2, 3, 4, 5];
+arr.reverse();// [5, 4, 3, 2, 1]
+</code></pre><h4 id="splice"><a href="#splice" class="headerlink" title="splice"></a><font color="red">splice</font></h4><p><strong>arr.splice(从第几位开始, 截取多少的长度, 在切口处添加新的数据);</strong></p>
+<pre><code>var arr = [1, 1, 2, 2, 3, 3];
+arr.splice(1, 2);// 删除 arr = [1,2,3,3]  
+arr.splice(1, 1, 0,0,0);// 替换 arr = [1, 0, 0, 0, 2, 2, 3, 3]
+arr.splice(3, 0, 4);// 等同于在第三位添加4
+var arr = [1,2,3,4]
+arr.splice(-1, 1);//arr = [1,2,3]   -1+length
+arr.splice(-1, 2);//arr = [1,2] 
+</code></pre><h4 id="sort-排序"><a href="#sort-排序" class="headerlink" title="sort (排序)"></a><font color="red">sort (排序)</font></h4><pre><code>var arr = [1,3,5,4,10];
+arr.sort();//按照ascll码排序
+</code></pre><p><strong>自定义排序:<br>            1.必须写两形参<br>            2.看返回值:<br>                       1)当返回值为负数时,那么前面的数放在前面<br>                       2) 为正数,那么后面的数在前<br>                       3) 为0,不动</strong></p>
+<pre><code>var arr = [3,1,5,10,4];
+arr.sort(function(a, b){
+    if(a &gt; b){  
+        return 1;
+    }else{
+        return -1;
+    }
+});
+//升序 a &gt; b ; 降序a &lt; b
+
+
+var arr = [3,1,5,10,4];
+arr.sort(function(a, b){
+    return a - b;
+});
+// return a - b;升序    
+// return b - a;降序  
+</code></pre><p>给一个有序的数组,乱序:</p>
+<pre><code>var arr = [1,2,3,4,5,6,7,8];
+arr.sort(function(a, b){
+    return Math.random()-0.5;
+});
+</code></pre><p>按照对象年龄大小排序:</p>
+<pre><code>var cheng = {
+    name : &quot;cheng&quot;,
+    age : 30,
+    sex : &quot;male&quot;
+}
+var deng = {
+    name : &quot;deng&quot;,
+    age : 50,
+    sex : &quot;male&quot;
+}
+var zhang = {
+    name : &quot;zhang&quot;,
+    age : 40,
+    sex : &quot;female&quot;
+}
+var arr = [cheng, deng, zhang];
+arr.sort(function(a, b){
+    return a.age - b.age;
+});
+</code></pre><p>按照字符串长度排序:</p>
+<pre><code>function retBytes(str){
+    var num = str.length;
+    for(var i=0;i&lt;str.length;i++){
+        if(str.charCodeAt(i)&gt;255){
+            num ++;
+        }
+    }
+    return num;
+}
+var  arr = [&apos;a邓&apos;, &apos;bd邓&apos;, &apos;cc老邓&apos;, &apos;ddddd&apos;, &apos;slkhadkhja&apos;];
+arr.sort(function(a, b){
+    return retBytes(a) - retBytes(b);
+});
+</code></pre><h4 id="concat-拼接-连接"><a href="#concat-拼接-连接" class="headerlink" title="concat (拼接/连接)"></a><font color="red">concat (拼接/连接)</font></h4><pre><code>var arr = [1,2,3];
+var arr1 = [3,2,1];
+var arr2 = arr.concat(arr1);// [1,2,3,3,2,1]
+</code></pre><h4 id="slice"><a href="#slice" class="headerlink" title="slice "></a><font color="red">slice </font></h4><p>从该位开始截取, 截取到该位(不包括)</p>
+<pre><code>var arr = [5,4,3,2,1,6];
+var newArr = arr.slice(1, 4);// [4, 3, 2]
+var newArr1 = arr.slice(1);// [4, 3, 2, 1, 6]
+</code></pre><h4 id="join"><a href="#join" class="headerlink" title="join"></a><font color="red">join</font></h4><p>将数组中所有元素都转化成字符串并连接在一起，返回最后生成的字符串<br>可以选择一个可选的字符串在生成的字符串中来分隔数组的各个元素。<br>如果不指定使用分隔符，默认使用逗号。不修改原数组。</p>
+<pre><code>var arr = [1,2,3];
+var newArr = arr.join(&quot;-&quot;);//&quot;1-2-3&quot;
+</code></pre><p>利用join(“”)可以实现大量字符串拼接</p>
+<pre><code>var str = &quot;das&quot;;
+var str1 = &quot;dqqd&quot;;
+var str2 = &quot;fvmixk&quot;;
+var str3 = &quot;qqqmlx&quot;;
+var str4 = &quot;zmcxol&quot;;
+var str5 = &quot;qpuh&quot;;
+var str6 = &quot;lough&quot;;
+var f = &quot;&quot;;
+var arr = [str,str1,str2,str3,str4,str5,str6,f];
+var newArr = arr.join(&quot;&quot;);
+</code></pre><h4 id="split"><a href="#split" class="headerlink" title="split"></a><font color="red">split</font></h4><p>split()方法是按照给定的字符串将字符串分割成若干块来创建一个数组。</p>
+<pre><code>var arr1 = newArr.split(&quot;-&quot;);//[&quot;1&quot;, &quot;2&quot;, &quot;3&quot;]
+</code></pre><h4 id="indexOf"><a href="#indexOf" class="headerlink" title="indexOf"></a><font color="red">indexOf</font></h4><p>返回某个指定的字符串值在数组中首次出现的位置，从头至尾搜索，没有则返回-1</p>
+<pre><code>var arr = [1, 1, 2, 3, 5, 5];
+arr.indexOf(1);// 0
+</code></pre><h4 id="lastIndexOf"><a href="#lastIndexOf" class="headerlink" title="lastIndexOf"></a><font color="red">lastIndexOf</font></h4><p>返回某个指定的字符串值在数组中最后一次出现的位置，从尾至头搜索，没有则返回-1</p>
+<pre><code>arr.lastIndexOf(5);// 5
+</code></pre><p>同时我们可以在方法中传入两个参数，第一个参数代表需要搜索的值，第二个参数代表从哪一位开始搜索</p>
+<pre><code>arr.indexOf(1,1);// 1
+</code></pre><p>写indexOf源码</p>
+<pre><code>Array.prototype.myIndexOf = function(){
+    var startIndex = 0;
+    var args = arguments;
+    var len = this.length;
+    if(args[1]){// 如果有第二个参数 
+        startIndex = args[1];
+    }
+    for(var i = startIndex;i &lt; len;i++){
+        if(this[i] == args[0]){// 参数一
+            return i;// 返回参数一的索引值
+        }
+    }
+    return -1;
+}
+</code></pre>
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/11/27/克隆算法/" rel="next" title="克隆算法">
+                <i class="fa fa-chevron-left"></i> 克隆算法
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/12/09/其他知识点/" rel="prev" title="其他小知识点">
+                其他小知识点 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Wanghai</p>
+              <p class="site-description motion-element" itemprop="description">Wanghai个人站，主要涉及前端知识共享、实践教程、前沿技术共同学习等方面</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">33</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#数组"><span class="nav-number">1.</span> <span class="nav-text">数组</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#判断数组类型"><span class="nav-number">2.</span> <span class="nav-text">判断数组类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#数组的常用方法"><span class="nav-number">3.</span> <span class="nav-text">数组的常用方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#push-在最后一位添加"><span class="nav-number">4.</span> <span class="nav-text">push (在最后一位添加)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#pop-在最后一位剪切"><span class="nav-number">5.</span> <span class="nav-text">pop (在最后一位剪切)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#shift-在最前面剪切"><span class="nav-number">6.</span> <span class="nav-text">shift (在最前面剪切)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#unshift-在最前面添加"><span class="nav-number">7.</span> <span class="nav-text">unshift (在最前面添加)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#reverse-反转"><span class="nav-number">8.</span> <span class="nav-text">reverse (反转)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#splice"><span class="nav-number">9.</span> <span class="nav-text">splice</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#sort-排序"><span class="nav-number">10.</span> <span class="nav-text">sort (排序)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#concat-拼接-连接"><span class="nav-number">11.</span> <span class="nav-text">concat (拼接/连接)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#slice"><span class="nav-number">12.</span> <span class="nav-text">slice </span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#join"><span class="nav-number">13.</span> <span class="nav-text">join</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#split"><span class="nav-number">14.</span> <span class="nav-text">split</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#indexOf"><span class="nav-number">15.</span> <span class="nav-text">indexOf</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#lastIndexOf"><span class="nav-number">16.</span> <span class="nav-text">lastIndexOf</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Wanghai</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v6.6.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.6.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.6.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.6.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.6.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.6.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

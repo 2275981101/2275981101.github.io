@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.6.0" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/icon.jpg?v=6.6.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/icon.jpg?v=6.6.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/icon.jpg?v=6.6.0">
+
+
+  <link rel="mask-icon" href="/images/icon.jpg?v=6.6.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.6.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="ES5.0严格模式• 浏览器 基于的es3.0的 + es5.0的新增方法 使用的• es3.0 和 es5.0产生冲突的部分• es5.0严格模式: 那么es3.0和es5.0产生冲突的部分就是用es5.0，否则会用es3.0 es5.0严格模式的启动: 必须写在页面逻辑的最顶端 或 方法里面最顶端(局部) &amp;quot;use strict&amp;quot;;  局部使用 function test(">
+<meta property="og:type" content="article">
+<meta property="og:title" content="严格模式与try-catch">
+<meta property="og:url" content="http://yoursite.com/2018/11/26/严格模式与try-catch/index.html">
+<meta property="og:site_name" content="welcome">
+<meta property="og:description" content="ES5.0严格模式• 浏览器 基于的es3.0的 + es5.0的新增方法 使用的• es3.0 和 es5.0产生冲突的部分• es5.0严格模式: 那么es3.0和es5.0产生冲突的部分就是用es5.0，否则会用es3.0 es5.0严格模式的启动: 必须写在页面逻辑的最顶端 或 方法里面最顶端(局部) &amp;quot;use strict&amp;quot;;  局部使用 function test(">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2018-12-18T09:32:43.278Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="严格模式与try-catch">
+<meta name="twitter:description" content="ES5.0严格模式• 浏览器 基于的es3.0的 + es5.0的新增方法 使用的• es3.0 和 es5.0产生冲突的部分• es5.0严格模式: 那么es3.0和es5.0产生冲突的部分就是用es5.0，否则会用es3.0 es5.0严格模式的启动: 必须写在页面逻辑的最顶端 或 方法里面最顶端(局部) &amp;quot;use strict&amp;quot;;  局部使用 function test(">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="welcome" type="application/atom+xml">
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/11/26/严格模式与try-catch/">
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>严格模式与try-catch | welcome</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">welcome</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">求知若饥，虚心若愚</p>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/26/严格模式与try-catch/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wanghai">
+      <meta itemprop="description" content="Wanghai个人站，主要涉及前端知识共享、实践教程、前沿技术共同学习等方面">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="welcome">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">严格模式与try-catch
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-11-26 17:16:33" itemprop="dateCreated datePublished" datetime="2018-11-26T17:16:33+08:00">2018-11-26</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2018-12-18 17:32:43" itemprop="dateModified" datetime="2018-12-18T17:32:43+08:00">2018-12-18</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="ES5-0严格模式"><a href="#ES5-0严格模式" class="headerlink" title="ES5.0严格模式"></a><font color="red">ES5.0严格模式</font></h4><p>• 浏览器 基于的es3.0的 + es5.0的新增方法 使用的<br>• es3.0 和 es5.0产生冲突的部分<br>• es5.0严格模式: 那么es3.0和es5.0产生冲突的部分就是用es5.0，否则会用es3.0</p>
+<p><strong>es5.0严格模式的启动</strong>: 必须写在页面逻辑的最顶端 或 方法里面最顶端(局部)</p>
+<pre><code>&quot;use strict&quot;;
+
+局部使用
+function test(){
+    &quot;use strict&quot;;
+    console.log(arguments.callee);
+}
+test();
+</code></pre><p><strong>严格模式下: • with, arguments.callee, caller(不能使用)<br>             • 变量赋值必须声明,局部this必须赋值<br>             • 拒绝重复属性和参数<br>             • es3.0 都不能使用eval();</strong></p>
+<pre><code>如:
+function test(name, name){
+    &quot;use strict&quot;;
+    console.log(name);
+}
+test(1,2);
+
+var obj = {
+    name : &apos;123&apos;,
+    name : &apos;234&apos;
+}
+</code></pre><h4 id="try…catch"><a href="#try…catch" class="headerlink" title="try…catch"></a><font color="red">try…catch</font></h4><p><strong>三段式:</strong></p>
+<pre><code>try{
+
+}catch(e){
+
+    }finally{
+
+    }
+</code></pre><p><strong>error对象 ——&gt; error.massage error.name<br>Error.name的六种值对应的信息</strong></p>
+<p>  1.EvalError: eval()的使用与定义不一致<br>  2.RangeError: 数值越界<br>  3.ReferenceError: 非法或不能识别的引用数值<br>  4.SyntaxError: 发生语法解析错误<br>  5.TypeError: 操作数类型错误<br>  6.URIError: URI处理函数使用不当</p>
+<pre><code>console.log(b);// ReferenceError    没定义就使用
+test();        // ReferenceError 
+var str = abcd;// ReferenceError
+
+function demo(){
+      :
+}
+//SyntaxError       语法解析错误
+
+//在try里面的发生错误,不会执行错误后的try里面的代码
+try{
+    console.log(&apos;a&apos;);
+    console.log(b);
+    console.log(&apos;c&apos;);
+}catch(e){
+    console.log(e.massage+&quot; &quot;+e.name);//出错走这里
+}
+    console.log(&apos;d&apos;);
+</code></pre>
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/11/25/this/" rel="next" title="this">
+                <i class="fa fa-chevron-left"></i> this
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/11/27/克隆算法/" rel="prev" title="克隆算法">
+                克隆算法 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Wanghai</p>
+              <p class="site-description motion-element" itemprop="description">Wanghai个人站，主要涉及前端知识共享、实践教程、前沿技术共同学习等方面</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">33</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#ES5-0严格模式"><span class="nav-number">1.</span> <span class="nav-text">ES5.0严格模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#try…catch"><span class="nav-number">2.</span> <span class="nav-text">try…catch</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Wanghai</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v6.6.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.6.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.6.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.6.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.6.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.6.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

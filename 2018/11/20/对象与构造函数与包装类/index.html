@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.6.0" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/icon.jpg?v=6.6.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/icon.jpg?v=6.6.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/icon.jpg?v=6.6.0">
+
+
+  <link rel="mask-icon" href="/images/icon.jpg?v=6.6.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.6.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="对象创建方法对象的创建方法有三种：  对象字面量 var obj = {}   这样的方式就叫做字面量，也是我们创建对象最简单最常用的方法。 对象里面有属性，属性之间用逗号分隔，每一条属性都有属性名和属性值，属性名和属性值之间用分号分隔。  构造函数  构造函数也分两种：系统自带的构造函数和我们自定义的构造函数。 • 系统自带的构造函数 创建对象的构造函数是Object()。 var obj =">
+<meta property="og:type" content="article">
+<meta property="og:title" content="对象与构造函数与包装类">
+<meta property="og:url" content="http://yoursite.com/2018/11/20/对象与构造函数与包装类/index.html">
+<meta property="og:site_name" content="welcome">
+<meta property="og:description" content="对象创建方法对象的创建方法有三种：  对象字面量 var obj = {}   这样的方式就叫做字面量，也是我们创建对象最简单最常用的方法。 对象里面有属性，属性之间用逗号分隔，每一条属性都有属性名和属性值，属性名和属性值之间用分号分隔。  构造函数  构造函数也分两种：系统自带的构造函数和我们自定义的构造函数。 • 系统自带的构造函数 创建对象的构造函数是Object()。 var obj =">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2018-12-18T08:53:35.541Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="对象与构造函数与包装类">
+<meta name="twitter:description" content="对象创建方法对象的创建方法有三种：  对象字面量 var obj = {}   这样的方式就叫做字面量，也是我们创建对象最简单最常用的方法。 对象里面有属性，属性之间用逗号分隔，每一条属性都有属性名和属性值，属性名和属性值之间用分号分隔。  构造函数  构造函数也分两种：系统自带的构造函数和我们自定义的构造函数。 • 系统自带的构造函数 创建对象的构造函数是Object()。 var obj =">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="welcome" type="application/atom+xml">
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/11/20/对象与构造函数与包装类/">
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>对象与构造函数与包装类 | welcome</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">welcome</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">求知若饥，虚心若愚</p>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/20/对象与构造函数与包装类/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wanghai">
+      <meta itemprop="description" content="Wanghai个人站，主要涉及前端知识共享、实践教程、前沿技术共同学习等方面">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="welcome">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">对象与构造函数与包装类
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-11-20 17:16:33" itemprop="dateCreated datePublished" datetime="2018-11-20T17:16:33+08:00">2018-11-20</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2018-12-18 16:53:35" itemprop="dateModified" datetime="2018-12-18T16:53:35+08:00">2018-12-18</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="对象创建方法"><a href="#对象创建方法" class="headerlink" title="对象创建方法"></a><font color="red">对象创建方法</font></h2><p>对象的创建方法有三种：</p>
+<ol>
+<li><p><strong><font color="red">对象字面量</font></strong></p>
+<pre><code>var obj = {}
+</code></pre></li>
+</ol>
+<p>这样的方式就叫做字面量，也是我们<font color="red">创建对象最简单最常用</font>的方法。</p>
+<p>对象里面有属性，属性之间用逗号分隔，每一条属性都有属性名和属性值，属性名和属性值之间用分号分隔。</p>
+<ol start="2">
+<li><strong><font color="red">构造函数</font></strong></li>
+</ol>
+<p>构造函数也分两种：<font color="red">系统自带的构造函数</font>和我们<font color="red">自定义的构造函数</font>。</p>
+<p>• <font color="red">系统自带的构造函数</font></p>
+<p>创建对象的构造函数是Object()。</p>
+<pre><code>var obj = new Object();
+</code></pre><p>它的作用和var obj = {};的作用是一样的。</p>
+<p>系统自带的构造函数还有很多，比如Number()、String()、Boolean()、Array()这些都是构造函数。</p>
+<p>• <font color="red">自定义构造函数</font></p>
+<p>自定义的构造函数是我们平时<font color="red">最常用的一种构造函数</font>。</p>
+<p>构造函数也是正常的函数，我们为了区分它和别的正常函数，把构造函数的首字母大写。</p>
+<pre><code>function Persion(){}
+</code></pre><p>有了构造函数之后，我们就可以用new操作符来创建对象了。</p>
+<pre><code>var oPerson = new Person();
+typeof oPerson;// object
+</code></pre><p>这样我们也创建了一个对象oPerson，不过现在这个对象是空对象，因为我们的构造函数什么都没有写，我们也没有给这个对象添加任何属性。</p>
+<p>另外，用new操作符创建出来的对象，尽管都是使用的同一个构造函数，但是之间是没有关联的。</p>
+<pre><code>var person1 = new Person();
+var person2 = new Person();
+person1.name = &apos;111&apos;;
+console.log(person2.name);// undefined
+</code></pre><p>我们可以在构造函数里面写一些对象天生就有的默认属性。</p>
+<pre><code>function Person() {
+    this.name = &apos;scarlett&apos;,
+    this.age = 17
+}
+var person = new Person();
+person.name;// scarlett
+</code></pre><p>当然构造函数既然是函数，那么就可以传参数。</p>
+<pre><code>function Person(name, age) {
+    this.name = name,
+    this.age = age
+}
+var person = new Person(&apos;scarlett&apos;, 18);
+person.age;// 18
+</code></pre><p>创建对象的时候，<font color="red">只有new才会有this</font>。</p>
+<p>这里有一个重点，<font color="red">为什么我们通过new操作符可以创建互相独立的对象呢</font>？</p>
+<p>其实，当我们用new操作符的时候，这个new在我们的构造函数里面隐式创建了一个this对象，并且最后返回了这个this对象，这也就是为什么我们通过new可以最后创建一个对象的原因了。</p>
+<pre><code>function Person(name) {
+    // var this = {};
+    this.name = name;
+    // return this;
+}
+</code></pre><p>如果我们在构造函数首行手动创建一个对象，比如that对象，然后最后返回了that，那么里面的this就没有用了，我们要为属性赋值就要用that了。</p>
+<pre><code>function person(name) {
+       var that = {
+            name : &apos;scarlett&apos;
+       };
+       that.name = name;
+       return that;
+}
+var person = new Person(&apos;demo&apos;);
+person.name;// demo
+</code></pre><font color="red">重点：如果我们最后返回的对象，那么this就失效，但是如果最后显示返回的是原始值，那么this还是有效的。</font>
+
+<pre><code>function person(name) {
+       var that = {};
+       that.name = &apos;that&apos;;
+       this.name = &apos;this&apos;;
+       return 123;
+}
+var person = new Person();
+person.name;// this
+</code></pre><ol start="3">
+<li><strong><font color="red">Object.create(原型)</font></strong></li>
+</ol>
+<p>后面原型里面在具体说明</p>
+<h2 id="属性的增删改查"><a href="#属性的增删改查" class="headerlink" title="属性的增删改查"></a><font color="red">属性的增删改查</font></h2><p>1.<strong>增</strong></p>
+<pre><code>var obj = {};
+obj.name = &apos;scarlett&apos;;
+obj.name;// scarlett
+</code></pre><p>我们可以通过对象名+点+属性名的方法来给对象添加新的属性并且赋值。</p>
+<p>这个时候如果我们调用obj.age属性的话，这个属性并不存在，但是obj这个对象是存在的，因此浏览器不会报错，只会打印undefined。</p>
+<p>2.<strong>改</strong></p>
+<p>修改的操作和增加的操作其实是一样的，只要调用相同的属性名然后赋一个新的值就可以了。</p>
+<pre><code>var obj = {
+    name : &apos;scarlett&apos;
+};
+obj.name = &apos;demo&apos;;
+obj.name;// demo
+</code></pre><p>3.<strong>查</strong></p>
+<pre><code>obj.name = &apos;demo&apos;;
+console.log(obj.name);// demo
+</code></pre><p>4.<strong>删</strong></p>
+<p>删除属性的操作我们需要借助<font color="red">delete</font>操作符，这个操作符的作用就是来删除属性的。</p>
+<pre><code>var obj = {
+    name : &apos;scarlett&apos;
+}
+obj.name;// scarlett
+delete obj.name;
+obj.name;// undefined
+</code></pre><h2 id="内置对象和包装类型"><a href="#内置对象和包装类型" class="headerlink" title="内置对象和包装类型"></a><font color="red">内置对象和包装类型</font></h2><p><strong><font color="red">内置对象</font></strong></p>
+<p><strong>内置对象</strong>:就是ES标准中规定的浏览器厂商已经实现的API都叫做内置对象。一共11个</p>
+<p><strong><font color="red">String Number Boolean Array Date Math RegExp Error  Function Object Global全局(Window)</font></strong></p>
+<p>这十一个对象都干了两件事,第一是装数据的,第二为了简化你的操作,提供了很多现成的API让你去操作数据</p>
+<p><strong><font color="red">包装类型</font></strong></p>
+<p><strong>包装类型</strong>:专门封装原始类型的值,并提供操作值得API的对象.</p>
+<p>包装类型的值做了两件事,第一件事:封装一个值,然后还提供了对这个值操作的API.</p>
+<p>如何使用:他都是自动创建,自动销毁</p>
+<p>什么时候创建:在试图用原始类型的值,调用函数时,会自动创建对应类型的包装类型对象.调用完函数后自动释放</p>
+<pre><code>var str = ‘abcd’;
+// var str1 = String(‘abcd’);
+str.length = 2; // str1.length = 2;
+//销毁str1
+console.log(str); // abcd 长度还是4
+
+var n = 123.456;
+n.toFixed(2);// &quot;123.46&quot; 内部其实是 new Number(n).toFixed(2);
+
+&quot;张&quot;.charCodeAt();// 24352 内部其实发生了 new String(&quot;张&quot;).charCodeAt();
+
+// 为什么要有包装类型:因为原始类型的值本身不能有任何属性和函数,放不下
+
+var str = &quot;abc&quot;;
+str += 1;
+var test = typeof(str);
+if(test.length == 6){
+    test.sign = &quot;typeof的返回结果可能为String&quot;;
+    // new String(test).sign = &apos;xxx&apos;;
+}
+// new String(test).sign
+console.log(test.sign);// undefined
+</code></pre>
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/11/19/js预编译/" rel="next" title="预编译">
+                <i class="fa fa-chevron-left"></i> 预编译
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/11/21/原型/" rel="prev" title="原型">
+                原型 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Wanghai</p>
+              <p class="site-description motion-element" itemprop="description">Wanghai个人站，主要涉及前端知识共享、实践教程、前沿技术共同学习等方面</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">33</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#对象创建方法"><span class="nav-number">1.</span> <span class="nav-text">对象创建方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#属性的增删改查"><span class="nav-number">2.</span> <span class="nav-text">属性的增删改查</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#内置对象和包装类型"><span class="nav-number">3.</span> <span class="nav-text">内置对象和包装类型</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Wanghai</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v6.6.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.6.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.6.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.6.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.6.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.6.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
