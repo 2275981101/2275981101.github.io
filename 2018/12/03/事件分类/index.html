@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.6.0" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/icon.jpg?v=6.6.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/icon.jpg?v=6.6.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/icon.jpg?v=6.6.0">
+
+
+  <link rel="mask-icon" href="/images/icon.jpg?v=6.6.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.6.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="鼠标事件click、contextmenu(右键菜单)、mouseover、mouseout、mousedown、mousemove、mouseup移动端对应的(touchstart、touchmove、touchend) • 所有的鼠标事件都有clientX和clientY，代表的是鼠标点击的位置，我们可以通过e.clientX和e.clentY来查看。 • 左键点击的顺序是：mousedown">
+<meta property="og:type" content="article">
+<meta property="og:title" content="事件分类">
+<meta property="og:url" content="http://yoursite.com/2018/12/03/事件分类/index.html">
+<meta property="og:site_name" content="welcome">
+<meta property="og:description" content="鼠标事件click、contextmenu(右键菜单)、mouseover、mouseout、mousedown、mousemove、mouseup移动端对应的(touchstart、touchmove、touchend) • 所有的鼠标事件都有clientX和clientY，代表的是鼠标点击的位置，我们可以通过e.clientX和e.clentY来查看。 • 左键点击的顺序是：mousedown">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2018-12-19T08:06:45.834Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="事件分类">
+<meta name="twitter:description" content="鼠标事件click、contextmenu(右键菜单)、mouseover、mouseout、mousedown、mousemove、mouseup移动端对应的(touchstart、touchmove、touchend) • 所有的鼠标事件都有clientX和clientY，代表的是鼠标点击的位置，我们可以通过e.clientX和e.clentY来查看。 • 左键点击的顺序是：mousedown">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="welcome" type="application/atom+xml">
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/12/03/事件分类/">
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>事件分类 | welcome</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">welcome</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">求知若饥，虚心若愚</p>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/03/事件分类/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wanghai">
+      <meta itemprop="description" content="Wanghai个人站，主要涉及前端知识共享、实践教程、前沿技术共同学习等方面">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="welcome">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">事件分类
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-12-03 17:16:33" itemprop="dateCreated datePublished" datetime="2018-12-03T17:16:33+08:00">2018-12-03</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2018-12-19 16:06:45" itemprop="dateModified" datetime="2018-12-19T16:06:45+08:00">2018-12-19</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="鼠标事件"><a href="#鼠标事件" class="headerlink" title="鼠标事件"></a><font color="red">鼠标事件</font></h4><p>click、contextmenu(右键菜单)、mouseover、mouseout、mousedown、mousemove、mouseup移动端对应的(touchstart、touchmove、touchend)</p>
+<p>• 所有的鼠标事件都有clientX和clientY，代表的是鼠标点击的位置，我们可以通过e.clientX和e.clentY来查看。</p>
+<p>• 左键点击的顺序是：mousedown、mouseup、click</p>
+<p>• 当我们同时绑定了click事件和mousedown事件后，如何解决mousedown和click的冲突问题？</p>
+<pre><code>var firstTime = 0;
+var laseTime = 0;
+var key = false;
+document.onmousedown = function(){
+    firstTime = new Date().getTime();
+}    
+document.onmouseup = function(){
+    laseTime = new Date().getTime();
+    if(laseTime - firstTime &lt; 300){
+        key = true;
+    }
+}
+document.onclikc = function(){
+    if(key){
+        console.log(&apos;click&apos;);
+        key = false;
+    }
+}
+</code></pre><p>click事件永远都是左键，有左键和右键的区别的是mousedown事件。</p>
+<p>再mousedown的事件对象中有一个属性叫做button，这个属性的值是0的时候代表我们按下的是左键，1的时候代表按下的中键，2的时候代表按下的是右键。</p>
+<pre><code>document.onmousedown = function (e) {
+  if (e.button == 0) {
+      console.log(‘left’);
+  }else if (e.button == 1) {
+      console.log(‘mid’);
+  }else {
+      console.log(‘right’);
+  }
+}
+</code></pre><p>这里我们就可以重新回顾一下拖拽事件了：</p>
+<pre><code>var div = document.getElementsByTagName(&apos;div&apos;)[0]
+function drag(elem){
+    var disX,
+        disY;
+    addEvent(elem, &apos;mousedown&apos;, function(e){// 之前封装的事件绑定函数
+        var event = e || window.event;
+        disX = event.clientX - parseInt(getStyle(elem, &apos;left&apos;));// 之前封装的查询元素样式函数
+        disY = event.clientY - parseInt(getStyle(elem, &apos;top&apos;));
+        addEvent(document, &apos;mousemove&apos;, mouseMove);
+        addEvent(document, &apos;mouseup&apos;, mouseUp);
+        stopBubble(e);
+        cancelHandler(e);
+    });
+    function mouseMove(e){
+        var event = e || window.event;
+        elem.style.left = event.clientX - disX + &quot;px&quot;;
+        elem.style.top = event.clientY - disY + &quot;px&quot;;
+    }
+    function mouseUp(e){
+        var event = e || window.event;
+        removeEvent(document, &apos;mousemove&apos;, mouseMove);
+        removeEvent(document, &apos;mouseup&apos;, mouseUp);   
+    }
+}
+</code></pre><h4 id="键盘事件"><a href="#键盘事件" class="headerlink" title="键盘事件"></a><font color="red">键盘事件</font></h4><p>键盘事件主要有三个：keydown、keypress、keyup。<br>触发顺序分别是keydown &gt; keypress &gt; keyup。</p>
+<p>keypress的范围和keydown有所区别：</p>
+<p>keydown可以响应任意键盘按键，keypress只能响应字符类按键，也就是有ASCII码的字符的按键，像字母数字回车空格之类的。</p>
+<p>事件对象的属性方面：只有keypress有charCode属性，这个属性代表的我们输入的这个字符的ASCII码，配合SHIFT之类的按键可以直接获取大写字母等。</p>
+<p>keyCode和which每个方法都有，表示的是这个键的唯一标示，可以告诉浏览器我们按下的是键盘上的哪一个键，比如空格是32，32就代表空格。不过我们一般都用which，keyCode用的较少。</p>
+<p>• String上有一个方法叫做fromCharCode，可以接受一个Unicode值（包含ASCII值），然后返回对应的字符串，我们可以配合这个方法和charCode来直接获取输入的字符。</p>
+<pre><code>document.onkeypress = function(e){
+    console.log(String.fromCharCode(e.charCode));
+}
+</code></pre><h4 id="文本操作事件"><a href="#文本操作事件" class="headerlink" title="文本操作事件"></a><font color="red">文本操作事件</font></h4><p>input,focus,blur,change</p>
+<pre><code>&lt;input type=&quot;text&quot; value=&quot;请输入用户名&quot; style=&quot;color: #999;position: absolute;top: 200px&quot;
+onfocus=&quot;if(this.value==&apos;请输入用户名&apos;){this.value=&apos;&apos;;this.style.color=&apos;#424242&apos;}&quot;
+onblur=&quot;if(this.value==&apos;&apos;){this.value=&apos;请输入用户名&apos;;this.style.color=&apos;#999&apos;}&quot;&gt;
+</code></pre><h4 id="窗体操作类-window上的事件"><a href="#窗体操作类-window上的事件" class="headerlink" title="窗体操作类(window上的事件)"></a><font color="red">窗体操作类(window上的事件)</font></h4><p><strong><font color="red">load事件</font></strong></p>
+<p>这个事件window.onload和在body标签上写onload是一样的效果，作用是等页面中所有的东西都下载完成再执行里面的代码。</p>
+<p><strong><font color="red">scroll事件</font></strong></p>
+<p>这个方法是监听滚轮滚动的事件，我们可以用这个事件来写一个兼容版的fix定位。</p>
+<pre><code>function beFixed(ele){
+  var initPosX = ele.getPosition().w,
+      initPosY = ele.getPosition().h;
+  addEvent(window, ‘scroll’, function(e){
+      ele.style.top =  initPosY + getScrollOffset().h + ‘px’;
+      ele.style.left =  initPosX + getScrollOffset().w + ‘px’;
+  })
+}
+</code></pre>
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/02/脚本化CSS/" rel="next" title="脚本化CSS">
+                <i class="fa fa-chevron-left"></i> 脚本化CSS
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/12/04/事件绑定/" rel="prev" title="事件绑定">
+                事件绑定 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Wanghai</p>
+              <p class="site-description motion-element" itemprop="description">Wanghai个人站，主要涉及前端知识共享、实践教程、前沿技术共同学习等方面</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">43</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#鼠标事件"><span class="nav-number">1.</span> <span class="nav-text">鼠标事件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#键盘事件"><span class="nav-number">2.</span> <span class="nav-text">键盘事件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#文本操作事件"><span class="nav-number">3.</span> <span class="nav-text">文本操作事件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#窗体操作类-window上的事件"><span class="nav-number">4.</span> <span class="nav-text">窗体操作类(window上的事件)</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Wanghai</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v6.6.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.6.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.6.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.6.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.6.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.6.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

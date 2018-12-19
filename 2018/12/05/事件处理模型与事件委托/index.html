@@ -1,0 +1,951 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.6.0" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/icon.jpg?v=6.6.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/icon.jpg?v=6.6.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/icon.jpg?v=6.6.0">
+
+
+  <link rel="mask-icon" href="/images/icon.jpg?v=6.6.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.6.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="事件处理模型——事件冒泡、事件捕获上一篇介绍了事件的绑定，我们这里先写一个三层div嵌套的结构并且给每一个div都加一个点击事件。 .wrapper{     width: 200px;     height: 200px;     background-color: red; } .box{     width: 100px;     height: 100px;     background-">
+<meta property="og:type" content="article">
+<meta property="og:title" content="事件处理模型与事件委托">
+<meta property="og:url" content="http://yoursite.com/2018/12/05/事件处理模型与事件委托/index.html">
+<meta property="og:site_name" content="welcome">
+<meta property="og:description" content="事件处理模型——事件冒泡、事件捕获上一篇介绍了事件的绑定，我们这里先写一个三层div嵌套的结构并且给每一个div都加一个点击事件。 .wrapper{     width: 200px;     height: 200px;     background-color: red; } .box{     width: 100px;     height: 100px;     background-">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2018-12-19T09:41:39.595Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="事件处理模型与事件委托">
+<meta name="twitter:description" content="事件处理模型——事件冒泡、事件捕获上一篇介绍了事件的绑定，我们这里先写一个三层div嵌套的结构并且给每一个div都加一个点击事件。 .wrapper{     width: 200px;     height: 200px;     background-color: red; } .box{     width: 100px;     height: 100px;     background-">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="welcome" type="application/atom+xml">
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/12/05/事件处理模型与事件委托/">
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>事件处理模型与事件委托 | welcome</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">welcome</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">求知若饥，虚心若愚</p>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/05/事件处理模型与事件委托/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wanghai">
+      <meta itemprop="description" content="Wanghai个人站，主要涉及前端知识共享、实践教程、前沿技术共同学习等方面">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="welcome">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">事件处理模型与事件委托
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-12-05 17:16:33" itemprop="dateCreated datePublished" datetime="2018-12-05T17:16:33+08:00">2018-12-05</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2018-12-19 17:41:39" itemprop="dateModified" datetime="2018-12-19T17:41:39+08:00">2018-12-19</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="事件处理模型——事件冒泡、事件捕获"><a href="#事件处理模型——事件冒泡、事件捕获" class="headerlink" title="事件处理模型——事件冒泡、事件捕获"></a><font color="red">事件处理模型——事件冒泡、事件捕获</font></h2><p>上一篇介绍了事件的绑定，我们这里先写一个三层div嵌套的结构并且给每一个div都加一个点击事件。</p>
+<pre><code>.wrapper{
+    width: 200px;
+    height: 200px;
+    background-color: red;
+}
+.box{
+    width: 100px;
+    height: 100px;
+    background-color: green;
+}
+.content{
+    width: 50px;
+    height: 50px;
+    background-color: black;
+}
+
+var wrapper = document.getElementsByClassName(&apos;wrapper&apos;)[0],
+        box = document.getElementsByClassName(&apos;box&apos;)[0],
+    content = document.getElementsByClassName(&apos;content&apos;)[0];
+wrapper.onclick = function () {
+  console.log(&apos;wrapper&apos;);
+}
+box.onclick = function () {
+  console.log(&apos;box&apos;);
+}
+content.onclick = function () {
+  console.log(&apos;content&apos;);
+}
+</code></pre><p>• 现在我们点击最外层的wrapper，控制台打印的wrapper。</p>
+<p>• 点击box，却打印出来box和wrapper</p>
+<p>• 点击content打印出来content、box、wrapper</p>
+<p>这个现象就是我们所说的事件冒泡。</p>
+<p><strong>事件冒泡</strong>：在<font color="red">结构上</font>（非视觉上）嵌套关系的元素，会存在事件冒泡的功能，即同一事件，<font color="red">子元素冒泡向父元素</font>，结构上的自底向上。（这里的底是结构上的底，视觉上是自顶向下）</p>
+<p>大部分事件都有事件冒泡现象，并且<font color="red">所有的浏览器都有事件冒泡</font>。</p>
+<p>结构上的冒泡，和视觉的位置没有关系，我们看一下三个方块视觉上分开的例子：</p>
+<pre><code>.wrapper{
+        width: 200px;
+        height: 200px;
+        background-color: red;
+        position: absolute;
+    }
+    .box{
+        width: 100px;
+        height: 100px;
+        background-color: green;
+        position: absolute;
+        left: 200px;
+        top: 200px;
+    }
+    .content{
+        width: 50px;
+        height: 50px;
+        background-color: black;
+        position: absolute;
+        left: 100px;
+        top: 100px;
+    }
+</code></pre><p>我们点击content部分之后依然会把box和wrapper都打印出来。</p>
+<p><font color="red">并不是所有的事件都有冒泡</font>，focus、blur、change、submit、reset、select等方法就没有事件冒泡现象。</p>
+<p><strong>事件捕获</strong>：<font color="red">结构上</font>（非视觉上）嵌套关系的元素，会存在事件捕获功能，即同一事件，<font color="red">自父元素捕获至子元素</font>（事件源元素），结构上的自顶向下。</p>
+<p><strong>addEventListener最后一个参数就是是否开始事件捕获</strong>，当我们填true的时候，就代表开启了事件捕获。只要开启了事件捕获，就不会冒泡了，如果不捕获的话，就遵循事件冒泡。</p>
+<p>因为addEventListener只有chrome有，因此<font color="red">事件捕获也只有chrome浏览器有</font>。</p>
+<p>依然是上面的那个例子：</p>
+<pre><code>var wrapper = document.getElementsByClassName(&apos;wrapper&apos;)[0],
+    box = document.getElementsByClassName(&apos;box&apos;)[0],
+    content = document.getElementsByClassName(&apos;content&apos;)[0];
+wrapper.addEventListener(&apos;click&apos;, function (e) {
+    console.log(&apos;wrapper&apos;);
+}, true);
+box.addEventListener(&apos;click&apos;, function (e) {
+    console.log(&apos;box&apos;);
+}, true);
+content.addEventListener(&apos;click&apos;, function (e) {
+    console.log(&apos;content&apos;);
+}, true);
+</code></pre><p>现在点击content之后，顺序是wrapper、box、content。</p>
+<p>当事件冒泡和事件捕获同时存在的时候，事件冒泡和事件捕获的触发顺序则为：<strong><font color="red">先捕获，再冒泡</font></strong>。</p>
+<pre><code>var wrapper = document.getElementsByClassName(&apos;wrapper&apos;)[0],
+        box = document.getElementsByClassName(&apos;box&apos;)[0],
+    content = document.getElementsByClassName(&apos;content&apos;)[0];
+wrapper.onclick = function () {
+  console.log(&apos;wrapperBubbler&apos;);
+}
+box.onclick = function () {
+  console.log(&apos;boxBubbler&apos;);
+}
+content.onclick = function () {
+  console.log(&apos;contentBubbler&apos;);
+}
+ wrapper.addEventListener(&apos;click&apos;, function (e) {
+    console.log(&apos;wrapper&apos;);
+}, true);
+box.addEventListener(&apos;click&apos;, function (e) {
+    console.log(&apos;box&apos;);
+}, true);
+content.addEventListener(&apos;click&apos;, function (e) {
+    console.log(&apos;content&apos;);
+}, true);
+</code></pre><p>结果是先捕获再冒泡。</p>
+<p>但是当我们把捕获写到冒泡前面的时候，顺序好像发生了变化。</p>
+<p>wrapper–&gt;box–&gt;<font color="red">contentBubble</font>–&gt;content–&gt;boxBubble–&gt;wrapperBubble</p>
+<p>这里是因为点击content，并不属于冒泡，而是属于<font color="red">事件执行</font>，我们先绑定的boxBubble，所以就先捕获，再事件执行，再冒泡，这与我们的结论没有冲突。</p>
+<h2 id="取消冒泡和阻止默认事件"><a href="#取消冒泡和阻止默认事件" class="headerlink" title="取消冒泡和阻止默认事件"></a><font color="red">取消冒泡和阻止默认事件</font></h2><p>• 有时候冒泡或者默认事件会对我们的功能造成影响，因此我们需要适时地取消冒泡和默认事件。</p>
+<p>• 我们绑定事件的处理函数的时候，可以传递一个形参，代表我们的事件对象，一般是e或者event，<font color="red">系统会自动帮我们捕获事件源对象并且把事件源对象传入</font>。</p>
+<p><strong><font color="red">取消冒泡的方法</font></strong></p>
+<p>1.<strong><font color="red">w3c标准方法：event.stopPropagation()</font></strong></p>
+<pre><code>var wrapper = document.getElementsByClassName(&apos;wrapper&apos;)[0],
+        box = document.getElementsByClassName(&apos;box&apos;)[0],
+    content = document.getElementsByClassName(&apos;content&apos;)[0];
+content.onclick = function (e) {
+    console.log(&apos;content&apos;);
+    e.stopPropagation();
+}
+</code></pre><p><strong>IE9以及以下的版本不支持这个方法。</strong></p>
+<p>2.<strong><font color="red">event.cancelBubble = true</font></strong></p>
+<p>这个属性是IE的，不过一些高版本的浏览器也有这个属性，只要让这个属性的值等于true，同样也可以取消事件冒泡。</p>
+<p>封装一个兼容性的取消事件冒泡的方法：</p>
+<pre><code>function stopBubble(event){
+    if(event.stopPropagation){
+        event.stopPropagation();
+    }else{
+        event.cancelBubble = true;
+    }
+}
+</code></pre><p><strong><font color="red">默认事件</font></strong></p>
+<p>当我们在浏览器中点击右键，会弹出一个菜单，这就是一个默认事件contextmenu。还有a标签，即使我们不写跳转的页面，也会自动刷新页面，这也是一个默认事件。<br>默认事件有好的也有不好的，这就需要我们把不需要的默认事件阻止掉。</p>
+<p><strong><font color="red">阻止默认事件</font></strong></p>
+<p>1.<strong><font color="red">return false</font></strong><br>不过要注意的是，这种写法只能用在句柄方式绑定的事件上。</p>
+<pre><code>document.oncontextmenu = function () {
+    console.log(&apos;menu&apos;);
+    return false;
+}
+</code></pre><p>2.<strong><font color="red">event.preventDefault()</font></strong><br>这是w3c标准的阻止默认事件的方法，句柄也同样可以使用。不过IE9以下不兼容。</p>
+<pre><code>documet.addEventListener(&apos;contextmenu&apos;, function (e) {
+    console.log(&apos;menu&apos;);
+    e.preventDefault();
+},false);
+</code></pre><p>3.<strong><font color="red">event.returnValue = false</font></strong><br>这个是IE的方法，事件源对象上的属性returnValue代表是否有默认事件，直接返回false就可以阻止默认事件了。</p>
+<pre><code>document.attachEvent(&apos;oncontextmenu&apos;, function (e) {
+    e.returnValue = false;
+});
+</code></pre><p>现在我们也可以封装一个兼容性的阻止默认事件的方法了：</p>
+<pre><code>function cancelHandler(event){
+    if(event.preventDefault){
+        event.preventDefault();
+    }else{
+        event.returnValue = false;
+    }
+}
+</code></pre><p>小例子: 阻止a标签不跳转</p>
+<pre><code>var a = document.links[0];
+a.addEventListener(&apos;click&apos;, funciton (e) {
+    e.cancelHandler(e);
+},false);
+</code></pre><p>同时我们还可以用a标签的第四个用处，协议限定符来阻止默认事件。</p>
+<pre><code>&lt;a href=“javascript: void(0); “&gt;www.baidu.com&lt;/a&gt;
+</code></pre><p>不仅仅是0，只要填写一个代表false的值，就可以取消掉默认事件。</p>
+<h2 id="事件对象"><a href="#事件对象" class="headerlink" title="事件对象"></a><font color="red">事件对象</font></h2><p><font color="red">在IE中，系统不会把事件对象传到方法中，因此我们的参数e或者event在IE中是不好用的，IE会把事件对象传递到window.event上</font>，所以当我们使用事件对象的时候，就要写兼容性的写法：</p>
+<pre><code>var event = e || window.event;
+</code></pre><p><font color="red"><strong>event.target</strong></font> 是<font color="red">火狐</font>的获取事件源对象</p>
+<p><font color="red"><strong>event.srcElement</strong></font> 是<font color="red">IE</font>的获取事件源对象</p>
+<p>chrome两种都有</p>
+<p>因此我们在获取事件源对象的时候也需要写兼容性写法</p>
+<pre><code>wrapper.onclik = function(e){
+    var event = e || window.event;
+    var target = event.target || event.srcElement;
+    console.log(target);
+}
+</code></pre><h2 id="事件委托"><a href="#事件委托" class="headerlink" title="事件委托"></a><font color="red">事件委托</font></h2><p>我们现在有一个ul，下面有十万个li，当我们给父级的ul添加第一个点击事件之后，由于<font color="red">事件冒泡</font>的存在，不论我们点击哪一个li都会调用父级的点击事件处理函数，这个时候触发父级ul的点击函数的那个li就被称之为事件源对象。</p>
+<p>我们<font color="red">利用事件源对象和事件冒泡来处理的方式就叫做事件委托</font>。</p>
+<pre><code>&lt;ul&gt;
+    &lt;li&gt;1&lt;/li&gt;
+    &lt;li&gt;2&lt;/li&gt;
+    &lt;li&gt;3&lt;/li&gt;
+    &lt;li&gt;4&lt;/li&gt;
+    &lt;li&gt;5&lt;/li&gt;
+    &lt;li&gt;6&lt;/li&gt;
+    &lt;li&gt;7&lt;/li&gt;
+    &lt;li&gt;8&lt;/li&gt;
+    &lt;li&gt;9&lt;/li&gt;
+    &lt;li&gt;10&lt;/li&gt;
+    &lt;li&gt;...&lt;/li&gt;
+&lt;/ul&gt;
+&lt;script&gt;
+// 此处不选中li而是选中父级的ul 因为li会冒泡给ul 然后根据事件源对象找到该li
+var ul = document.getElementsByTagName(&apos;ul&apos;)[0];
+ul.onclick = function(e){
+    var event = e || window.event;
+    var target = event.target || event.srcElement;
+    console.log(target.innerText);
+}
+&lt;/script&gt;
+</code></pre><p>事件委托的<font color="red">优点</font>：</p>
+<ol>
+<li><font color="red">性能</font> 不需要循环所有的元素一个个绑定事件</li>
+<li><font color="red">灵活</font> 当有新的子元素时不需要重新绑定事件</li>
+</ol>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/04/事件绑定/" rel="next" title="事件绑定">
+                <i class="fa fa-chevron-left"></i> 事件绑定
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/12/06/异步加载JS/" rel="prev" title="异步加载JS">
+                异步加载JS <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Wanghai</p>
+              <p class="site-description motion-element" itemprop="description">Wanghai个人站，主要涉及前端知识共享、实践教程、前沿技术共同学习等方面</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">43</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#事件处理模型——事件冒泡、事件捕获"><span class="nav-number">1.</span> <span class="nav-text">事件处理模型——事件冒泡、事件捕获</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#取消冒泡和阻止默认事件"><span class="nav-number">2.</span> <span class="nav-text">取消冒泡和阻止默认事件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#事件对象"><span class="nav-number">3.</span> <span class="nav-text">事件对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#事件委托"><span class="nav-number">4.</span> <span class="nav-text">事件委托</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Wanghai</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v6.6.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.6.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.6.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.6.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.6.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.6.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

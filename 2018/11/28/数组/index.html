@@ -115,7 +115,7 @@
 <meta property="og:site_name" content="welcome">
 <meta property="og:description" content="数组两种构造方法: 1.字面量 var arr = [1,2,,,,3,4];  上面这种数组属于稀松数组 2.构造函数 var arr = new Array(1,2,3,4);  JavaScript里的数组是基于对象的  即数组是一种特殊的对象 var arr = new Array(10); var arr1 = [10];  这里arr创建了10个空数组，而arr1创建了1个参数为10的">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-12-18T10:27:50.233Z">
+<meta property="og:updated_time" content="2018-12-19T03:16:53.439Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="数组">
 <meta name="twitter:description" content="数组两种构造方法: 1.字面量 var arr = [1,2,,,,3,4];  上面这种数组属于稀松数组 2.构造函数 var arr = new Array(1,2,3,4);  JavaScript里的数组是基于对象的  即数组是一种特殊的对象 var arr = new Array(10); var arr1 = [10];  这里arr创建了10个空数组，而arr1创建了1个参数为10的">
@@ -366,7 +366,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2018-12-18 18:27:50" itemprop="dateModified" datetime="2018-12-18T18:27:50+08:00">2018-12-18</time>
+                <time title="Modified: 2018-12-19 11:16:53" itemprop="dateModified" datetime="2018-12-19T11:16:53+08:00">2018-12-19</time>
               
             
           </span>
@@ -530,7 +530,7 @@ arr.indexOf(1);// 0
 <pre><code>arr.lastIndexOf(5);// 5
 </code></pre><p>同时我们可以在方法中传入两个参数，第一个参数代表需要搜索的值，第二个参数代表从哪一位开始搜索</p>
 <pre><code>arr.indexOf(1,1);// 1
-</code></pre><p>写indexOf源码</p>
+</code></pre><p>重写myIndexOf函数</p>
 <pre><code>Array.prototype.myIndexOf = function(){
     var startIndex = 0;
     var args = arguments;
@@ -545,6 +545,183 @@ arr.indexOf(1);// 0
     }
     return -1;
 }
+</code></pre><h4 id="reduce-和reduceRight"><a href="#reduce-和reduceRight" class="headerlink" title="reduce()和reduceRight()"></a><font color="red">reduce()和reduceRight()</font></h4><p>1.reduce()和reduceRight()方法使用指定的函数将数组元素进行组合,生成单个值。</p>
+<p>reduce()可以传入两个参数,第一个是执行化简操作的函数.同样这个函数可以有参数,<br> • 第一个参数代表之前所有元素的累积结果<br> • 第二个参数代表当前进行运算的元素<br> • 第三个参数代表当前运算参数的索引值<br> • 第四个参数代表调用方法的原数组<br>第二个参数是可选的,是一个传递给函数的初始值.如果第二个参数有值,那么作为运算的初始值参与函数运算,如果第二个参数没有值,那么数组中的首位将作为函数运算的初始值,参与函数运算的数组其他位向后平移一位</p>
+<p>reduceRight()和reduce()使用方法一致,但是reduceRight()进行函数运算从右到左.传参形式均一致.</p>
+<pre><code>var arr = [1, 2, 3, 4, 5];
+var b = arr.reduce(function(last, now, index, arr){
+    console.log(last, now, index, arr);
+    return last + now;
+}, 10);
+</code></pre><p>重写myReduce函数</p>
+<pre><code>Array.prototype.myReduce = function(func, init){
+    var len = this.length;
+    var prev = init;
+    var i = 0;
+    if(init == undefined){// 不传第二个参数
+        prev = this[0];
+        i = 1;
+    }
+    for(i;i &lt; len;i++){
+        prev = func(prev, this[i], i,this);
+    }
+    return prev;
+};
+</code></pre><p>例: 获得当前时间并将其转换成字符串形式,个位数用零补齐.例如8点45分零五秒转化成084505.</p>
+<pre><code>var date = new Date();
+var arr = [date.getHours(), date.getMinutes(), date.getSeconds()];
+var str = arr.reduce(function(last, now){
+    return last + (&apos;0&apos; + now).slice(-2);
+}, &apos;&apos;);
+</code></pre><h4 id="filter"><a href="#filter" class="headerlink" title="filter"></a><font color="red">filter</font></h4><p><strong>数组的过滤</strong></p>
+<p>filter()方法返回的数组元素是调用的数组的一个子集。<br>传递函数是用来逻辑判断的,该函数返回true或false.如果返回值为true或能转化成true的值,那么传递给判定函数的元素就是这个子集的成员,将被添加到一个作为返回值的数组中。<br>filter()方法的结果返回一个满足条件的数组，不修改原数组。<br>注意：filter()方法会跳过稀疏数组中缺少的元素，他的返回值总是非稀疏的。</p>
+<pre><code>var arr = [0, 1, 2, 3, 45, 5];
+var a = arr.filter(function(ele){
+    return ele &gt; 3;
+});
+</code></pre><p>重写myFilter函数</p>
+<pre><code>Array.prototype.myFilter = function(func){
+    var newArr = [];
+    for(var i = 0;i &lt; this.length;i++){// 遍历原数组
+        if(func(this[i], i)){  
+            newArr.push(this[i]);
+        }
+    }
+    return newArr;
+}
+</code></pre><h4 id="every"><a href="#every" class="headerlink" title="every"></a><font color="red">every</font></h4><p><strong>数组的逻辑判定</strong></p>
+<p>返回true或false,every()相当于与,当且仅当数组中的所有元素都满足调用函数的条件,返回true</p>
+<pre><code>var arr = [1, 1, 2, 3, 45, 5, 5, 5];
+arr.every(function(ele){
+    return ele &lt; 10;
+});// false
+
+arr.every(function(ele){
+    return ele &lt; 100;
+});// true
+</code></pre><h4 id="some"><a href="#some" class="headerlink" title="some"></a><font color="red">some</font></h4><p>返回true或false,some()相当于或,当数组中至少有一个元素调用判定函数返回true,它的返回值就是true,所有元素均不满足函数条件，则返回false</p>
+<pre><code>var arr = [1, 1, 2, 3, 45, 5, 5, 5];
+arr.some(function(ele){
+    return ele &lt; 10;
+});// true
+
+arr.some(function(ele){
+    return ele &lt; 0;
+});// false
+</code></pre><p>注意：一旦every()和some()确认返回值的时候就会停止遍历数组</p>
+<h4 id="forEach"><a href="#forEach" class="headerlink" title="forEach"></a><font color="red">forEach</font></h4><p>数组遍历 forEach()方法</p>
+<p>forEach()的使用方法：forEach方法从头至尾遍历数组，对每个元素调用指定的函数。<br>forEach方法传入参数为一个函数，函数 可以传入三个参数，按照顺序分别为,数组元素、元素索引和数组本身。不强制同时传入三个参数，可以按照需求传入参数个数。</p>
+<p>重写myForEach函数</p>
+<pre><code>Array.prototype.myForEach = function(fn){
+    for(var i = 0;i &lt; this.length;i++){// this代表调用myForEach方法的数组
+        fn(this[i], i);// 将数组的每一位this[i]及代表数组索引 i 作为函数参数
+    }// 同时在for循环中执行参数fn函数
+}
+</code></pre><h4 id="类数组"><a href="#类数组" class="headerlink" title="类数组"></a><font color="red">类数组</font></h4><p>我们知道有两种数据叫做数组和对象，但是我们其实可以用对象来模拟出数组的效果，我们把这种对象叫做类数组。我们前面提到的<font color="red">arguments实参列表就是一个类数组</font>。</p>
+<p>类数组<font color="red">并不是一个数组</font>，但是它可以表现出数组的特性。</p>
+<p><font color="red">属性要为索引(数字)属性</font>,<font color="red">必须有length属性</font>,最好加上push<br>好处:将数组和对象的方法都拼到一起,但不是所有方法都可以用</p>
+<pre><code>var obj = {
+    &quot;0&quot; : &apos;a&apos;,
+    &quot;1&quot; : &apos;b&apos;,
+    &quot;2&quot; : &apos;c&apos;,
+    &quot;length&quot; : 3,
+    &quot;push&quot; : Array.prototype.push,
+    &quot;splice&quot; : Array.prototype.splice
+}
+Array.prototype.push = function (target){
+    this[this.length] = target;
+    this.length ++;
+}
+</code></pre><p>这样我们就创造了一个类数组，现在它就可以表现出数组的特性了。</p>
+<pre><code>obj.push(d);
+console.log(obj);
+var obj = {
+    &quot;0&quot; : &apos;a&apos;,
+    &quot;1&quot; : &apos;b&apos;,
+    &quot;2&quot; : &apos;c&apos;,
+    &quot;3&quot; : &apos;d&apos;,
+    &quot;length&quot; : 4,
+    &quot;push&quot; : Array.prototype.push,
+    &quot;splice&quot; : Array.prototype.splice
+}
+</code></pre><p>其实类数组的<font color="red">关键就在这个length属性</font>上，如果没有length属性，那么就是一个普通的对象，即使有push方法也不能使用。</p>
+<p>现在我们有一个这样的题：</p>
+<pre><code>var arrobj = {
+    &quot;3&quot; : 1,
+    &quot;4&quot; : 2,
+    &quot;a&quot; : 3,
+    &quot;b&quot; : 4,
+    &quot;length&quot; : 2,
+    &quot;push&quot; : Array.prototype.push,
+}
+arrobj.push(3);
+arrobj.push(6);
+</code></pre><p>仔细看一下push的方法之后，我们就知道了，最后的arrObj应该是这个样子的：</p>
+<pre><code>var arrobj = {
+    &quot;2&quot; : 3,
+    &quot;3&quot; : 6,
+    &quot;4&quot; : 2,
+    &quot;a&quot; : 3,
+    &quot;b&quot; : 4,
+    &quot;length&quot; : 4,
+    &quot;push&quot; : Array.prototype.push,
+}
+</code></pre><p>这里的length是2，所以一开始push(3)的时候把arrObj[2]改成了3，因为本身没有2这个下标，所以添加一条属性2:3，然后length变成了3，push(6)之后，arrObj[3]变成了6，本身有3这一条属性所以覆盖，然后把length变成4。</p>
+<p>再来看一题：</p>
+<pre><code>var obj = {
+    &quot;2&quot; : &quot;a&quot;,
+    &quot;3&quot; : &quot;b&quot;,
+    &quot;length&quot; : 2,
+    &quot;push&quot; : Array.prototype.push
+}
+obj.push(&apos;c&apos;);
+obj.push(&apos;d&apos;);
+</code></pre><p>执行obj.push(‘c’)之后 obj变成</p>
+<pre><code>var obj = {
+    &quot;2&quot; : &quot;c&quot;,
+    &quot;3&quot; : &quot;b&quot;,
+    &quot;length&quot; : 3,
+    &quot;push&quot; : Array.prototype.push
+}
+</code></pre><p>接着执行obj.push(‘c’)之后 obj变成</p>
+<pre><code>var obj = {
+    &quot;2&quot; : &quot;c&quot;,
+    &quot;3&quot; : &quot;d&quot;,
+    &quot;length&quot; : 4,
+    &quot;push&quot; : Array.prototype.push
+}
+</code></pre><h4 id="封装一个type工具方法"><a href="#封装一个type工具方法" class="headerlink" title="封装一个type工具方法"></a><font color="red">封装一个type工具方法</font></h4><p> 1.分两类  原始值 引用值<br> 2.区分引用值<br> 1)数组 2)对象 3)包装类</p>
+<pre><code>function type(target){
+    var template = {
+        &quot;[object Array]&quot; : &quot;array&quot;,
+        &quot;[object Object]&quot; : &quot;object&quot;,
+        &quot;[object Number]&quot; : &quot;number - object&quot;,
+        &quot;[object Boolean]&quot; : &quot;boolean - object&quot;,
+        &quot;[object String]&quot; : &quot;string - object&quot;
+    }
+    if(target === null){
+        return null;
+    }else if(typeof(target) == &apos;object&apos;){
+        var str = Object.prototype.toString.call(target);
+        return template[str];
+    }else{
+        return typeof(target);
+    }
+}
+</code></pre><h4 id="数组去重"><a href="#数组去重" class="headerlink" title="数组去重"></a><font color="red">数组去重</font></h4><pre><code>var arr = [1,1,1,1,1,2,2,2,2,1];
+Array.prototype.unique = function(){
+    var temp = {};
+    var arr = [];
+    var len = this.length;
+    for(var i=0;i&lt;len;i++){
+        if(!temp[this[i]]){
+            temp[this[i]] = &quot;abc&quot;;
+            arr.push(this[i]);
+        }
+    }
+    return arr;
+}
+var newArr = arr.unique();
 </code></pre>
       
     </div>
@@ -585,8 +762,8 @@ arr.indexOf(1);// 0
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/12/09/其他知识点/" rel="prev" title="其他小知识点">
-                其他小知识点 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/11/29/DOM基础练习/" rel="prev" title="DOM基础练习">
+                DOM基础练习 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -657,7 +834,7 @@ arr.indexOf(1);// 0
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">33</span>
+                    <span class="site-state-item-count">43</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -703,7 +880,7 @@ arr.indexOf(1);// 0
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#数组"><span class="nav-number">1.</span> <span class="nav-text">数组</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#判断数组类型"><span class="nav-number">2.</span> <span class="nav-text">判断数组类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#数组的常用方法"><span class="nav-number">3.</span> <span class="nav-text">数组的常用方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#push-在最后一位添加"><span class="nav-number">4.</span> <span class="nav-text">push (在最后一位添加)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#pop-在最后一位剪切"><span class="nav-number">5.</span> <span class="nav-text">pop (在最后一位剪切)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#shift-在最前面剪切"><span class="nav-number">6.</span> <span class="nav-text">shift (在最前面剪切)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#unshift-在最前面添加"><span class="nav-number">7.</span> <span class="nav-text">unshift (在最前面添加)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#reverse-反转"><span class="nav-number">8.</span> <span class="nav-text">reverse (反转)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#splice"><span class="nav-number">9.</span> <span class="nav-text">splice</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#sort-排序"><span class="nav-number">10.</span> <span class="nav-text">sort (排序)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#concat-拼接-连接"><span class="nav-number">11.</span> <span class="nav-text">concat (拼接/连接)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#slice"><span class="nav-number">12.</span> <span class="nav-text">slice </span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#join"><span class="nav-number">13.</span> <span class="nav-text">join</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#split"><span class="nav-number">14.</span> <span class="nav-text">split</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#indexOf"><span class="nav-number">15.</span> <span class="nav-text">indexOf</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#lastIndexOf"><span class="nav-number">16.</span> <span class="nav-text">lastIndexOf</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#数组"><span class="nav-number">1.</span> <span class="nav-text">数组</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#判断数组类型"><span class="nav-number">2.</span> <span class="nav-text">判断数组类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#数组的常用方法"><span class="nav-number">3.</span> <span class="nav-text">数组的常用方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#push-在最后一位添加"><span class="nav-number">4.</span> <span class="nav-text">push (在最后一位添加)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#pop-在最后一位剪切"><span class="nav-number">5.</span> <span class="nav-text">pop (在最后一位剪切)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#shift-在最前面剪切"><span class="nav-number">6.</span> <span class="nav-text">shift (在最前面剪切)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#unshift-在最前面添加"><span class="nav-number">7.</span> <span class="nav-text">unshift (在最前面添加)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#reverse-反转"><span class="nav-number">8.</span> <span class="nav-text">reverse (反转)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#splice"><span class="nav-number">9.</span> <span class="nav-text">splice</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#sort-排序"><span class="nav-number">10.</span> <span class="nav-text">sort (排序)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#concat-拼接-连接"><span class="nav-number">11.</span> <span class="nav-text">concat (拼接/连接)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#slice"><span class="nav-number">12.</span> <span class="nav-text">slice </span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#join"><span class="nav-number">13.</span> <span class="nav-text">join</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#split"><span class="nav-number">14.</span> <span class="nav-text">split</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#indexOf"><span class="nav-number">15.</span> <span class="nav-text">indexOf</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#lastIndexOf"><span class="nav-number">16.</span> <span class="nav-text">lastIndexOf</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#reduce-和reduceRight"><span class="nav-number">17.</span> <span class="nav-text">reduce()和reduceRight()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#filter"><span class="nav-number">18.</span> <span class="nav-text">filter</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#every"><span class="nav-number">19.</span> <span class="nav-text">every</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#some"><span class="nav-number">20.</span> <span class="nav-text">some</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#forEach"><span class="nav-number">21.</span> <span class="nav-text">forEach</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#类数组"><span class="nav-number">22.</span> <span class="nav-text">类数组</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#封装一个type工具方法"><span class="nav-number">23.</span> <span class="nav-text">封装一个type工具方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#数组去重"><span class="nav-number">24.</span> <span class="nav-text">数组去重</span></a></li></ol></div>
             
 
           </div>

@@ -1462,7 +1462,7 @@ test();
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/28/数组/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/07/正则表达式/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Wanghai">
@@ -1482,7 +1482,7 @@ test();
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2018/11/28/数组/" class="post-title-link" itemprop="http://yoursite.com/index.html">数组</a>
+                <a href="/2018/12/07/正则表达式/" class="post-title-link" itemprop="http://yoursite.com/index.html">正则表达式</a>
               
             
           </h1>
@@ -1507,7 +1507,7 @@ test();
                 
               
 
-              <time title="Created: 2018-11-28 17:16:33" itemprop="dateCreated datePublished" datetime="2018-11-28T17:16:33+08:00">2018-11-28</time>
+              <time title="Created: 2018-12-07 17:16:33" itemprop="dateCreated datePublished" datetime="2018-12-07T17:16:33+08:00">2018-12-07</time>
             
 
             
@@ -1524,7 +1524,7 @@ test();
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2018-12-18 18:27:50" itemprop="dateModified" datetime="2018-12-18T18:27:50+08:00">2018-12-18</time>
+                <time title="Modified: 2018-12-19 18:30:58" itemprop="dateModified" datetime="2018-12-19T18:30:58+08:00">2018-12-19</time>
               
             
           </span>
@@ -1559,152 +1559,113 @@ test();
       
         
           
-            <h4 id="数组"><a href="#数组" class="headerlink" title="数组"></a><font color="red">数组</font></h4><p><strong><font color="red">两种构造方法:</font></strong></p>
-<p>1.字面量</p>
-<pre><code>var arr = [1,2,,,,3,4];
-</code></pre><p> 上面这种数组属于<font color="red">稀松数组</font></p>
-<p>2.构造函数</p>
-<pre><code>var arr = new Array(1,2,3,4);
-</code></pre><p> JavaScript里的数组是基于对象的  即数组是一种特殊的对象</p>
-<pre><code>var arr = new Array(10);
-var arr1 = [10];
-</code></pre><p> 这里arr创建了10个空数组，而arr1创建了1个参数为10的数组</p>
-<h4 id="判断数组类型"><a href="#判断数组类型" class="headerlink" title="判断数组类型"></a><font color="red">判断数组类型</font></h4><p> 给定一个未知对象,判定他是否为数组 在es5中可以使用Array.isArray()函数来判断</p>
-<pre><code>Array.isArray([]);// true
-Array.isArray({});// false
-Array.isArray(1);// false
-</code></pre><p>在es5之前,大家可能想到利用typeof操作符来判断,但是无论是数组还是对象,均返回对象</p>
-<pre><code>typeof [];// object
-typeof {};// object
-</code></pre><p>在es3中isArray()可以使用Object.prototype.toString.call(arr) === ‘[object Array]’代替</p>
-<pre><code>Object.prototype.toString.call([]);// &apos;[object Array]&apos;
-Object.prototype.toString.call({});// &apos;[object Object]&apos;
-</code></pre><p><strong><font color="red">数组的添加和删除</font></strong></p>
-<p>• <strong>添加</strong><br>    1.最简单的方法：为新索引赋值<br>    2.使用push()和unshift()方法</p>
-<p>• <strong>删除</strong><br>    1.delete运算符删除数组元素(不会修改数组的length属性)<br>    2.使用pop()和shuift()方法</p>
-<h4 id="数组的常用方法"><a href="#数组的常用方法" class="headerlink" title="数组的常用方法"></a><font color="red">数组的常用方法</font></h4><p> • <strong><font color="red">改变原数组: push, pop, shift, unshift, sort, reverse, splice</font></strong></p>
-<p> • <strong><font color="red">不改变原数组: concat, join , split, toString, slice</font></strong></p>
-<h4 id="push-在最后一位添加"><a href="#push-在最后一位添加" class="headerlink" title="push (在最后一位添加)"></a><font color="red">push (在最后一位添加)</font></h4><pre><code>var arr = [1,2];
-Array.prototype.push = function (){
-for(var i=0;i&lt;arguments.length;i++){
-    this[this.length] = arguments[i];
-}
-    return this.length;
-}
-</code></pre><h4 id="pop-在最后一位剪切"><a href="#pop-在最后一位剪切" class="headerlink" title="pop (在最后一位剪切)"></a><font color="red">pop (在最后一位剪切)</font></h4><h4 id="shift-在最前面剪切"><a href="#shift-在最前面剪切" class="headerlink" title="shift (在最前面剪切)"></a><font color="red">shift (在最前面剪切)</font></h4><h4 id="unshift-在最前面添加"><a href="#unshift-在最前面添加" class="headerlink" title="unshift (在最前面添加)"></a><font color="red">unshift (在最前面添加)</font></h4><h4 id="reverse-反转"><a href="#reverse-反转" class="headerlink" title="reverse (反转)"></a><font color="red">reverse (反转)</font></h4><pre><code>var arr = [1, 2, 3, 4, 5];
-arr.reverse();// [5, 4, 3, 2, 1]
-</code></pre><h4 id="splice"><a href="#splice" class="headerlink" title="splice"></a><font color="red">splice</font></h4><p><strong>arr.splice(从第几位开始, 截取多少的长度, 在切口处添加新的数据);</strong></p>
-<pre><code>var arr = [1, 1, 2, 2, 3, 3];
-arr.splice(1, 2);// 删除 arr = [1,2,3,3]  
-arr.splice(1, 1, 0,0,0);// 替换 arr = [1, 0, 0, 0, 2, 2, 3, 3]
-arr.splice(3, 0, 4);// 等同于在第三位添加4
-var arr = [1,2,3,4]
-arr.splice(-1, 1);//arr = [1,2,3]   -1+length
-arr.splice(-1, 2);//arr = [1,2] 
-</code></pre><h4 id="sort-排序"><a href="#sort-排序" class="headerlink" title="sort (排序)"></a><font color="red">sort (排序)</font></h4><pre><code>var arr = [1,3,5,4,10];
-arr.sort();//按照ascll码排序
-</code></pre><p><strong>自定义排序:<br>            1.必须写两形参<br>            2.看返回值:<br>                       1)当返回值为负数时,那么前面的数放在前面<br>                       2) 为正数,那么后面的数在前<br>                       3) 为0,不动</strong></p>
-<pre><code>var arr = [3,1,5,10,4];
-arr.sort(function(a, b){
-    if(a &gt; b){  
-        return 1;
-    }else{
-        return -1;
-    }
-});
-//升序 a &gt; b ; 降序a &lt; b
+            <p><strong>正则表达式</strong></p>
+<pre><code>var reg = /[1234567890][1234567890][1234567890]/g;
+var str = &quot;12309u86451akbjdakndkja&quot;;
+str.match(reg);// [&quot;123&quot;, &quot;864&quot;]
+</code></pre><p>i(ignoreCase) 忽视大小写<br>g(global) 全局匹配<br>全局属性g下一次进行查找时，在正则表达式内部有一个lastIndex来记录匹配的位置<br>m(multiline) 执行多行匹配 </p>
+<pre><code>var str = &quot;AbCd&quot;;
+var reg = /abc/i;  
+str.match(reg);// [&quot;AbC&quot;]
+var reg1 = new RegExp(&quot;abc&quot;, &quot;m&quot;);
+</code></pre><p>匹配以a开头的字符</p>
+<pre><code>var reg = /^a/gm;
+var str = &quot;abcde\na&quot;;
+str.match(reg);// [&quot;a&quot;, &quot;a&quot;]
+</code></pre><p>非a非b全局匹配</p>
+<pre><code>var reg = /[^a][^b]/g;
+var str = &quot;ab1cd&quot;;
+str.match(reg);// [&quot;b1&quot;, &quot;cd&quot;]
+</code></pre><p>| 表示或 匹配该符号的左边或者右边<br>abc或bcd 0到9</p>
+<pre><code>var reg = /(abc|bcd)[0-9]/g;
+var str = &quot;abc2&quot;;
+str.match(reg);// [&quot;abc2&quot;]
+</code></pre><p><strong>元字符</strong></p>
+<pre><code>\n:换行 \r:行结束 \t:制表符 \f:换页符 \v:垂直制表符
+\w === [0-9A-z_]     单词字符
+\W === [^\w]         非单词字符
+\d === [0-9]         数字
+\D === [^\d]         非数字
+\s === [\t\n\r\v\f ] 空白字符
+\S === [^\s]         非空白字符
+\b === 单词边界      
+\B === 非单词边界
+.  === [^\r\n]        单个字符,除了换行和行结束符
+\uxxx   查找以十六进制数xxxx规定的Unicode字符
+</code></pre><p><strong>量词</strong>  </p>
+<pre><code>n+       {1, 多次}
+n*       {0, 多次}
+n?       {0, 1}
+n{x}     {x}
+n{x, y}  {x, y}
+n{x, }   {x, }
+n$       以n结尾
+^n       以n开头
+?=n      后面紧接着指定字符串n的字符串
+?!n      后面没有紧接着指定字符串n的字符串
+</code></pre><p><strong>贪婪匹配</strong>:匹配字符是尽可能多的匹配，同时允许后续的表达式继续匹配。<br><strong>非贪婪匹配</strong>:加?   n+?   n*? …等</p>
+<p>例</p>
+<pre><code>var reg = /[\bcde\B]/g;
+var str = &quot;abc cdefgh&quot;;
+str.match(reg);// [&quot;c&quot;, &quot;c&quot;, &quot;d&quot;, &quot;e&quot;]
+</code></pre><p>例</p>
+<pre><code>var reg = /[\u0000-\uffff]/g;
+var str = &quot;老邓身体好&quot;;
+str.match(reg);// [&quot;老&quot;, &quot;邓&quot;, &quot;身&quot;, &quot;体&quot;, &quot;好&quot;]
+</code></pre><p>例</p>
+<pre><code>var reg = /\d*/g;
+var str = &quot;abc&quot;;
+str.match(reg);// &quot;&quot; &quot;&quot; &quot;&quot; &quot;&quot;
+</code></pre><p>例</p>
+<pre><code>var reg = /^abc$/g;// 以当前abc开头并且以abc结尾
+var str = &quot;abcabc&quot;;
+str.match(reg);// null
+</code></pre><p>如何匹配 aaaa 4个一样的?<br><strong>()子表达式</strong>  \1反向引用第一个子表达式里面的内容(即跟全面的完全相同)</p>
+<pre><code>var reg = /(\w)\1\1\1/g;
+var str = &quot;aaaa&quot;;
+str.match(reg);// [&quot;aaaa&quot;]
+</code></pre><p>如何匹配 aabb?</p>
+<pre><code>var reg = /(\w)\1(\w)\2/g;
+var str = &quot;aabb&quot;;
+str.match(reg);// [&quot;aabb&quot;]
+</code></pre><p>正则表达式方法 <strong>reg.exec()</strong>;<br>该函数返回一个数组，其中存放匹配的结果。如果未找到匹配，则返回值为 null</p>
+<pre><code>var reg = /ab/g;
+var str = &quot;abababab&quot;;
+console.log(reg.exec(str));// 第一次游标指向0   加g游标下次会向后挪
+console.log(reg.lastIndex);// 游标
+</code></pre><p>字符串方法 <strong>str.search()</strong><br>用于检索字符串中指定的子字符串,或检索与正则表达式相匹配的子字符串,并返回子串的起始位置。<br>search()方法不支持全局搜索,因为会忽略正则表达式参数的标识g,并且也忽略了regexp的lastIndex属性，总是从字符串的开始位置进行检索，所以它会总是返回str的第一个匹配的位置。</p>
+<pre><code>var str = &quot;javaScript&quot;;
+str.search(&quot;Script&quot;);// 4
+</code></pre><p><strong>replace(reg,replacement)</strong> 方法是执行查找并替换的操作。<br>它将正则表达式regexp匹配到的字串，然后用replacement的字符串替换掉字串，<br>如果有全局标识g，则替换全部匹配的字串，否则只替换第一个匹配字串。<br>使用replacement中的特殊字符替换，replacement中$字符有特殊的意义</p>
+<pre><code>1) $1、$2 ...$99         与regexp中的第1个到99个子表达式相匹配的文本
+2) $&amp;                    与regexp相匹配的字串
+3) $`                    位于匹配子串左侧的文本
+4) $&apos;                    位于匹配子串右侧的文本
+5) $$                    直接量符号
+</code></pre><p>例</p>
+<pre><code>var str = &quot;javascript&quot;;
+str.replace(/(java)(script)/, &apos;$2$1&apos;);// &quot;scriptjava&quot;
+</code></pre><p>把所有的aabb 匹配成bbaa</p>
+<pre><code>var reg = /(\w)\1(\w)\2/g;
+var str = &quot;aabb&quot;;
+console.log(str.replace(reg, &quot;$2$2$1$1&quot;));
 
-
-var arr = [3,1,5,10,4];
-arr.sort(function(a, b){
-    return a - b;
-});
-// return a - b;升序    
-// return b - a;降序  
-</code></pre><p>给一个有序的数组,乱序:</p>
-<pre><code>var arr = [1,2,3,4,5,6,7,8];
-arr.sort(function(a, b){
-    return Math.random()-0.5;
-});
-</code></pre><p>按照对象年龄大小排序:</p>
-<pre><code>var cheng = {
-    name : &quot;cheng&quot;,
-    age : 30,
-    sex : &quot;male&quot;
-}
-var deng = {
-    name : &quot;deng&quot;,
-    age : 50,
-    sex : &quot;male&quot;
-}
-var zhang = {
-    name : &quot;zhang&quot;,
-    age : 40,
-    sex : &quot;female&quot;
-}
-var arr = [cheng, deng, zhang];
-arr.sort(function(a, b){
-    return a.age - b.age;
-});
-</code></pre><p>按照字符串长度排序:</p>
-<pre><code>function retBytes(str){
-    var num = str.length;
-    for(var i=0;i&lt;str.length;i++){
-        if(str.charCodeAt(i)&gt;255){
-            num ++;
-        }
-    }
-    return num;
-}
-var  arr = [&apos;a邓&apos;, &apos;bd邓&apos;, &apos;cc老邓&apos;, &apos;ddddd&apos;, &apos;slkhadkhja&apos;];
-arr.sort(function(a, b){
-    return retBytes(a) - retBytes(b);
-});
-</code></pre><h4 id="concat-拼接-连接"><a href="#concat-拼接-连接" class="headerlink" title="concat (拼接/连接)"></a><font color="red">concat (拼接/连接)</font></h4><pre><code>var arr = [1,2,3];
-var arr1 = [3,2,1];
-var arr2 = arr.concat(arr1);// [1,2,3,3,2,1]
-</code></pre><h4 id="slice"><a href="#slice" class="headerlink" title="slice "></a><font color="red">slice </font></h4><p>从该位开始截取, 截取到该位(不包括)</p>
-<pre><code>var arr = [5,4,3,2,1,6];
-var newArr = arr.slice(1, 4);// [4, 3, 2]
-var newArr1 = arr.slice(1);// [4, 3, 2, 1, 6]
-</code></pre><h4 id="join"><a href="#join" class="headerlink" title="join"></a><font color="red">join</font></h4><p>将数组中所有元素都转化成字符串并连接在一起，返回最后生成的字符串<br>可以选择一个可选的字符串在生成的字符串中来分隔数组的各个元素。<br>如果不指定使用分隔符，默认使用逗号。不修改原数组。</p>
-<pre><code>var arr = [1,2,3];
-var newArr = arr.join(&quot;-&quot;);//&quot;1-2-3&quot;
-</code></pre><p>利用join(“”)可以实现大量字符串拼接</p>
-<pre><code>var str = &quot;das&quot;;
-var str1 = &quot;dqqd&quot;;
-var str2 = &quot;fvmixk&quot;;
-var str3 = &quot;qqqmlx&quot;;
-var str4 = &quot;zmcxol&quot;;
-var str5 = &quot;qpuh&quot;;
-var str6 = &quot;lough&quot;;
-var f = &quot;&quot;;
-var arr = [str,str1,str2,str3,str4,str5,str6,f];
-var newArr = arr.join(&quot;&quot;);
-</code></pre><h4 id="split"><a href="#split" class="headerlink" title="split"></a><font color="red">split</font></h4><p>split()方法是按照给定的字符串将字符串分割成若干块来创建一个数组。</p>
-<pre><code>var arr1 = newArr.split(&quot;-&quot;);//[&quot;1&quot;, &quot;2&quot;, &quot;3&quot;]
-</code></pre><h4 id="indexOf"><a href="#indexOf" class="headerlink" title="indexOf"></a><font color="red">indexOf</font></h4><p>返回某个指定的字符串值在数组中首次出现的位置，从头至尾搜索，没有则返回-1</p>
-<pre><code>var arr = [1, 1, 2, 3, 5, 5];
-arr.indexOf(1);// 0
-</code></pre><h4 id="lastIndexOf"><a href="#lastIndexOf" class="headerlink" title="lastIndexOf"></a><font color="red">lastIndexOf</font></h4><p>返回某个指定的字符串值在数组中最后一次出现的位置，从尾至头搜索，没有则返回-1</p>
-<pre><code>arr.lastIndexOf(5);// 5
-</code></pre><p>同时我们可以在方法中传入两个参数，第一个参数代表需要搜索的值，第二个参数代表从哪一位开始搜索</p>
-<pre><code>arr.indexOf(1,1);// 1
-</code></pre><p>写indexOf源码</p>
-<pre><code>Array.prototype.myIndexOf = function(){
-    var startIndex = 0;
-    var args = arguments;
-    var len = this.length;
-    if(args[1]){// 如果有第二个参数 
-        startIndex = args[1];
-    }
-    for(var i = startIndex;i &lt; len;i++){
-        if(this[i] == args[0]){// 参数一
-            return i;// 返回参数一的索引值
-        }
-    }
-    return -1;
-}
+console.log(str.replace(reg, function($, $1,$2){// $(全局) $1(子表达式1) $2(子表达式2)
+    return $2+$2+$1+$1;
+}));
+</code></pre><p>the-first-name 匹配成小驼峰式</p>
+<pre><code>var reg = /-(\w)/g;
+var str = &quot;the-first-name&quot;;
+console.log(str.replace(reg, function($, $1){
+    return $1.toUpperCase();
+}));
+</code></pre><p>正向预查 正向断言</p>
+<pre><code>var str = &quot;abaaaaa&quot;;
+var reg = /a(?=b)/g;// 后面跟着b的a
+</code></pre><p>将10000000以10.000.000的形式匹配</p>
+<pre><code>var str = &quot;100000000&quot;;
+var reg = /(?=(\B\d{3})+$)/g;
+console.log( str.replace(reg, &quot;.&quot;));
 </code></pre>
           
         
@@ -1761,7 +1722,7 @@ arr.indexOf(1);// 0
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/27/克隆算法/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/06/异步加载JS/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Wanghai">
@@ -1781,7 +1742,7 @@ arr.indexOf(1);// 0
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2018/11/27/克隆算法/" class="post-title-link" itemprop="http://yoursite.com/index.html">克隆算法</a>
+                <a href="/2018/12/06/异步加载JS/" class="post-title-link" itemprop="http://yoursite.com/index.html">异步加载JS</a>
               
             
           </h1>
@@ -1806,7 +1767,7 @@ arr.indexOf(1);// 0
                 
               
 
-              <time title="Created: 2018-11-27 17:16:33" itemprop="dateCreated datePublished" datetime="2018-11-27T17:16:33+08:00">2018-11-27</time>
+              <time title="Created: 2018-12-06 17:16:33" itemprop="dateCreated datePublished" datetime="2018-12-06T17:16:33+08:00">2018-12-06</time>
             
 
             
@@ -1823,7 +1784,7 @@ arr.indexOf(1);// 0
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2018-12-18 17:43:54" itemprop="dateModified" datetime="2018-12-18T17:43:54+08:00">2018-12-18</time>
+                <time title="Modified: 2018-12-19 18:03:49" itemprop="dateModified" datetime="2018-12-19T18:03:49+08:00">2018-12-19</time>
               
             
           </span>
@@ -1858,65 +1819,98 @@ arr.indexOf(1);// 0
       
         
           
-            <p>克隆和我们前面所讲的继承有一些区别，克隆是复制出来一个一模一样的目标对象，而克隆又分为浅层克隆和深层克隆。</p>
-<p>• <strong><font color="red">浅层克隆</font></strong></p>
-<p>克隆大致就是我们的源对象里面有什么属性，目标文件就有什么属性，依照这个原理，我们可以写出下面的代码：</p>
-<pre><code>function clone(src, tar) {
-var tar = tar || {};// 如果没有tar则默认是一个空对象
-for(var prop in src) {
-      if(src.hasOwnProperty(prop)){
-           tar[prop] = src[prop];
-      }
- }
- return tar; 
-}
-</code></pre><p>下面我们来测试一下:</p>
+            <h2 id="先介绍一下JSON"><a href="#先介绍一下JSON" class="headerlink" title="先介绍一下JSON"></a><font color="red">先介绍一下JSON</font></h2><p>我们传输数据就两种格式：<font color="red">xml和json</font>。</p>
+<p>xml是以<font color="red">html</font>为模板，自定义标签名作为数据名来传递数据，书写起来很麻烦，现在多用json，很少使用xml。</p>
+<p>json是传输数据的另一种格式，它是以<font color="red">对象</font>为模板（本质上就是对象，但是用途有所区别，对象是本地使用，json是用来传输数据）。</p>
+<p>不过我们传输数据的时候并不能将一个json对象直接传过去，我们只能传过去json形式的字符串，这个时候我们就需要用到JSON上的两个方法了。</p>
+<font color="red">JSON.parse() —&gt; string-&gt;json</font>
+
+<font color="red">JSON.stringify() —&gt; json-&gt;string</font>
+
+<p>通过JSON上的这两个方法，我们就可以进行数据传输了。</p>
 <pre><code>var obj = {
-      name: &apos;scarlett&apos;,
-      age: 123
+    &quot;name&quot; : &quot;abc&quot;,
+    &quot;age&quot; : 123
 }
-var obj2 = {}
-clone(obj, obj2);
-console.log(obj2.name);// scarlett
-</code></pre><p>然后我们改变一下obj这个源对象的name：</p>
-<pre><code>obj.name = &apos;test&apos;
-console.log(obj2.name);// scarlett
-</code></pre><p>我们可以发现，克隆出来的目标对象和本来的源对象之间没有关系了<br>但是，当我们有一个属性是引用值（数组或者对象）的时候，按照我们这种克隆方式，只是把这个引用值的指向赋给了新的目标对象，也就是说，我们一旦改变了源对象或者目标对象的引用值属性，另一个也会跟着改变，这一点就是浅层克隆的缺点。</p>
-<p>• <strong><font color="red">深层克隆</font></strong></p>
-<p><strong>思路:<br>    1.遍历对象<br>    2.判断是否是原始值 还是引用值<br>    3.判断引用值类似是数组还是对象<br>    4.建立相应的数组或对象<br>    5.递归</strong></p>
-<pre><code>function clone(origin, target){
-    var target = target || {},//防止用户不传target参数
-         toStr = Object.prototype.toString,
-         arrStr = &quot;[object Array]&quot;;
-    for(var prop in origin){
-        if(origin.hasOwnProperty(prop)){
-            if( origin[prop] !== &quot;null&quot; &amp;&amp; typeof(origin[prop]) == &apos;object&apos;){
-                if(toStr.call(origin[prop]) == arrStr){
-                    target[prop] = [];
-                }else{
-                    target[prop] = {};
-                }
-                clone(origin[prop], target[prop]);
-            }else{
-                target[prop] = origin[prop];
+// 将json转换为字符串 传给后端
+var str = JSON.stringify(obj);
+// 将后端传过来的json字符串转换为json对象
+var str1 = JSON.parse(str);
+</code></pre><p>• 我们的页面有三个树：DOMTree、CSSTree、renderTree。（实际上多于三个），renderTree上有两个规则：repaint和reflow，重绘和重排。</p>
+<p>repaint是元素自身的位置和宽高不变，只改变颜色的之类的属性而不会导致后面的元素位置的变化的时候，renderTree发生的动作。</p>
+<p>reflow是元素自身的位置或者宽高改变了从而导致的整个页面的大范围移动的时候，renderTree发生的动作。</p>
+<p>所以我们在DOM操作的时候，要<font color="red">尽量避免重排</font>。</p>
+<h2 id="JS异步加载部分"><a href="#JS异步加载部分" class="headerlink" title="JS异步加载部分"></a><font color="red">JS异步加载部分</font></h2><p>我们前面知道script标签的特点是会阻塞后面的DOM解析，只有当script标签下载完成并且全部执行完之后，浏览器才会继续解析DOM。</p>
+<p>这样就导致了js加载有这样的缺点：加载工具方法本身没有必要阻塞文档，js加载会影响整个页面效率，一旦网速不好，那么整个网站将等待js加载而不进行后续渲染。</p>
+<p>DOMTree就是解析DOM结构的，当我们在解析DOM的时候突然碰到一个script标签，那么这个script标签就会阻断DOMTree和CSSTree，然而我们有一些js的工具库并不操作DOM，这个时候我们就需要让这些工具库进行异步加载或者按需加载了。</p>
+<p>以前有一种写法是将script标签写在body的最后面，等在DOM全部解析完成之后才加载js。</p>
+<p>现在有了html5标准之后，就有了另一套异步加载js的方法了。</p>
+<p>js异步加载的三种方案：</p>
+<p>1.<font color="red"><strong>defer</strong></font>异步加载</p>
+<p>我们在script标签的行间写一个defer=“defer”或者直接写defer，就可以让这个script变成异步加载了。但是这种异步只是针对下载方面，<font color="red"><strong>只有等DOMTree全部解析完成（不包括下载完里面的资源）后才会异步执行</strong></font>。而且这个方法<font color="red">只有IE和一些高版本的firefox和chrome可以用</font>。</p>
+<pre><code>&lt;script type=“text/javascript” defer=“defer”&gt;
+    console.log(&apos;hello&apos;);
+&lt;/script&gt;
+</code></pre><p>不过这一种方式<font color="red">可以在script标签里面写代码</font>。</p>
+<p>注意：IE6和IE7的异步加载最多只能有2个，当多余两个的时候必须等前两个加载完才会加载第三个。</p>
+<p>所有defer的js代码都<font color="red">保证按照顺序执行</font>。</p>
+<p>2.async异步加载</p>
+<p>async是<font color="red"><strong>asynchronous</strong></font>的缩写，它是html5的标准，<font color="red"><strong>下载完成之后就会立即异步执行</strong></font>，这种方法<font color="red">除了IE6-IE8其他的浏览器都好用</font>。</p>
+<pre><code>&lt;script type=&quot;text/javascript&quot; async=&quot;async&quot;&gt;&lt;/script&gt;
+</code></pre><p>不过这种方式<font color="red">不能把代码写在script标签里面</font>，只能引用。（虽然标准是这么写的，但是现在随着内核升级，async里面也可以写代码了，在没有src的情况下）。</p>
+<p>而且async的js代码<font color="red">不能保证是顺序执行的</font>。</p>
+<p>• 这两个属性<font color="red">不能一起使用</font>！</p>
+<p>兼容性写法：</p>
+<p>1.<strong>直接写两个script标签，一个是defer，一个是async</strong>。</p>
+<p>但是这种方法有缺陷：IE高版本会加载两遍引起冲突，有些浏览器两个都没有会一个都加载不出来。</p>
+<p>所以我们就需要用第二种方法了。</p>
+<p>2.<strong>通过动态添加script标签</strong>。</p>
+<p>“Script-inserted script elements now have async default to true, which can be set to false to make the scripts execute in insertion order.”</p>
+<p>w3c的标准规定：<font color="red">动态添加的script标签是异步的</font>。</p>
+<p>通过这个特性，我们这里就可以封装一个兼容性的异步加载js的函数了。</p>
+<pre><code>function loadScript(url, callback){
+    var script = document.createElement(&apos;script&apos;);
+    script.type = &quot;text/javascript&quot;;     
+    // 如果网速够快 url在瞬间下载完毕 而readyState瞬间在最终状态  
+    // 所以onreadystatechange这个事件不可能在触发
+    // 即绑定事件之前绑定就已经完事了,此时绑定没有任何意义了 所以把src加载放在绑定事件之后
+    if(script.readyState){// 兼容性:仅IE
+        script.onreadystatechange = function(){
+            if(script.readyState == &quot;complete&quot; || script.readyState == &quot;loaded&quot;){
+                tools[callback]();
             }
         }
+    }else{// 兼容性:Safari chrome firefox opera
+        script.onload = function(){
+            tools[callback]();
+        }
     }
+    script.src = url;// 下载
+    // 当把标签添加到页面的时候才会执行这个脚本(否则只是下载完)
+    document.head.appendChild(script);
 }
-</code></pre><p>现在我们来测试一下：</p>
-<pre><code>var parent = {
-      name : ‘ScarLet’,
-      age : 123,
-      sex : ‘male’,
-      height : 190,
-      money: [1,2,3,4,5]
-}
-var child = {};
-deepCopy(parent,child);
-console.log(child.money);//1 2 3 4 5
-parent.money.push(10);
-console.log(child.money);// 1 2 3 4 5
-</code></pre><p>这个时候目标对象和源对象的引用值之间就没有了关系，自己都是独立值，可以进行修改了。</p>
+loadScript(&apos;demo.js&apos;, &quot;test&quot;);
+</code></pre><p>或者如下调用</p>
+<pre><code>loadScript(&apos;demo.js&apos;, function(){
+     test();
+})
+</code></pre><p>但是不能写成 </p>
+<pre><code>loadScript(&apos;demo.js&apos;, test);// test is not defined
+</code></pre><p>• 异步加载js<font color="red"><strong>不允许使用document.write</strong></font>这个方法。它会清除文档流，一旦执行就会把全部的标签都清除掉，包括自身的script标签。</p>
+<h2 id="JS加载时间线（performace-timing-line）"><a href="#JS加载时间线（performace-timing-line）" class="headerlink" title="JS加载时间线（performace timing line）"></a><font color="red">JS加载时间线（performace timing line）</font></h2><p>1、创建Document对象，开始解析web页面。解析HTML元素和他们的文本内容后添加Element对象和Text节点到文档中。这个阶段document.readyState = ‘loading’。</p>
+<p>2、遇到link外部css，创建线程加载，并继续解析文档。</p>
+<p>3、遇到script外部js，并且没有设置async、defer，浏览器加载，并阻塞，等待js加载完成并执行该脚本，然后继续解析文档。</p>
+<p>4、遇到script外部js，并且设置有async、defer，浏览器创建线程加载，并继续解析文档。 对于async属性的脚本，脚本加载完成后立即执行。（异步禁止使用document.write()）</p>
+<p>5、遇到img等，先正常解析dom结构，然后浏览器异步加载src，并继续解析文档。</p>
+<p>6、当文档解析完成，document.readyState = ‘interactive’。</p>
+<p>7、文档解析完成后，所有设置有defer的脚本会按照顺序执行。（注意与async的不同,</p>
+<p>但同样禁止使用document.write()）;</p>
+<p>8、document对象触发DOMContentLoaded事件，这也标志着程序执行从同步脚本执行阶段，</p>
+<p>转化为事件驱动阶段。</p>
+<p>9、当所有async的脚本加载完成并执行后、img等加载完成后，document.readyState = ‘complete’，window</p>
+<p>对象触发load事件。</p>
+<p>10、从此，以异步响应方式处理用户输入、网络事件等。</p>
+<p>JS的时间线是非常重要的知识点，希望大家能背下来这一块哟~</p>
 
           
         
@@ -1973,7 +1967,7 @@ console.log(child.money);// 1 2 3 4 5
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/26/严格模式与try-catch/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/05/事件处理模型与事件委托/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Wanghai">
@@ -1993,7 +1987,7 @@ console.log(child.money);// 1 2 3 4 5
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2018/11/26/严格模式与try-catch/" class="post-title-link" itemprop="http://yoursite.com/index.html">严格模式与try-catch</a>
+                <a href="/2018/12/05/事件处理模型与事件委托/" class="post-title-link" itemprop="http://yoursite.com/index.html">事件处理模型与事件委托</a>
               
             
           </h1>
@@ -2018,7 +2012,7 @@ console.log(child.money);// 1 2 3 4 5
                 
               
 
-              <time title="Created: 2018-11-26 17:16:33" itemprop="dateCreated datePublished" datetime="2018-11-26T17:16:33+08:00">2018-11-26</time>
+              <time title="Created: 2018-12-05 17:16:33" itemprop="dateCreated datePublished" datetime="2018-12-05T17:16:33+08:00">2018-12-05</time>
             
 
             
@@ -2035,7 +2029,7 @@ console.log(child.money);// 1 2 3 4 5
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2018-12-18 17:32:43" itemprop="dateModified" datetime="2018-12-18T17:32:43+08:00">2018-12-18</time>
+                <time title="Modified: 2018-12-19 17:41:39" itemprop="dateModified" datetime="2018-12-19T17:41:39+08:00">2018-12-19</time>
               
             
           </span>
@@ -2070,56 +2064,444 @@ console.log(child.money);// 1 2 3 4 5
       
         
           
-            <h4 id="ES5-0严格模式"><a href="#ES5-0严格模式" class="headerlink" title="ES5.0严格模式"></a><font color="red">ES5.0严格模式</font></h4><p>• 浏览器 基于的es3.0的 + es5.0的新增方法 使用的<br>• es3.0 和 es5.0产生冲突的部分<br>• es5.0严格模式: 那么es3.0和es5.0产生冲突的部分就是用es5.0，否则会用es3.0</p>
-<p><strong>es5.0严格模式的启动</strong>: 必须写在页面逻辑的最顶端 或 方法里面最顶端(局部)</p>
-<pre><code>&quot;use strict&quot;;
-
-局部使用
-function test(){
-    &quot;use strict&quot;;
-    console.log(arguments.callee);
+            <h2 id="事件处理模型——事件冒泡、事件捕获"><a href="#事件处理模型——事件冒泡、事件捕获" class="headerlink" title="事件处理模型——事件冒泡、事件捕获"></a><font color="red">事件处理模型——事件冒泡、事件捕获</font></h2><p>上一篇介绍了事件的绑定，我们这里先写一个三层div嵌套的结构并且给每一个div都加一个点击事件。</p>
+<pre><code>.wrapper{
+    width: 200px;
+    height: 200px;
+    background-color: red;
 }
-test();
-</code></pre><p><strong>严格模式下: • with, arguments.callee, caller(不能使用)<br>             • 变量赋值必须声明,局部this必须赋值<br>             • 拒绝重复属性和参数<br>             • es3.0 都不能使用eval();</strong></p>
-<pre><code>如:
-function test(name, name){
-    &quot;use strict&quot;;
-    console.log(name);
+.box{
+    width: 100px;
+    height: 100px;
+    background-color: green;
 }
-test(1,2);
-
-var obj = {
-    name : &apos;123&apos;,
-    name : &apos;234&apos;
+.content{
+    width: 50px;
+    height: 50px;
+    background-color: black;
 }
-</code></pre><h4 id="try…catch"><a href="#try…catch" class="headerlink" title="try…catch"></a><font color="red">try…catch</font></h4><p><strong>三段式:</strong></p>
-<pre><code>try{
 
-}catch(e){
-
-    }finally{
-
+var wrapper = document.getElementsByClassName(&apos;wrapper&apos;)[0],
+        box = document.getElementsByClassName(&apos;box&apos;)[0],
+    content = document.getElementsByClassName(&apos;content&apos;)[0];
+wrapper.onclick = function () {
+  console.log(&apos;wrapper&apos;);
+}
+box.onclick = function () {
+  console.log(&apos;box&apos;);
+}
+content.onclick = function () {
+  console.log(&apos;content&apos;);
+}
+</code></pre><p>• 现在我们点击最外层的wrapper，控制台打印的wrapper。</p>
+<p>• 点击box，却打印出来box和wrapper</p>
+<p>• 点击content打印出来content、box、wrapper</p>
+<p>这个现象就是我们所说的事件冒泡。</p>
+<p><strong>事件冒泡</strong>：在<font color="red">结构上</font>（非视觉上）嵌套关系的元素，会存在事件冒泡的功能，即同一事件，<font color="red">子元素冒泡向父元素</font>，结构上的自底向上。（这里的底是结构上的底，视觉上是自顶向下）</p>
+<p>大部分事件都有事件冒泡现象，并且<font color="red">所有的浏览器都有事件冒泡</font>。</p>
+<p>结构上的冒泡，和视觉的位置没有关系，我们看一下三个方块视觉上分开的例子：</p>
+<pre><code>.wrapper{
+        width: 200px;
+        height: 200px;
+        background-color: red;
+        position: absolute;
     }
-</code></pre><p><strong>error对象 ——&gt; error.massage error.name<br>Error.name的六种值对应的信息</strong></p>
-<p>  1.EvalError: eval()的使用与定义不一致<br>  2.RangeError: 数值越界<br>  3.ReferenceError: 非法或不能识别的引用数值<br>  4.SyntaxError: 发生语法解析错误<br>  5.TypeError: 操作数类型错误<br>  6.URIError: URI处理函数使用不当</p>
-<pre><code>console.log(b);// ReferenceError    没定义就使用
-test();        // ReferenceError 
-var str = abcd;// ReferenceError
-
-function demo(){
-      :
+    .box{
+        width: 100px;
+        height: 100px;
+        background-color: green;
+        position: absolute;
+        left: 200px;
+        top: 200px;
+    }
+    .content{
+        width: 50px;
+        height: 50px;
+        background-color: black;
+        position: absolute;
+        left: 100px;
+        top: 100px;
+    }
+</code></pre><p>我们点击content部分之后依然会把box和wrapper都打印出来。</p>
+<p><font color="red">并不是所有的事件都有冒泡</font>，focus、blur、change、submit、reset、select等方法就没有事件冒泡现象。</p>
+<p><strong>事件捕获</strong>：<font color="red">结构上</font>（非视觉上）嵌套关系的元素，会存在事件捕获功能，即同一事件，<font color="red">自父元素捕获至子元素</font>（事件源元素），结构上的自顶向下。</p>
+<p><strong>addEventListener最后一个参数就是是否开始事件捕获</strong>，当我们填true的时候，就代表开启了事件捕获。只要开启了事件捕获，就不会冒泡了，如果不捕获的话，就遵循事件冒泡。</p>
+<p>因为addEventListener只有chrome有，因此<font color="red">事件捕获也只有chrome浏览器有</font>。</p>
+<p>依然是上面的那个例子：</p>
+<pre><code>var wrapper = document.getElementsByClassName(&apos;wrapper&apos;)[0],
+    box = document.getElementsByClassName(&apos;box&apos;)[0],
+    content = document.getElementsByClassName(&apos;content&apos;)[0];
+wrapper.addEventListener(&apos;click&apos;, function (e) {
+    console.log(&apos;wrapper&apos;);
+}, true);
+box.addEventListener(&apos;click&apos;, function (e) {
+    console.log(&apos;box&apos;);
+}, true);
+content.addEventListener(&apos;click&apos;, function (e) {
+    console.log(&apos;content&apos;);
+}, true);
+</code></pre><p>现在点击content之后，顺序是wrapper、box、content。</p>
+<p>当事件冒泡和事件捕获同时存在的时候，事件冒泡和事件捕获的触发顺序则为：<strong><font color="red">先捕获，再冒泡</font></strong>。</p>
+<pre><code>var wrapper = document.getElementsByClassName(&apos;wrapper&apos;)[0],
+        box = document.getElementsByClassName(&apos;box&apos;)[0],
+    content = document.getElementsByClassName(&apos;content&apos;)[0];
+wrapper.onclick = function () {
+  console.log(&apos;wrapperBubbler&apos;);
 }
-//SyntaxError       语法解析错误
+box.onclick = function () {
+  console.log(&apos;boxBubbler&apos;);
+}
+content.onclick = function () {
+  console.log(&apos;contentBubbler&apos;);
+}
+ wrapper.addEventListener(&apos;click&apos;, function (e) {
+    console.log(&apos;wrapper&apos;);
+}, true);
+box.addEventListener(&apos;click&apos;, function (e) {
+    console.log(&apos;box&apos;);
+}, true);
+content.addEventListener(&apos;click&apos;, function (e) {
+    console.log(&apos;content&apos;);
+}, true);
+</code></pre><p>结果是先捕获再冒泡。</p>
+<p>但是当我们把捕获写到冒泡前面的时候，顺序好像发生了变化。</p>
+<p>wrapper–&gt;box–&gt;<font color="red">contentBubble</font>–&gt;content–&gt;boxBubble–&gt;wrapperBubble</p>
+<p>这里是因为点击content，并不属于冒泡，而是属于<font color="red">事件执行</font>，我们先绑定的boxBubble，所以就先捕获，再事件执行，再冒泡，这与我们的结论没有冲突。</p>
+<h2 id="取消冒泡和阻止默认事件"><a href="#取消冒泡和阻止默认事件" class="headerlink" title="取消冒泡和阻止默认事件"></a><font color="red">取消冒泡和阻止默认事件</font></h2><p>• 有时候冒泡或者默认事件会对我们的功能造成影响，因此我们需要适时地取消冒泡和默认事件。</p>
+<p>• 我们绑定事件的处理函数的时候，可以传递一个形参，代表我们的事件对象，一般是e或者event，<font color="red">系统会自动帮我们捕获事件源对象并且把事件源对象传入</font>。</p>
+<p><strong><font color="red">取消冒泡的方法</font></strong></p>
+<p>1.<strong><font color="red">w3c标准方法：event.stopPropagation()</font></strong></p>
+<pre><code>var wrapper = document.getElementsByClassName(&apos;wrapper&apos;)[0],
+        box = document.getElementsByClassName(&apos;box&apos;)[0],
+    content = document.getElementsByClassName(&apos;content&apos;)[0];
+content.onclick = function (e) {
+    console.log(&apos;content&apos;);
+    e.stopPropagation();
+}
+</code></pre><p><strong>IE9以及以下的版本不支持这个方法。</strong></p>
+<p>2.<strong><font color="red">event.cancelBubble = true</font></strong></p>
+<p>这个属性是IE的，不过一些高版本的浏览器也有这个属性，只要让这个属性的值等于true，同样也可以取消事件冒泡。</p>
+<p>封装一个兼容性的取消事件冒泡的方法：</p>
+<pre><code>function stopBubble(event){
+    if(event.stopPropagation){
+        event.stopPropagation();
+    }else{
+        event.cancelBubble = true;
+    }
+}
+</code></pre><p><strong><font color="red">默认事件</font></strong></p>
+<p>当我们在浏览器中点击右键，会弹出一个菜单，这就是一个默认事件contextmenu。还有a标签，即使我们不写跳转的页面，也会自动刷新页面，这也是一个默认事件。<br>默认事件有好的也有不好的，这就需要我们把不需要的默认事件阻止掉。</p>
+<p><strong><font color="red">阻止默认事件</font></strong></p>
+<p>1.<strong><font color="red">return false</font></strong><br>不过要注意的是，这种写法只能用在句柄方式绑定的事件上。</p>
+<pre><code>document.oncontextmenu = function () {
+    console.log(&apos;menu&apos;);
+    return false;
+}
+</code></pre><p>2.<strong><font color="red">event.preventDefault()</font></strong><br>这是w3c标准的阻止默认事件的方法，句柄也同样可以使用。不过IE9以下不兼容。</p>
+<pre><code>documet.addEventListener(&apos;contextmenu&apos;, function (e) {
+    console.log(&apos;menu&apos;);
+    e.preventDefault();
+},false);
+</code></pre><p>3.<strong><font color="red">event.returnValue = false</font></strong><br>这个是IE的方法，事件源对象上的属性returnValue代表是否有默认事件，直接返回false就可以阻止默认事件了。</p>
+<pre><code>document.attachEvent(&apos;oncontextmenu&apos;, function (e) {
+    e.returnValue = false;
+});
+</code></pre><p>现在我们也可以封装一个兼容性的阻止默认事件的方法了：</p>
+<pre><code>function cancelHandler(event){
+    if(event.preventDefault){
+        event.preventDefault();
+    }else{
+        event.returnValue = false;
+    }
+}
+</code></pre><p>小例子: 阻止a标签不跳转</p>
+<pre><code>var a = document.links[0];
+a.addEventListener(&apos;click&apos;, funciton (e) {
+    e.cancelHandler(e);
+},false);
+</code></pre><p>同时我们还可以用a标签的第四个用处，协议限定符来阻止默认事件。</p>
+<pre><code>&lt;a href=“javascript: void(0); “&gt;www.baidu.com&lt;/a&gt;
+</code></pre><p>不仅仅是0，只要填写一个代表false的值，就可以取消掉默认事件。</p>
+<h2 id="事件对象"><a href="#事件对象" class="headerlink" title="事件对象"></a><font color="red">事件对象</font></h2><p><font color="red">在IE中，系统不会把事件对象传到方法中，因此我们的参数e或者event在IE中是不好用的，IE会把事件对象传递到window.event上</font>，所以当我们使用事件对象的时候，就要写兼容性的写法：</p>
+<pre><code>var event = e || window.event;
+</code></pre><p><font color="red"><strong>event.target</strong></font> 是<font color="red">火狐</font>的获取事件源对象</p>
+<p><font color="red"><strong>event.srcElement</strong></font> 是<font color="red">IE</font>的获取事件源对象</p>
+<p>chrome两种都有</p>
+<p>因此我们在获取事件源对象的时候也需要写兼容性写法</p>
+<pre><code>wrapper.onclik = function(e){
+    var event = e || window.event;
+    var target = event.target || event.srcElement;
+    console.log(target);
+}
+</code></pre><h2 id="事件委托"><a href="#事件委托" class="headerlink" title="事件委托"></a><font color="red">事件委托</font></h2><p>我们现在有一个ul，下面有十万个li，当我们给父级的ul添加第一个点击事件之后，由于<font color="red">事件冒泡</font>的存在，不论我们点击哪一个li都会调用父级的点击事件处理函数，这个时候触发父级ul的点击函数的那个li就被称之为事件源对象。</p>
+<p>我们<font color="red">利用事件源对象和事件冒泡来处理的方式就叫做事件委托</font>。</p>
+<pre><code>&lt;ul&gt;
+    &lt;li&gt;1&lt;/li&gt;
+    &lt;li&gt;2&lt;/li&gt;
+    &lt;li&gt;3&lt;/li&gt;
+    &lt;li&gt;4&lt;/li&gt;
+    &lt;li&gt;5&lt;/li&gt;
+    &lt;li&gt;6&lt;/li&gt;
+    &lt;li&gt;7&lt;/li&gt;
+    &lt;li&gt;8&lt;/li&gt;
+    &lt;li&gt;9&lt;/li&gt;
+    &lt;li&gt;10&lt;/li&gt;
+    &lt;li&gt;...&lt;/li&gt;
+&lt;/ul&gt;
+&lt;script&gt;
+// 此处不选中li而是选中父级的ul 因为li会冒泡给ul 然后根据事件源对象找到该li
+var ul = document.getElementsByTagName(&apos;ul&apos;)[0];
+ul.onclick = function(e){
+    var event = e || window.event;
+    var target = event.target || event.srcElement;
+    console.log(target.innerText);
+}
+&lt;/script&gt;
+</code></pre><p>事件委托的<font color="red">优点</font>：</p>
+<ol>
+<li><font color="red">性能</font> 不需要循环所有的元素一个个绑定事件</li>
+<li><font color="red">灵活</font> 当有新的子元素时不需要重新绑定事件</li>
+</ol>
 
-//在try里面的发生错误,不会执行错误后的try里面的代码
-try{
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/04/事件绑定/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wanghai">
+      <meta itemprop="description" content="Wanghai个人站，主要涉及前端知识共享、实践教程、前沿技术共同学习等方面">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="welcome">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2018/12/04/事件绑定/" class="post-title-link" itemprop="http://yoursite.com/index.html">事件绑定</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-12-04 17:16:33" itemprop="dateCreated datePublished" datetime="2018-12-04T17:16:33+08:00">2018-12-04</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2018-12-19 16:32:24" itemprop="dateModified" datetime="2018-12-19T16:32:24+08:00">2018-12-19</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><strong><font color="red">绑定事件</font></strong></p>
+<p>1.<strong><font color="red">div.onclick(句柄方式)</font></strong></p>
+<p>虽然句柄方式的兼容性很好，但是一个元素的一种事件只能绑定一个函数。</p>
+<pre><code>div.onclick = function(){
     console.log(&apos;a&apos;);
-    console.log(b);
-    console.log(&apos;c&apos;);
-}catch(e){
-    console.log(e.massage+&quot; &quot;+e.name);//出错走这里
 }
-    console.log(&apos;d&apos;);
+</code></pre><p>2.<strong><font color="red">div.addEventListener(‘事件类型’, 处理函数, false)</font></strong></p>
+<p>可以给一个事件绑定多个处理函数</p>
+<pre><code>div.addEventListener(&apos;click&apos;, function(){
+    console.log(&apos;a&apos;);
+}, false);
+div.addEventListener(&apos;click&apos;, function(){
+    console.log(&apos;b&apos;);
+}, false);
+</code></pre><p>3.<strong><font color="red">div.attachEvent(‘onclick’, function(){})</font></strong></p>
+<p>这个方法是IE独有的方法，一个事件同样可以绑定多个处理函数。</p>
+<pre><code>div.attachEvent(&apos;onclick&apos;, function (){
+      console.log(&apos;a&apos;);
+});
+</code></pre><p>基本和addEventListener差不多，但是有一点区别是，<font color="red">当同一个函数绑定多次的时候，addEventListener是只执行一次，但是attachEvent会绑定几次执行几次</font>。</p>
+<pre><code>function test () {
+        console.log(&apos;a&apos;);
+}
+div.attachEvent(&apos;onclick&apos;, test);
+div.attachEvent(&apos;onclick&apos;, test);
+</code></pre><p>现在点击一次会打印两个a。</p>
+<p>封装兼容性的 事件处理函数 </p>
+<pre><code>function addEvent(elem, type, handle){
+    if(elem.addEventListener){
+        elem.addEventListener(type, handle, false);
+    }else if(elem.attachEvent){
+        elem.attachEvent(&apos;on&apos;+type, function(){
+            handle.call(elem);
+        })
+    }else{
+        elem[&apos;on&apos;+type] = handle;
+    }
+}
+</code></pre><p>例: 使用原生js，addEventListener，为每一个li绑定一个点击事件，输出他们的顺序。这里就要注意这个题考察的不仅仅是绑定事件，更多的是<font color="red">闭包</font>的运用。</p>
+<pre><code>&lt;li&gt;a&lt;/li&gt;
+&lt;li&gt;b&lt;/li&gt;
+&lt;li&gt;c&lt;/li&gt;
+&lt;li&gt;d&lt;/li&gt;
+&lt;script&gt;
+    var li = document.getElementsByTagName(&apos;li&apos;);
+        for(var i = 0;i &lt; li.length;i++){
+            // 绑定事件 一但事件出现在循环里面要考虑是否出现闭包 
+            (function(i){// 用立即执行函数解决
+                li[i].addEventListener(&apos;click&apos;, function(){
+                    console.log(i);
+                }, false);
+            }(i))
+        }
+&lt;/script&gt;
+</code></pre><p><strong><font color="red">事件处理程序的运行环境</font></strong></p>
+<p>1.句柄绑定方式中，函数里面的<font color="red">this指向元素本身</font>。</p>
+<p>2.addEventListener方式中，函数里面的<font color="red">this也是指向元素本身</font>。</p>
+<p>3.attachEvent中，函数里面的<font color="red">this指向的是window而不是元素本身</font>，这算是IE的一个BUG。针对这种情况，我们就需要把函数提取出来，然后在attachEvent的时候用<font color="red">call</font>来改变函数内部this的指向。</p>
+<pre><code>div.attachEvent(&apos;onclick&apos;, function () {
+       test.call(div);
+}, false);
+</code></pre><p><strong><font color="red">解除事件</font></strong></p>
+<p>1.<strong><font color="red">ele.onclick = false/‘’/null;</font></strong></p>
+<pre><code>var div = document.getElementsByTagName(&apos;div&apos;)[0];
+div.onclick = function(){
+    console,log(&apos;a&apos;);
+    this.onclick = null;
+}
+</code></pre><p>2.<strong><font color="red">ele.removeEventListener(type, fn, false);</font></strong></p>
+<p>针对的addEventListener的解除绑定。<br>但是这里要注意，只有命名函数才可以解除绑定，当绑定的函数是匿名函数的时候，是没有办法解除绑定的。</p>
+<pre><code>div.addEventListener(&apos;click&apos;, test, false);
+function test(){
+    console.log(&apos;a&apos;);
+}
+div.removeEventListener(&apos;click&apos;, test, false);
+</code></pre><p>3.<strong><font color="red">ele.detachEvent(‘on’ + type, fn);</font></strong></p>
+<p>针对IE的attachEvent的解除绑定。也是同一个函数才可以解除绑定，匿名函数无法解除绑定。</p>
+<p>封装兼容性的解除绑定函数：</p>
+<pre><code>function remvoeEvent(ele, type, handle) {
+    if(ele.removeEventListener) {
+          ele.removeEventListener(type, handle, false);
+    }else if (ele.detachEvent) {
+          ele.detachEvent(&apos;on&apos; + type, handle);
+    }else {
+          ele[&apos;on&apos; + type] = null;
+    }
+}
 </code></pre>
           
         
@@ -2176,7 +2558,7 @@ try{
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/25/this/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/03/事件分类/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Wanghai">
@@ -2196,7 +2578,7 @@ try{
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2018/11/25/this/" class="post-title-link" itemprop="http://yoursite.com/index.html">this</a>
+                <a href="/2018/12/03/事件分类/" class="post-title-link" itemprop="http://yoursite.com/index.html">事件分类</a>
               
             
           </h1>
@@ -2221,7 +2603,7 @@ try{
                 
               
 
-              <time title="Created: 2018-11-25 17:16:33" itemprop="dateCreated datePublished" datetime="2018-11-25T17:16:33+08:00">2018-11-25</time>
+              <time title="Created: 2018-12-03 17:16:33" itemprop="dateCreated datePublished" datetime="2018-12-03T17:16:33+08:00">2018-12-03</time>
             
 
             
@@ -2238,7 +2620,7 @@ try{
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2018-12-18 17:41:19" itemprop="dateModified" datetime="2018-12-18T17:41:19+08:00">2018-12-18</time>
+                <time title="Modified: 2018-12-19 16:06:45" itemprop="dateModified" datetime="2018-12-19T16:06:45+08:00">2018-12-19</time>
               
             
           </span>
@@ -2273,344 +2655,89 @@ try{
       
         
           
-            <h4 id="this"><a href="#this" class="headerlink" title="this"></a><font color="red">this</font></h4><p><strong>  1.函数预编译过程 this ——&gt;window<br>    2.全局作用域里   this ——&gt;window<br>    3.call/apply可以改变函数运行时this指向<br>    4.obj.func();    func()里面的this指向obj </strong>    </p>
-<p><strong>总结: 四种this绑定的权重</strong></p>
-<p><strong>  1,默认绑定(空函数执行,函数单纯执行,this指向window) 默认权重<br>    2,隐式帮定(谁调用this指向谁) 第三权重<br>    3,显式绑定 (call apply bind) 第二高权重<br>    4,new 绑定this 权重是最高的</strong></p>
-<p><strong>升级知识：ES6箭头函数中的this如何邦定？<br>  1,箭头函数没有this 没有arguments surper(class)；<br>  2,箭头函数不能new ,不当成构造函数来 没有prototye；<br>  3,可以表示数据流向 方便JavaScript引擎优化扫码；</strong></p>
-<p>例1</p>
-<pre><code>var name = &quot;222&quot;;
-var a = {
-    name : &quot;111&quot;,
-    say : function(){
-        console.log(this.name);
+            <h4 id="鼠标事件"><a href="#鼠标事件" class="headerlink" title="鼠标事件"></a><font color="red">鼠标事件</font></h4><p>click、contextmenu(右键菜单)、mouseover、mouseout、mousedown、mousemove、mouseup移动端对应的(touchstart、touchmove、touchend)</p>
+<p>• 所有的鼠标事件都有clientX和clientY，代表的是鼠标点击的位置，我们可以通过e.clientX和e.clentY来查看。</p>
+<p>• 左键点击的顺序是：mousedown、mouseup、click</p>
+<p>• 当我们同时绑定了click事件和mousedown事件后，如何解决mousedown和click的冲突问题？</p>
+<pre><code>var firstTime = 0;
+var laseTime = 0;
+var key = false;
+document.onmousedown = function(){
+    firstTime = new Date().getTime();
+}    
+document.onmouseup = function(){
+    laseTime = new Date().getTime();
+    if(laseTime - firstTime &lt; 300){
+        key = true;
     }
 }
-var fun = a.say;
-fun();//预编译this指向window
-a.say();//a执行this指向对象a
-var b = {
-    name : &quot;333&quot;,
-    say : function(fun){
-        fun();//预编译this指向window
+document.onclikc = function(){
+    if(key){
+        console.log(&apos;click&apos;);
+        key = false;
     }
 }
-b.say(a.say);
-b.say = a.say;
-b.say();//b执行this指向对象b
-</code></pre><p>例2</p>
-<pre><code>var foo = 132;
-function print(){
-    this.foo = 234;
-    console.log(foo);
+</code></pre><p>click事件永远都是左键，有左键和右键的区别的是mousedown事件。</p>
+<p>再mousedown的事件对象中有一个属性叫做button，这个属性的值是0的时候代表我们按下的是左键，1的时候代表按下的中键，2的时候代表按下的是右键。</p>
+<pre><code>document.onmousedown = function (e) {
+  if (e.button == 0) {
+      console.log(‘left’);
+  }else if (e.button == 1) {
+      console.log(‘mid’);
+  }else {
+      console.log(‘right’);
+  }
 }
-print();
-</code></pre><p>例3</p>
-<pre><code>var foo = 132;
-function print(){
-    //var this = Object.create(print.prototype)
-    this.foo = 234;
-    console.log(foo);
-}
-new print();
-</code></pre><p>例4</p>
-<pre><code>var a = 5;
-function test(){
-    a = 0;
-    console.log(a);
-    console.log(this.a);
-    var a;
-    console.log(a);
-}
-test();
-</code></pre><p>例5</p>
-<pre><code> var a = 5;
-function test(){
-    a = 0;
-    console.log(a);
-    console.log(this.a);
-    var a;
-    console.log(a);
-}
-new test();
-</code></pre><p>例6</p>
-<pre><code>var bar = {
-    a : &quot;002&quot;
-}
-function print(){
-    bar.a = &apos;a&apos;;
-    Object.prototype.b = &apos;b&apos;;
-    return function inner(){
-        console.log(bar.a);
-        console.log(bar.b);
+</code></pre><p>这里我们就可以重新回顾一下拖拽事件了：</p>
+<pre><code>var div = document.getElementsByTagName(&apos;div&apos;)[0]
+function drag(elem){
+    var disX,
+        disY;
+    addEvent(elem, &apos;mousedown&apos;, function(e){// 之前封装的事件绑定函数
+        var event = e || window.event;
+        disX = event.clientX - parseInt(getStyle(elem, &apos;left&apos;));// 之前封装的查询元素样式函数
+        disY = event.clientY - parseInt(getStyle(elem, &apos;top&apos;));
+        addEvent(document, &apos;mousemove&apos;, mouseMove);
+        addEvent(document, &apos;mouseup&apos;, mouseUp);
+        stopBubble(e);
+        cancelHandler(e);
+    });
+    function mouseMove(e){
+        var event = e || window.event;
+        elem.style.left = event.clientX - disX + &quot;px&quot;;
+        elem.style.top = event.clientY - disY + &quot;px&quot;;
+    }
+    function mouseUp(e){
+        var event = e || window.event;
+        removeEvent(document, &apos;mousemove&apos;, mouseMove);
+        removeEvent(document, &apos;mouseup&apos;, mouseUp);   
     }
 }
-print()();
-</code></pre><h4 id="call-apply"><a href="#call-apply" class="headerlink" title="call/apply"></a><font color="red">call/apply</font></h4><p>call/apply的第一个参数会<font color="red">改变this的指向</font><br>• call 需要把实参按照形参的个数传进去<br>• apply 需要传一个arguments(数组)<br>其实方法的执行test()，实际上就是隐式转换成test.call();</p>
-<pre><code>function Person(name, age){
-     this.name = name;
-     this.age = age;
+</code></pre><h4 id="键盘事件"><a href="#键盘事件" class="headerlink" title="键盘事件"></a><font color="red">键盘事件</font></h4><p>键盘事件主要有三个：keydown、keypress、keyup。<br>触发顺序分别是keydown &gt; keypress &gt; keyup。</p>
+<p>keypress的范围和keydown有所区别：</p>
+<p>keydown可以响应任意键盘按键，keypress只能响应字符类按键，也就是有ASCII码的字符的按键，像字母数字回车空格之类的。</p>
+<p>事件对象的属性方面：只有keypress有charCode属性，这个属性代表的我们输入的这个字符的ASCII码，配合SHIFT之类的按键可以直接获取大写字母等。</p>
+<p>keyCode和which每个方法都有，表示的是这个键的唯一标示，可以告诉浏览器我们按下的是键盘上的哪一个键，比如空格是32，32就代表空格。不过我们一般都用which，keyCode用的较少。</p>
+<p>• String上有一个方法叫做fromCharCode，可以接受一个Unicode值（包含ASCII值），然后返回对应的字符串，我们可以配合这个方法和charCode来直接获取输入的字符。</p>
+<pre><code>document.onkeypress = function(e){
+    console.log(String.fromCharCode(e.charCode));
 }
-var person = new Person(&apos;deng&apos;, 100);
-var obj = {};
-Person.call(obj, &apos;cheng&apos;, 300);
-console.log(obj.name);// &apos;cheng&apos;
-</code></pre><p>例1</p>
-<pre><code>function Person(name, age, sex){
-    this.name = name;
-    this.age = age;
-    this.sex = sex;
-}         
-function Student(name, age, sex, tel, grade){
-    //this指向Student  本来是没有name/age/sex属性 用Person的方法实现自己的功能   
-    //var this = {name : &quot;&quot;, age : &quot;&quot;, sex : &quot;&quot;}
-    Person.call(this, name, age, sex);
-    this.tel = tel;
-    this.grade = grade;
+</code></pre><h4 id="文本操作事件"><a href="#文本操作事件" class="headerlink" title="文本操作事件"></a><font color="red">文本操作事件</font></h4><p>input,focus,blur,change</p>
+<pre><code>&lt;input type=&quot;text&quot; value=&quot;请输入用户名&quot; style=&quot;color: #999;position: absolute;top: 200px&quot;
+onfocus=&quot;if(this.value==&apos;请输入用户名&apos;){this.value=&apos;&apos;;this.style.color=&apos;#424242&apos;}&quot;
+onblur=&quot;if(this.value==&apos;&apos;){this.value=&apos;请输入用户名&apos;;this.style.color=&apos;#999&apos;}&quot;&gt;
+</code></pre><h4 id="窗体操作类-window上的事件"><a href="#窗体操作类-window上的事件" class="headerlink" title="窗体操作类(window上的事件)"></a><font color="red">窗体操作类(window上的事件)</font></h4><p><strong><font color="red">load事件</font></strong></p>
+<p>这个事件window.onload和在body标签上写onload是一样的效果，作用是等页面中所有的东西都下载完成再执行里面的代码。</p>
+<p><strong><font color="red">scroll事件</font></strong></p>
+<p>这个方法是监听滚轮滚动的事件，我们可以用这个事件来写一个兼容版的fix定位。</p>
+<pre><code>function beFixed(ele){
+  var initPosX = ele.getPosition().w,
+      initPosY = ele.getPosition().h;
+  addEvent(window, ‘scroll’, function(e){
+      ele.style.top =  initPosY + getScrollOffset().h + ‘px’;
+      ele.style.left =  initPosX + getScrollOffset().w + ‘px’;
+  })
 }
-var student = new Student(&apos;sunny&apos;, 123, &apos;male&apos;, 139, 2017);
-</code></pre><p>例2</p>
-<pre><code>function Wheel(wheelSize, style){
-    this.style = style;
-    this.wheelSize = wheelSize;
-}
-function Sit(c, sitColor){
-    this.c = c;
-    this.sitColor = sitColor;
-}
-function Model(height, width, len){
-    this.height = height;
-    this.width = width;
-    this.len = len;
-}
-function Car(wheelSize, style, c, sitColor, height, width, len){
-    Wheel.call(this, wheelSize, style);
-    Sit.call(this, c, sitColor);
-    Model.call(this, height, width, len);
-}
-var car = new Car(100, &quot;花里胡哨的&quot;, &quot;真皮&quot;, &quot;red&quot;, 1800, 1900, 4900);
-</code></pre>
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/24/对象枚举及访问属性的第二种方法/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Wanghai">
-      <meta itemprop="description" content="Wanghai个人站，主要涉及前端知识共享、实践教程、前沿技术共同学习等方面">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="welcome">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2018/11/24/对象枚举及访问属性的第二种方法/" class="post-title-link" itemprop="http://yoursite.com/index.html">对象枚举及访问属性的第二种方法</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2018-11-24 17:16:33" itemprop="dateCreated datePublished" datetime="2018-11-24T17:16:33+08:00">2018-11-24</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2018-12-18 16:49:49" itemprop="dateModified" datetime="2018-12-18T16:49:49+08:00">2018-12-18</time>
-              
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h4 id="对象的枚举"><a href="#对象的枚举" class="headerlink" title="对象的枚举"></a><font color="red">对象的枚举</font></h4><p>在介绍对象的枚举方法之前，我们要理解一个概念。</p>
-<p>查看对象属性我们知道可以用obj.name这样的点操作符来查看，但是我们还有一种其他的方式：</p>
-<p><strong><font color="red">obj[字符串]</font></strong></p>
-<p>这种方法类似数组的查看，但其实事实是数组模仿了对象的查看方式。<br>这种方法是在系统底层里面的查看对象属性的写法，我们常用的点操作符obj.name在系统底层其实也隐式转换成了obj[‘name’]这种形式。</p>
-<p><strong>例</strong></p>
-<pre><code>var deng = {
-    wife1 : {name : &quot;xiaoliu&quot;},
-    wife2 : {name : &quot;xiaozhang&quot;},
-    wife3 : {name : &quot;xiaomeng&quot;},
-    wife4 : {name : &quot;xiaowang&quot;},
-    sayWife : function (num){
-        return this[&apos;wife&apos;+num]
-    }
-}
-// 我们调用sayWife的时候传入一个对应的数字就可以得到返回对应的名字
-</code></pre><p><strong><font color="red">for-in操作符</font></strong></p>
-<p>我们知道要枚举一个数组的所有元素，只要用一个for循环从头到尾遍历一遍就可以了。</p>
-<p>但是对象并不能用for循环来遍历属性，所以这里我们就要使用for-in操作了。</p>
-<pre><code>var obj = {
-    name : &apos;13&apos;,
-    age : 123,
-    sex : &quot;male&quot;,
-    height : 180,
-    weight : 75
-}
-for(var prop in obj){
-    //obj是要遍历的对象  prop变量名写什么都行
-    //console.log(obj.prop);    结果全是undefined 
-    //因为 obj.prop ——&gt;obj[&apos;prop&apos;] 而prop是个变量所以 改为下面访问属性方式
-    console.log(obj[prop]);
-}
-</code></pre><p>下面我们来介绍三种操作符：</p>
-<p>1.<strong><font color="red">hasOwnProperty</font></strong></p>
-<p>这个操作符的作用是查看当前这个属性是不是对象自身的属性，在原型链上的属性则会被过滤掉。如果是自身的，就返回true，否则返回false。    </p>
-<pre><code>function Person(){
-    this.name = &apos;scarlett&apos;
-}
-Person.prototype = {
-    age : 10
-}
-var operson = new Person();
-for(var prop in operson){
-    if(operson.hasOwnProperty(prop)){
-        console.log(operson[prop]);
-    }
-}
-</code></pre><p>这样，我们的for-in循环就会只打印自身的属性而不会去打印原型上的lastName属性。</p>
-<p>2.<strong><font color="red">in操作符</font></strong></p>
-<p>这个操作符的作用是查看一个属性是不是在这个对象或者它的原型里面。</p>
-<pre><code>&apos;name&apos; in operson;// true
-&apos;age&apos; in operson;// true
-&apos;sex&apos; in operson;// false
-</code></pre><p>3.<strong><font color="red">instanceof操作符</font></strong></p>
-<p>看A对象的原型链上 有没有 B的原型</p>
-<pre><code>function Person(){
-
-}
-var person = new Person();
-person instanceof Person;// true
-person instanceof Object;// true
-</code></pre><h4 id="判断一个变量是数组还是对象"><a href="#判断一个变量是数组还是对象" class="headerlink" title="判断一个变量是数组还是对象"></a>判断一个变量是数组还是对象</h4><p><strong><font color="red">三种方法:</font></strong></p>
-<p><strong>方法1.</strong></p>
-<pre><code>数组的 [].constructor  
-对象的 var obj={}, obj.constructor
-</code></pre><p><strong>方法2.</strong></p>
-<pre><code>[] instanceof Array   返回true   
-obj instanceof Array  返回false
-</code></pre><p><strong>方法3.</strong></p>
-<pre><code>Object.prototype.toString.call([]);
-Object.prototype.toString.call({});
 </code></pre>
           
         
@@ -2656,7 +2783,7 @@ Object.prototype.toString.call({});
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -2699,7 +2826,7 @@ Object.prototype.toString.call({});
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">33</span>
+                    <span class="site-state-item-count">43</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>

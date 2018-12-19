@@ -15,7 +15,7 @@
 
 
 <html class="theme-next muse use-motion" lang="en">
-<head><meta name="generator" content="Hexo 3.8.0">
+<head>
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
@@ -121,12 +121,12 @@
 
 
 
-  <link rel="alternate" href="/atom.xml" title="welcome" type="application/atom+xml">
+  <link rel="alternate" href="/atom.xml" title="welcome" type="application/atom+xml" />
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/page/2/">
+  <link rel="canonical" href="http://yoursite.com/page/2/"/>
 
 
 
@@ -178,7 +178,7 @@
 
 </head>
 
-<body itemscope="" itemtype="http://schema.org/WebPage" lang="en">
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
 
   
   
@@ -189,7 +189,7 @@
   page-home">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-wrapper">
   <div class="site-meta ">
     
@@ -237,7 +237,7 @@
 
     
 
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br />Home</a>
 
   </li>
         
@@ -254,7 +254,7 @@
 
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br />Archives</a>
 
   </li>
 
@@ -301,20 +301,20 @@
 
   
 
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
   
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/23/继承/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/02/脚本化CSS/">
 
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Wanghai">
       <meta itemprop="description" content="Wanghai个人站，主要涉及前端知识共享、实践教程、前沿技术共同学习等方面">
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="welcome">
     </span>
 
@@ -326,7 +326,7 @@
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2018/11/23/继承/" class="post-title-link" itemprop="http://yoursite.com/page/2/index.html">继承</a>
+                <a href="/2018/12/02/脚本化CSS/" class="post-title-link" itemprop="http://yoursite.com/page/2/index.html">脚本化CSS</a>
               
             
           </h1>
@@ -351,7 +351,7 @@
                 
               
 
-              <time title="Created: 2018-11-23 17:16:33" itemprop="dateCreated datePublished" datetime="2018-11-23T17:16:33+08:00">2018-11-23</time>
+              <time title="Created: 2018-12-02 17:16:33" itemprop="dateCreated datePublished" datetime="2018-12-02T17:16:33+08:00">2018-12-02</time>
             
 
             
@@ -368,7 +368,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2018-12-18 16:08:51" itemprop="dateModified" datetime="2018-12-18T16:08:51+08:00">2018-12-18</time>
+                <time title="Modified: 2018-12-19 15:43:46" itemprop="dateModified" datetime="2018-12-19T15:43:46+08:00">2018-12-19</time>
               
             
           </span>
@@ -403,355 +403,129 @@
       
         
           
-            <p>1.<strong>传统形式 ——原型链 (过多的继承了没用的属性)</strong></p>
-<p>2.<strong>借用构造函数 (不能继承借用构造函数的原型,每次构造函数都要多走一个函数)</strong></p>
-<p>3.<strong>共享原型 (不能随便改动自己的原型)</strong></p>
-<p>4.<strong>圣杯模式 (以上三种模式都不用)</strong></p>
-<h4 id="模式一"><a href="#模式一" class="headerlink" title="模式一"></a><font color="red">模式一</font></h4><pre><code>Grand.prototype.lastName = &quot;Deng&quot;;
-function Grand(){
+            <p><strong><font color="red">读写元素css属性</font></strong></p>
+<p>每一个dom元素都有一个属性style，dom.style里面存放的这个元素的行间样式，我们可以通过这个属性来读写元素的行间样式。</p>
+<p>1.碰到float这样的关键字属性的时候，前面要加一个css前缀。<font color="red">float — &gt; cssFloat</font></p>
+<p>2.复合属性必须拆解，组合单词变成小驼峰式写法，写入的值必须是字符串格式.如</p>
+<p>border: 1px solid red;只能写border-width、border-color、border-style。<br>background-color —&gt; backgroundColor;</p>
+<p><strong><font color="red">查询计算样式</font></strong></p>
+<pre><code>window.getComputedStyle(ele, null);
+</code></pre><p>这个方法有两个参数，第一个参数是我们要获取的元素。<br>第二个参数是一个字符串，代表我们是否要获取这个元素上面的某一个伪元素，如果不的话，就填写null，否则就填写要获取的这个元素的哪一个伪元素。</p>
+<p>这里的样式是<font color="red">取优先级最高的(即最终展示样式)</font>，不只是行间样式，所有的只要是表现出来的样式都可以获取出来。<br>同时，返回的计算样式的值都是<font color="red">绝对值</font>，没有相对单位。IE8 及 IE8以下不兼容</p>
+<pre><code>div:after{
+    width: 100px;
+    height; 100px;
+    background-color: red;
 }
-var grand = new Grand();
-Father.prototype = grand;
-function Father(){ 
-    this.name = &quot;hehe&quot;;
-}
-var father = new Father();
-Son.prototype = father;
-function Son(){
-
-}
-var son = new Son();
-</code></pre><h4 id="模式二"><a href="#模式二" class="headerlink" title="模式二"></a><font color="red">模式二</font></h4><pre><code>function Person(name, age, sex){
-    this.name = name;
-    this.age = age;
-    this.sex = sex;
-}
-function Student(name, age, sex, grade){
-    Person.call(this, name, age, sex);
-    this.grade = grade;
-}
-var student = new Student();
-</code></pre><h4 id="模式三"><a href="#模式三" class="headerlink" title="模式三"></a><font color="red">模式三</font></h4><pre><code>Father.prototype.lastName = &quot;Deng&quot;;
-function Father(){ 
-
-}
-function Son(){
-}
-Son.prototype = Father.prototype; 
-var son = new Son();
-//或抽象出一个继承方法    但是如果son想修改原型father也会发生改变
-Father.prototype.lastName = &quot;Deng&quot;;
-function Father(){ 
-
-}
-function Son(){
-}
-function inherit(Target, Origin){
-    Target.prototype = Origin.prototype;
-}
-inherit(Son, Father);
-var son = new Son();
-var father = new Father();
-</code></pre><h4 id="模式四"><a href="#模式四" class="headerlink" title="模式四"></a><font color="red">模式四</font></h4><pre><code>function inherit(Target, Origin){
-    function F(){};
-    F.prototype = Origin.prototype;
-    Target.prototype = new F();
-    Target.prototype.constuctor = Target;//将构造器归位
-    Target.prototype.uber = Origin.prototype;//继承自 找到自己的超类(uber==super)
-}
-Father.prototype.lastName = &quot;Deng&quot;;
-function Father(){ 
-
-}
-function Son(){
-}
-inherit(Son, Father);
-var son = new Son();
-var father = new Father();
-Son.prototype.sex = &quot;male&quot;;
-//此时修改son的原型上的属性不会影响father
-</code></pre>
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/22/函数作用域与闭包/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Wanghai">
-      <meta itemprop="description" content="Wanghai个人站，主要涉及前端知识共享、实践教程、前沿技术共同学习等方面">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="welcome">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2018/11/22/函数作用域与闭包/" class="post-title-link" itemprop="http://yoursite.com/page/2/index.html">函数作用域与闭包</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2018-11-22 17:16:33" itemprop="dateCreated datePublished" datetime="2018-11-22T17:16:33+08:00">2018-11-22</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2018-12-18 16:04:24" itemprop="dateModified" datetime="2018-12-18T16:04:24+08:00">2018-12-18</time>
-              
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="函数部分"><a href="#函数部分" class="headerlink" title="函数部分"></a><font color="red">函数部分</font></h2><p>我们的函数声明有两种方式：</p>
-<p>1.<font color="red">var demo = function () {} 函数表达式</font></p>
-<pre><code>注意: 下面这些也属于函数表达式  
-       = function(){}     
-       ! function(){}
-       + function(){}
-       - function(){}
-</code></pre><p>2.<font color="red">function demo () {} 函数声明</font></p>
-<p>3.var demo = function xxx() {} 命名函数表达式</p>
-<p>• 每一个函数里面都有一个类似数组的<font color="red">类数组属性arguments</font>，这个属性里面存的就是<font color="red">实参</font>。</p>
-<p>arguments[0]就可以查看我们传递的第一个实参了。</p>
-<p>函数有一个<font color="red">length属性</font>，这个length储存的是<font color="red">形参的数量</font>。</p>
-<p>• 每一个函数都会有一个return，如果不写的话函数会自动加上一个return;</p>
-<p>return的功能有两个：</p>
-<p>1.返回这个函数的<font color="red">执行结果</font>。</p>
-<p>2.<font color="red">终止函数的执行</font>。</p>
-<pre><code>function test(a, b){
-    console.log(a + b);
-    return ;
-    console.log(&apos;hello&apos;);
-}
-test(1, 2);// 3 没有打印hello
-</code></pre><h2 id="作用域"><a href="#作用域" class="headerlink" title="作用域"></a><font color="red">作用域</font></h2><p>定义：变量（变量作用域又称为上下文）和函数生效（能被访问）的区域。</p>
-<p><font color="red"><strong>javascript的函数，是可以产生作用域的！！</strong></font><br>es5中的作用域大概只有全局作用域和函数作用域两种，es6中新添加了块级作用域。</p>
-<pre><code>var demo = 123;// 全局变量
-function test(){
-    var demo = 234;// 局部变量
-    console.log(demo);
-    var demo1 = &apos;hello&apos;;
-}
-test();// 234 就近打印局部变量，没有局部变量的时候才会打印全局的。
-console.log(demo1); // 报错 我们的全局作用域无法访问函数的局部作用域
-</code></pre><p>• 有一点要注意的是，如果在函数作用域里面声明变量<font color="red">没有用var的话</font>，那么就声明了一个全局变量。<br>• 同时，两个不同作用域（除了全局作用域）之间是不能互相访问的。</p>
-<h2 id="作用域链"><a href="#作用域链" class="headerlink" title="作用域链"></a><font color="red">作用域链</font></h2><p>既然函数存在函数作用域，函数又可以嵌套，那么作用域之间自然就会产生嵌套关系，这个时候就产生了作用域链。<br>当代码在一个环境中执行时，会创建变量对象的一个作用域链（scope chain）来保证对执行环境<font color="red">有权</font>访问的变量和函数的<font color="red">有序</font>访问。作用域第一个对象始终是当前执行代码所在环境的变量对象。</p>
-<pre><code>function demo() {
-    var demo_a = 1;
-    function test() {
-        var demo_a = 2;
-        console.log(demo_a);
+window.getComputedStyle(div, ‘after’).width;// 100px
+</code></pre><p>IE8有一个特殊的查询样式<font color="red">ele.currentStyle</font>。</p>
+<p>计算样式只读，IE独有的属性，返回的计算样式的值不是经过转换的绝对值</p>
+<p>封装兼容性方法getStyle(obj,prop);</p>
+<pre><code>function getStyle(obj, prop){
+    if(window.getComputedStyle){
+        return window.getComputedStyle(obj, null)[prop];
+    }else{
+        return obj.currentStyle[prop];
     }
-    test();
 }
-demo();
-</code></pre><p>• 在这个例子中，demo运行的时候，首先创建了一个demo的作用域，但是window本身还有一个全局作用域，这就让demo产生了一个作用域链。本着对执行环境的有权和有序访问，每个函数的自身的作用域总是在作用域链的最顶层，下一层是这个函数的父级函数的作用域，再下面是父级的父级的作用域，直到全局作用域。</p>
-<p>• 因此这个例子中的test函数执行时候打印的demo_a是它本身的作用域中的demo_a，而不是demo函数作用域下的demo_a，如果test函数作用域中没有demo_a这个变量的话，系统才会沿着作用域链向下找到demo作用域中的demo_a变量。</p>
-<h2 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a><font color="red">闭包</font></h2><p>闭包是一个非常非常重要的知识点，我在网上看到过许多的定义，但是都有点繁琐，这里的知识点是我简单化的总结的。</p>
-<p>什么是闭包？</p>
-<p>我的理解是，<font color="red"><strong>闭包就是能够读取其他函数内部变量的函数</strong></font>。</p>
-<p>我们前面提到过，不同作用域之间不能够互相访问，但是我们如果在一个<font color="red">函数内部再定义一个函数</font>，并且这个<font color="red">内部函数与外部函数的变量有关联</font>，那么我们就可以通过<font color="red">返回这个内部的函数</font>，然后<font color="red">来访问外部函数里面的变量</font>。</p>
-<p>所以，在本质上，闭包就是将函数内部和函数外部连接起来的一座桥梁。</p>
-<pre><code>function a(){
-    var demo1 = 123;
-    add = function(){
-        demo1++;
-    } 
-    return function(){
-        console.log(demo1);
-    };
-}
-var demo = a();
-demo();// 123
-add();
-demo();// 124
-</code></pre><p>当函数执行完之后，函数的执行上下文就会被销毁，自然我们就无法访问里面的变量了，但是我们这个函数返回了一个<font color="red">依赖于这个函数的新函数，也就是说这个没有被销毁的新函数的作用域链中还存在着对原本函数的作用域的引用</font>，就导致我们原本的函数的上下文不会被销毁，我们<font color="red">称返回的这个新函数是原本函数的闭包函数</font>。</p>
-<p>在上面的例子中，a函数内部有一个全局的函数add和一个局部变量demo1，我们这个把返回函数给了一个全局变量demo进入到了内存中，但是由于这个返回的新函数依赖于本来的a函数，这就导致本来的a函数的上下文不会被销毁。</p>
-<p>这里我们的打印函数一共运行了两次，都能打印出来值，说明a函数的demo1变量在函数执行完之后并没有被销毁而是存到了内存中。</p>
-<p>其次，add的值是一个匿名函数，而这个匿名函数本身也是一个闭包，所以add相当于是一个setter叠加器，可以在函数外部对函数内部的局部变量进行操作。</p>
-<p><strong><font color="red">使用闭包的注意点</font></strong></p>
-<p>1.由于闭包会使得函数中的变量都被保存在内存中，<font color="red">内存消耗很大</font>，所以不能滥用闭包，否则会造成网页的性能问题，在IE中可能导致<font color="red">内存泄露</font>。</p>
-<p>解决方法是，<font color="red">在退出函数之前，将不使用的局部变量全部删除</font>。</p>
-<p>2.闭包会在父函数外部，改变父函数内部变量的值。所以，如果你把<font color="red">父函数当作对象</font>使用，把<font color="red">闭包当作它的公用方法</font>，把<font color="red">内部变量当作它的私有属性</font>，这时一定要小心，<strong><font color="red">不要随便改变父函数内部变量的值</font></strong>。</p>
-<p><strong><font color="red">闭包的作用</font></strong></p>
-<p><strong>1.实现公有变量</strong></p>
-<pre><code>function add(){
+</code></pre><p>例1: 我们可以写一个小方块运动的函数</p>
+<pre><code>var div = document.createElement(&apos;div&apos;);
+document.body.appendChild(div);
+div.style.width = &quot;100px&quot;;
+div.style.height = &quot;100px&quot;;
+div.style.backgroundColor = &quot;blue&quot;;
+div.style.position = &quot;absolute&quot;;
+div.style.left = &quot;0&quot;;
+div.style.top = &quot;0&quot;;
+var speed = 1;
+var time = setInterval(function(){
+    speed += speed/20;
+    div.style.left = parseInt(div.style.left) + speed +&quot;px&quot;;
+    div.style.top = parseInt(div.style.top) + speed +&quot;px&quot;;
+    if(parseInt(div.style.left)&gt;200&amp;&amp;parseInt(div.style.top)&gt;200){
+        clearInterval(time);
+    }
+}, 50)
+</code></pre><p>例2: 利用计数器变量 实现状态变换</p>
+<pre><code>&lt;div&gt;&lt;/div&gt;
+&lt;script&gt;
+    var div = document.getElementsByTagName(&apos;div&apos;)[0];
+    div.style.width = &quot;100px&quot;;
+    div.style.height = &quot;100px&quot;;
+    div.style.backgroundColor = &quot;red&quot;;
     var count = 0;
-    function demo(){
+    div.onclick = function(){
         count ++;
-        console.log(count);
+        if(count % 2 ==1){
+            this.style.backgroundColor = &quot;green&quot;;
+        }else{
+            this.style.backgroundColor = &quot;red&quot;;
+        }
     }
-    return demo;
-}
-var counter = add();
-counter();counter();counter();counter();
-</code></pre><p><strong>2.可以做缓存</strong></p>
-<pre><code> function test(){
-    var num = 100;
-    function a(){
-        num ++;
-        console.log(num);
-    }   
-    function b(){
-        num --;
-        console.log(num);
+&lt;/script&gt;
+</code></pre><p>例3: 实现用键盘控制小方块</p>
+<pre><code>var div = document.createElement(&quot;div&quot;);
+document.body.appendChild(div);
+div.style.width = &quot;100px&quot;;
+div.style.height = &quot;100px&quot;;
+div.style.backgroundColor = &quot;green&quot;;
+div.style.position = &quot;absolute&quot;;
+div.style.left = &quot;0&quot;;
+div.style.top = &quot;0&quot;;
+document.onkeydown = function(e) {
+  switch (e.which) {
+    case 38:
+      div.style.top = parseInt(div.style.top) - 5 + &quot;px&quot;;
+      break;
+    case 40:
+      div.style.top = parseInt(div.style.top) + 5 + &quot;px&quot;;
+      break;
+    case 37:
+      div.style.left = parseInt(div.style.left) - 5 + &quot;px&quot;;
+      break;
+    case 39:
+      div.style.left = parseInt(div.style.left) + 5 + &quot;px&quot;;
+      break;
+  }
+};
+</code></pre><p>例4: 实现鼠标点击切换不同图片</p>
+<pre><code>&lt;style&gt;
+    .content{
+        display: none;
+        width: 200px;
+        height: 200px;
+        border: 2px solid red;
     }
-    return [a, b];
-}
-var myArr = test();
-myArr[0]();
-myArr[1]();
-</code></pre><p><strong>3.可以实现封装，属性私有化</strong></p>
-<pre><code>function Deng(name, wife){
-     var prepareWife = &quot;xiaozhang&quot;
-    this.name = name;
-    this.wife = wife;
-    this.divorce = function (){
-        this.wife = prepareWife;
+    .active{
+        background-color: yellow;
     }
-    this.changePrepareWife = function(target){
-        prepareWife = target;
-    }
-    this.sayPrepareWife = function(){
-        console.log(prepareWife);
-    }
+&lt;/style&gt;
 
-}
-var deng = new Deng(&apos;deng&apos;, &apos;xiaoliu&apos;)
-//里面三个函数和Deng这个函数都形成了闭包,只能通过函数去修改prepareWife属性
-</code></pre><h2 id="立即执行函数"><a href="#立即执行函数" class="headerlink" title="立即执行函数"></a><font color="red">立即执行函数</font></h2><p>立即执行函数是解闭包的一个重要方法。但是注意<font color="red">闭包是没有办法解除</font>的，我们只能通过另一个新闭包来消除上一个闭包的影响。</p>
-<p><strong>定义：立即执行函数不需要被定义，直接执行，执行完毕之后直接释放。</strong></p>
-<p>立即执行函数的写法：</p>
-<p><strong>1.(function (a) {})(num);</strong></p>
-<p><strong>2.(function (a) {} (num))</strong>   W3C建议第二种</p>
-<p>传递的参数是a，a的实参值是num，num是我们在外面定义的变量。</p>
-<p><strong>例</strong></p>
-<pre><code>(function (a,b,c){
-    var d = a+b+c;
-    return d;
-}(1,2,3));
-// 打印6
+&lt;div class=&quot;wrapper&quot;&gt;
+    &lt;button class=&quot;active&quot;&gt; 1 &lt;/button&gt;
+    &lt;button&gt; 2 &lt;/button&gt;
+    &lt;button&gt; 3 &lt;/button&gt;
+    &lt;div class=&quot;content&quot; style=&quot;display: block;&quot;&gt;one&lt;/div&gt;
+    &lt;div class=&quot;content&quot;&gt;two&lt;/div&gt;
+    &lt;div class=&quot;content&quot;&gt;three&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+    var btn = document.getElementsByTagName(&apos;button&apos;);
+    var div = document.getElementsByClassName(&apos;content&apos;);
+    for(var i = 0; i &lt; btn.length; i++){
+        (function(n){ //循环里面绑定事件要考虑闭包。 解决方法:立即执行函数
+            btn[n].onclick = function (){
+                for(var j = 0; j &lt; btn.length; j++){
+                    btn[j].className = &quot;&quot;;
+                    div[j].style.display = &quot;none&quot;;
+                }
+                this.className = &quot;active&quot;;
+                div[n].style.display = &quot;block&quot;;
+            }
+        }(i))   
+    }
+&lt;/script&gt;
 </code></pre>
           
         
@@ -803,20 +577,20 @@ var deng = new Deng(&apos;deng&apos;, &apos;xiaoliu&apos;)
 
   
 
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
   
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/21/原型/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/01/滚动条与元素尺寸/">
 
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Wanghai">
       <meta itemprop="description" content="Wanghai个人站，主要涉及前端知识共享、实践教程、前沿技术共同学习等方面">
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="welcome">
     </span>
 
@@ -828,7 +602,7 @@ var deng = new Deng(&apos;deng&apos;, &apos;xiaoliu&apos;)
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2018/11/21/原型/" class="post-title-link" itemprop="http://yoursite.com/page/2/index.html">原型</a>
+                <a href="/2018/12/01/滚动条与元素尺寸/" class="post-title-link" itemprop="http://yoursite.com/page/2/index.html">滚动条与元素尺寸</a>
               
             
           </h1>
@@ -853,7 +627,7 @@ var deng = new Deng(&apos;deng&apos;, &apos;xiaoliu&apos;)
                 
               
 
-              <time title="Created: 2018-11-21 17:16:33" itemprop="dateCreated datePublished" datetime="2018-11-21T17:16:33+08:00">2018-11-21</time>
+              <time title="Created: 2018-12-01 17:16:33" itemprop="dateCreated datePublished" datetime="2018-12-01T17:16:33+08:00">2018-12-01</time>
             
 
             
@@ -870,7 +644,7 @@ var deng = new Deng(&apos;deng&apos;, &apos;xiaoliu&apos;)
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2018-12-18 14:23:06" itemprop="dateModified" datetime="2018-12-18T14:23:06+08:00">2018-12-18</time>
+                <time title="Modified: 2018-12-19 15:07:13" itemprop="dateModified" datetime="2018-12-19T15:07:13+08:00">2018-12-19</time>
               
             
           </span>
@@ -905,898 +679,1929 @@ var deng = new Deng(&apos;deng&apos;, &apos;xiaoliu&apos;)
       
         
           
-            <h2 id="原型"><a href="#原型" class="headerlink" title="原型"></a><font color="red">原型</font></h2><p>1.<strong><font color="red">定义</font></strong>:原型是function对象的一个<font color="red">属性</font>，它定义了构造函数制造出的对象的<font color="red">公共祖先</font>。<br>通过该构造函数产生的对象，可以<font color="red">继承该原型的属性和方法</font>。<strong><font color="red">原型也是对象</font></strong><br>2.利用原型特点和概念，可以提取共有属性<br>3.对象如何查看原型–&gt;隐式属性<strong>proto</strong><br>4.对象如何查看对象的构造函数–&gt;constructor</p>
-<pre><code>//Person.prototype      -- 原型
-//Person.prototype = {}     是祖先
-</code></pre><p>1.<font color="red">增</font></p>
-<pre><code>Person.prototype.name = &quot;hehe&quot;;
-function Person() {
+            <h4 id="查看滚动条的滚动距离"><a href="#查看滚动条的滚动距离" class="headerlink" title="查看滚动条的滚动距离"></a><font color="red">查看滚动条的滚动距离</font></h4><p>js中有两套方法可以查看当前滚动条的滚动距离。</p>
+<p>1.<strong>window.pageXOffset/window.pageYOffset</strong></p>
+<p>这个方法可以查看滚动条的横轴和纵轴的滚动距离，但是很遗憾的是IE8以及以下的版本不兼容。用以下两种</p>
+<p>2.<strong>document.body.scrollLeft/doucment.body.scrollTop<br>  和document.documentElement.scrollLeft/document.documentElement.scrollTop</strong></p>
+<p>这里要说明的是，<font color="red">这两种方法要一起使用</font>，因为浏览器的兼容性问题，有的浏览器是document.body有值，有的是document.documentElement有值，<font color="red">但是所有的浏览器都只有一个有值，不会两个都有或者一个都没有</font>，而且这里的没有值不代表是null，而是0，因此我们使用的时候一般都是两个一起使用。</p>
+<p>针对兼容性的问题，我们现在就可以封装一个函数，求滚动条滚动距离的方法。</p>
+<pre><code>function getScrollOffset(){
+    if(window.pageXOffset){
+        return {
+            x : window.pageXOffset,
+            y : window.pageYOffset
+        }
+    }else{
+        return {
+            x : document.body.scrollLeft + document.documentElement.scrollLeft,
+            y : document.body.scrollTop + document.documentElement.scrollTop
+        }
+    }
+}
+</code></pre><h4 id="查看视口的尺寸"><a href="#查看视口的尺寸" class="headerlink" title="查看视口的尺寸"></a><font color="red">查看视口的尺寸</font></h4><p><strong>window.innerWidth/window.innerHeight</strong><br>但IE8及IE8以下不兼容   </p>
+<p><strong>标准模式下(有 &lt;!DOCTYPE html&gt; 声明)</strong><br><strong>document.documentElement.clientWidth/clientHeight</strong><br><strong>怪异模式下(无 &lt;!DOCTYPE html&gt; 声明)</strong><br><strong>document.body.clientWidth/clientHeight</strong></p>
+<p>• 什么是怪异模式和标准模式呢？</p>
+<p>浏览器的渲染模式有两种：<font color="red">标准模式和怪异模式</font>。我们常用的是标准模式，怪异模式是防止浏览器升级版本过高对后面版本你的代码不兼容，让浏览器可以向后兼容其他低版本的代码的法规则，比如IE6的怪异模式下可以兼容IE5个IE4的语法。</p>
+<p>•  我们如何变成怪异模式呢？</p>
+<p>其实很简单，只需要把我们html代码的第一行的<font color="red">&lt;!DOCTYPE HTML&gt;</font>去掉就可以变成怪异模式了，而加上这一行代码就可以变成标准模式。</p>
+<p>• 如何判断怪异模式还是标准模式？</p>
+<p>document上中有一个方法叫做<font color="red">compatMode</font>，当浏览器处于怪异模式的时候会返回字符串”<font color="red">BackCompat</font>“，在标准模式下可以返回”<font color="red">CSS1Compat</font>“，通过这个方法我们就可以判断了。</p>
+<p>封装兼容性方法,返回浏览器视口尺寸</p>
+<pre><code>function getViewportOffset(){
+    if(window.innerWidth){
+        return {
+            x : window.innerWidth,
+            y : window.innerHeight
+        }
+    }else{
+        if(document.compatMode === &quot;BackCompat&quot;){
+            return {
+                w : document.body.clientWidth,
+                h : document.body.clientHeight
+            }
+        }else{
+            return {
+                w : document.documentElement.clientWidth,
+                h : document.documentElement.clientHeight
+            }
+        }
+    }
+}
+</code></pre><h4 id="查看元素的几何尺寸"><a href="#查看元素的几何尺寸" class="headerlink" title="查看元素的几何尺寸"></a><font color="red">查看元素的几何尺寸</font></h4><p><strong><font color="red">domEle.getBoundingClientRect()</font></strong></p>
+<p>在获取的dom元素上，有一个getBoundingClientRect方法，这个方法可以获取到元素的宽高和左上点的位置以及有下点的位置（width、height、top、left、right、bottom）</p>
+<p>但是<font color="red">老版本的IE浏览器没有实现width和height</font>，那么我们在老版本的IE计算宽高的时候就需要用<font color="red">bottom-top</font>和<font color="red">right-left</font>来计算宽高值了。</p>
+<p>还有一点需要注意的是，这里的宽高也不是实时更新的，数据只是一个副本。<br>我们依然可以封装一个函数，可以返回元素的宽高。</p>
+<pre><code>Element.getElementOffset() {
+      var objData = this.getBoundingClientRect();
+      if(objData.width) {
+            return {
+                  w: objData.width,
+                  h: objData.height
+            }
+      }else {
+            return {
+                  w: objData.right - objData.left,
+                  h: objData.bottom - objData.top
+            }
+      }
+}
+</code></pre><p><strong><font color="red">查看元素的尺寸</font></strong></p>
+<p><strong>dom.offsetWidth<br>dom.offsetHeight</strong></p>
+<p><strong><font color="red">查看元素的位置</font></strong></p>
+<p><strong>dom.offsetLeft<br>dom.offsetTop</strong><br>对于无定位父级的元素，返回相对文档的坐标。对于有定位父级的元素，返回相对于最近的有定位的父级的坐标。</p>
+<p><strong>dom.offsetParent</strong><br>返回最近的有定位的父级，如无，返回body, body.offsetParent 返回null</p>
+<p><strong><font color="red">滚动条滚动</font></strong></p>
+<p>window上有三个方法<br><strong>scroll()、scrollTo()、scrollBy();</strong><br>三个方法功能类似，用法都是将x,y坐标传入。即实现让滚动轮滚动到当前位置。<br>区别：scrollBy()会在之前的数据基础之上做累加。</p>
+<p>利用scrollBy() 快速阅读的功能</p>
+<pre><code>function scrollBy(){
+    var start = document.getElementsByTagName(&apos;div&apos;)[0];
+    var stop = document.getElementsByTagName(&apos;div&apos;)[1];
+    var timer = 0;
+    var key = true;
+    start.onclick = function(){
+        if(key){
+            timer = setInterval(function(){
+                window.scrollBy(0, 10);
+            }, 100);
+            key = false;
+        }
+    }
+    stop.onclick = function(){
+        clearInterval(timer);
+        key = true;
+    }
+}
+</code></pre>
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/30/Date对象与定时器/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wanghai">
+      <meta itemprop="description" content="Wanghai个人站，主要涉及前端知识共享、实践教程、前沿技术共同学习等方面">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="welcome">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2018/11/30/Date对象与定时器/" class="post-title-link" itemprop="http://yoursite.com/page/2/index.html">Date对象与定时器</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-11-30 17:16:33" itemprop="dateCreated datePublished" datetime="2018-11-30T17:16:33+08:00">2018-11-30</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2018-12-19 14:34:02" itemprop="dateModified" datetime="2018-12-19T14:34:02+08:00">2018-12-19</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><strong><font color="red">日期对象</font></strong></p>
+<p>日期对象的方法在w3c上其实有介绍<br><a href="http://www.w3school.com.cn/jsref/jsref_obj_date.asp" target="_blank" rel="noopener">http://www.w3school.com.cn/jsref/jsref_obj_date.asp</a></p>
+<pre><code>var date = new Date();
+date.getFullyear();
+</code></pre><p><strong><font color="red">时间戳</font></strong></p>
+<pre><code>var firstTime = new Date().getTime();
+for(var i = 0;i &lt; 1000000000;i++){
 
 }
-var person = new Person();
-console.log(person.name);// &quot;hehe&quot;
-</code></pre><p>2.<font color="red">改</font></p>
-<pre><code>Person.prototype.name = &quot;haha&quot;;
-console.log(person.name);// &quot;haha&quot;
-</code></pre><p>3.<font color="red">删</font></p>
-<pre><code>Person.prototype.name = &quot;hehe&quot;;
-function Person() {}
-var person = new Person();
-delete Person.prototype.name;
-console.log(person.name);// undefined
-</code></pre><p>我们可以在prototype上面添加属性和方法，每一个构造出来的对象都可以继承这些属性和方法。</p>
-<p>虽然每一个对象都是独立的，但是他们都有共同的祖先，当我们访问这个对象的属性的时候，<font color="red">如果它没有这个属性，就会向上找到它的原型，然后在原型上访问这个属性</font>。</p>
-<p><strong>例1.</strong>提取共有属性  </p>
-<pre><code>Car.prototype.height = 1400;
-Car.prototype.lang = 4900;
-Car.prototype.carName = &quot;BMW&quot;;
-function Car(color, owner){
-    this.color = color;
-    this.owner = owner;
-}
-var car = new Car(&apos;red&apos;, &apos;prof.ji&apos;);
-var car1 = new Car(&apos;blue&apos;, &apos;abc&apos;);
-</code></pre><p><strong>例2.</strong></p>
-<pre><code> Car.prototype = {
-    height : 1400,
-    lang : 4900,
-    carName : &quot;BMW&quot;
-}
-function Car(){
-}
-var car = new Car();
-</code></pre><p><strong><font color="red">对象如何查看原型</font></strong></p>
-<p>前面我们提到了构造函数可以通过.prototype的方法来查看构造函数的原型，那么我们怎么查看对象的原型呢？<br>我们前面提到过用构造函数构造对象的时候，会隐式创建一个this对象，这个this对象里面有一个默认的属性叫做<font color="red">proto</font>属性，这个属性的值就是指向的这个对象的原型。</p>
-<pre><code>var this = {
-    // xxx
-    __proto: Person.prototype;
-}
-</code></pre><p>注意:Person对象的原型<font color="red">未必一定</font>是Person.prototype 可以修改、<font color="red">prototype是函数的属性，proto是对象的属性</font>。</p>
-<p>当查找的属性是自身没有的属性的时候，就会先查找proto这个属性，然后这个属性指向了原型，所以就到原型上面继续查找属性了。</p>
-<p><strong><font color="red">对象如何查看构造自身的构造函数</font></strong></p>
-<p>在prototype里面，有一个隐式的属性叫做<font color="red">constructor</font>，这个属性记录的就是<font color="red">对象的构造器</font>，里面存的就是构造函数。</p>
-<pre><code>Person.prototype.name = &quot;hehe&quot;;
-function Person() {}
-var person = new Person();
-console.log(person.constructor);// Person();
-</code></pre><h2 id="原型链"><a href="#原型链" class="headerlink" title="原型链"></a><font color="red">原型链</font></h2><p>有了原型，原型还是一个对象，那么这个名为原型的对象自然还有自己的原型，这样的原型上还有原型的结构就构成了原型链。</p>
-<pre><code>Grand.prototype.lastName = &quot;Deng&quot;;
-function Grand(){
-}
-var grand = new Grand();
-Father.prototype = grand;
-function Father(){ 
-    this.name = &quot;xuming&quot;;
-    this.fortune = {
-        card1 : &apos;visa&apos;
-    };
-    this.num = 100;
-}
-var father = new Father();
-Son.prototype = father;
-function Son(){
-    this.hobbit = &quot;smoke&quot;;
-}
-var son = new Son();
-</code></pre><p>son可以访问到father以及grand的属性 甚至可以访问到Object.prototype的所有属性<br>调用引用值修改(仅限引用值)<br>其实，<font color="red">绝大部分的对象最终都会继承自<strong>Object.prototype</strong>这个对象</font>。</p>
-<p><font color="red">我们没有规定原型的对象，它们的原型就是<strong>Object.prototype</strong></font>。</p>
-<pre><code>son.fortune.card2 = &quot;master&quot;;
-son.num++
-console.log(son.num);// 101
-console.log(father.num);// 100
-</code></pre><p>但是<font color="red">并不是所有的对象都有原型</font>。</p>
-<p>我们上一篇提到过第三种构造对象的方法，使用<font color="red">Object.create</font>方法。</p>
-<p>Object.create()方法需要写一个参数，这个参数就是我们这个对象的<font color="red">原型</font>。如果我们想要构造和var obj = {};一样的空对象，那么就需要写：</p>
-<pre><code>var obj = Object.create(Object.prototype);
-</code></pre><p>但是，当我们写<font color="red">参数为null</font>的时候，我们就构造出来了一个<font color="red">没有原型的对象</font>。</p>
-<pre><code>var obj = Object.create(null);
-console.log(obj.proto);// undefined
-</code></pre><p><font color="red">undefined null也都没有原型</font>。它们之所以能打印出来，是因为不调用任何方法的，直接打印出来。</p>
-<h4 id="更多例子"><a href="#更多例子" class="headerlink" title="更多例子"></a><font color="red">更多例子</font></h4><p><strong>例1</strong></p>
-<pre><code>Person.prototype.name = &quot;sunny&quot;;
-function Person(){
+var lastTime = new Date().getTime();
+console.log(lastTime-firstTime);
+</code></pre><p><strong><font color="red">定时器</font></strong></p>
+<p><strong>setInterval()</strong><br>setInterval()里面的第二个参数是<font color="red">不能修改</font>就算你修改变量定时器内的time依然是1000,如下</p>
+<pre><code>var time = 1000;
+setInterval(function(){
+    consloe.log(&quot;a&quot;);
+}, time);
+time = 2000;
+</code></pre><p><strong>clearInterval();清除定时器</strong><br>1代表就是这个定时器,依次类推后面的定时器就是2…</p>
+<pre><code>var i = 0;
+setInterval(function(){
+    console.log(i++);
+    if(i &gt; 10){
+        clearInterval(1);
+    }
+}, 100);
+</code></pre><p><strong>setTimeout()和clearTimeout() 仅执行一次</strong></p>
+<pre><code>var timer = setTimeout(function(){
+   console.log(&quot;a&quot;);
+}, 1000);
+clearTimeout(timer);
+</code></pre><p>setInterval() setTimeout() clearInterval() clearTimeout() 都是全局对象window上的方法<br>内部函数this指向window</p>
+<p>例</p>
+<pre><code>minutes: &lt;input type=&quot;text&quot; value=&quot;0&quot;&gt;
+seconds: &lt;input type=&quot;text&quot; value=&quot;0&quot;&gt;
+&lt;script&gt;
+    var minutesNode = document.getElementsByTagName(&apos;input&apos;)[0];
+    var secondsNode = document.getElementsByTagName(&apos;input&apos;)[1];
+    var minutes = 0,
+        seconds = 0;
+    var timer = setInterval(function(){
+        seconds ++;
+        if(seconds == 60){
+            seconds = 0;
+            minutes ++;
+        }
+        secondsNode.value = seconds;
+        minutesNode.value = minutes;
+        if(minutes == 3){
+            clearInterval(timer);
+        }
+    }, 100);
+&lt;/script&gt;
+</code></pre>
+          
+        
+      
+    </div>
 
-}
-var person = new Person();
-Person.prototype.name = &quot;cherry&quot;;//此处只是改变原对象里面的值 即Person.prototype = {name : &apos;xxx&apos;}
-console.log(person.name);
-</code></pre><p><strong>例2</strong></p>
-<pre><code>Person.prototype.name = &quot;sunny&quot;;
-function Person(){
+    
 
-}
-var person = new Person();
-Person.prototype = {    // 新引用
-    name : &quot;cherry&quot;
-}
-console.log(person.name);
+    
+    
+    
 
-//person.prototype的引用指向并没有发生改变
-//解释: Person.prototype = {name : &apos;a&apos;};
-//      __proto__ = Person.prototype;
-//      Person.prototype = {name : &apos;b&apos;};
-</code></pre><p><strong>例3</strong></p>
-<pre><code>Person.prototype.name = &quot;sunny&quot;;
-function Person(){
+    
 
-}
-Person.prototype = {    
-   name : &quot;cherry&quot;
-}
-var person = new Person();
-console.log(person.name);
+    
+      
+    
+    
 
-//person.prototype的引用指向了新的Person.prototype
-</code></pre><p><strong>例4</strong></p>
-<pre><code>Person.prototype = {
-    name : &apos;a&apos;,
-    sayName : function(){
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/29/DOM基本操作/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wanghai">
+      <meta itemprop="description" content="Wanghai个人站，主要涉及前端知识共享、实践教程、前沿技术共同学习等方面">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="welcome">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2018/11/29/DOM基本操作/" class="post-title-link" itemprop="http://yoursite.com/page/2/index.html">DOM基本操作</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-11-29 17:16:33" itemprop="dateCreated datePublished" datetime="2018-11-29T17:16:33+08:00">2018-11-29</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2018-12-19 14:22:11" itemprop="dateModified" datetime="2018-12-19T14:22:11+08:00">2018-12-19</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="什么是DOM"><a href="#什么是DOM" class="headerlink" title="什么是DOM"></a><font color="red">什么是DOM</font></h2><p>• DOM的全称是<font color="red">Document Object Model 文档对象模型</font>，DOM定义了表示和修改文档所需的对象、这些对象的行为和属性以及这些对象之间的关系。</p>
+<p>• DOM对象即为宿主对象，由浏览器厂商定义，用来操作html的css功能的一类对象和集合。不过浏览器厂商之间大部分都遵循w3c标准</p>
+<p>• 简单来说，<font color="red">DOM就是用来操作html和css的，它是一系列对象的集合</font>。</p>
+<h2 id="DOM如何操作HTML"><a href="#DOM如何操作HTML" class="headerlink" title="DOM如何操作HTML"></a><font color="red">DOM如何操作HTML</font></h2><p>document代表整个文档，它也是一个dom元素，我们dom对html的操作，即使对html的增删改查。下面我就介绍一下dom都是如何增删改查html的。</p>
+<p>那么我们如何查看元素节点？</p>
+<p>•  <font color="red"><strong>document.getElementById();</strong></font>   元素id 在Ie8以下的浏览器,不区分id大小写,而且也返回匹配name属性的元素<br>•  <font color="red"><strong>getElementsByTagName();</strong></font>    标签名<br>•  <font color="red"><strong>getElementByName();</strong></font>       需注意,只有部分标签name可生效(表单,表单元素,img,iframe)<br>•  <font color="red"><strong>getElementsByClassName();</strong></font>  类名 ie8和ie8以下的ie版本中没有,可以多个class一起</p>
+<pre><code>var div = document.getElementsByClassName(&apos;demo demo1&apos;)[0];
+</code></pre><p>注意: 以上都是’实时’的</p>
+<p>•  <font color="red"><strong>querySelector();</strong></font><br>•  <font color="red"><strong>querySelectorAll();</strong></font></p>
+<p>我们知道选择元素最强的是css，而这两个里面写的参数就是我们css选择器的写法。<br>不过querySelector永远选择一组里面的第一个，所以返回的不是一个类数组而是一个具体的元素。<br>而我们如果要返回一个类数组的集合的话，那么就用第二个querySelectorAll()方法。</p>
+<pre><code>document.querySelector(‘div p #demo .demo);
+</code></pre><p>不过这两个方法的问题在于，他们返回的不像前面四个是一个实时改变的元素，而是一个副本。当我们用这两个方法选择出来元素之后，我们把本身那个元素修改一下，会发现我们选择出来的那个元素没有变化。<br>注意: css选择器 在ie7和ie7以下的版本中没有</p>
+<h2 id="节点"><a href="#节点" class="headerlink" title="节点"></a><font color="red">节点</font></h2><p>•  节点类型 ———— nodeType<br>•  元素节点 ———— 1<br>•  属性节点 ———— 2<br>•  文本节点 ———— 3<br>•  注释节点 ———— 8<br>•  document ———— 9<br>•  DocumentFragment ———— 11</p>
+<p><strong><font color="red">节点的四个属性</font></strong></p>
+<ol>
+<li>nodeName     元素的标签名,以大写形式表示 只读</li>
+<li>nodeValue    Text节点或Comment节点的文本内容 可读写</li>
+<li>nodeType     该节点的类型 只读</li>
+<li>attributes   Element 节点的属性集合</li>
+</ol>
+<p><strong><font color="red">节点的一个方法</font></strong><br>  Node.hasChildNodes();  判断是否有子节点</p>
+<p><strong><font color="red">遍历节点树</font></strong></p>
+<p>•  parentNode      ——&gt; 父节点<br>•  childNodes      ——&gt; 子节点<br>•  firstChild      ——&gt; 第一个子节点<br>•  lastChild       ——&gt; 最后一个子节点<br>•  nextSibling     ——&gt; 下一个兄弟节点<br>•  previousSibling ——&gt; 前一个兄弟节点</p>
+<p><strong><font color="red">元素节点树的遍历</font></strong></p>
+<p>•  parentElement          ——&gt; 返回当前元素的父元素节点 (IE不兼容)<br>•  children               ——&gt; 只返回当前元素的元素子节点<br>•  node.childElementCount === node.children.length当前元素节点的子元素节点个数(IE不兼容)<br>•  firstElementChild      ——&gt; 返回的是第一个元素节点(IE不兼容)<br>•  lastElementChild       ——&gt; 返回的是最后一个元素节点(IE不兼容)<br>•  nextElementSibling     ——&gt; 返回后一个元素节点（IE不兼容)<br>•  previousElementSibling ——&gt; 前一个兄弟元素节点（IE不兼容)</p>
+<p>例</p>
+<pre><code>&lt;div&gt;
+    &lt;!-- This is comment --&gt;
+    &lt;strong&gt;&lt;/strong&gt;
+    &lt;span&gt;&lt;/span&gt;
+&lt;/div&gt;
+该div里面有多少个节点?
+var div = document.getElementsByTagName(&apos;div&apos;);
+div.childNodes;// 7个节点
+</code></pre><h2 id="DOM树结构"><a href="#DOM树结构" class="headerlink" title="DOM树结构"></a><font color="red">DOM树结构</font></h2><p><img src="https://i.imgur.com/gLybWJ7.png" alt=""></p>
+<p>1.<strong>getElementById</strong>         方法定义在Document.prototype上，即Element节点上不能使用。<br>2.<strong>getElementsByName</strong>       方法定义在HTMLDocument.prototype上，即非html中的document以外不能使用(xml document,Element)<br>3.<strong>getElementsByTagName</strong>    方法定义在Document.prototype 和 Element.prototype上<br>4.<strong>HTMLDocument.prototype</strong>  定义了一些常用的属性，body,head,分别指代HTML文档中的<body><head><meta name="generator" content="Hexo 3.8.0">标签。<br>5.<strong>Document.prototype</strong>      上定义了documentElement属性，指代文档的根元素，在HTML文档中，他总是指代<html>元素<br>6.<strong>getElementsByClassName、querySelectorAll、querySelector</strong> 在Document,Element类中均有定义</html></head></body></p>
+<h2 id="DOM的增删改查"><a href="#DOM的增删改查" class="headerlink" title="DOM的增删改查"></a><font color="red">DOM的增删改查</font></h2><p><strong><font color="red">增加操作</font></strong></p>
+<p>1.<font color="red"><strong>创建元素节点 createElement</strong></font></p>
+<pre><code>var div = document.createElement(&apos;div&apos;);
+</code></pre><p>2.<font color="red"><strong>创建文本节点 document.createTextNode</strong></font></p>
+<pre><code>var text = document.createTextNode(&apos;hello&apos;);   
+</code></pre><p>3.<font color="red"><strong>创建注释节点 document.createComment</strong></font></p>
+<pre><code>var comment = document.createComment(&apos;comment&apos;);   
+</code></pre><p>4.<font color="red"><strong>创建文档碎片 document.createDocumentFragment</strong></font><br>这个方法可以创建一个文档碎片，我们在后面讲的有关提高性能的部分会用到这个方法。</p>
+<p><strong><font color="red">插入操作</font></strong></p>
+<p>1.<font color="red"><strong>appendChild(child);</strong></font></p>
+<p>这个是父级调用的方法，它会将child元素插入到父级里面，而且是放到逻辑后面的位置上。</p>
+<pre><code>div.appendChild(text);
+div.appendChild(comment);
+</code></pre><p>2.<font color="red"><strong>insertBefore(a, b);</strong></font></p>
+<p>这个依然是父节点调用的方法，它的意思是将a插入到b前面的位置上，其中b要求是这个父级的子节点。这个方法可以记作为 insert a before b;</p>
+<pre><code>var span = document.createElement(&apos;span&apos;);
+div.insertBefore(span, comment);// 把一个span元素插入到了刚才的注释文本前面
+</code></pre><p><strong><font color="red">删除操作</font></strong></p>
+<font color="red"><strong>removeChild</strong></font>
+
+<p>这个方法依然是父级调用的，参数就是要删除的子节点，其实实际上是剪切，这个方法会把我们删除掉的元素给返回，我们可以用一个变量去保存这个被删除的元素。</p>
+<pre><code>var div = document.body.remove(div);
+</code></pre><p><strong><font color="red">替换操作</font></strong></p>
+<font color="red"><strong>replaceChild(new, origin)</strong></font>
+
+<p>这个方法同样是父级调用，用新的元素new来替换原来的origin元素，原来的被替换掉的元素可以被返回，我们可以像删除操作那样用一个变量来保存。</p>
+<h2 id="Element节点的属性和方法"><a href="#Element节点的属性和方法" class="headerlink" title="Element节点的属性和方法"></a><font color="red">Element节点的属性和方法</font></h2><p><strong>属性:</strong></p>
+<p>1.<strong><font color="red">innerHTML</font></strong></p>
+<pre><code>div.innerHML = &apos;&lt;div&gt;123&lt;/div&gt;&apos;;
+</code></pre><p>我们可以直接通过这个属性来改变元素内部的结构和内容，不过注意它会直接删除掉以前的所有结构</p>
+<p>2.<strong><font color="red">innerText/textContent</font></strong></p>
+<p>innerText(火狐不兼容) / textContent(老版本IE不兼容)<br>这个属性可以直接调出来元素内部的文本信息，若果这个元素还有很多的子元素的话，那么会把子元素里面的文本信息一起返回。<br>不过需要注意的是，如果我们要改写innerText或者textContent的话，它会像innerHTML一样，<strong>先把内部的所有html结构先删除掉</strong>，然后再写入text文本</p>
+<p>• 这里提一下，如果我们有很多字符串要添加到一个元素的内部的话，虽然用innerHTML或者innerText方法，但是却不是用innerHML += str的方法，因为+=操作符的效率极低，当字符串很多的时候会非常非常消耗性能。</p>
+<p>遇到这种情况我们一般是用数组的join方法将字符串全部连接成一个字符串，然后一次性写入innerHTML。</p>
+<p><strong>方法:</strong></p>
+<p>1.<strong><font color="red">ele.setAttribute();</font></strong><br>这个方法可以设置元素的属性（特性），比如class、id等一些行间属性。</p>
+<pre><code>div.setAttribute(&apos;id&apos;, &apos;demo&apos;);   
+</code></pre><p>2.<strong><font color="red">ele.getAttribute();</font></strong><br>这个方法是获取元素的行间属性。</p>
+<pre><code>&lt;div&gt;&lt;/div&gt;
+&lt;span&gt;&lt;/span&gt;
+&lt;strong&gt;&lt;/strong&gt;
+
+var all = document.getElementsByTagName(&apos;*&apos;);//选中所有标签
+for(var i = 0;i &lt; all.length;i++){
+    all[i].setAttribute(&apos;this-name&apos;, all[i].nodeName);
+}
+</code></pre>
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/29/DOM基础练习/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wanghai">
+      <meta itemprop="description" content="Wanghai个人站，主要涉及前端知识共享、实践教程、前沿技术共同学习等方面">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="welcome">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2018/11/29/DOM基础练习/" class="post-title-link" itemprop="http://yoursite.com/page/2/index.html">DOM基础练习</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-11-29 17:16:33" itemprop="dateCreated datePublished" datetime="2018-11-29T17:16:33+08:00">2018-11-29</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2018-12-19 16:33:55" itemprop="dateModified" datetime="2018-12-19T16:33:55+08:00">2018-12-19</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><strong>遍历元素节点树</strong></p>
+<pre><code>function retChild(node) {
+     var child = node.childNodes,
+           len = child.length;
+     for(var i = 0; i &lt; len; i++){
+           if(child[i].nodeType === 1) {
+                console.log(child[i]);
+               child[i].hasChildNodes() &amp;&amp; retChild(child[i]);
+           }
+      }
+ }   
+</code></pre><p><strong>返回元素elem的第n层父元素的节点</strong></p>
+<pre><code>function retParent(elem, n){
+    //与elem 解决兼容性容错  比如n足够大会报错而此时会返回null
+    while(elem &amp;&amp; n){       
+        elem = elem.parentElement;
+        n --;
+    }
+    return elem;
+}
+var i = document.getElementsByTagName(&apos;i&apos;)[0];
+</code></pre><p><strong>封装myChildren功能,解决以前部分浏览器的兼容性问题</strong></p>
+<pre><code>Element.prototype.myChildren = function(){
+    var child = this.childNodes;
+    var len = child.length;
+    var arr = [];
+    for(var i = 0;i &lt; len;i++){
+        if(child[i].nodeType == 1){
+            arr.push(child[i]);
+        }
+    }
+    return arr;
+}
+var div = document.getElementsByTagName(&apos;div&apos;)[0];
+</code></pre><p><strong>封装函数,返回元素e的第n个兄弟元素节点n为正,返回后面的兄弟节点,n为负,返回前面的,n为0,返回自己</strong></p>
+<pre><code>function retSibling(e, n){
+    while( e &amp;&amp; n){//n = 0 循环退出     e &amp;&amp;: 解决兼容性容错
+        if( n &gt; 0){
+            if(0 &amp;&amp; e.nextElementSibling){
+                e = e.nextElementSibling;
+            }else{
+                // 将e的下一个兄弟节点赋值给e 然后看e节点类型是否是元素节点 不是就一直重复
+                // e &amp;&amp; :e如果为null会报错 e得有意义
+                for(e = e.nextSibling; e &amp;&amp; e.nodeType != 1;e = e.nextSibling);
+            }
+            n --;
+        }else{
+            if(e.previousElementSibling){
+                e = e.previousElementSibling;
+            }else{
+                for(e = e.previousElementSibling; e &amp;&amp; e.nodeType !=1;
+                e = e.previousElementSibling);
+            }
+            n ++;
+        }
+    }
+    return e;
+}
+</code></pre><p><strong>封装是否有元素子节点的方法</strong></p>
+<pre><code>Element.prototype.hasChildren = function () {
+      var child = this.childNodes,
+            len = child.length;
+      for( var i = 0; i &lt; len; i++){
+            if(child[i].nodeType == 1) {
+                  return true;
+            }
+      }
+      return false;
+}   
+</code></pre><p><strong>封装insertAfter方法,与insertBefore方法类似</strong></p>
+<pre><code>Element.prototype.insertAfter = function(targetNode, afterNode){
+    var beforeNode = afterNode.nextElementSibling;
+    if(beforeNode == null){//如果afterNode的下一个兄弟元素不存在
+        this.appendChild(targetNode);//直接添加在最后面
+    }else{
+        this.insertBefore(targetNode, beforeNode);
+    }
+}
+</code></pre>
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/28/数组/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wanghai">
+      <meta itemprop="description" content="Wanghai个人站，主要涉及前端知识共享、实践教程、前沿技术共同学习等方面">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="welcome">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2018/11/28/数组/" class="post-title-link" itemprop="http://yoursite.com/page/2/index.html">数组</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-11-28 17:16:33" itemprop="dateCreated datePublished" datetime="2018-11-28T17:16:33+08:00">2018-11-28</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2018-12-19 11:16:53" itemprop="dateModified" datetime="2018-12-19T11:16:53+08:00">2018-12-19</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="数组"><a href="#数组" class="headerlink" title="数组"></a><font color="red">数组</font></h4><p><strong><font color="red">两种构造方法:</font></strong></p>
+<p>1.字面量</p>
+<pre><code>var arr = [1,2,,,,3,4];
+</code></pre><p> 上面这种数组属于<font color="red">稀松数组</font></p>
+<p>2.构造函数</p>
+<pre><code>var arr = new Array(1,2,3,4);
+</code></pre><p> JavaScript里的数组是基于对象的  即数组是一种特殊的对象</p>
+<pre><code>var arr = new Array(10);
+var arr1 = [10];
+</code></pre><p> 这里arr创建了10个空数组，而arr1创建了1个参数为10的数组</p>
+<h4 id="判断数组类型"><a href="#判断数组类型" class="headerlink" title="判断数组类型"></a><font color="red">判断数组类型</font></h4><p> 给定一个未知对象,判定他是否为数组 在es5中可以使用Array.isArray()函数来判断</p>
+<pre><code>Array.isArray([]);// true
+Array.isArray({});// false
+Array.isArray(1);// false
+</code></pre><p>在es5之前,大家可能想到利用typeof操作符来判断,但是无论是数组还是对象,均返回对象</p>
+<pre><code>typeof [];// object
+typeof {};// object
+</code></pre><p>在es3中isArray()可以使用Object.prototype.toString.call(arr) === ‘[object Array]’代替</p>
+<pre><code>Object.prototype.toString.call([]);// &apos;[object Array]&apos;
+Object.prototype.toString.call({});// &apos;[object Object]&apos;
+</code></pre><p><strong><font color="red">数组的添加和删除</font></strong></p>
+<p>• <strong>添加</strong><br>    1.最简单的方法：为新索引赋值<br>    2.使用push()和unshift()方法</p>
+<p>• <strong>删除</strong><br>    1.delete运算符删除数组元素(不会修改数组的length属性)<br>    2.使用pop()和shuift()方法</p>
+<h4 id="数组的常用方法"><a href="#数组的常用方法" class="headerlink" title="数组的常用方法"></a><font color="red">数组的常用方法</font></h4><p> • <strong><font color="red">改变原数组: push, pop, shift, unshift, sort, reverse, splice</font></strong></p>
+<p> • <strong><font color="red">不改变原数组: concat, join , split, toString, slice</font></strong></p>
+<h4 id="push-在最后一位添加"><a href="#push-在最后一位添加" class="headerlink" title="push (在最后一位添加)"></a><font color="red">push (在最后一位添加)</font></h4><pre><code>var arr = [1,2];
+Array.prototype.push = function (){
+for(var i=0;i&lt;arguments.length;i++){
+    this[this.length] = arguments[i];
+}
+    return this.length;
+}
+</code></pre><h4 id="pop-在最后一位剪切"><a href="#pop-在最后一位剪切" class="headerlink" title="pop (在最后一位剪切)"></a><font color="red">pop (在最后一位剪切)</font></h4><h4 id="shift-在最前面剪切"><a href="#shift-在最前面剪切" class="headerlink" title="shift (在最前面剪切)"></a><font color="red">shift (在最前面剪切)</font></h4><h4 id="unshift-在最前面添加"><a href="#unshift-在最前面添加" class="headerlink" title="unshift (在最前面添加)"></a><font color="red">unshift (在最前面添加)</font></h4><h4 id="reverse-反转"><a href="#reverse-反转" class="headerlink" title="reverse (反转)"></a><font color="red">reverse (反转)</font></h4><pre><code>var arr = [1, 2, 3, 4, 5];
+arr.reverse();// [5, 4, 3, 2, 1]
+</code></pre><h4 id="splice"><a href="#splice" class="headerlink" title="splice"></a><font color="red">splice</font></h4><p><strong>arr.splice(从第几位开始, 截取多少的长度, 在切口处添加新的数据);</strong></p>
+<pre><code>var arr = [1, 1, 2, 2, 3, 3];
+arr.splice(1, 2);// 删除 arr = [1,2,3,3]  
+arr.splice(1, 1, 0,0,0);// 替换 arr = [1, 0, 0, 0, 2, 2, 3, 3]
+arr.splice(3, 0, 4);// 等同于在第三位添加4
+var arr = [1,2,3,4]
+arr.splice(-1, 1);//arr = [1,2,3]   -1+length
+arr.splice(-1, 2);//arr = [1,2] 
+</code></pre><h4 id="sort-排序"><a href="#sort-排序" class="headerlink" title="sort (排序)"></a><font color="red">sort (排序)</font></h4><pre><code>var arr = [1,3,5,4,10];
+arr.sort();//按照ascll码排序
+</code></pre><p><strong>自定义排序:<br>            1.必须写两形参<br>            2.看返回值:<br>                       1)当返回值为负数时,那么前面的数放在前面<br>                       2) 为正数,那么后面的数在前<br>                       3) 为0,不动</strong></p>
+<pre><code>var arr = [3,1,5,10,4];
+arr.sort(function(a, b){
+    if(a &gt; b){  
+        return 1;
+    }else{
+        return -1;
+    }
+});
+//升序 a &gt; b ; 降序a &lt; b
+
+
+var arr = [3,1,5,10,4];
+arr.sort(function(a, b){
+    return a - b;
+});
+// return a - b;升序    
+// return b - a;降序  
+</code></pre><p>给一个有序的数组,乱序:</p>
+<pre><code>var arr = [1,2,3,4,5,6,7,8];
+arr.sort(function(a, b){
+    return Math.random()-0.5;
+});
+</code></pre><p>按照对象年龄大小排序:</p>
+<pre><code>var cheng = {
+    name : &quot;cheng&quot;,
+    age : 30,
+    sex : &quot;male&quot;
+}
+var deng = {
+    name : &quot;deng&quot;,
+    age : 50,
+    sex : &quot;male&quot;
+}
+var zhang = {
+    name : &quot;zhang&quot;,
+    age : 40,
+    sex : &quot;female&quot;
+}
+var arr = [cheng, deng, zhang];
+arr.sort(function(a, b){
+    return a.age - b.age;
+});
+</code></pre><p>按照字符串长度排序:</p>
+<pre><code>function retBytes(str){
+    var num = str.length;
+    for(var i=0;i&lt;str.length;i++){
+        if(str.charCodeAt(i)&gt;255){
+            num ++;
+        }
+    }
+    return num;
+}
+var  arr = [&apos;a邓&apos;, &apos;bd邓&apos;, &apos;cc老邓&apos;, &apos;ddddd&apos;, &apos;slkhadkhja&apos;];
+arr.sort(function(a, b){
+    return retBytes(a) - retBytes(b);
+});
+</code></pre><h4 id="concat-拼接-连接"><a href="#concat-拼接-连接" class="headerlink" title="concat (拼接/连接)"></a><font color="red">concat (拼接/连接)</font></h4><pre><code>var arr = [1,2,3];
+var arr1 = [3,2,1];
+var arr2 = arr.concat(arr1);// [1,2,3,3,2,1]
+</code></pre><h4 id="slice"><a href="#slice" class="headerlink" title="slice "></a><font color="red">slice </font></h4><p>从该位开始截取, 截取到该位(不包括)</p>
+<pre><code>var arr = [5,4,3,2,1,6];
+var newArr = arr.slice(1, 4);// [4, 3, 2]
+var newArr1 = arr.slice(1);// [4, 3, 2, 1, 6]
+</code></pre><h4 id="join"><a href="#join" class="headerlink" title="join"></a><font color="red">join</font></h4><p>将数组中所有元素都转化成字符串并连接在一起，返回最后生成的字符串<br>可以选择一个可选的字符串在生成的字符串中来分隔数组的各个元素。<br>如果不指定使用分隔符，默认使用逗号。不修改原数组。</p>
+<pre><code>var arr = [1,2,3];
+var newArr = arr.join(&quot;-&quot;);//&quot;1-2-3&quot;
+</code></pre><p>利用join(“”)可以实现大量字符串拼接</p>
+<pre><code>var str = &quot;das&quot;;
+var str1 = &quot;dqqd&quot;;
+var str2 = &quot;fvmixk&quot;;
+var str3 = &quot;qqqmlx&quot;;
+var str4 = &quot;zmcxol&quot;;
+var str5 = &quot;qpuh&quot;;
+var str6 = &quot;lough&quot;;
+var f = &quot;&quot;;
+var arr = [str,str1,str2,str3,str4,str5,str6,f];
+var newArr = arr.join(&quot;&quot;);
+</code></pre><h4 id="split"><a href="#split" class="headerlink" title="split"></a><font color="red">split</font></h4><p>split()方法是按照给定的字符串将字符串分割成若干块来创建一个数组。</p>
+<pre><code>var arr1 = newArr.split(&quot;-&quot;);//[&quot;1&quot;, &quot;2&quot;, &quot;3&quot;]
+</code></pre><h4 id="indexOf"><a href="#indexOf" class="headerlink" title="indexOf"></a><font color="red">indexOf</font></h4><p>返回某个指定的字符串值在数组中首次出现的位置，从头至尾搜索，没有则返回-1</p>
+<pre><code>var arr = [1, 1, 2, 3, 5, 5];
+arr.indexOf(1);// 0
+</code></pre><h4 id="lastIndexOf"><a href="#lastIndexOf" class="headerlink" title="lastIndexOf"></a><font color="red">lastIndexOf</font></h4><p>返回某个指定的字符串值在数组中最后一次出现的位置，从尾至头搜索，没有则返回-1</p>
+<pre><code>arr.lastIndexOf(5);// 5
+</code></pre><p>同时我们可以在方法中传入两个参数，第一个参数代表需要搜索的值，第二个参数代表从哪一位开始搜索</p>
+<pre><code>arr.indexOf(1,1);// 1
+</code></pre><p>重写myIndexOf函数</p>
+<pre><code>Array.prototype.myIndexOf = function(){
+    var startIndex = 0;
+    var args = arguments;
+    var len = this.length;
+    if(args[1]){// 如果有第二个参数 
+        startIndex = args[1];
+    }
+    for(var i = startIndex;i &lt; len;i++){
+        if(this[i] == args[0]){// 参数一
+            return i;// 返回参数一的索引值
+        }
+    }
+    return -1;
+}
+</code></pre><h4 id="reduce-和reduceRight"><a href="#reduce-和reduceRight" class="headerlink" title="reduce()和reduceRight()"></a><font color="red">reduce()和reduceRight()</font></h4><p>1.reduce()和reduceRight()方法使用指定的函数将数组元素进行组合,生成单个值。</p>
+<p>reduce()可以传入两个参数,第一个是执行化简操作的函数.同样这个函数可以有参数,<br> • 第一个参数代表之前所有元素的累积结果<br> • 第二个参数代表当前进行运算的元素<br> • 第三个参数代表当前运算参数的索引值<br> • 第四个参数代表调用方法的原数组<br>第二个参数是可选的,是一个传递给函数的初始值.如果第二个参数有值,那么作为运算的初始值参与函数运算,如果第二个参数没有值,那么数组中的首位将作为函数运算的初始值,参与函数运算的数组其他位向后平移一位</p>
+<p>reduceRight()和reduce()使用方法一致,但是reduceRight()进行函数运算从右到左.传参形式均一致.</p>
+<pre><code>var arr = [1, 2, 3, 4, 5];
+var b = arr.reduce(function(last, now, index, arr){
+    console.log(last, now, index, arr);
+    return last + now;
+}, 10);
+</code></pre><p>重写myReduce函数</p>
+<pre><code>Array.prototype.myReduce = function(func, init){
+    var len = this.length;
+    var prev = init;
+    var i = 0;
+    if(init == undefined){// 不传第二个参数
+        prev = this[0];
+        i = 1;
+    }
+    for(i;i &lt; len;i++){
+        prev = func(prev, this[i], i,this);
+    }
+    return prev;
+};
+</code></pre><p>例: 获得当前时间并将其转换成字符串形式,个位数用零补齐.例如8点45分零五秒转化成084505.</p>
+<pre><code>var date = new Date();
+var arr = [date.getHours(), date.getMinutes(), date.getSeconds()];
+var str = arr.reduce(function(last, now){
+    return last + (&apos;0&apos; + now).slice(-2);
+}, &apos;&apos;);
+</code></pre><h4 id="filter"><a href="#filter" class="headerlink" title="filter"></a><font color="red">filter</font></h4><p><strong>数组的过滤</strong></p>
+<p>filter()方法返回的数组元素是调用的数组的一个子集。<br>传递函数是用来逻辑判断的,该函数返回true或false.如果返回值为true或能转化成true的值,那么传递给判定函数的元素就是这个子集的成员,将被添加到一个作为返回值的数组中。<br>filter()方法的结果返回一个满足条件的数组，不修改原数组。<br>注意：filter()方法会跳过稀疏数组中缺少的元素，他的返回值总是非稀疏的。</p>
+<pre><code>var arr = [0, 1, 2, 3, 45, 5];
+var a = arr.filter(function(ele){
+    return ele &gt; 3;
+});
+</code></pre><p>重写myFilter函数</p>
+<pre><code>Array.prototype.myFilter = function(func){
+    var newArr = [];
+    for(var i = 0;i &lt; this.length;i++){// 遍历原数组
+        if(func(this[i], i)){  
+            newArr.push(this[i]);
+        }
+    }
+    return newArr;
+}
+</code></pre><h4 id="every"><a href="#every" class="headerlink" title="every"></a><font color="red">every</font></h4><p><strong>数组的逻辑判定</strong></p>
+<p>返回true或false,every()相当于与,当且仅当数组中的所有元素都满足调用函数的条件,返回true</p>
+<pre><code>var arr = [1, 1, 2, 3, 45, 5, 5, 5];
+arr.every(function(ele){
+    return ele &lt; 10;
+});// false
+
+arr.every(function(ele){
+    return ele &lt; 100;
+});// true
+</code></pre><h4 id="some"><a href="#some" class="headerlink" title="some"></a><font color="red">some</font></h4><p>返回true或false,some()相当于或,当数组中至少有一个元素调用判定函数返回true,它的返回值就是true,所有元素均不满足函数条件，则返回false</p>
+<pre><code>var arr = [1, 1, 2, 3, 45, 5, 5, 5];
+arr.some(function(ele){
+    return ele &lt; 10;
+});// true
+
+arr.some(function(ele){
+    return ele &lt; 0;
+});// false
+</code></pre><p>注意：一旦every()和some()确认返回值的时候就会停止遍历数组</p>
+<h4 id="forEach"><a href="#forEach" class="headerlink" title="forEach"></a><font color="red">forEach</font></h4><p>数组遍历 forEach()方法</p>
+<p>forEach()的使用方法：forEach方法从头至尾遍历数组，对每个元素调用指定的函数。<br>forEach方法传入参数为一个函数，函数 可以传入三个参数，按照顺序分别为,数组元素、元素索引和数组本身。不强制同时传入三个参数，可以按照需求传入参数个数。</p>
+<p>重写myForEach函数</p>
+<pre><code>Array.prototype.myForEach = function(fn){
+    for(var i = 0;i &lt; this.length;i++){// this代表调用myForEach方法的数组
+        fn(this[i], i);// 将数组的每一位this[i]及代表数组索引 i 作为函数参数
+    }// 同时在for循环中执行参数fn函数
+}
+</code></pre><h4 id="类数组"><a href="#类数组" class="headerlink" title="类数组"></a><font color="red">类数组</font></h4><p>我们知道有两种数据叫做数组和对象，但是我们其实可以用对象来模拟出数组的效果，我们把这种对象叫做类数组。我们前面提到的<font color="red">arguments实参列表就是一个类数组</font>。</p>
+<p>类数组<font color="red">并不是一个数组</font>，但是它可以表现出数组的特性。</p>
+<p><font color="red">属性要为索引(数字)属性</font>,<font color="red">必须有length属性</font>,最好加上push<br>好处:将数组和对象的方法都拼到一起,但不是所有方法都可以用</p>
+<pre><code>var obj = {
+    &quot;0&quot; : &apos;a&apos;,
+    &quot;1&quot; : &apos;b&apos;,
+    &quot;2&quot; : &apos;c&apos;,
+    &quot;length&quot; : 3,
+    &quot;push&quot; : Array.prototype.push,
+    &quot;splice&quot; : Array.prototype.splice
+}
+Array.prototype.push = function (target){
+    this[this.length] = target;
+    this.length ++;
+}
+</code></pre><p>这样我们就创造了一个类数组，现在它就可以表现出数组的特性了。</p>
+<pre><code>obj.push(d);
+console.log(obj);
+var obj = {
+    &quot;0&quot; : &apos;a&apos;,
+    &quot;1&quot; : &apos;b&apos;,
+    &quot;2&quot; : &apos;c&apos;,
+    &quot;3&quot; : &apos;d&apos;,
+    &quot;length&quot; : 4,
+    &quot;push&quot; : Array.prototype.push,
+    &quot;splice&quot; : Array.prototype.splice
+}
+</code></pre><p>其实类数组的<font color="red">关键就在这个length属性</font>上，如果没有length属性，那么就是一个普通的对象，即使有push方法也不能使用。</p>
+<p>现在我们有一个这样的题：</p>
+<pre><code>var arrobj = {
+    &quot;3&quot; : 1,
+    &quot;4&quot; : 2,
+    &quot;a&quot; : 3,
+    &quot;b&quot; : 4,
+    &quot;length&quot; : 2,
+    &quot;push&quot; : Array.prototype.push,
+}
+arrobj.push(3);
+arrobj.push(6);
+</code></pre><p>仔细看一下push的方法之后，我们就知道了，最后的arrObj应该是这个样子的：</p>
+<pre><code>var arrobj = {
+    &quot;2&quot; : 3,
+    &quot;3&quot; : 6,
+    &quot;4&quot; : 2,
+    &quot;a&quot; : 3,
+    &quot;b&quot; : 4,
+    &quot;length&quot; : 4,
+    &quot;push&quot; : Array.prototype.push,
+}
+</code></pre><p>这里的length是2，所以一开始push(3)的时候把arrObj[2]改成了3，因为本身没有2这个下标，所以添加一条属性2:3，然后length变成了3，push(6)之后，arrObj[3]变成了6，本身有3这一条属性所以覆盖，然后把length变成4。</p>
+<p>再来看一题：</p>
+<pre><code>var obj = {
+    &quot;2&quot; : &quot;a&quot;,
+    &quot;3&quot; : &quot;b&quot;,
+    &quot;length&quot; : 2,
+    &quot;push&quot; : Array.prototype.push
+}
+obj.push(&apos;c&apos;);
+obj.push(&apos;d&apos;);
+</code></pre><p>执行obj.push(‘c’)之后 obj变成</p>
+<pre><code>var obj = {
+    &quot;2&quot; : &quot;c&quot;,
+    &quot;3&quot; : &quot;b&quot;,
+    &quot;length&quot; : 3,
+    &quot;push&quot; : Array.prototype.push
+}
+</code></pre><p>接着执行obj.push(‘c’)之后 obj变成</p>
+<pre><code>var obj = {
+    &quot;2&quot; : &quot;c&quot;,
+    &quot;3&quot; : &quot;d&quot;,
+    &quot;length&quot; : 4,
+    &quot;push&quot; : Array.prototype.push
+}
+</code></pre><h4 id="封装一个type工具方法"><a href="#封装一个type工具方法" class="headerlink" title="封装一个type工具方法"></a><font color="red">封装一个type工具方法</font></h4><p> 1.分两类  原始值 引用值<br> 2.区分引用值<br> 1)数组 2)对象 3)包装类</p>
+<pre><code>function type(target){
+    var template = {
+        &quot;[object Array]&quot; : &quot;array&quot;,
+        &quot;[object Object]&quot; : &quot;object&quot;,
+        &quot;[object Number]&quot; : &quot;number - object&quot;,
+        &quot;[object Boolean]&quot; : &quot;boolean - object&quot;,
+        &quot;[object String]&quot; : &quot;string - object&quot;
+    }
+    if(target === null){
+        return null;
+    }else if(typeof(target) == &apos;object&apos;){
+        var str = Object.prototype.toString.call(target);
+        return template[str];
+    }else{
+        return typeof(target);
+    }
+}
+</code></pre><h4 id="数组去重"><a href="#数组去重" class="headerlink" title="数组去重"></a><font color="red">数组去重</font></h4><pre><code>var arr = [1,1,1,1,1,2,2,2,2,1];
+Array.prototype.unique = function(){
+    var temp = {};
+    var arr = [];
+    var len = this.length;
+    for(var i=0;i&lt;len;i++){
+        if(!temp[this[i]]){
+            temp[this[i]] = &quot;abc&quot;;
+            arr.push(this[i]);
+        }
+    }
+    return arr;
+}
+var newArr = arr.unique();
+</code></pre>
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/27/克隆算法/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wanghai">
+      <meta itemprop="description" content="Wanghai个人站，主要涉及前端知识共享、实践教程、前沿技术共同学习等方面">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="welcome">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2018/11/27/克隆算法/" class="post-title-link" itemprop="http://yoursite.com/page/2/index.html">克隆算法</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-11-27 17:16:33" itemprop="dateCreated datePublished" datetime="2018-11-27T17:16:33+08:00">2018-11-27</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2018-12-18 17:43:54" itemprop="dateModified" datetime="2018-12-18T17:43:54+08:00">2018-12-18</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>克隆和我们前面所讲的继承有一些区别，克隆是复制出来一个一模一样的目标对象，而克隆又分为浅层克隆和深层克隆。</p>
+<p>• <strong><font color="red">浅层克隆</font></strong></p>
+<p>克隆大致就是我们的源对象里面有什么属性，目标文件就有什么属性，依照这个原理，我们可以写出下面的代码：</p>
+<pre><code>function clone(src, tar) {
+var tar = tar || {};// 如果没有tar则默认是一个空对象
+for(var prop in src) {
+      if(src.hasOwnProperty(prop)){
+           tar[prop] = src[prop];
+      }
+ }
+ return tar; 
+}
+</code></pre><p>下面我们来测试一下:</p>
+<pre><code>var obj = {
+      name: &apos;scarlett&apos;,
+      age: 123
+}
+var obj2 = {}
+clone(obj, obj2);
+console.log(obj2.name);// scarlett
+</code></pre><p>然后我们改变一下obj这个源对象的name：</p>
+<pre><code>obj.name = &apos;test&apos;
+console.log(obj2.name);// scarlett
+</code></pre><p>我们可以发现，克隆出来的目标对象和本来的源对象之间没有关系了<br>但是，当我们有一个属性是引用值（数组或者对象）的时候，按照我们这种克隆方式，只是把这个引用值的指向赋给了新的目标对象，也就是说，我们一旦改变了源对象或者目标对象的引用值属性，另一个也会跟着改变，这一点就是浅层克隆的缺点。</p>
+<p>• <strong><font color="red">深层克隆</font></strong></p>
+<p><strong>思路:<br>    1.遍历对象<br>    2.判断是否是原始值 还是引用值<br>    3.判断引用值类似是数组还是对象<br>    4.建立相应的数组或对象<br>    5.递归</strong></p>
+<pre><code>function clone(origin, target){
+    var target = target || {},//防止用户不传target参数
+         toStr = Object.prototype.toString,
+         arrStr = &quot;[object Array]&quot;;
+    for(var prop in origin){
+        if(origin.hasOwnProperty(prop)){
+            if( origin[prop] !== &quot;null&quot; &amp;&amp; typeof(origin[prop]) == &apos;object&apos;){
+                if(toStr.call(origin[prop]) == arrStr){
+                    target[prop] = [];
+                }else{
+                    target[prop] = {};
+                }
+                clone(origin[prop], target[prop]);
+            }else{
+                target[prop] = origin[prop];
+            }
+        }
+    }
+}
+</code></pre><p>现在我们来测试一下：</p>
+<pre><code>var parent = {
+      name : ‘ScarLet’,
+      age : 123,
+      sex : ‘male’,
+      height : 190,
+      money: [1,2,3,4,5]
+}
+var child = {};
+deepCopy(parent,child);
+console.log(child.money);//1 2 3 4 5
+parent.money.push(10);
+console.log(child.money);// 1 2 3 4 5
+</code></pre><p>这个时候目标对象和源对象的引用值之间就没有了关系，自己都是独立值，可以进行修改了。</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/26/严格模式与try-catch/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wanghai">
+      <meta itemprop="description" content="Wanghai个人站，主要涉及前端知识共享、实践教程、前沿技术共同学习等方面">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="welcome">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2018/11/26/严格模式与try-catch/" class="post-title-link" itemprop="http://yoursite.com/page/2/index.html">严格模式与try-catch</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-11-26 17:16:33" itemprop="dateCreated datePublished" datetime="2018-11-26T17:16:33+08:00">2018-11-26</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2018-12-18 17:32:43" itemprop="dateModified" datetime="2018-12-18T17:32:43+08:00">2018-12-18</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="ES5-0严格模式"><a href="#ES5-0严格模式" class="headerlink" title="ES5.0严格模式"></a><font color="red">ES5.0严格模式</font></h4><p>• 浏览器 基于的es3.0的 + es5.0的新增方法 使用的<br>• es3.0 和 es5.0产生冲突的部分<br>• es5.0严格模式: 那么es3.0和es5.0产生冲突的部分就是用es5.0，否则会用es3.0</p>
+<p><strong>es5.0严格模式的启动</strong>: 必须写在页面逻辑的最顶端 或 方法里面最顶端(局部)</p>
+<pre><code>&quot;use strict&quot;;
+
+局部使用
+function test(){
+    &quot;use strict&quot;;
+    console.log(arguments.callee);
+}
+test();
+</code></pre><p><strong>严格模式下: • with, arguments.callee, caller(不能使用)<br>             • 变量赋值必须声明,局部this必须赋值<br>             • 拒绝重复属性和参数<br>             • es3.0 都不能使用eval();</strong></p>
+<pre><code>如:
+function test(name, name){
+    &quot;use strict&quot;;
+    console.log(name);
+}
+test(1,2);
+
+var obj = {
+    name : &apos;123&apos;,
+    name : &apos;234&apos;
+}
+</code></pre><h4 id="try…catch"><a href="#try…catch" class="headerlink" title="try…catch"></a><font color="red">try…catch</font></h4><p><strong>三段式:</strong></p>
+<pre><code>try{
+
+}catch(e){
+
+    }finally{
+
+    }
+</code></pre><p><strong>error对象 ——&gt; error.massage error.name<br>Error.name的六种值对应的信息</strong></p>
+<p>  1.EvalError: eval()的使用与定义不一致<br>  2.RangeError: 数值越界<br>  3.ReferenceError: 非法或不能识别的引用数值<br>  4.SyntaxError: 发生语法解析错误<br>  5.TypeError: 操作数类型错误<br>  6.URIError: URI处理函数使用不当</p>
+<pre><code>console.log(b);// ReferenceError    没定义就使用
+test();        // ReferenceError 
+var str = abcd;// ReferenceError
+
+function demo(){
+      :
+}
+//SyntaxError       语法解析错误
+
+//在try里面的发生错误,不会执行错误后的try里面的代码
+try{
+    console.log(&apos;a&apos;);
+    console.log(b);
+    console.log(&apos;c&apos;);
+}catch(e){
+    console.log(e.massage+&quot; &quot;+e.name);//出错走这里
+}
+    console.log(&apos;d&apos;);
+</code></pre>
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/25/this/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wanghai">
+      <meta itemprop="description" content="Wanghai个人站，主要涉及前端知识共享、实践教程、前沿技术共同学习等方面">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="welcome">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2018/11/25/this/" class="post-title-link" itemprop="http://yoursite.com/page/2/index.html">this</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-11-25 17:16:33" itemprop="dateCreated datePublished" datetime="2018-11-25T17:16:33+08:00">2018-11-25</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2018-12-18 17:41:19" itemprop="dateModified" datetime="2018-12-18T17:41:19+08:00">2018-12-18</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="this"><a href="#this" class="headerlink" title="this"></a><font color="red">this</font></h4><p><strong>  1.函数预编译过程 this ——&gt;window<br>    2.全局作用域里   this ——&gt;window<br>    3.call/apply可以改变函数运行时this指向<br>    4.obj.func();    func()里面的this指向obj </strong>    </p>
+<p><strong>总结: 四种this绑定的权重</strong></p>
+<p><strong>  1,默认绑定(空函数执行,函数单纯执行,this指向window) 默认权重<br>    2,隐式帮定(谁调用this指向谁) 第三权重<br>    3,显式绑定 (call apply bind) 第二高权重<br>    4,new 绑定this 权重是最高的</strong></p>
+<p><strong>升级知识：ES6箭头函数中的this如何邦定？<br>  1,箭头函数没有this 没有arguments surper(class)；<br>  2,箭头函数不能new ,不当成构造函数来 没有prototye；<br>  3,可以表示数据流向 方便JavaScript引擎优化扫码；</strong></p>
+<p>例1</p>
+<pre><code>var name = &quot;222&quot;;
+var a = {
+    name : &quot;111&quot;,
+    say : function(){
         console.log(this.name);
     }
 }
-function Person(){
-    this.name = &apos;b&apos;;
-}
-var person = new Person();
-
-//a.sayName()   sayName里面的this指向是，谁调用的这个方法，this就是指向谁
-//person.sayName();// b
-//person.prototype.sayName();// a
-</code></pre><p>方法的重写:将原型链上的toString方法重写</p>
-<pre><code>Person.prototype = {
-    toString : function(){
-        return &quot;hehe&quot;;
+var fun = a.say;
+fun();//预编译this指向window
+a.say();//a执行this指向对象a
+var b = {
+    name : &quot;333&quot;,
+    say : function(fun){
+        fun();//预编译this指向window
     }
 }
-function Person(){
-}
-var person = new Person();
-person.toString();// &quot;hehe&quot;
-</code></pre>
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/20/对象与构造函数与包装类/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Wanghai">
-      <meta itemprop="description" content="Wanghai个人站，主要涉及前端知识共享、实践教程、前沿技术共同学习等方面">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="welcome">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2018/11/20/对象与构造函数与包装类/" class="post-title-link" itemprop="http://yoursite.com/page/2/index.html">对象与构造函数与包装类</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2018-11-20 17:16:33" itemprop="dateCreated datePublished" datetime="2018-11-20T17:16:33+08:00">2018-11-20</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2018-12-18 16:53:35" itemprop="dateModified" datetime="2018-12-18T16:53:35+08:00">2018-12-18</time>
-              
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="对象创建方法"><a href="#对象创建方法" class="headerlink" title="对象创建方法"></a><font color="red">对象创建方法</font></h2><p>对象的创建方法有三种：</p>
-<ol>
-<li><p><strong><font color="red">对象字面量</font></strong></p>
-<pre><code>var obj = {}
-</code></pre></li>
-</ol>
-<p>这样的方式就叫做字面量，也是我们<font color="red">创建对象最简单最常用</font>的方法。</p>
-<p>对象里面有属性，属性之间用逗号分隔，每一条属性都有属性名和属性值，属性名和属性值之间用分号分隔。</p>
-<ol start="2">
-<li><strong><font color="red">构造函数</font></strong></li>
-</ol>
-<p>构造函数也分两种：<font color="red">系统自带的构造函数</font>和我们<font color="red">自定义的构造函数</font>。</p>
-<p>• <font color="red">系统自带的构造函数</font></p>
-<p>创建对象的构造函数是Object()。</p>
-<pre><code>var obj = new Object();
-</code></pre><p>它的作用和var obj = {};的作用是一样的。</p>
-<p>系统自带的构造函数还有很多，比如Number()、String()、Boolean()、Array()这些都是构造函数。</p>
-<p>• <font color="red">自定义构造函数</font></p>
-<p>自定义的构造函数是我们平时<font color="red">最常用的一种构造函数</font>。</p>
-<p>构造函数也是正常的函数，我们为了区分它和别的正常函数，把构造函数的首字母大写。</p>
-<pre><code>function Persion(){}
-</code></pre><p>有了构造函数之后，我们就可以用new操作符来创建对象了。</p>
-<pre><code>var oPerson = new Person();
-typeof oPerson;// object
-</code></pre><p>这样我们也创建了一个对象oPerson，不过现在这个对象是空对象，因为我们的构造函数什么都没有写，我们也没有给这个对象添加任何属性。</p>
-<p>另外，用new操作符创建出来的对象，尽管都是使用的同一个构造函数，但是之间是没有关联的。</p>
-<pre><code>var person1 = new Person();
-var person2 = new Person();
-person1.name = &apos;111&apos;;
-console.log(person2.name);// undefined
-</code></pre><p>我们可以在构造函数里面写一些对象天生就有的默认属性。</p>
-<pre><code>function Person() {
-    this.name = &apos;scarlett&apos;,
-    this.age = 17
-}
-var person = new Person();
-person.name;// scarlett
-</code></pre><p>当然构造函数既然是函数，那么就可以传参数。</p>
-<pre><code>function Person(name, age) {
-    this.name = name,
-    this.age = age
-}
-var person = new Person(&apos;scarlett&apos;, 18);
-person.age;// 18
-</code></pre><p>创建对象的时候，<font color="red">只有new才会有this</font>。</p>
-<p>这里有一个重点，<font color="red">为什么我们通过new操作符可以创建互相独立的对象呢</font>？</p>
-<p>其实，当我们用new操作符的时候，这个new在我们的构造函数里面隐式创建了一个this对象，并且最后返回了这个this对象，这也就是为什么我们通过new可以最后创建一个对象的原因了。</p>
-<pre><code>function Person(name) {
-    // var this = {};
-    this.name = name;
-    // return this;
-}
-</code></pre><p>如果我们在构造函数首行手动创建一个对象，比如that对象，然后最后返回了that，那么里面的this就没有用了，我们要为属性赋值就要用that了。</p>
-<pre><code>function person(name) {
-       var that = {
-            name : &apos;scarlett&apos;
-       };
-       that.name = name;
-       return that;
-}
-var person = new Person(&apos;demo&apos;);
-person.name;// demo
-</code></pre><font color="red">重点：如果我们最后返回的对象，那么this就失效，但是如果最后显示返回的是原始值，那么this还是有效的。</font>
-
-<pre><code>function person(name) {
-       var that = {};
-       that.name = &apos;that&apos;;
-       this.name = &apos;this&apos;;
-       return 123;
-}
-var person = new Person();
-person.name;// this
-</code></pre><ol start="3">
-<li><strong><font color="red">Object.create(原型)</font></strong></li>
-</ol>
-<p>后面原型里面在具体说明</p>
-<h2 id="属性的增删改查"><a href="#属性的增删改查" class="headerlink" title="属性的增删改查"></a><font color="red">属性的增删改查</font></h2><p>1.<strong>增</strong></p>
-<pre><code>var obj = {};
-obj.name = &apos;scarlett&apos;;
-obj.name;// scarlett
-</code></pre><p>我们可以通过对象名+点+属性名的方法来给对象添加新的属性并且赋值。</p>
-<p>这个时候如果我们调用obj.age属性的话，这个属性并不存在，但是obj这个对象是存在的，因此浏览器不会报错，只会打印undefined。</p>
-<p>2.<strong>改</strong></p>
-<p>修改的操作和增加的操作其实是一样的，只要调用相同的属性名然后赋一个新的值就可以了。</p>
-<pre><code>var obj = {
-    name : &apos;scarlett&apos;
-};
-obj.name = &apos;demo&apos;;
-obj.name;// demo
-</code></pre><p>3.<strong>查</strong></p>
-<pre><code>obj.name = &apos;demo&apos;;
-console.log(obj.name);// demo
-</code></pre><p>4.<strong>删</strong></p>
-<p>删除属性的操作我们需要借助<font color="red">delete</font>操作符，这个操作符的作用就是来删除属性的。</p>
-<pre><code>var obj = {
-    name : &apos;scarlett&apos;
-}
-obj.name;// scarlett
-delete obj.name;
-obj.name;// undefined
-</code></pre><h2 id="内置对象和包装类型"><a href="#内置对象和包装类型" class="headerlink" title="内置对象和包装类型"></a><font color="red">内置对象和包装类型</font></h2><p><strong><font color="red">内置对象</font></strong></p>
-<p><strong>内置对象</strong>:就是ES标准中规定的浏览器厂商已经实现的API都叫做内置对象。一共11个</p>
-<p><strong><font color="red">String Number Boolean Array Date Math RegExp Error  Function Object Global全局(Window)</font></strong></p>
-<p>这十一个对象都干了两件事,第一是装数据的,第二为了简化你的操作,提供了很多现成的API让你去操作数据</p>
-<p><strong><font color="red">包装类型</font></strong></p>
-<p><strong>包装类型</strong>:专门封装原始类型的值,并提供操作值得API的对象.</p>
-<p>包装类型的值做了两件事,第一件事:封装一个值,然后还提供了对这个值操作的API.</p>
-<p>如何使用:他都是自动创建,自动销毁</p>
-<p>什么时候创建:在试图用原始类型的值,调用函数时,会自动创建对应类型的包装类型对象.调用完函数后自动释放</p>
-<pre><code>var str = ‘abcd’;
-// var str1 = String(‘abcd’);
-str.length = 2; // str1.length = 2;
-//销毁str1
-console.log(str); // abcd 长度还是4
-
-var n = 123.456;
-n.toFixed(2);// &quot;123.46&quot; 内部其实是 new Number(n).toFixed(2);
-
-&quot;张&quot;.charCodeAt();// 24352 内部其实发生了 new String(&quot;张&quot;).charCodeAt();
-
-// 为什么要有包装类型:因为原始类型的值本身不能有任何属性和函数,放不下
-
-var str = &quot;abc&quot;;
-str += 1;
-var test = typeof(str);
-if(test.length == 6){
-    test.sign = &quot;typeof的返回结果可能为String&quot;;
-    // new String(test).sign = &apos;xxx&apos;;
-}
-// new String(test).sign
-console.log(test.sign);// undefined
-</code></pre>
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/19/js预编译/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Wanghai">
-      <meta itemprop="description" content="Wanghai个人站，主要涉及前端知识共享、实践教程、前沿技术共同学习等方面">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="welcome">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2018/11/19/js预编译/" class="post-title-link" itemprop="http://yoursite.com/page/2/index.html">预编译</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2018-11-19 17:16:33" itemprop="dateCreated datePublished" datetime="2018-11-19T17:16:33+08:00">2018-11-19</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2018-12-18 16:56:17" itemprop="dateModified" datetime="2018-12-18T16:56:17+08:00">2018-12-18</time>
-              
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>• 我们在书写js代码的时候，会发现两点和c/c++语言不同的地方。第一个是当我们在后面定义了一个函数之后，我们在定义函数之前使用这个函数也是可以的。第二个是我们在后面声明的一个变量，但是在前面调用这个变量的时候并不会报错而是undefiend。</p>
-<p>这两点不同在js中被称为<font color="red"><strong>函数声明提升</strong></font>和<font color="red"><strong>变量声明提升</strong></font>，函数声明提升是一种<font color="red"><strong>整体提升</strong></font>，它会把函数声明和函数体一起提升到前面。变量声明提升则是一种<font color="red"><strong>局部提升</strong></font>，它仅仅将变量的声明提前了，但是并没有将赋值也一起提前。</p>
-<p>那么为什么会出现这种提升的现象呢？</p>
-<p>这是因为js运行的时候有一个阶段叫做预编译阶段，而我们的声明提升现象都是发生在预编译的时候哟~</p>
-<h4 id="预编译"><a href="#预编译" class="headerlink" title="预编译"></a><font color="red">预编译</font></h4><p>• js运行三部曲</p>
-<p>1.语法分析</p>
-<p>2.<font color="red">预编译</font></p>
-<p>3.解释执行</p>
-<p>语法分析：js引擎在解析js代码之前，会先通篇扫描一下，找出低级的语法错误，比如写错大括号之类的。</p>
-<p>编译执行：js是一种解释型语言，编译一行执行一行，当语法分析没有问题，并且已经完成预编译阶段之后，就开始解释执行代码。</p>
-<p>这里我们着重介绍预编译。</p>
-<font color="red">预编译前奏</font>
-
-<p>在介绍预编译之前，我们有两个重要概念需要掌握。</p>
-<p>1.<font color="red">imply global 暗示全局变量。</font></p>
-<p>如果任何变量未经声明就赋值使用，此变量就会为全局对象window所有，并且成为window对象的一个属性。</p>
-<pre><code>window.a = 123;
-window.a === a ;// true
-</code></pre><p>或者</p>
-<pre><code>a = 123;
-window.a === a ;// true
-</code></pre><p>2.一切<font color="red">声明</font>的全局变量，都是window的属性。</p>
-<pre><code>var a = 123;
-console.log(window.a);// 123
-</code></pre><p>•这样看不论全局变量有没有声明，似乎都会成为全局对象上的属性，那么两者之间有什么区别呢？<br>区别在于：<font color="red">经过声明的全局变量不能通过delete操作来删除，但是未经声明的全局变量可以被删除。</font></p>
-<pre><code>a = 123;
-console.log(window.a === a);// true
-delete window.a;
-console.log(window.a);// undefiend
-var b = 123;
-delete window.b;
-console.log(window.b);// 123
-</code></pre><p>正是这一种特性，导致es5有一种弊端，我们总会在无形中声明一些全局变量。</p>
-<pre><code>function test(){
-    var a = b = 0;
-}
-</code></pre><p>这段代码的原意是：在函数体中声明两个变量a、b，然后初始化a、b都是0。但是我们这么写之后，a经过了声明，但是b却没有声明，这时候b就会成为一个全局变量。</p>
-<font color="red">预编译的过程我总结为以下四步：</font>
-
-<p>1.创建<font color="red">AO对象</font>。</p>
-<p>2.<font color="red">寻找形参和变量声明</font>，将变量和形参作为AO对象的属性名添加到对象中，值为undefined。值得注意的是，函数声明不叫变量。</p>
-<p>3.将<font color="red">实参值和形参值</font>相统一。</p>
-<p>4.在函数体里面寻找<font color="red">函数声明</font>，将函数名作为属性名，值为这个函数的函数体。</p>
-<p>函数在执行的前一刻会<font color="red">产生一个上下文</font>，这个上下文就是Activeaction Object对象，简称AO对象。</p>
-<pre><code>即AO = {}
-</code></pre><p>这个对象是空的，但是里面有一些我们看不到的却存在的隐式属性，比如<font color="red">this: window</font>属性和<font color="red">arguments: [];</font>属性</p>
-<p>这个对象用来存放一些属性和方法，这些属性和方法就按照前面的四步来产生。</p>
-<p>这里我们用这一个样例代码来简单介绍一下预编译的过程。</p>
-<pre><code>function fn(a, b){              
-         console.log(a);    
-         function a(){}      
-         a = 222;        
-         console.log(a);                         
-         function b (){}    
-         console.log(b);
-         var b = 111;
-         var a ;                 
- }                               
- fn(1);  
-</code></pre><p>第一步:创建一个AO对象</p>
-<pre><code>var AO = {};
-</code></pre><p>第二步:寻找形参值和变量声明，并且将值赋为undefined</p>
-<pre><code>AO = {
-      a: undefiend,  
-      b: undefiend
-}
-</code></pre><p>第三步:将实参值和形参值相统一</p>
-<pre><code>AO = {
-     a: 1,
-     b: undefiend
-}
-</code></pre><p>第四步:寻找函数声明，将函数体赋值给属性</p>
-<pre><code>AO = {
-     a: function(){},
-     b: function(){}
-}
-</code></pre><p>第一个console.log a –&gt; function () {}</p>
-<p>第二个console.log a –&gt; 222 因为执行了a = 222这一行代码，所以重新赋值了。</p>
-<p>第三个console.log b –&gt; function () {}</p>
-<p>• <font color="red">var b = function () {}</font>这种不叫做函数声明，这个函数是赋值给b变量的，b变量是声明。</p>
-<h4 id="更多例子"><a href="#更多例子" class="headerlink" title="更多例子"></a><font color="red">更多例子</font></h4><p>例1</p>
-<pre><code>function test(a, b){
-        console.log(a);
-        c = 0;
-        var c;
-        a = 3;
-        b = 2;
-        console.log(b);
-        function b(){}
-        function d(){}
-        console.log(b);
-}
-test(1);// 可以只传一个参数，即a=1 b=undefined
-
-AO = {
-     a : 1
-     b : function b(){}
-     c : undefined
-     d : function d(){}
-}
-函数执行
-AO = {
-     a : 3
-     b : 2
-     c : 0
-     d : function d(){}
-}
-
-输出结果:1 2 2
+b.say(a.say);
+b.say = a.say;
+b.say();//b执行this指向对象b
 </code></pre><p>例2</p>
-<pre><code>function test(a, b){
-        console.log(a);
-        console.log(b);
-        var b = 234;
-        console.log(b);
-        a = 123;
-        console.log(a);
-        function a(){}
-        var a;
-        b = 567;
-        var b = function(){}
-        console.log(a);
-        console.log(b);
+<pre><code>var foo = 132;
+function print(){
+    this.foo = 234;
+    console.log(foo);
 }
-test(1);
-
-AO = {
-     a : function a(){}
-     b : undefined 
-}
-函数执行
- AO = {
-     a : 123 
-     b : function(){}
-}
-
-输出结果: function a(){} undefined 234 123 123 function(){}
+print();
 </code></pre><p>例3</p>
-<pre><code>var a = 123;
-function a(){} 
-此时生成了一个GO 对象 Global Object     即GO===window   
-GO = {
-     a : 123
-} 
+<pre><code>var foo = 132;
+function print(){
+    //var this = Object.create(print.prototype)
+    this.foo = 234;
+    console.log(foo);
+}
+new print();
 </code></pre><p>例4</p>
-<pre><code>function test(){
-    var a = b = 123;
-    console.log(window.b);
-    console.log(window.a);
-}
-test();
-
-GO = {
-    b : 123
-}
-AO = {
-    a : undefiend
-}
-
-输出结果: 123 undefined
-</code></pre><p>例5</p>
-<pre><code>console.log(test);
-function test(test){
-        console.log(test);
-        var test = 234;
-        console.log(test);
-        function test(){}
-}
-test(1);
-var test = 123;
-
-GO = {
-    test : function(){
-        // ...
-    }
-}
-AO = {
-    test : function test(){}
-}
-
-输出结果: function test(test){ ... } function test(){} 234
-</code></pre><p>例6</p>
-<pre><code>global = 100;
-function fn(){
-        console.log(global);
-        global = 200;
-        console.log(global);
-        var global = 300;
-}
-fn();
-var global;
-
-GO = {
-    global : 100
-    fn : function fn(){}
-}
-AO = {
-    global : undefiend
-}
-
-输出结果: undefined 200
-</code></pre><p>例7</p>
-<pre><code>function test(){
-        console.log(b);
-        if(a){          // a = undefined 不走if
-            var b = 100;
-        }
-        console.log(b);
-        c = 234;
-        console.log(c);
-}
-var a;
-test();
-a = 10;
-console.log(c);
-
-GO = {
-    a : undefiend
-    test : function test(){}
-    c : undefiend
-}
-AO = {
-    b : undefiend
-}
-
-输出结果: undefiend undefiend 234 234
-</code></pre><p>例8</p>
-<pre><code>function bar(){
-        return foo;// 后面不走 直接返回
-        foo = 10;
-        function foo(){}
-        var foo = 11;
-}
-console.log(bar());
-
-GO = {
-    bar : function(){}
-}
-AO = {
-    foo : function foo(){} 
-}
-
-输出结果: function foo(){}
-</code></pre><p>例9</p>
-<pre><code>console.log(bar());
-function bar(){
-        foo = 10;
-        function foo(){}
-        var foo = 11;
-        return foo;
-}   
-
-GO = {
-    bar : function bar(){}
-}
-AO = {
-    foo : function foo(){}
-}
-
-输出结果: 11
-</code></pre><p>例10</p>
-<pre><code>a = 100;
-function demo(e){
-    function e(){}
-    arguments[0] = 2;
-    console.log(e);
-    if(a){
-        var b = 123;
-        function c(){}
-    }
-    var c;
-    a = 10;
+<pre><code>var a = 5;
+function test(){
+    a = 0;
+    console.log(a);
+    console.log(this.a);
     var a;
-    console.log(b);
-    f = 123;
-    console.log(c);
     console.log(a);
 }
-var a;
-demo(1);
-console.log(a);
-console.log(f);
-
-GO = {
-    a : 100
-    demo : function (){}
-    f : 123
+test();
+</code></pre><p>例5</p>
+<pre><code> var a = 5;
+function test(){
+    a = 0;
+    console.log(a);
+    console.log(this.a);
+    var a;
+    console.log(a);
 }
-AO = {
-    a : undefiend
-    b : undefiend
-    c : undefiend
-    e : function e(){}
+new test();
+</code></pre><p>例6</p>
+<pre><code>var bar = {
+    a : &quot;002&quot;
 }
-
-输出结果: 2 undefined undefined 10 100 123
-</code></pre><p>例11</p>
-<pre><code>var x = 1,y = z = 0;
-function add(n){
-    return n = n +1;
+function print(){
+    bar.a = &apos;a&apos;;
+    Object.prototype.b = &apos;b&apos;;
+    return function inner(){
+        console.log(bar.a);
+        console.log(bar.b);
+    }
 }
-y = add(x);
-function add(n){
-    return n = n + 3;
+print()();
+</code></pre><h4 id="call-apply"><a href="#call-apply" class="headerlink" title="call/apply"></a><font color="red">call/apply</font></h4><p>call/apply的第一个参数会<font color="red">改变this的指向</font><br>• call 需要把实参按照形参的个数传进去<br>• apply 需要传一个arguments(数组)<br>其实方法的执行test()，实际上就是隐式转换成test.call();</p>
+<pre><code>function Person(name, age){
+     this.name = name;
+     this.age = age;
 }
-z = add(x);
-
-输出结果: x = 1 y = 4 z = 4
+var person = new Person(&apos;deng&apos;, 100);
+var obj = {};
+Person.call(obj, &apos;cheng&apos;, 300);
+console.log(obj.name);// &apos;cheng&apos;
+</code></pre><p>例1</p>
+<pre><code>function Person(name, age, sex){
+    this.name = name;
+    this.age = age;
+    this.sex = sex;
+}         
+function Student(name, age, sex, tel, grade){
+    //this指向Student  本来是没有name/age/sex属性 用Person的方法实现自己的功能   
+    //var this = {name : &quot;&quot;, age : &quot;&quot;, sex : &quot;&quot;}
+    Person.call(this, name, age, sex);
+    this.tel = tel;
+    this.grade = grade;
+}
+var student = new Student(&apos;sunny&apos;, 123, &apos;male&apos;, 139, 2017);
+</code></pre><p>例2</p>
+<pre><code>function Wheel(wheelSize, style){
+    this.style = style;
+    this.wheelSize = wheelSize;
+}
+function Sit(c, sitColor){
+    this.c = c;
+    this.sitColor = sitColor;
+}
+function Model(height, width, len){
+    this.height = height;
+    this.width = width;
+    this.len = len;
+}
+function Car(wheelSize, style, c, sitColor, height, width, len){
+    Wheel.call(this, wheelSize, style);
+    Sit.call(this, c, sitColor);
+    Model.call(this, height, width, len);
+}
+var car = new Car(100, &quot;花里胡哨的&quot;, &quot;真皮&quot;, &quot;red&quot;, 1800, 1900, 4900);
 </code></pre>
           
         
@@ -1848,20 +2653,20 @@ z = add(x);
 
   
 
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
   
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/18/数据类型转换/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/24/对象枚举及访问属性的第二种方法/">
 
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Wanghai">
       <meta itemprop="description" content="Wanghai个人站，主要涉及前端知识共享、实践教程、前沿技术共同学习等方面">
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="welcome">
     </span>
 
@@ -1873,7 +2678,7 @@ z = add(x);
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2018/11/18/数据类型转换/" class="post-title-link" itemprop="http://yoursite.com/page/2/index.html">类型转换</a>
+                <a href="/2018/11/24/对象枚举及访问属性的第二种方法/" class="post-title-link" itemprop="http://yoursite.com/page/2/index.html">对象枚举及访问属性的第二种方法</a>
               
             
           </h1>
@@ -1898,7 +2703,7 @@ z = add(x);
                 
               
 
-              <time title="Created: 2018-11-18 17:16:33" itemprop="dateCreated datePublished" datetime="2018-11-18T17:16:33+08:00">2018-11-18</time>
+              <time title="Created: 2018-11-24 17:16:33" itemprop="dateCreated datePublished" datetime="2018-11-24T17:16:33+08:00">2018-11-24</time>
             
 
             
@@ -1915,7 +2720,7 @@ z = add(x);
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2018-12-17 16:08:39" itemprop="dateModified" datetime="2018-12-17T16:08:39+08:00">2018-12-17</time>
+                <time title="Modified: 2018-12-18 16:49:49" itemprop="dateModified" datetime="2018-12-18T16:49:49+08:00">2018-12-18</time>
               
             
           </span>
@@ -1950,1149 +2755,77 @@ z = add(x);
       
         
           
-            <h4 id="显示类型转换"><a href="#显示类型转换" class="headerlink" title=" 显示类型转换"></a><font color="red"> 显示类型转换</font></h4><p>类型转换，自然是把数据的类型改变了，那么我们怎么才能知道数据的类型是否发生了改变呢？</p>
-<p>我们有一个操作符<font color="red">typeof</font>可以检测数据的类型。</p>
-<pre><code>console.log(typeof(123)); // number
-</code></pre><p>typeof能返回的类型一共只有6种：</p>
-<font color="red"><strong>numner、string、boolean、undefined、object、function</strong></font>
+            <h4 id="对象的枚举"><a href="#对象的枚举" class="headerlink" title="对象的枚举"></a><font color="red">对象的枚举</font></h4><p>在介绍对象的枚举方法之前，我们要理解一个概念。</p>
+<p>查看对象属性我们知道可以用obj.name这样的点操作符来查看，但是我们还有一种其他的方式：</p>
+<p><strong><font color="red">obj[字符串]</font></strong></p>
+<p>这种方法类似数组的查看，但其实事实是数组模仿了对象的查看方式。<br>这种方法是在系统底层里面的查看对象属性的写法，我们常用的点操作符obj.name在系统底层其实也隐式转换成了obj[‘name’]这种形式。</p>
+<p><strong>例</strong></p>
+<pre><code>var deng = {
+    wife1 : {name : &quot;xiaoliu&quot;},
+    wife2 : {name : &quot;xiaozhang&quot;},
+    wife3 : {name : &quot;xiaomeng&quot;},
+    wife4 : {name : &quot;xiaowang&quot;},
+    sayWife : function (num){
+        return this[&apos;wife&apos;+num]
+    }
+}
+// 我们调用sayWife的时候传入一个对应的数字就可以得到返回对应的名字
+</code></pre><p><strong><font color="red">for-in操作符</font></strong></p>
+<p>我们知道要枚举一个数组的所有元素，只要用一个for循环从头到尾遍历一遍就可以了。</p>
+<p>但是对象并不能用for循环来遍历属性，所以这里我们就要使用for-in操作了。</p>
+<pre><code>var obj = {
+    name : &apos;13&apos;,
+    age : 123,
+    sex : &quot;male&quot;,
+    height : 180,
+    weight : 75
+}
+for(var prop in obj){
+    //obj是要遍历的对象  prop变量名写什么都行
+    //console.log(obj.prop);    结果全是undefined 
+    //因为 obj.prop ——&gt;obj[&apos;prop&apos;] 而prop是个变量所以 改为下面访问属性方式
+    console.log(obj[prop]);
+}
+</code></pre><p>下面我们来介绍三种操作符：</p>
+<p>1.<strong><font color="red">hasOwnProperty</font></strong></p>
+<p>这个操作符的作用是查看当前这个属性是不是对象自身的属性，在原型链上的属性则会被过滤掉。如果是自身的，就返回true，否则返回false。    </p>
+<pre><code>function Person(){
+    this.name = &apos;scarlett&apos;
+}
+Person.prototype = {
+    age : 10
+}
+var operson = new Person();
+for(var prop in operson){
+    if(operson.hasOwnProperty(prop)){
+        console.log(operson[prop]);
+    }
+}
+</code></pre><p>这样，我们的for-in循环就会只打印自身的属性而不会去打印原型上的lastName属性。</p>
+<p>2.<strong><font color="red">in操作符</font></strong></p>
+<p>这个操作符的作用是查看一个属性是不是在这个对象或者它的原型里面。</p>
+<pre><code>&apos;name&apos; in operson;// true
+&apos;age&apos; in operson;// true
+&apos;sex&apos; in operson;// false
+</code></pre><p>3.<strong><font color="red">instanceof操作符</font></strong></p>
+<p>看A对象的原型链上 有没有 B的原型</p>
+<pre><code>function Person(){
 
-<p>• <font color="red">数组和null</font>类型的都属于<font color="red">object</font>。其实null并不是一种对象，只是因为历史遗留性的问题，null通常用来作为对象占位符，所以被浏览器归到了object里面了。</p>
-<p>• <font color="red">NaN</font>属于<font color="red">number</font>类型。虽然是非数，但是非数也是数字的一种。</p>
-<p>• 同时，typeof返回的结果其实是一种字符串，我们可以用typeof来测试。</p>
-<pre><code>console.log( typeof(typeof(a))); // string
-</code></pre><h4 id="1、转字符串"><a href="#1、转字符串" class="headerlink" title="1、转字符串"></a>1、转字符串</h4><p> 其实在js中，一切数据除了null 和undefined之外都自带一个函数，toString </p>
-<pre><code>var n = 132.456
-n.toString();// &quot;123.456&quot;
-</code></pre><p>任何东西，都有toString 函数，toString函数可以将任何类型转换为string类型。</p>
-<font color="red">但是</font>，有两个值没有toString ，<font color="red">null</font> 和 <font color="red">undefined</font>
-
-<p>事实上在开发当中，String（x）这个用的绝对多，.toString(x)这个用的反而不多。</p>
-<p>而且String(x)他是万能的，他可以转null 和 undefined</p>
-<pre><code>var n = null;
-String(n);// &quot;null&quot;
-var a = undefined;
-String(n);// &quot;undefined&quot;
-</code></pre><h4 id="2、转数字"><a href="#2、转数字" class="headerlink" title="2、转数字"></a>2、转数字</h4><p>两种情况，第一种任意类型转数字，第二种专门的字符串转数字。<br>第一种 Number(x) 。它跟String(x)可不一样，它可不是万能的<br>只能转换纯数字组成的内容。还可以转布尔值。强调几点如下:</p>
-<pre><code>Number(null); // 0
-Number(undefined); //NaN
-Number(&quot;&quot;); // 0
-Number([]); // 0
-</code></pre><p>接下来字符串转数字，parseInt(str) 和 parseFloat(str)</p>
-<font color="red"><strong>parseInt(string, radix)</strong></font>
-
-<p>这个方法是将字符串转换成整型类型数字的。其中第二个参数radix基底是可以选择的参数。<br>当radix为空的时候，这个函数的作用仅仅是将字符串转换成数字。<br>当参数string里面既包括数字字符串又包括其他字符串的时候，它会将看到其他字符串就停止了，不会继续转换后面的数字型字符串了。</p>
-<p>当radix不为空的时候，这个函数可以用来作为进制转换，第二个参数的作用则是，我们把第一个参数的数字<font color="red">当成几进制的数字来转换成十进制</font>。</p>
-<p>• radix参数的范围是2-36。</p>
-<pre><code>parseInt(3, 8);     //3       3以8进制为基础转换成10进制
-parseInt(3, 2);     //NaN     2进制里面没有三
-parseInt(3, 0);     //NaN     不存在0进制
-parseInt(&quot;010&quot;);    //未定：返回 10 或 8
-parseInt(&quot;1a&quot;);    //1
-parseInt(&quot;1234blue&quot;); //1234
-parseInt(‘abc123’) // NaN
-parseInt(&quot;&quot;);       //NaN
-parseInt(&quot;0xA&quot;)     //10(十六进制)
-parseInt(&quot;22.5&quot;);   //22
-</code></pre><h4 id="3、转布尔"><a href="#3、转布尔" class="headerlink" title="3、转布尔"></a>3、转布尔</h4><p>只有一个Boolean(x)，这个函数太强大了其他任何类型几乎都能转成布尔，只有五个值会被转成false</p>
-<pre><code>Boolean(0);
-Boolean(NaN);
-Boolean(null);
-Boolean(undefined);
-Boolean(&quot;&quot;);
-</code></pre><h4 id="隐式类型转换"><a href="#隐式类型转换" class="headerlink" title=" 隐式类型转换"></a><font color="red"> 隐式类型转换</font></h4><p><strong>1.<font color="red">isNaN()</font></strong></p>
-<p>这个方法可以检测数据是不是非数类型。</p>
-<pre><code>isNaN(NaN); // true
-isNaN(‘abc’); // true
-isNaN(123); // false
-</code></pre><p>这中间隐含了一个隐式转换，它会先将你传的参数调用一下<font color="red">Number</font>方法之后，再看看结果是不是NaN，不过这个方法可以检测NaN本身。</p>
-<p><strong>2.<font color="red">算术运算符</font></strong></p>
-<p><strong>• ++就是现将数据调用一遍Number之后，再自加一。</strong></p>
-<pre><code>var demo = &apos;abc&apos;;
-demo ++;// NaN
-demo = &apos;123&apos;;
-++demo;// 124
-demo = &apos;123&apos;;
-demo ++;// 123
-</code></pre><p><strong>• 同样一目运算符也可以进行类型转换。</strong></p>
-<pre><code>var num = false;
-+num ;// 0
-var demo = true;
--demo ;// -1
-var demo = &apos;abc&apos;;
-+demo ;// NaN
-1 * &apos;2&apos; ;// 2
-true * false ;// 0
-false / false ;// NaN
-true / false ;// infinity无穷大
--true / false ;// -infinity
-</code></pre><p><strong>• 逻辑运算符也会隐式调用类型转换</strong></p>
-<p>&amp;&amp;和||都是先把表达式调用Boolean，换成布尔值再进行判断，看看是true还是false，不过返回的结果还是本身表达式的结果。</p>
-<pre><code>!&apos;abc&apos;;// false
-</code></pre><p><strong>• 当然也有不发生类型转换的比较运算符</strong></p>
-<font color="red">===严格等于</font>
-
-<font color="red">!==严格不等于</font>
-
-<pre><code>‘123’ === 123; // false;
- true === ‘true’; // false
- 1 !== ‘1’; // true
- 1 !== 1; // false
+}
+var person = new Person();
+person instanceof Person;// true
+person instanceof Object;// true
+</code></pre><h4 id="判断一个变量是数组还是对象"><a href="#判断一个变量是数组还是对象" class="headerlink" title="判断一个变量是数组还是对象"></a>判断一个变量是数组还是对象</h4><p><strong><font color="red">三种方法:</font></strong></p>
+<p><strong>方法1.</strong></p>
+<pre><code>数组的 [].constructor  
+对象的 var obj={}, obj.constructor
+</code></pre><p><strong>方法2.</strong></p>
+<pre><code>[] instanceof Array   返回true   
+obj instanceof Array  返回false
+</code></pre><p><strong>方法3.</strong></p>
+<pre><code>Object.prototype.toString.call([]);
+Object.prototype.toString.call({});
 </code></pre>
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/17/CSS3图片翻书展示/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Wanghai">
-      <meta itemprop="description" content="Wanghai个人站，主要涉及前端知识共享、实践教程、前沿技术共同学习等方面">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="welcome">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2018/11/17/CSS3图片翻书展示/" class="post-title-link" itemprop="http://yoursite.com/page/2/index.html">CSS3图片翻书展示()</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2018-11-17 17:20:12" itemprop="dateCreated datePublished" datetime="2018-11-17T17:20:12+08:00">2018-11-17</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2018-12-14 10:53:13" itemprop="dateModified" datetime="2018-12-14T10:53:13+08:00">2018-12-14</time>
-              
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <pre><code>&lt;style&gt;
-        *{
-            margin: 0;
-            padding: 0;
-        }
-        body{
-            background-color: #fde3A7;
-            font-family: &apos;Indie Flower&apos;, cursive;/*字体  草书*/
-        }
-        .card{
-            width: 270px;
-            height: 400px;
-            position: absolute;
-            left: 50%;
-            top: 50%;
-            /* transform: translateX(-50%) translateY(-50%);CSS3 平移 */
-            margin-top: -200px;
-            margin-left: -150px;
-            box-shadow: inset 300px 0px 50px rgba(0, 0, 0, .5),20px 0 60px rgba(0, 0, 0, .5);/*阴影*/
-            perspective: 2000px;
-            transform-style: preserve-3d;
-            /* transform-origin: center center; */
-            transition:  all 1s ease-in-out;
-            background-color: #fff;
-        }
-        .card::before{  /*伪类和伪元素的区别  伪元素是真实存在的元素,能在html元素中存在的*/
-            content: &quot;&quot;;
-            display: inline-block;
-            width: 100%;
-            height: 5px;
-            background-color: #BAC1BA;
-            position: absolute;
-            top: -5px;
-            transform: skewX(-45deg);/*CSS3 扭曲*/
-            transform-origin: bottom;/*改变旋转中心*/
-        }
-        .card::after{
-            position: absolute;
-            right: -5px; 
-            top: 0;
-            content: &quot;&quot;;
-            display: inline-block;
-            height: 100%;
-            width: 5px;
-            background-color: #BAC1BA;
-            transform: skewY(-45deg);/*CSS3 扭曲*/
-            transform-origin: left;
-        }
-        .card .imgBox{
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            transform-origin: left;
-            transition:  all .7s ease-in-out;/*过渡*/
-        }
-        .card .imgBox .bark{
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background-color: #fff;
-            opacity: 0;
-            transition: all .6s ease-in-out;
-        }
-        .card .imgBox img{
-            width: 100%;
-        }
-        .card .details{
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            z-index: -1;
-        }
-        .card:hover{   /*伪类是当前动作触发的*/ 
-            transform: rotateZ(15deg) scale(1.2);   
-            box-shadow: inset 30px 0px 50px rgba(0, 0, 0, .5), 20px 0px 60px rgba(0, 0, 0, .5);
-        }
-        .card:hover .imgBox{
-            transform: rotateY(-135deg);
-        }
-        .card:hover .imgBox .bark{
-            opacity: 1;
-            transition:  all .6s ease-in-out;
-            box-shadow: inset 300px 200px 100px rgba(0, 0, 0, .5); 
-        }
-    &lt;/style&gt;
-
-
-    &lt;div class=&quot;card&quot;&gt;
-        &lt;div class=&quot;imgBox&quot;&gt;
-            &lt;div class=&quot;bark&quot;&gt;&lt;/div&gt;
-            &lt;img src=&quot;./images/pic.jpg&quot; alt=&quot;&quot;&gt;
-        &lt;/div&gt;
-        &lt;!-- 翻开展示内容 --&gt;
-        &lt;div class=&quot;details&quot;&gt;
-            &lt;!-- 这里没有写第二页内容用图片代替 --&gt;
-            &lt;img src=&quot;./images/pic_.jpg&quot; alt=&quot;&quot;&gt;
-
-            &lt;!-- &lt;h4 class=&quot;title1&quot;&gt;内容标题1&lt;/h4&gt;
-            &lt;h4 class=&quot;title2&quot;&gt;内容标题2&lt;/h4&gt;
-            &lt;p&gt;内容...&lt;/p&gt;
-            &lt;p&gt;内容...&lt;/p&gt; --&gt;
-        &lt;/div&gt;
-    &lt;/div&gt;
-</code></pre>
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/16/CSS3之calc()/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Wanghai">
-      <meta itemprop="description" content="Wanghai个人站，主要涉及前端知识共享、实践教程、前沿技术共同学习等方面">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="welcome">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2018/11/16/CSS3之calc()/" class="post-title-link" itemprop="http://yoursite.com/page/2/index.html">CSS3之calc()</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2018-11-16 17:18:33" itemprop="dateCreated datePublished" datetime="2018-11-16T17:18:33+08:00">2018-11-16</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2018-12-13 15:39:40" itemprop="dateModified" datetime="2018-12-13T15:39:40+08:00">2018-12-13</time>
-              
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><font color="red"></font></p>
-<h4 id="什么是calc"><a href="#什么是calc" class="headerlink" title="什么是calc()?"></a><font color="red">什么是calc()?</font></h4><p><strong>calc()</strong>从字面我们可以把他理解为一个函数function.其实calc是英文单词calculate(计算)的缩写,是css3的一个新增的功能,用来指定元素的长度.比如说,你可以使用calc()给元素的border、margin、pading、font-size和width等属性设置<font color="red">动态值</font>.为何说是动态值呢?因为我们使用的表达式来得到的值.不过calc()最大的好处就是用在流体布局上,可以通过calc()计算得到元素的宽度.</p>
-<h4 id="calc-能做什么"><a href="#calc-能做什么" class="headerlink" title="calc()能做什么?"></a><font color="red">calc()能做什么?</font></h4><p><font color="red">calc()能让你给元素的做计算</font>,你可以给一个div元素,使用百分比、em、px和rem单位值计算出其宽度或者高度,比如说”width:calc(50% + 2em)”,这样一来你就不用考虑元素DIV的宽度值到底是多少,而把这个烦人的任务交由浏览器去计算.</p>
-<h4 id="calc-语法"><a href="#calc-语法" class="headerlink" title="calc()语法"></a><font color="red">calc()语法</font></h4><p>calc()语法非常简单,就像我们小时候学加(+)、减(-)、乘(*)、除(/)一样,使用数学表达式来表示:</p>
-<pre><code>.elm{
-    width: calc(expression)
-}
-</code></pre><p>其中”expression”是一个表达式，用来计算长度的表达式.</p>
-<h4 id="calc-的运算规则"><a href="#calc-的运算规则" class="headerlink" title="calc()的运算规则"></a><font color="red">calc()的运算规则</font></h4><p>calc()使用通用的数学运算规则,但是也提供更智能的功能:</p>
-<p>• 使用”+”、”-“、”*” 和 “/“四则运算;</p>
-<p>• 可以使用百分比、px、em、rem等单位;</p>
-<p>• 可以混合使用各种单位进行计算;</p>
-<p>• 表达式中有”+”和”-“时,其<font color="red">前后必须要有空格</font>,如”widht: calc(12%+5em)”这种没有空格的写法是错误的;</p>
-<p>• 表达式中有”*”和”/“时,其<font color="red">前后可以没有空格</font>,但建议留有空格.</p>
-<h4 id="浏览器的兼容性"><a href="#浏览器的兼容性" class="headerlink" title="浏览器的兼容性"></a><font color="red">浏览器的兼容性</font></h4><p>浏览器对calc()的兼容性还算不错,在IE9+、FF4.0+、Chrome19+、Safari6+都得到较好支持,同样需要在其前面加上各浏览器厂商的识别符,不过可惜的是,移动端的浏览器还没仅有“firefox for android 14.0”支持,其他的全军覆没.大家在实际使用时,同样需要添加浏览器的前缀</p>
-<pre><code>.elm {
-    //Firefox
-    -moz-calc(expression);
-    //chrome safari
-    -webkit-calc(expression);
-    //Standard
-    calc();
-}
-</code></pre><p><strong>例1.</strong></p>
-<pre><code>.demo{
-    width: 300px;
-    background: #60f;
-    padding: 3px 0;
-}
-.box{
-    background: #f60;
-    height: 50px;
-    padding: 10px;
-    border: 5px solid green;
-    width: 90%;/*写给不支持calc()的浏览器*/
-    width: -moz-calc(100% - (10px + 5px) * 2);
-    width: -webkit-calc(100% - (10px + 5px) * 2);
-    width: calc(100% - (10px + 5px) * 2);
-}
-&lt;div class=&quot;demo&quot;&gt;
-    &lt;div class=&quot;box&quot;&gt;&lt;/div&gt;
-&lt;/div&gt;&lt;hr&gt;
-</code></pre><p><img src="https://i.imgur.com/HugB59A.png" alt=""></p>
-<p><strong>例2.</strong></p>
-<pre><code>body{
-       background: #E8EADD;
-       color: #3C323A;
-       padding: 20px;
-   }
-   /*设置主容器&quot;wrapper&quot;
-     主容器的宽度是:&quot;100% - 20px * 2,并且水平居中&quot;
-   */
-   .wrapper{
-       width: 1024px;/*写给不支持calc()的浏览器*/
-       width: -moz-calc(100% - 40px);
-       width: -webkit-calc(100% - 40px);
-       width: calc(100% - 40px);
-       margin: auto;
-   }
-   /*给header和footer设置样式
-     对应的宽度是:&quot;100% - 20px * 2
-   */
-   #header{
-       background: #f60;
-       padding: 20px;
-       width: 984px;
-       width: -moz-calc(100% - 40px);
-       width: -webkit-calc(100% - 40px);
-       width: calc(100% - 40px);
-   }
-   #footer{
-       clear: both;
-       background: #000;
-       padding: 20px;
-       color: #fff;
-       width: 984px;
-       width: -moz-calc(100% - 40px);
-       width: -webkit-calc(100% - 40px);
-       width: calc(100% - 40px);
-   }
-   /*给主内容设置样式
-     给主内容设置一个8px的边框,20px的内距,并且向左浮动,同时设置一个向右的外边距&quot;20&quot;px
-     关键之处,我们主内容占容器宽度的75%,这样一来,主内容的宽度应该是:
-     &quot;75% - 8px * 2 - 20px * 2&quot;
-   */
-   #main{
-       border: 8px solid #B8C172;
-       float: left;
-       padding: 20px;
-       margin-right: 20px;
-       margin-bottom: 20px;
-       width: 704px;
-       width: -moz-calc(75% - 20px * 2 - 8px * 2);
-       width: -webkit-calc(75% - 20px * 2 - 8px * 2);
-       width: calc(75% - 20px * 2 - 8px * 2);
-   }
-   /*设置右边栏样式
-     给边栏设置一个25%的宽度,其除了包含8px的边框,10px的内距外,还有主内容外距20px也要去掉
-     不然整个宽度与容器会相差20px,换句话说就会撑破容器掉下来.因此边栏的实际宽度应该是:
-     &quot;25% - 10px * 2 - 8px * 2 -20px&quot;  
-   */
-   #accessory{
-       border: 8px solid #B8C172;
-       float: left;
-       padding: 10px;
-       width: 208px;
-       width: -moz-calc(25% - 10px * 2 - 8px * 2 - 20px);
-       width: -webkit-calc(25% - 10px * 2 - 8px * 2 - 20px);
-       width: calc(25% - 10px * 2 - 8px * 2 - 20px);
-   }
-
-   &lt;div class=&quot;wrapper&quot;&gt;
-       &lt;div id=&quot;header&quot;&gt;header&lt;/div&gt;
-       &lt;div id=&quot;main&quot;&gt;main&lt;/div&gt;
-       &lt;div id=&quot;accessory&quot;&gt;accessory&lt;/div&gt;
-       &lt;div id=&quot;footer&quot;&gt;footer&lt;/div&gt;
-   &lt;/div&gt;
-</code></pre><p><img src="https://i.imgur.com/gF8nD6v.png" alt=""></p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/15/CSS3之阴影/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Wanghai">
-      <meta itemprop="description" content="Wanghai个人站，主要涉及前端知识共享、实践教程、前沿技术共同学习等方面">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="welcome">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2018/11/15/CSS3之阴影/" class="post-title-link" itemprop="http://yoursite.com/page/2/index.html">CSS3之阴影</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2018-11-15 17:17:33" itemprop="dateCreated datePublished" datetime="2018-11-15T17:17:33+08:00">2018-11-15</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2018-12-13 15:39:36" itemprop="dateModified" datetime="2018-12-13T15:39:36+08:00">2018-12-13</time>
-              
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h4 id="1-盒子阴影"><a href="#1-盒子阴影" class="headerlink" title="1. 盒子阴影"></a><font color="red">1. 盒子阴影</font></h4><font color="red"><strong>box-shadow: X轴偏移量 Y轴偏移量 [阴影模糊半径] [阴影扩展半径] [阴影颜色] [投影方式];</strong></font>
-
-<p>例如  box-shadow:4px 2px 6px 7px #333333 inset;</p>
-<p>同一盒子，可以同时加多个阴影，阴影之间用”,”隔开</p>
-<p>例如  box-shadow:4px 2px 6px #f00,-4px -2px 6px #000,0px 0px 12px 5px #33CC00 inset;</p>
-<h4 id="2-字体阴影"><a href="#2-字体阴影" class="headerlink" title="2. 字体阴影"></a><font color="red">2. 字体阴影</font></h4><p>text-shadow:X-Offset Y-Offset blur color;</p>
-<ol>
-<li><font color="red">X-Offset</font>:表示阴影的水平偏移距离,其值为正值时阴影向右偏移,反之向左偏移;</li>
-<li><font color="red">Y-Offset</font>:是指阴影的垂直偏移距离,如果其值是正值时,阴影向下偏移,反之向上偏移;</li>
-<li><font color="red">Blur</font>:是指阴影的模糊程度,其值不能是负值,如果值越大,阴影越模糊,反之阴影越清晰,如果不需要阴影模糊可以将Blur值设置为0;</li>
-<li><font color="red">Color</font>:是指阴影的颜色,其可以使用rgba色;</li>
-</ol>
-<pre><code>*{
-    margin: 0;
-    padding: 0;
-}
-div{
-    /*3. 实现书摆放在桌子上的效果*/
-    width: 200px;
-    height: 200px;
-    background-color: red;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%,-50%);
-    background: #e0e1dc;
-    text-align: center;
-    line-height: 200px;
-    color: #fff;
-    font-weight: 900;
-    font-size: 24px;
-    text-shadow: 5px 2px 3px grey;
-    box-shadow: 10px 0 10px 0 grey;
-}
-&lt;div&gt;This is a page&lt;/div&gt;
-</code></pre><p><img src="https://i.imgur.com/nllEayT.png" alt=""></p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/14/CSS3新增背景属性/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Wanghai">
-      <meta itemprop="description" content="Wanghai个人站，主要涉及前端知识共享、实践教程、前沿技术共同学习等方面">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="welcome">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2018/11/14/CSS3新增背景属性/" class="post-title-link" itemprop="http://yoursite.com/page/2/index.html">CSS3新增背景属性</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2018-11-14 17:17:33" itemprop="dateCreated datePublished" datetime="2018-11-14T17:17:33+08:00">2018-11-14</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2018-12-14 10:49:30" itemprop="dateModified" datetime="2018-12-14T10:49:30+08:00">2018-12-14</time>
-              
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h4 id="1-background-origin-背景的起始位置"><a href="#1-background-origin-背景的起始位置" class="headerlink" title="1.background-origin 背景的起始位置"></a><font color="red">1.background-origin 背景的起始位置</font></h4><p> background-origin: border-box || padding-box || content-box;</p>
-<p> background-Origin属性指定了背景图像的位置区域。</p>
-<p> content-box, padding-box,和 border-box区域内可以放置背景图像。</p>
-<p><img src="https://i.imgur.com/6sqcM3E.png" alt=""></p>
-<p>效果: 设置的盒子存在 border padding content(用户设置的width height)</p>
-<p>1.padding-box(默认值); 设置背景图片的位置从padding(内边距)开始放置</p>
-<pre><code>将border设置为透明，方便查看不同属性的效果
-
-div{
-        width: 600px;
-        height: 400px; 
-        padding: 30px;
-        border: 50px solid rgba(104, 104, 98, .3);
-        background-image: url(&apos;./images/g.jpg&apos;);
-        background-repeat: no-repeat;
-        background-size: 100%;
-        background-origin: padding-box;
-    }
-&lt;div&gt;&lt;/div&gt;
-</code></pre><p><img src="https://i.imgur.com/FfrdQdM.png" alt=""></p>
-<p>2.border-box; 设置背景图片的起始位置从border开始 </p>
-<pre><code>div{
-        width: 600px;
-        height: 400px; 
-        padding: 30px;
-        border: 50px solid rgba(104, 104, 98, .3);
-        background-image: url(&apos;./images/g.jpg&apos;);
-        background-repeat: no-repeat;
-        background-size: 100%;
-        background-origin: border-box;
-    }
-</code></pre><p><img src="https://i.imgur.com/HqhZHyP.png" alt=""></p>
-<p>3.content-box; 设置背景图片的位置从用户设置的内容区开始放置</p>
-<pre><code>div{
-        width: 600px;
-        height: 400px; 
-        padding: 30px;
-        border: 50px solid rgba(104, 104, 98, .3);
-        background-image: url(&apos;./images/g.jpg&apos;);
-        background-repeat: no-repeat;
-        background-size: 100%;
-        background-origin: content-box
-    }
-</code></pre><p><img src="https://i.imgur.com/cGEPCMS.png" alt=""></p>
-<h4 id="2-background-clip-背景裁剪"><a href="#2-background-clip-背景裁剪" class="headerlink" title="2.background-clip 背景裁剪"></a><font color="red">2.background-clip 背景裁剪</font></h4><p>   background-clip: border-box || padding-box || content-box || no-clip</p>
-<p>效果:背景图片默认不裁剪 案例设置了背景图片的起始位置 为boder部分开始 </p>
-<p>1.no-clip（默认值）; 不裁剪背景图片。</p>
-<pre><code>div{
-    width: 600px;
-    height: 400px; 
-    padding: 30px;
-    border: 50px solid rgba(104, 104, 98, .3);
-    background-image: url(&apos;./images/g.jpg&apos;);
-    background-repeat: no-repeat;
-    background-size: 100%;
-    background-clip: no-clip;
-}
-&lt;div&gt;&lt;/div&gt;
-</code></pre><p><img src="https://i.imgur.com/cIcEAfG.png" alt=""></p>
-<p>2.padding-box; 保留padding + content 部分的背景图片将padding以外的背景图片裁剪掉</p>
-<pre><code>div{
-    width: 600px;
-    height: 400px; 
-    padding: 30px;
-    border: 50px solid rgba(104, 104, 98, .3);
-    background-image: url(&apos;./images/g.jpg&apos;);
-    background-repeat: no-repeat;
-    background-size: 100%;
-    background-clip: padding-box;
-}
-</code></pre><p><img src="https://i.imgur.com/5TTaZxn.png" alt=""></p>
-<p>3.content-box; 保留content 部分的背景图片将content以外的背景图片裁剪掉</p>
-<pre><code>    div{
-    width: 600px;
-    height: 400px; 
-    padding: 30px;
-    border: 50px solid rgba(104, 104, 98, .3);
-    background-image: url(&apos;./images/g.jpg&apos;);
-    background-repeat: no-repeat;
-    background-size: 100%;
-    background-clip: content-box;
-}
-</code></pre><p><img src="https://i.imgur.com/JDUlVmS.png" alt=""></p>
-<p>4.border-box; 保留border以内的背景图片将border以外的背景图片裁剪掉。</p>
-<pre><code>        div{
-    width: 600px;
-    height: 400px; 
-    padding: 30px;
-    border: 50px solid rgba(104, 104, 98, .3);
-    background-image: url(&apos;./images/g.jpg&apos;);
-    background-repeat: no-repeat;
-    background-size: 100%;
-    background-clip: border-box;
-}
-</code></pre><p><img src="https://i.imgur.com/fpuDeW0.png" alt=""></p>
-<p> 注意: border-box和no-clip 的效果相同 但是含义不同</p>
-<h4 id="3-background-size-背景图片大小"><a href="#3-background-size-背景图片大小" class="headerlink" title="3.background-size 背景图片大小"></a><font color="red">3.background-size 背景图片大小</font></h4><p>  background-size: cover || contain || 百分比 || 像素值</p>
-<pre><code>div{
-    width: 600px;
-    height: 400px; 
-    padding: 30px;
-    border: 10px solid rgba(104, 104, 98, .5);
-    background-image: url(&apos;./images/g.jpg&apos;);
-    background-repeat: no-repeat;
-}
-&lt;div&gt;&lt;/div&gt;
-</code></pre><p><img src="https://i.imgur.com/JmaEys4.png" alt=""></p>
-<p>1.cover: 覆盖 图片会按照指定比例放大或缩小的填充,放大缩小的比例取决于图片的宽:放置的盒子的内容区的宽和图片的高:放置在盒子的内容区的高的大小的取较大的一个。</p>
-<pre><code>div{
-        width: 600px;
-        height: 400px; 
-        padding: 30px;
-        border: 10px solid rgba(104, 104, 98, .5);
-        background-image: url(&apos;./images/g.jpg&apos;);
-        background-repeat: no-repeat;
-        background-size: cover;
-    }
-</code></pre><p><img src="https://i.imgur.com/48yV8Pg.png" alt=""></p>
-<p>2.contain: 包含 图片会按照指定比例扩大或缩小的填充,放大缩小的比例取决于图片的宽:放置的盒子的内容区的宽和图片的高:放置在盒子的内容区的高的大小的取较小的一个。</p>
-<pre><code>div{
-        width: 600px;
-        height: 400px; 
-        padding: 30px;
-        border: 10px solid rgba(104, 104, 98, .5);
-        background-image: url(&apos;./images/g.jpg&apos;);
-        background-repeat: no-repeat;
-        background-size: contain;
-    }
-</code></pre><p><img src="https://i.imgur.com/CHOZHYs.png" alt=""></p>
-<p>3.一个具体像素值(若是百分比则表示相对于可显示区的大小)代表的是图片的宽度扩大或缩放到该像素值,而图片的宽高比是不变的</p>
-<pre><code>div{
-        width: 600px;
-        height: 400px; 
-        padding: 30px;
-        border: 10px solid rgba(104, 104, 98, .5);
-        background-image: url(&apos;./images/g.jpg&apos;);
-        background-repeat: no-repeat;
-        background-size: 210px;
-    }
-</code></pre><p><img src="https://i.imgur.com/Dmn7xVl.png" alt=""></p>
-<p>4.两个具体像素值(若是百分比则表示相对于可显示区的大小)代表的是图片的宽度和高度分别缩放或扩大到指定像素值,图片的宽高比取决于设置的像素比</p>
-<pre><code>div{
-        width: 600px;
-        height: 400px; 
-        padding: 30px;
-        border: 10px solid rgba(104, 104, 98, .5);
-        background-image: url(&apos;./images/g.jpg&apos;);
-        background-repeat: no-repeat;
-        background-size: 400px 400px;
-    }
-</code></pre><p><img src="https://i.imgur.com/bRo38OL.png" alt=""></p>
-<h4 id="4-background-image-背景图片"><a href="#4-background-image-背景图片" class="headerlink" title="4.background-image 背景图片"></a><font color="red">4.background-image 背景图片</font></h4><p>CSS3中可以通过background-image属性添加背景图片。</p>
-<p>不同的背景图像和图像用逗号隔开，所有的图片中显示在最顶端的为第一张。</p>
-<pre><code>&lt;style&gt;
-#examplel{
-        width: 658px;
-        height: 1059px;
-        background-image: url(&apos;./images/bg2.png&apos;), 
-        url(&apos;./images/cat1.png&apos;), url(&apos;./images/cat2.png&apos;), 
-        url(&apos;./images/cat3.png&apos;), url(&apos;./images/cat4.png&apos;), 
-        url(&apos;./images/cat5.png&apos;), url(&apos;./images/cat6.png&apos;);
-        background-position: left top ,
-        left top, right top, center top, 
-        left center, center, 200px 200px;
-        background-repeat: no-repeat;
-        padding: 15px;
-}
-&lt;/style&gt;
-&lt;div id=&quot;examplel&quot;&gt;&lt;/div&gt;
-</code></pre><p><img src="https://i.imgur.com/DlCySK9.png" alt=""></p>
-<h4 id="5-background-position-背景定位"><a href="#5-background-position-背景定位" class="headerlink" title="5.background-position 背景定位"></a><font color="red">5.background-position 背景定位</font></h4><p>  background-position: left top || left bottom || right top || right bottom || center center || 像素值 || 百分比</p>
-<p>(注: 没写的参数都是默认值center)</p>
-<p>1.设置background-position:left top 代表背景图片要放在内容区的左上角的位置（默认值）</p>
-<p>2.设置background-position: left; 将背景图片要放在内容区的左侧中间的位置 </p>
-<p>   设置background-position: left bottom; 将背景图片要放在内容区的左下角的位置</p>
-<p>3.设置background-position: right; 将背景图片要放在内容区的右侧中间的位置</p>
-<p>4.设置background-position: right top; 将背景图片要放在内容区的右侧上角的位置</p>
-<p>5.设置background-position: right bottom; 将背景图片要放在内容区的右侧下角的位置</p>
-<p>6.设置background-position: center; 将背景图片要放在内容区中间的位置</p>
-<p>7.设置background-position: 100px;       即沿x轴平移100px;</p>
-<p>8.设置background-position: 100px 100px; 将背景图片要放在内容区水平位置100px 垂直位置100px的位置,即沿x轴平移100px，沿y轴平移100px</p>
-<p>9.设置background-position: 20%;      将背景图片要放在内容区水平位置20%的位置。 </p>
-<p>10.设置background-position: 20% 20%; 将背景图片要放在内容区水平位置20%，竖直位置20% 的位置。</p>
-<p>第一个参数:0%是最左边 100%是最右边 中间平分。第二个参数： 0%是最上边，100%是最下边 中间平分。</p>
-
           
         
       
@@ -3137,7 +2870,7 @@ div{
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -3167,7 +2900,7 @@ div{
 
       <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
               <p class="site-author-name" itemprop="name">Wanghai</p>
               <p class="site-description motion-element" itemprop="description">Wanghai个人站，主要涉及前端知识共享、实践教程、前沿技术共同学习等方面</p>
@@ -3180,7 +2913,7 @@ div{
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">33</span>
+                    <span class="site-state-item-count">43</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>

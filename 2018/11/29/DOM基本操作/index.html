@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.6.0" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/icon.jpg?v=6.6.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/icon.jpg?v=6.6.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/icon.jpg?v=6.6.0">
+
+
+  <link rel="mask-icon" href="/images/icon.jpg?v=6.6.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.6.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="什么是DOM• DOM的全称是Document Object Model 文档对象模型，DOM定义了表示和修改文档所需的对象、这些对象的行为和属性以及这些对象之间的关系。 • DOM对象即为宿主对象，由浏览器厂商定义，用来操作html的css功能的一类对象和集合。不过浏览器厂商之间大部分都遵循w3c标准 • 简单来说，DOM就是用来操作html和css的，它是一系列对象的集合。 DOM如何操作HT">
+<meta property="og:type" content="article">
+<meta property="og:title" content="DOM基本操作">
+<meta property="og:url" content="http://yoursite.com/2018/11/29/DOM基本操作/index.html">
+<meta property="og:site_name" content="welcome">
+<meta property="og:description" content="什么是DOM• DOM的全称是Document Object Model 文档对象模型，DOM定义了表示和修改文档所需的对象、这些对象的行为和属性以及这些对象之间的关系。 • DOM对象即为宿主对象，由浏览器厂商定义，用来操作html的css功能的一类对象和集合。不过浏览器厂商之间大部分都遵循w3c标准 • 简单来说，DOM就是用来操作html和css的，它是一系列对象的集合。 DOM如何操作HT">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://i.imgur.com/gLybWJ7.png">
+<meta property="og:updated_time" content="2018-12-19T06:22:11.825Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="DOM基本操作">
+<meta name="twitter:description" content="什么是DOM• DOM的全称是Document Object Model 文档对象模型，DOM定义了表示和修改文档所需的对象、这些对象的行为和属性以及这些对象之间的关系。 • DOM对象即为宿主对象，由浏览器厂商定义，用来操作html的css功能的一类对象和集合。不过浏览器厂商之间大部分都遵循w3c标准 • 简单来说，DOM就是用来操作html和css的，它是一系列对象的集合。 DOM如何操作HT">
+<meta name="twitter:image" content="https://i.imgur.com/gLybWJ7.png">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="welcome" type="application/atom+xml" />
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/11/29/DOM基本操作/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>DOM基本操作 | welcome</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">welcome</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">求知若饥，虚心若愚</p>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br />Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br />Archives</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/29/DOM基本操作/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wanghai">
+      <meta itemprop="description" content="Wanghai个人站，主要涉及前端知识共享、实践教程、前沿技术共同学习等方面">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="welcome">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">DOM基本操作
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-11-29 17:16:33" itemprop="dateCreated datePublished" datetime="2018-11-29T17:16:33+08:00">2018-11-29</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2018-12-19 14:22:11" itemprop="dateModified" datetime="2018-12-19T14:22:11+08:00">2018-12-19</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="什么是DOM"><a href="#什么是DOM" class="headerlink" title="什么是DOM"></a><font color="red">什么是DOM</font></h2><p>• DOM的全称是<font color="red">Document Object Model 文档对象模型</font>，DOM定义了表示和修改文档所需的对象、这些对象的行为和属性以及这些对象之间的关系。</p>
+<p>• DOM对象即为宿主对象，由浏览器厂商定义，用来操作html的css功能的一类对象和集合。不过浏览器厂商之间大部分都遵循w3c标准</p>
+<p>• 简单来说，<font color="red">DOM就是用来操作html和css的，它是一系列对象的集合</font>。</p>
+<h2 id="DOM如何操作HTML"><a href="#DOM如何操作HTML" class="headerlink" title="DOM如何操作HTML"></a><font color="red">DOM如何操作HTML</font></h2><p>document代表整个文档，它也是一个dom元素，我们dom对html的操作，即使对html的增删改查。下面我就介绍一下dom都是如何增删改查html的。</p>
+<p>那么我们如何查看元素节点？</p>
+<p>•  <font color="red"><strong>document.getElementById();</strong></font>   元素id 在Ie8以下的浏览器,不区分id大小写,而且也返回匹配name属性的元素<br>•  <font color="red"><strong>getElementsByTagName();</strong></font>    标签名<br>•  <font color="red"><strong>getElementByName();</strong></font>       需注意,只有部分标签name可生效(表单,表单元素,img,iframe)<br>•  <font color="red"><strong>getElementsByClassName();</strong></font>  类名 ie8和ie8以下的ie版本中没有,可以多个class一起</p>
+<pre><code>var div = document.getElementsByClassName(&apos;demo demo1&apos;)[0];
+</code></pre><p>注意: 以上都是’实时’的</p>
+<p>•  <font color="red"><strong>querySelector();</strong></font><br>•  <font color="red"><strong>querySelectorAll();</strong></font></p>
+<p>我们知道选择元素最强的是css，而这两个里面写的参数就是我们css选择器的写法。<br>不过querySelector永远选择一组里面的第一个，所以返回的不是一个类数组而是一个具体的元素。<br>而我们如果要返回一个类数组的集合的话，那么就用第二个querySelectorAll()方法。</p>
+<pre><code>document.querySelector(‘div p #demo .demo);
+</code></pre><p>不过这两个方法的问题在于，他们返回的不像前面四个是一个实时改变的元素，而是一个副本。当我们用这两个方法选择出来元素之后，我们把本身那个元素修改一下，会发现我们选择出来的那个元素没有变化。<br>注意: css选择器 在ie7和ie7以下的版本中没有</p>
+<h2 id="节点"><a href="#节点" class="headerlink" title="节点"></a><font color="red">节点</font></h2><p>•  节点类型 ———— nodeType<br>•  元素节点 ———— 1<br>•  属性节点 ———— 2<br>•  文本节点 ———— 3<br>•  注释节点 ———— 8<br>•  document ———— 9<br>•  DocumentFragment ———— 11</p>
+<p><strong><font color="red">节点的四个属性</font></strong></p>
+<ol>
+<li>nodeName     元素的标签名,以大写形式表示 只读</li>
+<li>nodeValue    Text节点或Comment节点的文本内容 可读写</li>
+<li>nodeType     该节点的类型 只读</li>
+<li>attributes   Element 节点的属性集合</li>
+</ol>
+<p><strong><font color="red">节点的一个方法</font></strong><br>  Node.hasChildNodes();  判断是否有子节点</p>
+<p><strong><font color="red">遍历节点树</font></strong></p>
+<p>•  parentNode      ——&gt; 父节点<br>•  childNodes      ——&gt; 子节点<br>•  firstChild      ——&gt; 第一个子节点<br>•  lastChild       ——&gt; 最后一个子节点<br>•  nextSibling     ——&gt; 下一个兄弟节点<br>•  previousSibling ——&gt; 前一个兄弟节点</p>
+<p><strong><font color="red">元素节点树的遍历</font></strong></p>
+<p>•  parentElement          ——&gt; 返回当前元素的父元素节点 (IE不兼容)<br>•  children               ——&gt; 只返回当前元素的元素子节点<br>•  node.childElementCount === node.children.length当前元素节点的子元素节点个数(IE不兼容)<br>•  firstElementChild      ——&gt; 返回的是第一个元素节点(IE不兼容)<br>•  lastElementChild       ——&gt; 返回的是最后一个元素节点(IE不兼容)<br>•  nextElementSibling     ——&gt; 返回后一个元素节点（IE不兼容)<br>•  previousElementSibling ——&gt; 前一个兄弟元素节点（IE不兼容)</p>
+<p>例</p>
+<pre><code>&lt;div&gt;
+    &lt;!-- This is comment --&gt;
+    &lt;strong&gt;&lt;/strong&gt;
+    &lt;span&gt;&lt;/span&gt;
+&lt;/div&gt;
+该div里面有多少个节点?
+var div = document.getElementsByTagName(&apos;div&apos;);
+div.childNodes;// 7个节点
+</code></pre><h2 id="DOM树结构"><a href="#DOM树结构" class="headerlink" title="DOM树结构"></a><font color="red">DOM树结构</font></h2><p><img src="https://i.imgur.com/gLybWJ7.png" alt=""></p>
+<p>1.<strong>getElementById</strong>         方法定义在Document.prototype上，即Element节点上不能使用。<br>2.<strong>getElementsByName</strong>       方法定义在HTMLDocument.prototype上，即非html中的document以外不能使用(xml document,Element)<br>3.<strong>getElementsByTagName</strong>    方法定义在Document.prototype 和 Element.prototype上<br>4.<strong>HTMLDocument.prototype</strong>  定义了一些常用的属性，body,head,分别指代HTML文档中的<body><head><meta name="generator" content="Hexo 3.8.0">标签。<br>5.<strong>Document.prototype</strong>      上定义了documentElement属性，指代文档的根元素，在HTML文档中，他总是指代<html>元素<br>6.<strong>getElementsByClassName、querySelectorAll、querySelector</strong> 在Document,Element类中均有定义</html></head></body></p>
+<h2 id="DOM的增删改查"><a href="#DOM的增删改查" class="headerlink" title="DOM的增删改查"></a><font color="red">DOM的增删改查</font></h2><p><strong><font color="red">增加操作</font></strong></p>
+<p>1.<font color="red"><strong>创建元素节点 createElement</strong></font></p>
+<pre><code>var div = document.createElement(&apos;div&apos;);
+</code></pre><p>2.<font color="red"><strong>创建文本节点 document.createTextNode</strong></font></p>
+<pre><code>var text = document.createTextNode(&apos;hello&apos;);   
+</code></pre><p>3.<font color="red"><strong>创建注释节点 document.createComment</strong></font></p>
+<pre><code>var comment = document.createComment(&apos;comment&apos;);   
+</code></pre><p>4.<font color="red"><strong>创建文档碎片 document.createDocumentFragment</strong></font><br>这个方法可以创建一个文档碎片，我们在后面讲的有关提高性能的部分会用到这个方法。</p>
+<p><strong><font color="red">插入操作</font></strong></p>
+<p>1.<font color="red"><strong>appendChild(child);</strong></font></p>
+<p>这个是父级调用的方法，它会将child元素插入到父级里面，而且是放到逻辑后面的位置上。</p>
+<pre><code>div.appendChild(text);
+div.appendChild(comment);
+</code></pre><p>2.<font color="red"><strong>insertBefore(a, b);</strong></font></p>
+<p>这个依然是父节点调用的方法，它的意思是将a插入到b前面的位置上，其中b要求是这个父级的子节点。这个方法可以记作为 insert a before b;</p>
+<pre><code>var span = document.createElement(&apos;span&apos;);
+div.insertBefore(span, comment);// 把一个span元素插入到了刚才的注释文本前面
+</code></pre><p><strong><font color="red">删除操作</font></strong></p>
+<font color="red"><strong>removeChild</strong></font>
+
+<p>这个方法依然是父级调用的，参数就是要删除的子节点，其实实际上是剪切，这个方法会把我们删除掉的元素给返回，我们可以用一个变量去保存这个被删除的元素。</p>
+<pre><code>var div = document.body.remove(div);
+</code></pre><p><strong><font color="red">替换操作</font></strong></p>
+<font color="red"><strong>replaceChild(new, origin)</strong></font>
+
+<p>这个方法同样是父级调用，用新的元素new来替换原来的origin元素，原来的被替换掉的元素可以被返回，我们可以像删除操作那样用一个变量来保存。</p>
+<h2 id="Element节点的属性和方法"><a href="#Element节点的属性和方法" class="headerlink" title="Element节点的属性和方法"></a><font color="red">Element节点的属性和方法</font></h2><p><strong>属性:</strong></p>
+<p>1.<strong><font color="red">innerHTML</font></strong></p>
+<pre><code>div.innerHML = &apos;&lt;div&gt;123&lt;/div&gt;&apos;;
+</code></pre><p>我们可以直接通过这个属性来改变元素内部的结构和内容，不过注意它会直接删除掉以前的所有结构</p>
+<p>2.<strong><font color="red">innerText/textContent</font></strong></p>
+<p>innerText(火狐不兼容) / textContent(老版本IE不兼容)<br>这个属性可以直接调出来元素内部的文本信息，若果这个元素还有很多的子元素的话，那么会把子元素里面的文本信息一起返回。<br>不过需要注意的是，如果我们要改写innerText或者textContent的话，它会像innerHTML一样，<strong>先把内部的所有html结构先删除掉</strong>，然后再写入text文本</p>
+<p>• 这里提一下，如果我们有很多字符串要添加到一个元素的内部的话，虽然用innerHTML或者innerText方法，但是却不是用innerHML += str的方法，因为+=操作符的效率极低，当字符串很多的时候会非常非常消耗性能。</p>
+<p>遇到这种情况我们一般是用数组的join方法将字符串全部连接成一个字符串，然后一次性写入innerHTML。</p>
+<p><strong>方法:</strong></p>
+<p>1.<strong><font color="red">ele.setAttribute();</font></strong><br>这个方法可以设置元素的属性（特性），比如class、id等一些行间属性。</p>
+<pre><code>div.setAttribute(&apos;id&apos;, &apos;demo&apos;);   
+</code></pre><p>2.<strong><font color="red">ele.getAttribute();</font></strong><br>这个方法是获取元素的行间属性。</p>
+<pre><code>&lt;div&gt;&lt;/div&gt;
+&lt;span&gt;&lt;/span&gt;
+&lt;strong&gt;&lt;/strong&gt;
+
+var all = document.getElementsByTagName(&apos;*&apos;);//选中所有标签
+for(var i = 0;i &lt; all.length;i++){
+    all[i].setAttribute(&apos;this-name&apos;, all[i].nodeName);
+}
+</code></pre>
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/11/29/DOM基础练习/" rel="next" title="DOM基础练习">
+                <i class="fa fa-chevron-left"></i> DOM基础练习
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/11/30/Date对象与定时器/" rel="prev" title="Date对象与定时器">
+                Date对象与定时器 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Wanghai</p>
+              <p class="site-description motion-element" itemprop="description">Wanghai个人站，主要涉及前端知识共享、实践教程、前沿技术共同学习等方面</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">43</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是DOM"><span class="nav-number">1.</span> <span class="nav-text">什么是DOM</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DOM如何操作HTML"><span class="nav-number">2.</span> <span class="nav-text">DOM如何操作HTML</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#节点"><span class="nav-number">3.</span> <span class="nav-text">节点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DOM树结构"><span class="nav-number">4.</span> <span class="nav-text">DOM树结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DOM的增删改查"><span class="nav-number">5.</span> <span class="nav-text">DOM的增删改查</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Element节点的属性和方法"><span class="nav-number">6.</span> <span class="nav-text">Element节点的属性和方法</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Wanghai</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v6.6.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.6.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.6.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.6.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.6.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.6.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
