@@ -1340,7 +1340,7 @@ background: linear-gradient(red, orange,  yellow, green, blue, indigo, violet);
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2018-12-21 14:40:21" itemprop="dateModified" datetime="2018-12-21T14:40:21+08:00">2018-12-21</time>
+                <time title="Modified: 2018-12-21 14:45:40" itemprop="dateModified" datetime="2018-12-21T14:45:40+08:00">2018-12-21</time>
               
             
           </span>
@@ -1467,7 +1467,7 @@ var timer = setInterval(function () {
     }
     return retArr;
 }
-</code></pre><font color="red">getElementsByTagName(‘*’)</font>的意思是把文档中所有的标签都选择出来的意思。<br>这样我们就可以模拟jQuery的类名提取方式了。<br><br>#### <font color="red">文档碎片documentFragment</font> ####<br><br>这个文档碎片就是我们前面提到过nodeType区分节点时候的属性值11的那个文档碎片节点。<br><br>文档碎片可以当做<font color="red">容器</font>来进行<font color="red">效率的优化</font>。<br><br>当我们动态生成很多元素然后加入到文档的时候，因为每一次添加页面都会重新重绘重排一次，效率非常低。<br><br><font color="red">这个时候我们就可以把这些元素全部放到文档碎片里面，然后最后直接把整个文档碎片放进文档就可以了，这样页面只需要重绘重排一次即可。</font>
+</code></pre><font color="red">getElementsByTagName(‘*’)</font>的意思是把文档中所有的标签都选择出来的意思。<br>这样我们就可以模拟jQuery的类名提取方式了。<br><br><strong> <font color="red">文档碎片documentFragment</font> </strong><br><br>这个文档碎片就是我们前面提到过nodeType区分节点时候的属性值11的那个文档碎片节点。<br><br>文档碎片可以当做<font color="red">容器</font>来进行<font color="red">效率的优化</font>。<br><br>当我们动态生成很多元素然后加入到文档的时候，因为每一次添加页面都会重新重绘重排一次，效率非常低。<br><br><font color="red">这个时候我们就可以把这些元素全部放到文档碎片里面，然后最后直接把整个文档碎片放进文档就可以了，这样页面只需要重绘重排一次即可。</font>
 
 <pre><code>var fragment = document.createDocumentFragment();
 var div = document.createElement(‘div’);
