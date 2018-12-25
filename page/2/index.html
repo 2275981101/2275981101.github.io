@@ -368,7 +368,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2018-12-19 15:43:46" itemprop="dateModified" datetime="2018-12-19T15:43:46+08:00">2018-12-19</time>
+                <time title="Modified: 2018-12-25 10:29:42" itemprop="dateModified" datetime="2018-12-25T10:29:42+08:00">2018-12-25</time>
               
             
           </span>
@@ -417,7 +417,7 @@
     height; 100px;
     background-color: red;
 }
-window.getComputedStyle(div, ‘after’).width;// 100px
+window.getComputedStyle(div, &apos;after&apos;).width;// 100px
 </code></pre><p>IE8有一个特殊的查询样式<font color="red">ele.currentStyle</font>。</p>
 <p>计算样式只读，IE独有的属性，返回的计算样式的值不是经过转换的绝对值</p>
 <p>封装兼容性方法getStyle(obj,prop);</p>
@@ -1095,7 +1095,7 @@ seconds: &lt;input type=&quot;text&quot; value=&quot;0&quot;&gt;
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2018-12-19 14:22:11" itemprop="dateModified" datetime="2018-12-19T14:22:11+08:00">2018-12-19</time>
+                <time title="Modified: 2018-12-25 10:33:15" itemprop="dateModified" datetime="2018-12-25T10:33:15+08:00">2018-12-25</time>
               
             
           </span>
@@ -1140,7 +1140,7 @@ seconds: &lt;input type=&quot;text&quot; value=&quot;0&quot;&gt;
 </code></pre><p>注意: 以上都是’实时’的</p>
 <p>•  <font color="red"><strong>querySelector();</strong></font><br>•  <font color="red"><strong>querySelectorAll();</strong></font></p>
 <p>我们知道选择元素最强的是css，而这两个里面写的参数就是我们css选择器的写法。<br>不过querySelector永远选择一组里面的第一个，所以返回的不是一个类数组而是一个具体的元素。<br>而我们如果要返回一个类数组的集合的话，那么就用第二个querySelectorAll()方法。</p>
-<pre><code>document.querySelector(‘div p #demo .demo);
+<pre><code>document.querySelector(&apos;div p #demo .demo&apos;);
 </code></pre><p>不过这两个方法的问题在于，他们返回的不像前面四个是一个实时改变的元素，而是一个副本。当我们用这两个方法选择出来元素之后，我们把本身那个元素修改一下，会发现我们选择出来的那个元素没有变化。<br>注意: css选择器 在ie7和ie7以下的版本中没有</p>
 <h2 id="节点"><a href="#节点" class="headerlink" title="节点"></a><font color="red">节点</font></h2><p>•  节点类型 ———— nodeType<br>•  元素节点 ———— 1<br>•  属性节点 ———— 2<br>•  文本节点 ———— 3<br>•  注释节点 ———— 8<br>•  document ———— 9<br>•  DocumentFragment ———— 11</p>
 <p><strong><font color="red">节点的四个属性</font></strong></p>
@@ -2037,7 +2037,7 @@ var newArr = arr.unique();
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2018-12-18 17:43:54" itemprop="dateModified" datetime="2018-12-18T17:43:54+08:00">2018-12-18</time>
+                <time title="Modified: 2018-12-25 10:29:19" itemprop="dateModified" datetime="2018-12-25T10:29:19+08:00">2018-12-25</time>
               
             
           </span>
@@ -2119,9 +2119,9 @@ console.log(obj2.name);// scarlett
 }
 </code></pre><p>现在我们来测试一下：</p>
 <pre><code>var parent = {
-      name : ‘ScarLet’,
+      name : &apos;ScarLet&apos;,
       age : 123,
-      sex : ‘male’,
+      sex : &apos;male&apos;,
       height : 190,
       money: [1,2,3,4,5]
 }

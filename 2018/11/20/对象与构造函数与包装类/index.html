@@ -115,7 +115,7 @@
 <meta property="og:site_name" content="welcome">
 <meta property="og:description" content="对象创建方法对象的创建方法有三种：  对象字面量 var obj = {}   这样的方式就叫做字面量，也是我们创建对象最简单最常用的方法。 对象里面有属性，属性之间用逗号分隔，每一条属性都有属性名和属性值，属性名和属性值之间用分号分隔。  构造函数  构造函数也分两种：系统自带的构造函数和我们自定义的构造函数。 • 系统自带的构造函数 创建对象的构造函数是Object()。 var obj =">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-12-18T08:53:35.541Z">
+<meta property="og:updated_time" content="2018-12-25T02:31:06.489Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="对象与构造函数与包装类">
 <meta name="twitter:description" content="对象创建方法对象的创建方法有三种：  对象字面量 var obj = {}   这样的方式就叫做字面量，也是我们创建对象最简单最常用的方法。 对象里面有属性，属性之间用逗号分隔，每一条属性都有属性名和属性值，属性名和属性值之间用分号分隔。  构造函数  构造函数也分两种：系统自带的构造函数和我们自定义的构造函数。 • 系统自带的构造函数 创建对象的构造函数是Object()。 var obj =">
@@ -366,7 +366,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2018-12-18 16:53:35" itemprop="dateModified" datetime="2018-12-18T16:53:35+08:00">2018-12-18</time>
+                <time title="Modified: 2018-12-25 10:31:06" itemprop="dateModified" datetime="2018-12-25T10:31:06+08:00">2018-12-25</time>
               
             
           </span>
@@ -508,8 +508,8 @@ obj.name;// undefined
 <p>包装类型的值做了两件事,第一件事:封装一个值,然后还提供了对这个值操作的API.</p>
 <p>如何使用:他都是自动创建,自动销毁</p>
 <p>什么时候创建:在试图用原始类型的值,调用函数时,会自动创建对应类型的包装类型对象.调用完函数后自动释放</p>
-<pre><code>var str = ‘abcd’;
-// var str1 = String(‘abcd’);
+<pre><code>var str = &apos;abcd&apos;;
+// var str1 = String(&apos;abcd&apos;);
 str.length = 2; // str1.length = 2;
 //销毁str1
 console.log(str); // abcd 长度还是4

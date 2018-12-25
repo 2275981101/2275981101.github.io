@@ -115,7 +115,7 @@
 <meta property="og:site_name" content="welcome">
 <meta property="og:description" content="事件处理模型——事件冒泡、事件捕获上一篇介绍了事件的绑定，我们这里先写一个三层div嵌套的结构并且给每一个div都加一个点击事件。 .wrapper{     width: 200px;     height: 200px;     background-color: red; } .box{     width: 100px;     height: 100px;     background-">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-12-19T09:41:39.595Z">
+<meta property="og:updated_time" content="2018-12-25T02:28:04.320Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="事件处理模型与事件委托">
 <meta name="twitter:description" content="事件处理模型——事件冒泡、事件捕获上一篇介绍了事件的绑定，我们这里先写一个三层div嵌套的结构并且给每一个div都加一个点击事件。 .wrapper{     width: 200px;     height: 200px;     background-color: red; } .box{     width: 100px;     height: 100px;     background-">
@@ -366,7 +366,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2018-12-19 17:41:39" itemprop="dateModified" datetime="2018-12-19T17:41:39+08:00">2018-12-19</time>
+                <time title="Modified: 2018-12-25 10:28:04" itemprop="dateModified" datetime="2018-12-25T10:28:04+08:00">2018-12-25</time>
               
             
           </span>
@@ -555,7 +555,7 @@ a.addEventListener(&apos;click&apos;, funciton (e) {
     e.cancelHandler(e);
 },false);
 </code></pre><p>同时我们还可以用a标签的第四个用处，协议限定符来阻止默认事件。</p>
-<pre><code>&lt;a href=“javascript: void(0); “&gt;www.baidu.com&lt;/a&gt;
+<pre><code>&lt;a href=&quot;javascript: void(0); &quot;&gt;www.baidu.com&lt;/a&gt;
 </code></pre><p>不仅仅是0，只要填写一个代表false的值，就可以取消掉默认事件。</p>
 <h2 id="事件对象"><a href="#事件对象" class="headerlink" title="事件对象"></a><font color="red">事件对象</font></h2><p><font color="red">在IE中，系统不会把事件对象传到方法中，因此我们的参数e或者event在IE中是不好用的，IE会把事件对象传递到window.event上</font>，所以当我们使用事件对象的时候，就要写兼容性的写法：</p>
 <pre><code>var event = e || window.event;

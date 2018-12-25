@@ -115,7 +115,7 @@
 <meta property="og:site_name" content="welcome">
 <meta property="og:description" content="读写元素css属性 每一个dom元素都有一个属性style，dom.style里面存放的这个元素的行间样式，我们可以通过这个属性来读写元素的行间样式。 1.碰到float这样的关键字属性的时候，前面要加一个css前缀。float — &amp;gt; cssFloat 2.复合属性必须拆解，组合单词变成小驼峰式写法，写入的值必须是字符串格式.如 border: 1px solid red;只能写borde">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-12-19T07:43:46.306Z">
+<meta property="og:updated_time" content="2018-12-25T02:29:42.858Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="脚本化CSS">
 <meta name="twitter:description" content="读写元素css属性 每一个dom元素都有一个属性style，dom.style里面存放的这个元素的行间样式，我们可以通过这个属性来读写元素的行间样式。 1.碰到float这样的关键字属性的时候，前面要加一个css前缀。float — &amp;gt; cssFloat 2.复合属性必须拆解，组合单词变成小驼峰式写法，写入的值必须是字符串格式.如 border: 1px solid red;只能写borde">
@@ -366,7 +366,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2018-12-19 15:43:46" itemprop="dateModified" datetime="2018-12-19T15:43:46+08:00">2018-12-19</time>
+                <time title="Modified: 2018-12-25 10:29:42" itemprop="dateModified" datetime="2018-12-25T10:29:42+08:00">2018-12-25</time>
               
             
           </span>
@@ -413,7 +413,7 @@
     height; 100px;
     background-color: red;
 }
-window.getComputedStyle(div, ‘after’).width;// 100px
+window.getComputedStyle(div, &apos;after&apos;).width;// 100px
 </code></pre><p>IE8有一个特殊的查询样式<font color="red">ele.currentStyle</font>。</p>
 <p>计算样式只读，IE独有的属性，返回的计算样式的值不是经过转换的绝对值</p>
 <p>封装兼容性方法getStyle(obj,prop);</p>

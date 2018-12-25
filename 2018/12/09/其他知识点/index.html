@@ -115,7 +115,7 @@
 <meta property="og:site_name" content="welcome">
 <meta property="og:description" content="如何像JQuery里面一样连续调用 (return this)var deng = {     smoke : function(){         console.log(&amp;apos;Smoking...!!!&amp;apos;);         return this;         //隐式 return undefined     },     drink : function(){">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-12-21T06:45:40.919Z">
+<meta property="og:updated_time" content="2018-12-25T02:28:53.225Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="其他小知识点">
 <meta name="twitter:description" content="如何像JQuery里面一样连续调用 (return this)var deng = {     smoke : function(){         console.log(&amp;apos;Smoking...!!!&amp;apos;);         return this;         //隐式 return undefined     },     drink : function(){">
@@ -366,7 +366,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2018-12-21 14:45:40" itemprop="dateModified" datetime="2018-12-21T14:45:40+08:00">2018-12-21</time>
+                <time title="Modified: 2018-12-25 10:28:53" itemprop="dateModified" datetime="2018-12-25T10:28:53+08:00">2018-12-25</time>
               
             
           </span>
@@ -436,7 +436,7 @@ test();
 &lt;input type=&quot;text&quot; id=&quot;demo&quot; /&gt;
 </code></pre><p>现在我们点击username这个label标签，也可以触发input的聚焦事件，就好像这两个是一个东西一样，可以提高用户体验。<br>另外，我们如果在js代码中要表示label标签的for属性的话，要写<font color="red">htmlFor</font>，而不能直接写for。</p>
 <h4 id="属性映射"><a href="#属性映射" class="headerlink" title="属性映射"></a><font color="red">属性映射</font></h4><p>这里的映射是指标签的行间属性（特性）和DOM对象的属性之间的映射关系。</p>
-<pre><code>&lt;div class=“demo” id=“only” data-log=“123” abc=“a”&gt;&lt;/div&gt;
+<pre><code>&lt;div class=&quot;demo&quot; id=&quot;only&quot; data-log=&quot;123&quot; abc=&quot;a&quot;&gt;&lt;/div&gt;
 </code></pre><p>class和id属性是系统自带的，后两个属性是我们自己写的属性。<br>而我们获取出来的DOM对象div，可以通过div.className和div.id的方式来改写行间的属性值，但是却没法通过div.data-log或者div.abc来改写行间属性。</p>
 <p>这是因为系统默认的属性之间是有一种映射关系的，我们可以直接修改DOM的属性来修改行间属性，但是对于我们自己设置的属性，就只能通过<font color="red">setAttribute</font>和<font color="red">getAttribute</font>来设置和获取了。</p>
 <p>js引擎特殊赋予的映射关系有：class、id、style、value等属性。</p>
@@ -494,9 +494,9 @@ var timer = setInterval(function () {
 </code></pre><font color="red">getElementsByTagName(‘*’)</font>的意思是把文档中所有的标签都选择出来的意思。<br>这样我们就可以模拟jQuery的类名提取方式了。<br><br><strong> <font color="red">文档碎片documentFragment</font> </strong><br><br>这个文档碎片就是我们前面提到过nodeType区分节点时候的属性值11的那个文档碎片节点。<br><br>文档碎片可以当做<font color="red">容器</font>来进行<font color="red">效率的优化</font>。<br><br>当我们动态生成很多元素然后加入到文档的时候，因为每一次添加页面都会重新重绘重排一次，效率非常低。<br><br><font color="red">这个时候我们就可以把这些元素全部放到文档碎片里面，然后最后直接把整个文档碎片放进文档就可以了，这样页面只需要重绘重排一次即可。</font>
 
 <pre><code>var fragment = document.createDocumentFragment();
-var div = document.createElement(‘div’);
-var span = document.createElement(‘span’);
-var p = document.createElement(‘p’);
+var div = document.createElement(&apos;div&apos;);
+var span = document.createElement(&apos;span&apos;);
+var p = document.createElement(&apos;p&apos;);
 fragment.appendChild(div);
 fragment.appendChild(span);
 fragment.appendChild(p);

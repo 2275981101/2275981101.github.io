@@ -115,7 +115,7 @@
 <meta property="og:site_name" content="welcome">
 <meta property="og:description" content="先介绍一下JSON我们传输数据就两种格式：xml和json。 xml是以html为模板，自定义标签名作为数据名来传递数据，书写起来很麻烦，现在多用json，很少使用xml。 json是传输数据的另一种格式，它是以对象为模板（本质上就是对象，但是用途有所区别，对象是本地使用，json是用来传输数据）。 不过我们传输数据的时候并不能将一个json对象直接传过去，我们只能传过去json形式的字符串，这个">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-12-19T10:03:49.469Z">
+<meta property="og:updated_time" content="2018-12-25T02:24:35.613Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="异步加载JS">
 <meta name="twitter:description" content="先介绍一下JSON我们传输数据就两种格式：xml和json。 xml是以html为模板，自定义标签名作为数据名来传递数据，书写起来很麻烦，现在多用json，很少使用xml。 json是传输数据的另一种格式，它是以对象为模板（本质上就是对象，但是用途有所区别，对象是本地使用，json是用来传输数据）。 不过我们传输数据的时候并不能将一个json对象直接传过去，我们只能传过去json形式的字符串，这个">
@@ -366,7 +366,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2018-12-19 18:03:49" itemprop="dateModified" datetime="2018-12-19T18:03:49+08:00">2018-12-19</time>
+                <time title="Modified: 2018-12-25 10:24:35" itemprop="dateModified" datetime="2018-12-25T10:24:35+08:00">2018-12-25</time>
               
             
           </span>
@@ -427,8 +427,8 @@ var str1 = JSON.parse(str);
 <p>现在有了html5标准之后，就有了另一套异步加载js的方法了。</p>
 <p>js异步加载的三种方案：</p>
 <p>1.<font color="red"><strong>defer</strong></font>异步加载</p>
-<p>我们在script标签的行间写一个defer=“defer”或者直接写defer，就可以让这个script变成异步加载了。但是这种异步只是针对下载方面，<font color="red"><strong>只有等DOMTree全部解析完成（不包括下载完里面的资源）后才会异步执行</strong></font>。而且这个方法<font color="red">只有IE和一些高版本的firefox和chrome可以用</font>。</p>
-<pre><code>&lt;script type=“text/javascript” defer=“defer”&gt;
+<p>我们在script标签的行间写一个defer=”defer”或者直接写defer，就可以让这个script变成异步加载了。但是这种异步只是针对下载方面，<font color="red"><strong>只有等DOMTree全部解析完成（不包括下载完里面的资源）后才会异步执行</strong></font>。而且这个方法<font color="red">只有IE和一些高版本的firefox和chrome可以用</font>。</p>
+<pre><code>&lt;script type=&quot;text/javascript&quot; defer=&quot;defer&quot;&gt;
     console.log(&apos;hello&apos;);
 &lt;/script&gt;
 </code></pre><p>不过这一种方式<font color="red">可以在script标签里面写代码</font>。</p>
