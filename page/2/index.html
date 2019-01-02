@@ -306,6 +306,242 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/03/事件分类/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wanghai">
+      <meta itemprop="description" content="Wanghai个人站，主要涉及前端知识共享、实践教程、前沿技术共同学习等方面">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="welcome">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2018/12/03/事件分类/" class="post-title-link" itemprop="http://yoursite.com/page/2/index.html">事件分类</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-12-03 17:16:33" itemprop="dateCreated datePublished" datetime="2018-12-03T17:16:33+08:00">2018-12-03</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2018-12-25 10:26:43" itemprop="dateModified" datetime="2018-12-25T10:26:43+08:00">2018-12-25</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="鼠标事件"><a href="#鼠标事件" class="headerlink" title="鼠标事件"></a><font color="red">鼠标事件</font></h4><p>click、contextmenu(右键菜单)、mouseover、mouseout、mousedown、mousemove、mouseup移动端对应的(touchstart、touchmove、touchend)</p>
+<p>• 所有的鼠标事件都有clientX和clientY，代表的是鼠标点击的位置，我们可以通过e.clientX和e.clentY来查看。</p>
+<p>• 左键点击的顺序是：mousedown、mouseup、click</p>
+<p>• 当我们同时绑定了click事件和mousedown事件后，如何解决mousedown和click的冲突问题？</p>
+<pre><code>var firstTime = 0;
+var laseTime = 0;
+var key = false;
+document.onmousedown = function(){
+    firstTime = new Date().getTime();
+}    
+document.onmouseup = function(){
+    laseTime = new Date().getTime();
+    if(laseTime - firstTime &lt; 300){
+        key = true;
+    }
+}
+document.onclikc = function(){
+    if(key){
+        console.log(&apos;click&apos;);
+        key = false;
+    }
+}
+</code></pre><p>click事件永远都是左键，有左键和右键的区别的是mousedown事件。</p>
+<p>再mousedown的事件对象中有一个属性叫做button，这个属性的值是0的时候代表我们按下的是左键，1的时候代表按下的中键，2的时候代表按下的是右键。</p>
+<pre><code>document.onmousedown = function (e) {
+  if (e.button == 0) {
+      console.log(&apos;left&apos;);
+  }else if (e.button == 1) {
+      console.log(&apos;mid&apos;);
+  }else {
+      console.log(&apos;right&apos;);
+  }
+}
+</code></pre><p>这里我们就可以重新回顾一下拖拽事件了：</p>
+<pre><code>var div = document.getElementsByTagName(&apos;div&apos;)[0]
+function drag(elem){
+    var disX,
+        disY;
+    addEvent(elem, &apos;mousedown&apos;, function(e){// 之前封装的事件绑定函数
+        var event = e || window.event;
+        disX = event.clientX - parseInt(getStyle(elem, &apos;left&apos;));// 之前封装的查询元素样式函数
+        disY = event.clientY - parseInt(getStyle(elem, &apos;top&apos;));
+        addEvent(document, &apos;mousemove&apos;, mouseMove);
+        addEvent(document, &apos;mouseup&apos;, mouseUp);
+        stopBubble(e);
+        cancelHandler(e);
+    });
+    function mouseMove(e){
+        var event = e || window.event;
+        elem.style.left = event.clientX - disX + &quot;px&quot;;
+        elem.style.top = event.clientY - disY + &quot;px&quot;;
+    }
+    function mouseUp(e){
+        var event = e || window.event;
+        removeEvent(document, &apos;mousemove&apos;, mouseMove);
+        removeEvent(document, &apos;mouseup&apos;, mouseUp);   
+    }
+}
+</code></pre><h4 id="键盘事件"><a href="#键盘事件" class="headerlink" title="键盘事件"></a><font color="red">键盘事件</font></h4><p>键盘事件主要有三个：keydown、keypress、keyup。<br>触发顺序分别是keydown &gt; keypress &gt; keyup。</p>
+<p>keypress的范围和keydown有所区别：</p>
+<p>keydown可以响应任意键盘按键，keypress只能响应字符类按键，也就是有ASCII码的字符的按键，像字母数字回车空格之类的。</p>
+<p>事件对象的属性方面：只有keypress有charCode属性，这个属性代表的我们输入的这个字符的ASCII码，配合SHIFT之类的按键可以直接获取大写字母等。</p>
+<p>keyCode和which每个方法都有，表示的是这个键的唯一标示，可以告诉浏览器我们按下的是键盘上的哪一个键，比如空格是32，32就代表空格。不过我们一般都用which，keyCode用的较少。</p>
+<p>• String上有一个方法叫做fromCharCode，可以接受一个Unicode值（包含ASCII值），然后返回对应的字符串，我们可以配合这个方法和charCode来直接获取输入的字符。</p>
+<pre><code>document.onkeypress = function(e){
+    console.log(String.fromCharCode(e.charCode));
+}
+</code></pre><h4 id="文本操作事件"><a href="#文本操作事件" class="headerlink" title="文本操作事件"></a><font color="red">文本操作事件</font></h4><p>input,focus,blur,change</p>
+<pre><code>&lt;input type=&quot;text&quot; value=&quot;请输入用户名&quot; style=&quot;color: #999;position: absolute;top: 200px&quot;
+onfocus=&quot;if(this.value==&apos;请输入用户名&apos;){this.value=&apos;&apos;;this.style.color=&apos;#424242&apos;}&quot;
+onblur=&quot;if(this.value==&apos;&apos;){this.value=&apos;请输入用户名&apos;;this.style.color=&apos;#999&apos;}&quot;&gt;
+</code></pre><h4 id="窗体操作类-window上的事件"><a href="#窗体操作类-window上的事件" class="headerlink" title="窗体操作类(window上的事件)"></a><font color="red">窗体操作类(window上的事件)</font></h4><p><strong><font color="red">load事件</font></strong></p>
+<p>这个事件window.onload和在body标签上写onload是一样的效果，作用是等页面中所有的东西都下载完成再执行里面的代码。</p>
+<p><strong><font color="red">scroll事件</font></strong></p>
+<p>这个方法是监听滚轮滚动的事件，我们可以用这个事件来写一个兼容版的fix定位。</p>
+<pre><code>function beFixed(ele){
+  var initPosX = ele.getPosition().w,
+      initPosY = ele.getPosition().h;
+  addEvent(window, &apos;scroll&apos;, function(e){
+      ele.style.top =  initPosY + getScrollOffset().h + &apos;px&apos;;
+      ele.style.left =  initPosX + getScrollOffset().w + &apos;px&apos;;
+  })
+}
+</code></pre>
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/02/脚本化CSS/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1033,6 +1269,237 @@ seconds: &lt;input type=&quot;text&quot; value=&quot;0&quot;&gt;
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/29/DOM基础练习/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wanghai">
+      <meta itemprop="description" content="Wanghai个人站，主要涉及前端知识共享、实践教程、前沿技术共同学习等方面">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="welcome">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2018/11/29/DOM基础练习/" class="post-title-link" itemprop="http://yoursite.com/page/2/index.html">DOM基础练习</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-11-29 17:16:33" itemprop="dateCreated datePublished" datetime="2018-11-29T17:16:33+08:00">2018-11-29</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2018-12-19 16:33:55" itemprop="dateModified" datetime="2018-12-19T16:33:55+08:00">2018-12-19</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><strong>遍历元素节点树</strong></p>
+<pre><code>function retChild(node) {
+     var child = node.childNodes,
+           len = child.length;
+     for(var i = 0; i &lt; len; i++){
+           if(child[i].nodeType === 1) {
+                console.log(child[i]);
+               child[i].hasChildNodes() &amp;&amp; retChild(child[i]);
+           }
+      }
+ }   
+</code></pre><p><strong>返回元素elem的第n层父元素的节点</strong></p>
+<pre><code>function retParent(elem, n){
+    //与elem 解决兼容性容错  比如n足够大会报错而此时会返回null
+    while(elem &amp;&amp; n){       
+        elem = elem.parentElement;
+        n --;
+    }
+    return elem;
+}
+var i = document.getElementsByTagName(&apos;i&apos;)[0];
+</code></pre><p><strong>封装myChildren功能,解决以前部分浏览器的兼容性问题</strong></p>
+<pre><code>Element.prototype.myChildren = function(){
+    var child = this.childNodes;
+    var len = child.length;
+    var arr = [];
+    for(var i = 0;i &lt; len;i++){
+        if(child[i].nodeType == 1){
+            arr.push(child[i]);
+        }
+    }
+    return arr;
+}
+var div = document.getElementsByTagName(&apos;div&apos;)[0];
+</code></pre><p><strong>封装函数,返回元素e的第n个兄弟元素节点n为正,返回后面的兄弟节点,n为负,返回前面的,n为0,返回自己</strong></p>
+<pre><code>function retSibling(e, n){
+    while( e &amp;&amp; n){//n = 0 循环退出     e &amp;&amp;: 解决兼容性容错
+        if( n &gt; 0){
+            if(0 &amp;&amp; e.nextElementSibling){
+                e = e.nextElementSibling;
+            }else{
+                // 将e的下一个兄弟节点赋值给e 然后看e节点类型是否是元素节点 不是就一直重复
+                // e &amp;&amp; :e如果为null会报错 e得有意义
+                for(e = e.nextSibling; e &amp;&amp; e.nodeType != 1;e = e.nextSibling);
+            }
+            n --;
+        }else{
+            if(e.previousElementSibling){
+                e = e.previousElementSibling;
+            }else{
+                for(e = e.previousElementSibling; e &amp;&amp; e.nodeType !=1;
+                e = e.previousElementSibling);
+            }
+            n ++;
+        }
+    }
+    return e;
+}
+</code></pre><p><strong>封装是否有元素子节点的方法</strong></p>
+<pre><code>Element.prototype.hasChildren = function () {
+      var child = this.childNodes,
+            len = child.length;
+      for( var i = 0; i &lt; len; i++){
+            if(child[i].nodeType == 1) {
+                  return true;
+            }
+      }
+      return false;
+}   
+</code></pre><p><strong>封装insertAfter方法,与insertBefore方法类似</strong></p>
+<pre><code>Element.prototype.insertAfter = function(targetNode, afterNode){
+    var beforeNode = afterNode.nextElementSibling;
+    if(beforeNode == null){//如果afterNode的下一个兄弟元素不存在
+        this.appendChild(targetNode);//直接添加在最后面
+    }else{
+        this.insertBefore(targetNode, beforeNode);
+    }
+}
+</code></pre>
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/29/DOM基本操作/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1211,237 +1678,6 @@ div.insertBefore(span, comment);// 把一个span元素插入到了刚才的注�
 var all = document.getElementsByTagName(&apos;*&apos;);//选中所有标签
 for(var i = 0;i &lt; all.length;i++){
     all[i].setAttribute(&apos;this-name&apos;, all[i].nodeName);
-}
-</code></pre>
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/29/DOM基础练习/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Wanghai">
-      <meta itemprop="description" content="Wanghai个人站，主要涉及前端知识共享、实践教程、前沿技术共同学习等方面">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="welcome">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2018/11/29/DOM基础练习/" class="post-title-link" itemprop="http://yoursite.com/page/2/index.html">DOM基础练习</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2018-11-29 17:16:33" itemprop="dateCreated datePublished" datetime="2018-11-29T17:16:33+08:00">2018-11-29</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2018-12-19 16:33:55" itemprop="dateModified" datetime="2018-12-19T16:33:55+08:00">2018-12-19</time>
-              
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><strong>遍历元素节点树</strong></p>
-<pre><code>function retChild(node) {
-     var child = node.childNodes,
-           len = child.length;
-     for(var i = 0; i &lt; len; i++){
-           if(child[i].nodeType === 1) {
-                console.log(child[i]);
-               child[i].hasChildNodes() &amp;&amp; retChild(child[i]);
-           }
-      }
- }   
-</code></pre><p><strong>返回元素elem的第n层父元素的节点</strong></p>
-<pre><code>function retParent(elem, n){
-    //与elem 解决兼容性容错  比如n足够大会报错而此时会返回null
-    while(elem &amp;&amp; n){       
-        elem = elem.parentElement;
-        n --;
-    }
-    return elem;
-}
-var i = document.getElementsByTagName(&apos;i&apos;)[0];
-</code></pre><p><strong>封装myChildren功能,解决以前部分浏览器的兼容性问题</strong></p>
-<pre><code>Element.prototype.myChildren = function(){
-    var child = this.childNodes;
-    var len = child.length;
-    var arr = [];
-    for(var i = 0;i &lt; len;i++){
-        if(child[i].nodeType == 1){
-            arr.push(child[i]);
-        }
-    }
-    return arr;
-}
-var div = document.getElementsByTagName(&apos;div&apos;)[0];
-</code></pre><p><strong>封装函数,返回元素e的第n个兄弟元素节点n为正,返回后面的兄弟节点,n为负,返回前面的,n为0,返回自己</strong></p>
-<pre><code>function retSibling(e, n){
-    while( e &amp;&amp; n){//n = 0 循环退出     e &amp;&amp;: 解决兼容性容错
-        if( n &gt; 0){
-            if(0 &amp;&amp; e.nextElementSibling){
-                e = e.nextElementSibling;
-            }else{
-                // 将e的下一个兄弟节点赋值给e 然后看e节点类型是否是元素节点 不是就一直重复
-                // e &amp;&amp; :e如果为null会报错 e得有意义
-                for(e = e.nextSibling; e &amp;&amp; e.nodeType != 1;e = e.nextSibling);
-            }
-            n --;
-        }else{
-            if(e.previousElementSibling){
-                e = e.previousElementSibling;
-            }else{
-                for(e = e.previousElementSibling; e &amp;&amp; e.nodeType !=1;
-                e = e.previousElementSibling);
-            }
-            n ++;
-        }
-    }
-    return e;
-}
-</code></pre><p><strong>封装是否有元素子节点的方法</strong></p>
-<pre><code>Element.prototype.hasChildren = function () {
-      var child = this.childNodes,
-            len = child.length;
-      for( var i = 0; i &lt; len; i++){
-            if(child[i].nodeType == 1) {
-                  return true;
-            }
-      }
-      return false;
-}   
-</code></pre><p><strong>封装insertAfter方法,与insertBefore方法类似</strong></p>
-<pre><code>Element.prototype.insertAfter = function(targetNode, afterNode){
-    var beforeNode = afterNode.nextElementSibling;
-    if(beforeNode == null){//如果afterNode的下一个兄弟元素不存在
-        this.appendChild(targetNode);//直接添加在最后面
-    }else{
-        this.insertBefore(targetNode, beforeNode);
-    }
 }
 </code></pre>
           
@@ -2643,229 +2879,6 @@ var car = new Car(100, &quot;花里胡哨的&quot;, &quot;真皮&quot;, &quot;re
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/24/对象枚举及访问属性的第二种方法/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Wanghai">
-      <meta itemprop="description" content="Wanghai个人站，主要涉及前端知识共享、实践教程、前沿技术共同学习等方面">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="welcome">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2018/11/24/对象枚举及访问属性的第二种方法/" class="post-title-link" itemprop="http://yoursite.com/page/2/index.html">对象枚举及访问属性的第二种方法</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2018-11-24 17:16:33" itemprop="dateCreated datePublished" datetime="2018-11-24T17:16:33+08:00">2018-11-24</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2018-12-18 16:49:49" itemprop="dateModified" datetime="2018-12-18T16:49:49+08:00">2018-12-18</time>
-              
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h4 id="对象的枚举"><a href="#对象的枚举" class="headerlink" title="对象的枚举"></a><font color="red">对象的枚举</font></h4><p>在介绍对象的枚举方法之前，我们要理解一个概念。</p>
-<p>查看对象属性我们知道可以用obj.name这样的点操作符来查看，但是我们还有一种其他的方式：</p>
-<p><strong><font color="red">obj[字符串]</font></strong></p>
-<p>这种方法类似数组的查看，但其实事实是数组模仿了对象的查看方式。<br>这种方法是在系统底层里面的查看对象属性的写法，我们常用的点操作符obj.name在系统底层其实也隐式转换成了obj[‘name’]这种形式。</p>
-<p><strong>例</strong></p>
-<pre><code>var deng = {
-    wife1 : {name : &quot;xiaoliu&quot;},
-    wife2 : {name : &quot;xiaozhang&quot;},
-    wife3 : {name : &quot;xiaomeng&quot;},
-    wife4 : {name : &quot;xiaowang&quot;},
-    sayWife : function (num){
-        return this[&apos;wife&apos;+num]
-    }
-}
-// 我们调用sayWife的时候传入一个对应的数字就可以得到返回对应的名字
-</code></pre><p><strong><font color="red">for-in操作符</font></strong></p>
-<p>我们知道要枚举一个数组的所有元素，只要用一个for循环从头到尾遍历一遍就可以了。</p>
-<p>但是对象并不能用for循环来遍历属性，所以这里我们就要使用for-in操作了。</p>
-<pre><code>var obj = {
-    name : &apos;13&apos;,
-    age : 123,
-    sex : &quot;male&quot;,
-    height : 180,
-    weight : 75
-}
-for(var prop in obj){
-    //obj是要遍历的对象  prop变量名写什么都行
-    //console.log(obj.prop);    结果全是undefined 
-    //因为 obj.prop ——&gt;obj[&apos;prop&apos;] 而prop是个变量所以 改为下面访问属性方式
-    console.log(obj[prop]);
-}
-</code></pre><p>下面我们来介绍三种操作符：</p>
-<p>1.<strong><font color="red">hasOwnProperty</font></strong></p>
-<p>这个操作符的作用是查看当前这个属性是不是对象自身的属性，在原型链上的属性则会被过滤掉。如果是自身的，就返回true，否则返回false。    </p>
-<pre><code>function Person(){
-    this.name = &apos;scarlett&apos;
-}
-Person.prototype = {
-    age : 10
-}
-var operson = new Person();
-for(var prop in operson){
-    if(operson.hasOwnProperty(prop)){
-        console.log(operson[prop]);
-    }
-}
-</code></pre><p>这样，我们的for-in循环就会只打印自身的属性而不会去打印原型上的lastName属性。</p>
-<p>2.<strong><font color="red">in操作符</font></strong></p>
-<p>这个操作符的作用是查看一个属性是不是在这个对象或者它的原型里面。</p>
-<pre><code>&apos;name&apos; in operson;// true
-&apos;age&apos; in operson;// true
-&apos;sex&apos; in operson;// false
-</code></pre><p>3.<strong><font color="red">instanceof操作符</font></strong></p>
-<p>看A对象的原型链上 有没有 B的原型</p>
-<pre><code>function Person(){
-
-}
-var person = new Person();
-person instanceof Person;// true
-person instanceof Object;// true
-</code></pre><h4 id="判断一个变量是数组还是对象"><a href="#判断一个变量是数组还是对象" class="headerlink" title="判断一个变量是数组还是对象"></a>判断一个变量是数组还是对象</h4><p><strong><font color="red">三种方法:</font></strong></p>
-<p><strong>方法1.</strong></p>
-<pre><code>数组的 [].constructor  
-对象的 var obj={}, obj.constructor
-</code></pre><p><strong>方法2.</strong></p>
-<pre><code>[] instanceof Array   返回true   
-obj instanceof Array  返回false
-</code></pre><p><strong>方法3.</strong></p>
-<pre><code>Object.prototype.toString.call([]);
-Object.prototype.toString.call({});
-</code></pre>
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2913,7 +2926,7 @@ Object.prototype.toString.call({});
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">43</span>
+                    <span class="site-state-item-count">44</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -2963,7 +2976,7 @@ Object.prototype.toString.call({});
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>
