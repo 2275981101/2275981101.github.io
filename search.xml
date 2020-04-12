@@ -4663,4 +4663,47 @@ c.e
 
 ]]></content>
   </entry>
+  <entry>
+    <title></title>
+    <url>/2020/04/12/hexo%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E5%92%8C%E9%97%AE%E9%A2%98/</url>
+    <content><![CDATA[<h1 id="hexo常用命令"><a href="#hexo常用命令" class="headerlink" title="hexo常用命令"></a>hexo常用命令</h1><h4 id="hexo-generate-hexo-g"><a href="#hexo-generate-hexo-g" class="headerlink" title="hexo generate == hexo g"></a>hexo generate == hexo g</h4><p>生效新增、修改、更新的文件</p>
+<h4 id="hexo-server-hexo-s"><a href="#hexo-server-hexo-s" class="headerlink" title="hexo server == hexo s"></a>hexo server == hexo s</h4><p>启动本地网站，可在本地观察网站效果</p>
+<h4 id="hexo-g-amp-amp-hexo-s"><a href="#hexo-g-amp-amp-hexo-s" class="headerlink" title="hexo g &amp;&amp; hexo s"></a>hexo g &amp;&amp; hexo s</h4><p>以调试模式启动本地网站（也就是将hexo在本地打开 <a href="http://localhost:4000/" target="_blank" rel="noopener">http://localhost:4000/</a>)</p>
+<h4 id="hexo-deploy-hexo-d"><a href="#hexo-deploy-hexo-d" class="headerlink" title="hexo deploy == hexo d"></a>hexo deploy == hexo d</h4><p>hexo的一键部署功能，执行此命令即可将网站发布到配置中的仓库地址。<br>所以执行此命令前需要配置站点配置文件_config.yml</p>
+<h4 id="hexo-g-d"><a href="#hexo-g-d" class="headerlink" title="hexo g -d"></a>hexo g -d</h4><p>将本地上传到github</p>
+<h4 id="hexo-clean"><a href="#hexo-clean" class="headerlink" title="hexo clean"></a>hexo clean</h4><p>清除缓存文件 (db.json) 和已生成的静态文件 (public)。</p>
+<p>在某些情况（尤其是更换主题后），如果发现您对站点的更改无论如何也不生效，您可能需要运行该命令。</p>
+<h1 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h1><h3 id="当部署失败的时候"><a href="#当部署失败的时候" class="headerlink" title="当部署失败的时候"></a><font color="red">当部署失败的时候</font></h3><p><strong>（1）检查是否有SSH key</strong></p>
+<p>  登陆github，点击头像位置处 Settings ——&gt; SSH and GPG keys ，查看是否有SSH keys。如果有，直接跳到第（3）步；如果没有，则继续。</p>
+<p><strong>（2）新建 SSH key，在git shell(或者git bash等命令窗口)，注意大小写</strong></p>
+<p>  ssh-keygen -t rsa -C “邮箱名”</p>
+<p> (直接回车)要求你输入密码，这个密码会在你提交项目时使用，如果为空的话提交项目时则不用输入。这个设置是防止别人往你的项目里提交内容。注意：输入密码的时候没有*字样的，直接输入就好。然后会出现：</p>
+<p><img src="https://i.imgur.com/WR0jDAk.png" alt=""></p>
+<p><strong>（3）接下来在github上添加SSH key</strong></p>
+<p>① 打开本地文件：id_rsa.pub（文件路径可以在上一步SSH生成成功后看到路径，比如我的是c/Users/smartdo/.ssh/id_rsa.pub），可以将这个文件在编辑器中打开，然后全选复制。</p>
+<p><img src="https://i.imgur.com/dCcyhEl.png" alt=""></p>
+<p>② 登陆github，点击头像位置处 Settings ——&gt; SSH and GPG keys ——&gt; New SSH key，点击新建SSH key。</p>
+<p><img src="https://i.imgur.com/eTBvabH.png" alt=""></p>
+<p>③ 将 ① 中复制的内容粘贴在key文本框里，title可以不用填（或者自己起一个名字也可以）。</p>
+<p><img src="https://i.imgur.com/TP7JQcT.png" alt=""><br><img src="https://i.imgur.com/7IJwooC.png" alt=""></p>
+<p><strong>（4）测试设置是否成功</strong></p>
+<p>ssh -T <a href="mailto:git@github.com" target="_blank" rel="noopener">git@github.com</a></p>
+<p>有可能会出现：</p>
+<pre><code>The authenticity of host &apos;github.com (192.30.252.1)&apos; can&apos;t be established.
+RSA key fingerprint is 16:27:ac:a5:76:28:2d:36:63:1b:56:4d:eb:df:a6:48.
+Are you sure you want to continue connecting (yes/no)?
+</code></pre><p>或者是</p>
+<pre><code>The authenticity of host &apos;github.com (192.30.252.1)&apos; can&apos;t be established.
+RSA key fingerprint is nThbg6kXUpJWGl7E1IGOCspRomTxdCARLviKw6E5SY8.
+`Are you sure you want to continue connecting (yes/no)?`
+</code></pre><p>   这种情况下，直接 yes 回车</p>
+<pre><code>Hi username! You&apos;ve successfully authenticated, but GitHub does not provide shell access.
+</code></pre><p><strong>（5）设置用户信息</strong></p>
+<pre><code>git config --global user.name &quot;用户名&quot;
+git config --global user.email  &quot;你希望的邮箱名&quot;
+</code></pre><p><strong>（6）然后就可以部署你的博客到github</strong></p>
+<pre><code>hexo g
+hexo d
+</code></pre>]]></content>
+  </entry>
 </search>

@@ -335,6 +335,274 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/25/this/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wanghai">
+      <meta itemprop="description" content="Wanghai个人站，主要涉及前端知识共享、实践教程、前沿技术共同学习等方面">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="welcome">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2018/11/25/this/" class="post-title-link" itemprop="http://yoursite.com/page/3/index.html">this</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-11-25 17:16:33" itemprop="dateCreated datePublished" datetime="2018-11-25T17:16:33+08:00">2018-11-25</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2018-12-25 10:31:32" itemprop="dateModified" datetime="2018-12-25T10:31:32+08:00">2018-12-25</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="this"><a href="#this" class="headerlink" title="this"></a><font color="red">this</font></h4><p><strong>  1.函数预编译过程 this ——&gt;window<br>    2.全局作用域里   this ——&gt;window<br>    3.call/apply可以改变函数运行时this指向<br>    4.obj.func();    func()里面的this指向obj </strong>    </p>
+<p><strong>总结: 四种this绑定的权重</strong></p>
+<p><strong>  1,默认绑定(空函数执行,函数单纯执行,this指向window) 默认权重<br>    2,隐式帮定(谁调用this指向谁) 第三权重<br>    3,显式绑定 (call apply bind) 第二高权重<br>    4,new 绑定this 权重是最高的</strong></p>
+<p><strong>升级知识：ES6箭头函数中的this如何邦定？<br>  1,箭头函数没有this 没有arguments surper(class)；<br>  2,箭头函数不能new ,不当成构造函数来 没有prototye；<br>  3,可以表示数据流向 方便JavaScript引擎优化扫码；</strong></p>
+<p>例1</p>
+<pre><code>var name = &quot;222&quot;;
+var a = {
+    name : &quot;111&quot;,
+    say : function(){
+        console.log(this.name);
+    }
+}
+var fun = a.say;
+fun();//预编译this指向window
+a.say();//a执行this指向对象a
+var b = {
+    name : &quot;333&quot;,
+    say : function(fun){
+        fun();//预编译this指向window
+    }
+}
+b.say(a.say);
+b.say = a.say;
+b.say();//b执行this指向对象b
+</code></pre><p>例2</p>
+<pre><code>var foo = 132;
+function print(){
+    this.foo = 234;
+    console.log(foo);
+}
+print();
+</code></pre><p>例3</p>
+<pre><code>var foo = 132;
+function print(){
+    //var this = Object.create(print.prototype)
+    this.foo = 234;
+    console.log(foo);
+}
+new print();
+</code></pre><p>例4</p>
+<pre><code>var a = 5;
+function test(){
+    a = 0;
+    console.log(a);
+    console.log(this.a);
+    var a;
+    console.log(a);
+}
+test();
+</code></pre><p>例5</p>
+<pre><code> var a = 5;
+function test(){
+    a = 0;
+    console.log(a);
+    console.log(this.a);
+    var a;
+    console.log(a);
+}
+new test();
+</code></pre><p>例6</p>
+<pre><code>var bar = {
+    a : &quot;002&quot;
+}
+function print(){
+    bar.a = &apos;a&apos;;
+    Object.prototype.b = &apos;b&apos;;
+    return function inner(){
+        console.log(bar.a);
+        console.log(bar.b);
+    }
+}
+print()();
+</code></pre><h4 id="call-apply"><a href="#call-apply" class="headerlink" title="call/apply"></a><font color="red">call/apply</font></h4><p>call/apply的第一个参数会<font color="red">改变this的指向</font><br>• call 需要把实参按照形参的个数传进去<br>• apply 需要传一个arguments(数组)<br>其实方法的执行test()，实际上就是隐式转换成test.call();</p>
+<pre><code>function Person(name, age){
+     this.name = name;
+     this.age = age;
+}
+var person = new Person(&apos;deng&apos;, 100);
+var obj = {};
+Person.call(obj, &apos;cheng&apos;, 300);
+console.log(obj.name);// &apos;cheng&apos;
+</code></pre><p>例1</p>
+<pre><code>function Person(name, age, sex){
+    this.name = name;
+    this.age = age;
+    this.sex = sex;
+}         
+function Student(name, age, sex, tel, grade){
+    //this指向Student  本来是没有name/age/sex属性 用Person的方法实现自己的功能   
+    //var this = {name : &quot;&quot;, age : &quot;&quot;, sex : &quot;&quot;}
+    Person.call(this, name, age, sex);
+    this.tel = tel;
+    this.grade = grade;
+}
+var student = new Student(&apos;sunny&apos;, 123, &apos;male&apos;, 139, 2017);
+</code></pre><p>例2</p>
+<pre><code>function Wheel(wheelSize, style){
+    this.style = style;
+    this.wheelSize = wheelSize;
+}
+function Sit(c, sitColor){
+    this.c = c;
+    this.sitColor = sitColor;
+}
+function Model(height, width, len){
+    this.height = height;
+    this.width = width;
+    this.len = len;
+}
+function Car(wheelSize, style, c, sitColor, height, width, len){
+    Wheel.call(this, wheelSize, style);
+    Sit.call(this, c, sitColor);
+    Model.call(this, height, width, len);
+}
+var car = new Car(100, &quot;花里胡哨的&quot;, &quot;真皮&quot;, &quot;red&quot;, 1800, 1900, 4900);
+</code></pre>
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/24/对象枚举及访问属性的第二种方法/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -2859,195 +3127,6 @@ true / false ;// infinity无穷大
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/15/CSS3之阴影/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Wanghai">
-      <meta itemprop="description" content="Wanghai个人站，主要涉及前端知识共享、实践教程、前沿技术共同学习等方面">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="welcome">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2018/11/15/CSS3之阴影/" class="post-title-link" itemprop="http://yoursite.com/page/3/index.html">CSS3之阴影</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2018-11-15 17:17:33" itemprop="dateCreated datePublished" datetime="2018-11-15T17:17:33+08:00">2018-11-15</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2018-12-13 15:39:36" itemprop="dateModified" datetime="2018-12-13T15:39:36+08:00">2018-12-13</time>
-              
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h4 id="1-盒子阴影"><a href="#1-盒子阴影" class="headerlink" title="1. 盒子阴影"></a><font color="red">1. 盒子阴影</font></h4><font color="red"><strong>box-shadow: X轴偏移量 Y轴偏移量 [阴影模糊半径] [阴影扩展半径] [阴影颜色] [投影方式];</strong></font>
-
-<p>例如  box-shadow:4px 2px 6px 7px #333333 inset;</p>
-<p>同一盒子，可以同时加多个阴影，阴影之间用”,”隔开</p>
-<p>例如  box-shadow:4px 2px 6px #f00,-4px -2px 6px #000,0px 0px 12px 5px #33CC00 inset;</p>
-<h4 id="2-字体阴影"><a href="#2-字体阴影" class="headerlink" title="2. 字体阴影"></a><font color="red">2. 字体阴影</font></h4><p>text-shadow:X-Offset Y-Offset blur color;</p>
-<ol>
-<li><font color="red">X-Offset</font>:表示阴影的水平偏移距离,其值为正值时阴影向右偏移,反之向左偏移;</li>
-<li><font color="red">Y-Offset</font>:是指阴影的垂直偏移距离,如果其值是正值时,阴影向下偏移,反之向上偏移;</li>
-<li><font color="red">Blur</font>:是指阴影的模糊程度,其值不能是负值,如果值越大,阴影越模糊,反之阴影越清晰,如果不需要阴影模糊可以将Blur值设置为0;</li>
-<li><font color="red">Color</font>:是指阴影的颜色,其可以使用rgba色;</li>
-</ol>
-<pre><code>*{
-    margin: 0;
-    padding: 0;
-}
-div{
-    /*3. 实现书摆放在桌子上的效果*/
-    width: 200px;
-    height: 200px;
-    background-color: red;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%,-50%);
-    background: #e0e1dc;
-    text-align: center;
-    line-height: 200px;
-    color: #fff;
-    font-weight: 900;
-    font-size: 24px;
-    text-shadow: 5px 2px 3px grey;
-    box-shadow: 10px 0 10px 0 grey;
-}
-&lt;div&gt;This is a page&lt;/div&gt;
-</code></pre><p><img src="https://i.imgur.com/nllEayT.png" alt=""></p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -3095,7 +3174,7 @@ div{
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">44</span>
+                    <span class="site-state-item-count">45</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>

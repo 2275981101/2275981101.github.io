@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2018-12-25T02:33:43.815Z</updated>
+  <updated>2020-04-12T08:46:58.070Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title></title>
+    <link href="http://yoursite.com/2020/04/12/hexo%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E5%92%8C%E9%97%AE%E9%A2%98/"/>
+    <id>http://yoursite.com/2020/04/12/hexo常用命令和问题/</id>
+    <published>2020-04-12T08:20:20.022Z</published>
+    <updated>2020-04-12T08:46:58.070Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="hexo常用命令"><a href="#hexo常用命令" class="headerlink" title="hexo常用命令"></a>hexo常用命令</h1><h4 id="hexo-generate-hexo-g"><a href="#hexo-generate-hexo-g" class="headerlink" title="hexo generate == hexo g"></a>hexo generate == hexo g</h4><p>生效新增、修改、更新的文件</p><h4 id="hexo-server-hexo-s"><a href="#hexo-server-hexo-s" class="headerlink" title="hexo server == hexo s"></a>hexo server == hexo s</h4><p>启动本地网站，可在本地观察网站效果</p><h4 id="hexo-g-amp-amp-hexo-s"><a href="#hexo-g-amp-amp-hexo-s" class="headerlink" title="hexo g &amp;&amp; hexo s"></a>hexo g &amp;&amp; hexo s</h4><p>以调试模式启动本地网站（也就是将hexo在本地打开 <a href="http://localhost:4000/" target="_blank" rel="noopener">http://localhost:4000/</a>)</p><h4 id="hexo-deploy-hexo-d"><a href="#hexo-deploy-hexo-d" class="headerlink" title="hexo deploy == hexo d"></a>hexo deploy == hexo d</h4><p>hexo的一键部署功能，执行此命令即可将网站发布到配置中的仓库地址。<br>所以执行此命令前需要配置站点配置文件_config.yml</p><h4 id="hexo-g-d"><a href="#hexo-g-d" class="headerlink" title="hexo g -d"></a>hexo g -d</h4><p>将本地上传到github</p><h4 id="hexo-clean"><a href="#hexo-clean" class="headerlink" title="hexo clean"></a>hexo clean</h4><p>清除缓存文件 (db.json) 和已生成的静态文件 (public)。</p><p>在某些情况（尤其是更换主题后），如果发现您对站点的更改无论如何也不生效，您可能需要运行该命令。</p><h1 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h1><h3 id="当部署失败的时候"><a href="#当部署失败的时候" class="headerlink" title="当部署失败的时候"></a><font color="red">当部署失败的时候</font></h3><p><strong>（1）检查是否有SSH key</strong></p><p>  登陆github，点击头像位置处 Settings ——&gt; SSH and GPG keys ，查看是否有SSH keys。如果有，直接跳到第（3）步；如果没有，则继续。</p><p><strong>（2）新建 SSH key，在git shell(或者git bash等命令窗口)，注意大小写</strong></p><p>  ssh-keygen -t rsa -C “邮箱名”</p><p> (直接回车)要求你输入密码，这个密码会在你提交项目时使用，如果为空的话提交项目时则不用输入。这个设置是防止别人往你的项目里提交内容。注意：输入密码的时候没有*字样的，直接输入就好。然后会出现：</p><p><img src="https://i.imgur.com/WR0jDAk.png" alt=""></p><p><strong>（3）接下来在github上添加SSH key</strong></p><p>① 打开本地文件：id_rsa.pub（文件路径可以在上一步SSH生成成功后看到路径，比如我的是c/Users/smartdo/.ssh/id_rsa.pub），可以将这个文件在编辑器中打开，然后全选复制。</p><p><img src="https://i.imgur.com/dCcyhEl.png" alt=""></p><p>② 登陆github，点击头像位置处 Settings ——&gt; SSH and GPG keys ——&gt; New SSH key，点击新建SSH key。</p><p><img src="https://i.imgur.com/eTBvabH.png" alt=""></p><p>③ 将 ① 中复制的内容粘贴在key文本框里，title可以不用填（或者自己起一个名字也可以）。</p><p><img src="https://i.imgur.com/TP7JQcT.png" alt=""><br><img src="https://i.imgur.com/7IJwooC.png" alt=""></p><p><strong>（4）测试设置是否成功</strong></p><p>ssh -T <a href="mailto:git@github.com" target="_blank" rel="noopener">git@github.com</a></p><p>有可能会出现：</p><pre><code>The authenticity of host &apos;github.com (192.30.252.1)&apos; can&apos;t be established.RSA key fingerprint is 16:27:ac:a5:76:28:2d:36:63:1b:56:4d:eb:df:a6:48.Are you sure you want to continue connecting (yes/no)?</code></pre><p>或者是</p><pre><code>The authenticity of host &apos;github.com (192.30.252.1)&apos; can&apos;t be established.RSA key fingerprint is nThbg6kXUpJWGl7E1IGOCspRomTxdCARLviKw6E5SY8.`Are you sure you want to continue connecting (yes/no)?`</code></pre><p>   这种情况下，直接 yes 回车</p><pre><code>Hi username! You&apos;ve successfully authenticated, but GitHub does not provide shell access.</code></pre><p><strong>（5）设置用户信息</strong></p><pre><code>git config --global user.name &quot;用户名&quot;git config --global user.email  &quot;你希望的邮箱名&quot;</code></pre><p><strong>（6）然后就可以部署你的博客到github</strong></p><pre><code>hexo ghexo d</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;hexo常用命令&quot;&gt;&lt;a href=&quot;#hexo常用命令&quot; class=&quot;headerlink&quot; title=&quot;hexo常用命令&quot;&gt;&lt;/a&gt;hexo常用命令&lt;/h1&gt;&lt;h4 id=&quot;hexo-generate-hexo-g&quot;&gt;&lt;a href=&quot;#hexo-gene
+      
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>CSS3动画</title>
@@ -419,27 +440,6 @@ s
       
       
         &lt;h4 id=&quot;ES5-0严格模式&quot;&gt;&lt;a href=&quot;#ES5-0严格模式&quot; class=&quot;headerlink&quot; title=&quot;ES5.0严格模式&quot;&gt;&lt;/a&gt;&lt;font color=&quot;red&quot;&gt;ES5.0严格模式&lt;/font&gt;&lt;/h4&gt;&lt;p&gt;• 浏览器 基于的es3.0的 +
-      
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>this</title>
-    <link href="http://yoursite.com/2018/11/25/this/"/>
-    <id>http://yoursite.com/2018/11/25/this/</id>
-    <published>2018-11-25T09:16:33.000Z</published>
-    <updated>2018-12-25T02:31:32.514Z</updated>
-    
-    <content type="html"><![CDATA[<h4 id="this"><a href="#this" class="headerlink" title="this"></a><font color="red">this</font></h4><p><strong>  1.函数预编译过程 this ——&gt;window<br>    2.全局作用域里   this ——&gt;window<br>    3.call/apply可以改变函数运行时this指向<br>    4.obj.func();    func()里面的this指向obj </strong>    </p><p><strong>总结: 四种this绑定的权重</strong></p><p><strong>  1,默认绑定(空函数执行,函数单纯执行,this指向window) 默认权重<br>    2,隐式帮定(谁调用this指向谁) 第三权重<br>    3,显式绑定 (call apply bind) 第二高权重<br>    4,new 绑定this 权重是最高的</strong></p><p><strong>升级知识：ES6箭头函数中的this如何邦定？<br>  1,箭头函数没有this 没有arguments surper(class)；<br>  2,箭头函数不能new ,不当成构造函数来 没有prototye；<br>  3,可以表示数据流向 方便JavaScript引擎优化扫码；</strong></p><p>例1</p><pre><code>var name = &quot;222&quot;;var a = {    name : &quot;111&quot;,    say : function(){        console.log(this.name);    }}var fun = a.say;fun();//预编译this指向windowa.say();//a执行this指向对象avar b = {    name : &quot;333&quot;,    say : function(fun){        fun();//预编译this指向window    }}b.say(a.say);b.say = a.say;b.say();//b执行this指向对象b</code></pre><p>例2</p><pre><code>var foo = 132;function print(){    this.foo = 234;    console.log(foo);}print();</code></pre><p>例3</p><pre><code>var foo = 132;function print(){    //var this = Object.create(print.prototype)    this.foo = 234;    console.log(foo);}new print();</code></pre><p>例4</p><pre><code>var a = 5;function test(){    a = 0;    console.log(a);    console.log(this.a);    var a;    console.log(a);}test();</code></pre><p>例5</p><pre><code> var a = 5;function test(){    a = 0;    console.log(a);    console.log(this.a);    var a;    console.log(a);}new test();</code></pre><p>例6</p><pre><code>var bar = {    a : &quot;002&quot;}function print(){    bar.a = &apos;a&apos;;    Object.prototype.b = &apos;b&apos;;    return function inner(){        console.log(bar.a);        console.log(bar.b);    }}print()();</code></pre><h4 id="call-apply"><a href="#call-apply" class="headerlink" title="call/apply"></a><font color="red">call/apply</font></h4><p>call/apply的第一个参数会<font color="red">改变this的指向</font><br>• call 需要把实参按照形参的个数传进去<br>• apply 需要传一个arguments(数组)<br>其实方法的执行test()，实际上就是隐式转换成test.call();</p><pre><code>function Person(name, age){     this.name = name;     this.age = age;}var person = new Person(&apos;deng&apos;, 100);var obj = {};Person.call(obj, &apos;cheng&apos;, 300);console.log(obj.name);// &apos;cheng&apos;</code></pre><p>例1</p><pre><code>function Person(name, age, sex){    this.name = name;    this.age = age;    this.sex = sex;}         function Student(name, age, sex, tel, grade){    //this指向Student  本来是没有name/age/sex属性 用Person的方法实现自己的功能       //var this = {name : &quot;&quot;, age : &quot;&quot;, sex : &quot;&quot;}    Person.call(this, name, age, sex);    this.tel = tel;    this.grade = grade;}var student = new Student(&apos;sunny&apos;, 123, &apos;male&apos;, 139, 2017);</code></pre><p>例2</p><pre><code>function Wheel(wheelSize, style){    this.style = style;    this.wheelSize = wheelSize;}function Sit(c, sitColor){    this.c = c;    this.sitColor = sitColor;}function Model(height, width, len){    this.height = height;    this.width = width;    this.len = len;}function Car(wheelSize, style, c, sitColor, height, width, len){    Wheel.call(this, wheelSize, style);    Sit.call(this, c, sitColor);    Model.call(this, height, width, len);}var car = new Car(100, &quot;花里胡哨的&quot;, &quot;真皮&quot;, &quot;red&quot;, 1800, 1900, 4900);</code></pre>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h4 id=&quot;this&quot;&gt;&lt;a href=&quot;#this&quot; class=&quot;headerlink&quot; title=&quot;this&quot;&gt;&lt;/a&gt;&lt;font color=&quot;red&quot;&gt;this&lt;/font&gt;&lt;/h4&gt;&lt;p&gt;&lt;strong&gt;  1.函数预编译过程 this ——&amp;gt;window
       
     
     </summary>
