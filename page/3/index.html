@@ -335,218 +335,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/27/克隆算法/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Wanghai">
-      <meta itemprop="description" content="Wanghai个人站，主要涉及前端知识共享、实践教程、前沿技术共同学习等方面">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="welcome">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2018/11/27/克隆算法/" class="post-title-link" itemprop="http://yoursite.com/page/3/index.html">克隆算法</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2018-11-27 17:16:33" itemprop="dateCreated datePublished" datetime="2018-11-27T17:16:33+08:00">2018-11-27</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2018-12-25 10:29:19" itemprop="dateModified" datetime="2018-12-25T10:29:19+08:00">2018-12-25</time>
-              
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>克隆和我们前面所讲的继承有一些区别，克隆是复制出来一个一模一样的目标对象，而克隆又分为浅层克隆和深层克隆。</p>
-<p>• <strong><font color="red">浅层克隆</font></strong></p>
-<p>克隆大致就是我们的源对象里面有什么属性，目标文件就有什么属性，依照这个原理，我们可以写出下面的代码：</p>
-<pre><code>function clone(src, tar) {
-var tar = tar || {};// 如果没有tar则默认是一个空对象
-for(var prop in src) {
-      if(src.hasOwnProperty(prop)){
-           tar[prop] = src[prop];
-      }
- }
- return tar; 
-}
-</code></pre><p>下面我们来测试一下:</p>
-<pre><code>var obj = {
-      name: &apos;scarlett&apos;,
-      age: 123
-}
-var obj2 = {}
-clone(obj, obj2);
-console.log(obj2.name);// scarlett
-</code></pre><p>然后我们改变一下obj这个源对象的name：</p>
-<pre><code>obj.name = &apos;test&apos;
-console.log(obj2.name);// scarlett
-</code></pre><p>我们可以发现，克隆出来的目标对象和本来的源对象之间没有关系了<br>但是，当我们有一个属性是引用值（数组或者对象）的时候，按照我们这种克隆方式，只是把这个引用值的指向赋给了新的目标对象，也就是说，我们一旦改变了源对象或者目标对象的引用值属性，另一个也会跟着改变，这一点就是浅层克隆的缺点。</p>
-<p>• <strong><font color="red">深层克隆</font></strong></p>
-<p><strong>思路:<br>    1.遍历对象<br>    2.判断是否是原始值 还是引用值<br>    3.判断引用值类似是数组还是对象<br>    4.建立相应的数组或对象<br>    5.递归</strong></p>
-<pre><code>function clone(origin, target){
-    var target = target || {},//防止用户不传target参数
-         toStr = Object.prototype.toString,
-         arrStr = &quot;[object Array]&quot;;
-    for(var prop in origin){
-        if(origin.hasOwnProperty(prop)){
-            if( origin[prop] !== &quot;null&quot; &amp;&amp; typeof(origin[prop]) == &apos;object&apos;){
-                if(toStr.call(origin[prop]) == arrStr){
-                    target[prop] = [];
-                }else{
-                    target[prop] = {};
-                }
-                clone(origin[prop], target[prop]);
-            }else{
-                target[prop] = origin[prop];
-            }
-        }
-    }
-}
-</code></pre><p>现在我们来测试一下：</p>
-<pre><code>var parent = {
-      name : &apos;ScarLet&apos;,
-      age : 123,
-      sex : &apos;male&apos;,
-      height : 190,
-      money: [1,2,3,4,5]
-}
-var child = {};
-deepCopy(parent,child);
-console.log(child.money);//1 2 3 4 5
-parent.money.push(10);
-console.log(child.money);// 1 2 3 4 5
-</code></pre><p>这个时候目标对象和源对象的引用值之间就没有了关系，自己都是独立值，可以进行修改了。</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/26/严格模式与try-catch/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -3013,6 +2801,264 @@ true / false ;// infinity无穷大
 
 
     
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/17/CSS3图片翻书展示/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wanghai">
+      <meta itemprop="description" content="Wanghai个人站，主要涉及前端知识共享、实践教程、前沿技术共同学习等方面">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="welcome">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2018/11/17/CSS3图片翻书展示/" class="post-title-link" itemprop="http://yoursite.com/page/3/index.html">CSS3图片翻书展示()</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-11-17 17:20:12" itemprop="dateCreated datePublished" datetime="2018-11-17T17:20:12+08:00">2018-11-17</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2018-12-14 10:53:13" itemprop="dateModified" datetime="2018-12-14T10:53:13+08:00">2018-12-14</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <pre><code>&lt;style&gt;
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        body{
+            background-color: #fde3A7;
+            font-family: &apos;Indie Flower&apos;, cursive;/*字体  草书*/
+        }
+        .card{
+            width: 270px;
+            height: 400px;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            /* transform: translateX(-50%) translateY(-50%);CSS3 平移 */
+            margin-top: -200px;
+            margin-left: -150px;
+            box-shadow: inset 300px 0px 50px rgba(0, 0, 0, .5),20px 0 60px rgba(0, 0, 0, .5);/*阴影*/
+            perspective: 2000px;
+            transform-style: preserve-3d;
+            /* transform-origin: center center; */
+            transition:  all 1s ease-in-out;
+            background-color: #fff;
+        }
+        .card::before{  /*伪类和伪元素的区别  伪元素是真实存在的元素,能在html元素中存在的*/
+            content: &quot;&quot;;
+            display: inline-block;
+            width: 100%;
+            height: 5px;
+            background-color: #BAC1BA;
+            position: absolute;
+            top: -5px;
+            transform: skewX(-45deg);/*CSS3 扭曲*/
+            transform-origin: bottom;/*改变旋转中心*/
+        }
+        .card::after{
+            position: absolute;
+            right: -5px; 
+            top: 0;
+            content: &quot;&quot;;
+            display: inline-block;
+            height: 100%;
+            width: 5px;
+            background-color: #BAC1BA;
+            transform: skewY(-45deg);/*CSS3 扭曲*/
+            transform-origin: left;
+        }
+        .card .imgBox{
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            transform-origin: left;
+            transition:  all .7s ease-in-out;/*过渡*/
+        }
+        .card .imgBox .bark{
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: #fff;
+            opacity: 0;
+            transition: all .6s ease-in-out;
+        }
+        .card .imgBox img{
+            width: 100%;
+        }
+        .card .details{
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+        .card:hover{   /*伪类是当前动作触发的*/ 
+            transform: rotateZ(15deg) scale(1.2);   
+            box-shadow: inset 30px 0px 50px rgba(0, 0, 0, .5), 20px 0px 60px rgba(0, 0, 0, .5);
+        }
+        .card:hover .imgBox{
+            transform: rotateY(-135deg);
+        }
+        .card:hover .imgBox .bark{
+            opacity: 1;
+            transition:  all .6s ease-in-out;
+            box-shadow: inset 300px 200px 100px rgba(0, 0, 0, .5); 
+        }
+    &lt;/style&gt;
+
+
+    &lt;div class=&quot;card&quot;&gt;
+        &lt;div class=&quot;imgBox&quot;&gt;
+            &lt;div class=&quot;bark&quot;&gt;&lt;/div&gt;
+            &lt;img src=&quot;./images/pic.jpg&quot; alt=&quot;&quot;&gt;
+        &lt;/div&gt;
+        &lt;!-- 翻开展示内容 --&gt;
+        &lt;div class=&quot;details&quot;&gt;
+            &lt;!-- 这里没有写第二页内容用图片代替 --&gt;
+            &lt;img src=&quot;./images/pic_.jpg&quot; alt=&quot;&quot;&gt;
+
+            &lt;!-- &lt;h4 class=&quot;title1&quot;&gt;内容标题1&lt;/h4&gt;
+            &lt;h4 class=&quot;title2&quot;&gt;内容标题2&lt;/h4&gt;
+            &lt;p&gt;内容...&lt;/p&gt;
+            &lt;p&gt;内容...&lt;/p&gt; --&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+</code></pre>
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
   </section>
 
   
@@ -3060,7 +3106,7 @@ true / false ;// infinity无穷大
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">47</span>
+                    <span class="site-state-item-count">46</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>

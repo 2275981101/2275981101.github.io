@@ -337,251 +337,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/06/异步加载JS/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Wanghai">
-      <meta itemprop="description" content="Wanghai个人站，主要涉及前端知识共享、实践教程、前沿技术共同学习等方面">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="welcome">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2018/12/06/异步加载JS/" class="post-title-link" itemprop="http://yoursite.com/page/2/index.html">异步加载JS</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2018-12-06 17:16:33" itemprop="dateCreated datePublished" datetime="2018-12-06T17:16:33+08:00">2018-12-06</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2018-12-25 10:24:35" itemprop="dateModified" datetime="2018-12-25T10:24:35+08:00">2018-12-25</time>
-              
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="先介绍一下JSON"><a href="#先介绍一下JSON" class="headerlink" title="先介绍一下JSON"></a><font color="red">先介绍一下JSON</font></h2><p>我们传输数据就两种格式：<font color="red">xml和json</font>。</p>
-<p>xml是以<font color="red">html</font>为模板，自定义标签名作为数据名来传递数据，书写起来很麻烦，现在多用json，很少使用xml。</p>
-<p>json是传输数据的另一种格式，它是以<font color="red">对象</font>为模板（本质上就是对象，但是用途有所区别，对象是本地使用，json是用来传输数据）。</p>
-<p>不过我们传输数据的时候并不能将一个json对象直接传过去，我们只能传过去json形式的字符串，这个时候我们就需要用到JSON上的两个方法了。</p>
-<font color="red">JSON.parse() —&gt; string-&gt;json</font>
-
-<font color="red">JSON.stringify() —&gt; json-&gt;string</font>
-
-<p>通过JSON上的这两个方法，我们就可以进行数据传输了。</p>
-<pre><code>var obj = {
-    &quot;name&quot; : &quot;abc&quot;,
-    &quot;age&quot; : 123
-}
-// 将json转换为字符串 传给后端
-var str = JSON.stringify(obj);
-// 将后端传过来的json字符串转换为json对象
-var str1 = JSON.parse(str);
-</code></pre><p>• 我们的页面有三个树：DOMTree、CSSTree、renderTree。（实际上多于三个），renderTree上有两个规则：repaint和reflow，重绘和重排。</p>
-<p>repaint是元素自身的位置和宽高不变，只改变颜色的之类的属性而不会导致后面的元素位置的变化的时候，renderTree发生的动作。</p>
-<p>reflow是元素自身的位置或者宽高改变了从而导致的整个页面的大范围移动的时候，renderTree发生的动作。</p>
-<p>所以我们在DOM操作的时候，要<font color="red">尽量避免重排</font>。</p>
-<h2 id="JS异步加载部分"><a href="#JS异步加载部分" class="headerlink" title="JS异步加载部分"></a><font color="red">JS异步加载部分</font></h2><p>我们前面知道script标签的特点是会阻塞后面的DOM解析，只有当script标签下载完成并且全部执行完之后，浏览器才会继续解析DOM。</p>
-<p>这样就导致了js加载有这样的缺点：加载工具方法本身没有必要阻塞文档，js加载会影响整个页面效率，一旦网速不好，那么整个网站将等待js加载而不进行后续渲染。</p>
-<p>DOMTree就是解析DOM结构的，当我们在解析DOM的时候突然碰到一个script标签，那么这个script标签就会阻断DOMTree和CSSTree，然而我们有一些js的工具库并不操作DOM，这个时候我们就需要让这些工具库进行异步加载或者按需加载了。</p>
-<p>以前有一种写法是将script标签写在body的最后面，等在DOM全部解析完成之后才加载js。</p>
-<p>现在有了html5标准之后，就有了另一套异步加载js的方法了。</p>
-<p>js异步加载的三种方案：</p>
-<p>1.<font color="red"><strong>defer</strong></font>异步加载</p>
-<p>我们在script标签的行间写一个defer=”defer”或者直接写defer，就可以让这个script变成异步加载了。但是这种异步只是针对下载方面，<font color="red"><strong>只有等DOMTree全部解析完成（不包括下载完里面的资源）后才会异步执行</strong></font>。而且这个方法<font color="red">只有IE和一些高版本的firefox和chrome可以用</font>。</p>
-<pre><code>&lt;script type=&quot;text/javascript&quot; defer=&quot;defer&quot;&gt;
-    console.log(&apos;hello&apos;);
-&lt;/script&gt;
-</code></pre><p>不过这一种方式<font color="red">可以在script标签里面写代码</font>。</p>
-<p>注意：IE6和IE7的异步加载最多只能有2个，当多余两个的时候必须等前两个加载完才会加载第三个。</p>
-<p>所有defer的js代码都<font color="red">保证按照顺序执行</font>。</p>
-<p>2.async异步加载</p>
-<p>async是<font color="red"><strong>asynchronous</strong></font>的缩写，它是html5的标准，<font color="red"><strong>下载完成之后就会立即异步执行</strong></font>，这种方法<font color="red">除了IE6-IE8其他的浏览器都好用</font>。</p>
-<pre><code>&lt;script type=&quot;text/javascript&quot; async=&quot;async&quot;&gt;&lt;/script&gt;
-</code></pre><p>不过这种方式<font color="red">不能把代码写在script标签里面</font>，只能引用。（虽然标准是这么写的，但是现在随着内核升级，async里面也可以写代码了，在没有src的情况下）。</p>
-<p>而且async的js代码<font color="red">不能保证是顺序执行的</font>。</p>
-<p>• 这两个属性<font color="red">不能一起使用</font>！</p>
-<p>兼容性写法：</p>
-<p>1.<strong>直接写两个script标签，一个是defer，一个是async</strong>。</p>
-<p>但是这种方法有缺陷：IE高版本会加载两遍引起冲突，有些浏览器两个都没有会一个都加载不出来。</p>
-<p>所以我们就需要用第二种方法了。</p>
-<p>2.<strong>通过动态添加script标签</strong>。</p>
-<p>“Script-inserted script elements now have async default to true, which can be set to false to make the scripts execute in insertion order.”</p>
-<p>w3c的标准规定：<font color="red">动态添加的script标签是异步的</font>。</p>
-<p>通过这个特性，我们这里就可以封装一个兼容性的异步加载js的函数了。</p>
-<pre><code>function loadScript(url, callback){
-    var script = document.createElement(&apos;script&apos;);
-    script.type = &quot;text/javascript&quot;;     
-    // 如果网速够快 url在瞬间下载完毕 而readyState瞬间在最终状态  
-    // 所以onreadystatechange这个事件不可能在触发
-    // 即绑定事件之前绑定就已经完事了,此时绑定没有任何意义了 所以把src加载放在绑定事件之后
-    if(script.readyState){// 兼容性:仅IE
-        script.onreadystatechange = function(){
-            if(script.readyState == &quot;complete&quot; || script.readyState == &quot;loaded&quot;){
-                tools[callback]();
-            }
-        }
-    }else{// 兼容性:Safari chrome firefox opera
-        script.onload = function(){
-            tools[callback]();
-        }
-    }
-    script.src = url;// 下载
-    // 当把标签添加到页面的时候才会执行这个脚本(否则只是下载完)
-    document.head.appendChild(script);
-}
-loadScript(&apos;demo.js&apos;, &quot;test&quot;);
-</code></pre><p>或者如下调用</p>
-<pre><code>loadScript(&apos;demo.js&apos;, function(){
-     test();
-})
-</code></pre><p>但是不能写成 </p>
-<pre><code>loadScript(&apos;demo.js&apos;, test);// test is not defined
-</code></pre><p>• 异步加载js<font color="red"><strong>不允许使用document.write</strong></font>这个方法。它会清除文档流，一旦执行就会把全部的标签都清除掉，包括自身的script标签。</p>
-<h2 id="JS加载时间线（performace-timing-line）"><a href="#JS加载时间线（performace-timing-line）" class="headerlink" title="JS加载时间线（performace timing line）"></a><font color="red">JS加载时间线（performace timing line）</font></h2><p>1、创建Document对象，开始解析web页面。解析HTML元素和他们的文本内容后添加Element对象和Text节点到文档中。这个阶段document.readyState = ‘loading’。</p>
-<p>2、遇到link外部css，创建线程加载，并继续解析文档。</p>
-<p>3、遇到script外部js，并且没有设置async、defer，浏览器加载，并阻塞，等待js加载完成并执行该脚本，然后继续解析文档。</p>
-<p>4、遇到script外部js，并且设置有async、defer，浏览器创建线程加载，并继续解析文档。 对于async属性的脚本，脚本加载完成后立即执行。（异步禁止使用document.write()）</p>
-<p>5、遇到img等，先正常解析dom结构，然后浏览器异步加载src，并继续解析文档。</p>
-<p>6、当文档解析完成，document.readyState = ‘interactive’。</p>
-<p>7、文档解析完成后，所有设置有defer的脚本会按照顺序执行。（注意与async的不同,</p>
-<p>但同样禁止使用document.write()）;</p>
-<p>8、document对象触发DOMContentLoaded事件，这也标志着程序执行从同步脚本执行阶段，</p>
-<p>转化为事件驱动阶段。</p>
-<p>9、当所有async的脚本加载完成并执行后、img等加载完成后，document.readyState = ‘complete’，window</p>
-<p>对象触发load事件。</p>
-<p>10、从此，以异步响应方式处理用户输入、网络事件等。</p>
-<p>JS的时间线是非常重要的知识点，希望大家能背下来这一块哟~</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/05/事件处理模型与事件委托/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -3063,6 +2818,218 @@ var newArr = arr.unique();
 
 
     
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/27/克隆算法/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wanghai">
+      <meta itemprop="description" content="Wanghai个人站，主要涉及前端知识共享、实践教程、前沿技术共同学习等方面">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="welcome">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2018/11/27/克隆算法/" class="post-title-link" itemprop="http://yoursite.com/page/2/index.html">克隆算法</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-11-27 17:16:33" itemprop="dateCreated datePublished" datetime="2018-11-27T17:16:33+08:00">2018-11-27</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2018-12-25 10:29:19" itemprop="dateModified" datetime="2018-12-25T10:29:19+08:00">2018-12-25</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>克隆和我们前面所讲的继承有一些区别，克隆是复制出来一个一模一样的目标对象，而克隆又分为浅层克隆和深层克隆。</p>
+<p>• <strong><font color="red">浅层克隆</font></strong></p>
+<p>克隆大致就是我们的源对象里面有什么属性，目标文件就有什么属性，依照这个原理，我们可以写出下面的代码：</p>
+<pre><code>function clone(src, tar) {
+var tar = tar || {};// 如果没有tar则默认是一个空对象
+for(var prop in src) {
+      if(src.hasOwnProperty(prop)){
+           tar[prop] = src[prop];
+      }
+ }
+ return tar; 
+}
+</code></pre><p>下面我们来测试一下:</p>
+<pre><code>var obj = {
+      name: &apos;scarlett&apos;,
+      age: 123
+}
+var obj2 = {}
+clone(obj, obj2);
+console.log(obj2.name);// scarlett
+</code></pre><p>然后我们改变一下obj这个源对象的name：</p>
+<pre><code>obj.name = &apos;test&apos;
+console.log(obj2.name);// scarlett
+</code></pre><p>我们可以发现，克隆出来的目标对象和本来的源对象之间没有关系了<br>但是，当我们有一个属性是引用值（数组或者对象）的时候，按照我们这种克隆方式，只是把这个引用值的指向赋给了新的目标对象，也就是说，我们一旦改变了源对象或者目标对象的引用值属性，另一个也会跟着改变，这一点就是浅层克隆的缺点。</p>
+<p>• <strong><font color="red">深层克隆</font></strong></p>
+<p><strong>思路:<br>    1.遍历对象<br>    2.判断是否是原始值 还是引用值<br>    3.判断引用值类似是数组还是对象<br>    4.建立相应的数组或对象<br>    5.递归</strong></p>
+<pre><code>function clone(origin, target){
+    var target = target || {},//防止用户不传target参数
+         toStr = Object.prototype.toString,
+         arrStr = &quot;[object Array]&quot;;
+    for(var prop in origin){
+        if(origin.hasOwnProperty(prop)){
+            if( origin[prop] !== &quot;null&quot; &amp;&amp; typeof(origin[prop]) == &apos;object&apos;){
+                if(toStr.call(origin[prop]) == arrStr){
+                    target[prop] = [];
+                }else{
+                    target[prop] = {};
+                }
+                clone(origin[prop], target[prop]);
+            }else{
+                target[prop] = origin[prop];
+            }
+        }
+    }
+}
+</code></pre><p>现在我们来测试一下：</p>
+<pre><code>var parent = {
+      name : &apos;ScarLet&apos;,
+      age : 123,
+      sex : &apos;male&apos;,
+      height : 190,
+      money: [1,2,3,4,5]
+}
+var child = {};
+deepCopy(parent,child);
+console.log(child.money);//1 2 3 4 5
+parent.money.push(10);
+console.log(child.money);// 1 2 3 4 5
+</code></pre><p>这个时候目标对象和源对象的引用值之间就没有了关系，自己都是独立值，可以进行修改了。</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
   </section>
 
   
@@ -3110,7 +3077,7 @@ var newArr = arr.unique();
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">47</span>
+                    <span class="site-state-item-count">46</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
