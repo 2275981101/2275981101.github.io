@@ -1799,6 +1799,93 @@ document.body.appendChild(fragment);
 ]]></content>
   </entry>
   <entry>
+    <title>定位与层模型</title>
+    <url>/2018/12/09/%E5%AE%9A%E4%BD%8D%E4%B8%8E%E5%B1%82%E6%A8%A1%E5%9E%8B/</url>
+    <content><![CDATA[<h2 id="层模型"><a href="#层模型" class="headerlink" title="层模型"></a><font color="red">层模型</font></h2><p>css中元素的层次模型主要是由<font color="red">position</font>这个属性来决定的。</p>
+<p>position属性：position的意思是定位，同样这个属性的作用就是<font color="red">给元素施加定位</font>。它一共有四个值，分别是<font color="red">static、absolute、relative、fixed</font>。</p>
+<p><strong><font color="red">static</font></strong></p>
+<p>• static是<font color="red">默认</font>的属性，当我们没有写position属性的时候，元素默认的定位就是static定位。</p>
+<p><strong><font color="red">absolute</font></strong></p>
+<p>• absolute是<font color="red">绝对定位</font>的意思，它会使元素<font color="red">脱离本来的位置</font>再进行定位，它会使元素像立交桥一样出现空间上的分层，当元素脱离原来的位置之后，其他的元素就会看不到这个元素。同时，<font color="red">absolute也可以触发bfc</font>。</p>
+<p>• 同时，当我们改变定位之后，这个元素就有四个属性可以使用了，分别是<font color="red">left、right、top、bottom</font>。这四个属性分别可以设置当前元素距离左边、右边、上边和下边的距离为多少，但是四个属性很少一起出现，一般都是两两一对出现，其中left和top是一对，right和bottom是一对。</p>
+<pre><code>div{
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    left: 100px;
+    top: 100px;
+}
+</code></pre><p>这个div就会脱离原来的位置，然后距离浏览器上边框和左边框分别100px的距离。</p>
+<p>• 最后一点，absolute的参照物是<font color="red">距离它最近的有定位（除了static）的父级</font>，当每一个父级都没有定位的时候，元素会相对于<font color="red">浏览器边框</font>进行定位。</p>
+<p><strong><font color="red">relative</font></strong></p>
+<p>• relative是<font color="red">相对定位</font>的意思，它会让元素保留原来的位置再进行定位，后面的元素可以看到它本来的位置。</p>
+<p>• 当position改成relative之后，left、top、right、bottom进行的定位就会变成<font color="red">相对于自身的位置</font>进行移动了。</p>
+<p>• relative的<font color="red">参照物是元素自身</font>。</p>
+<p>• 当我们仅仅给元素设置position:relative;并没有设置left、right、top、bottom属性的时候，元素的定位是没有发生任何改变的，因为这个特性，一般在开发中，<font color="red">relative都是用作设置参照物的</font>，一个absolute元素要相对于那个元素进行移动，就给那个元素设置relative的定位就可以了。</p>
+<font color="red">我们通过例子来看一下absolute和relative的区别。</font><br>我们现在有这样一个结构:<br><br>    <div class="wrapper"><br>        <div class="box"><br>            <div class="content"></div><br>        </div><br>    </div><br><br>    .wrapper{<br>        width: 200px;<br>        height: 200px;<br>        background-color: orange;<br>        margin-top: 100px;<br>        margin-left: 100px;<br>    }<br>    .box{<br>        width: 100px;<br>        height: 100px;<br>        background-color: black;<br>        margin-left: 100px;<br>    }<br>    .content{<br>        width: 50px;<br>        height: 50px;<br>        background-color: yellow;<br>    }<br><br>这个时候时候我们在浏览器中看到的样式是这个样子的：<br><br><img src="https://i.imgur.com/qx7jaAd.png" alt=""><br><br>现在我们给content加上定位的样式。<br><br>    .content{<br>        position: absolute;<br>        left: 50px;<br>        width: 50px;<br>        height: 50px;<br>        background-color: yellow;<br>    }<br><br>这个时候浏览器中的样式就会发生改变，content那个黄色的小方块会跑到橘黄色的方块外面：<br><br><img src="https://i.imgur.com/a6ip5NV.png" alt=""><br><br>这是因为，当我们给content设置position:absolute;之后，浏览器在渲染的时候，会先向上找到box这个div，看看这个div有没有定位，因为没有，所以继续向上找wrapper，依然没有，再向上找body，还是没有，所以最后就是<font color="red">相对于浏览器边框定位</font>，这个时候content的left属性就是相对于浏览器边框左边有50px的距离的意思。<br><br>现在我们把content的定位换成relative，浏览器中的结果变成了这个样子：<br><br><img src="https://i.imgur.com/d9fpGrk.png" alt=""><br><br>本来content黄色小方块在黑色方块的左上角，然后relative相对与自身的位置进行定位，这个时候的left属性的意思就是相对于本来在黑色左上角的那个位置向右移动了50px的距离，也就是现在这个黄色小方块所在的位置。<br><br>因此，总结一下absolute和relative的特点如下：<br><br><br>• <font color="red">absolute：<br><br>1.脱离原来位置进行定位<br><br>2.相对于最近的有定位的父级进行定位，如果没有那么相对于浏览器边框定位。</font>
+
+
+<p>• <font color="red">relative：</font></p>
+<font color="red">1.保留原来位置定位<br><br>2.相对于最近的有定位的父级进行定位<br><br>一般被用来设置参照物</font>
+
+<p><strong><font color="red">fixed</font></strong></p>
+<p>fixed定位是<font color="red"><strong>相对于视口</strong></font>的定位，我们在网页上都见过左右两边不随着滚轮滚动而改变位置的<font color="red">广告栏</font>，这种广告栏就是用fixed定位的。</p>
+<pre><code>&lt;div class=&quot;fixed&quot;&gt;&lt;/div&gt;
+
+.fixed{
+    position: fixed;
+    right: 0px;
+    top: 200px;
+    height: 200px;
+    width: 50px;
+    background-color: red;
+}
+</code></pre><p>这段代码中，div.fixed这个元素就是一直在视口的右边，不随着我们滚动而改变相对于视口的位置。</p>
+<font color="red">最后提一点</font>
+
+<p>• 值得注意的是，当我们写这样一段代码的时候：</p>
+<pre><code>&lt;div class=&quot;demo&quot;&gt;&lt;/div&gt;
+.demo{
+    position: absolute;
+    margin-top: 200px;
+    height: 200px;
+    width: 50px;
+    background-color: red;
+}
+</code></pre><p>我们把absolute换成relative之后，会发现整个div会向上移动一小段距离，这是为什么呢？</p>
+<p>答案其实就在上一篇的文章里，<font color="red">margin合并问题</font>——body标签本身有8px的margin，而四个方向的margin自然包括了margin-bottom，我们为div.demo设置了margin-top，就会导致margin合并的问题发生，当position是relative的时候，并没有触发bfc，所以中间的距离会取二者的最大值，也就是200px，当position是absolute的时候，因为触发了bfc效果，从而消除掉margin合并的bug，因此中间的距离是200+8=208px。</p>
+<pre><code>我们还可以实现多栏布局了！
+&lt;div class=”left”&gt;&lt;/div&gt;
+&lt;div class=”right”&gt;&lt;/div&gt;
+&lt;div class=”mid”&gt;&lt;/div&gt;
+*{
+    margin: 0px;
+    padding: 0px;
+}
+div{
+    height: 100px;
+}
+.left{
+    position: absolute;
+    left: 0;
+    width: 100px;
+    background-color: yellow;
+}
+.right{
+    position: absolute;
+    right: 0;
+    width: 100px;
+    background-color: #ffc;
+}
+.mid{
+    margin-left: 100px;
+    margin-right: 100px;
+    background-color: #fcc;
+}
+</code></pre><p>• 要注意的是，div.mid记得<font color="red">写在后面</font>，如果写在最前面的话，因为div是block块级元素会独占一行，这样就会把左侧和右侧的div给挤到下一行了。当然我们给.left和.right都加上<font color="red">top:0px;</font>之后，这个问题也就不用考虑了。</p>
+]]></content>
+  </entry>
+  <entry>
     <title>原型</title>
     <url>/2018/11/21/%E5%8E%9F%E5%9E%8B/</url>
     <content><![CDATA[<h2 id="原型"><a href="#原型" class="headerlink" title="原型"></a><font color="red">原型</font></h2><p>1.<strong><font color="red">定义</font></strong>:原型是function对象的一个<font color="red">属性</font>，它定义了构造函数制造出的对象的<font color="red">公共祖先</font>。<br>通过该构造函数产生的对象，可以<font color="red">继承该原型的属性和方法</font>。<strong><font color="red">原型也是对象</font></strong><br>2.利用原型特点和概念，可以提取共有属性<br>3.对象如何查看原型–&gt;隐式属性<strong>proto</strong><br>4.对象如何查看对象的构造函数–&gt;constructor</p>
@@ -1949,93 +2036,6 @@ function Person(){
 var person = new Person();
 person.toString();// &quot;hehe&quot;
 </code></pre>]]></content>
-  </entry>
-  <entry>
-    <title>定位与层模型</title>
-    <url>/2018/12/09/%E5%AE%9A%E4%BD%8D%E4%B8%8E%E5%B1%82%E6%A8%A1%E5%9E%8B/</url>
-    <content><![CDATA[<h2 id="层模型"><a href="#层模型" class="headerlink" title="层模型"></a><font color="red">层模型</font></h2><p>css中元素的层次模型主要是由<font color="red">position</font>这个属性来决定的。</p>
-<p>position属性：position的意思是定位，同样这个属性的作用就是<font color="red">给元素施加定位</font>。它一共有四个值，分别是<font color="red">static、absolute、relative、fixed</font>。</p>
-<p><strong><font color="red">static</font></strong></p>
-<p>• static是<font color="red">默认</font>的属性，当我们没有写position属性的时候，元素默认的定位就是static定位。</p>
-<p><strong><font color="red">absolute</font></strong></p>
-<p>• absolute是<font color="red">绝对定位</font>的意思，它会使元素<font color="red">脱离本来的位置</font>再进行定位，它会使元素像立交桥一样出现空间上的分层，当元素脱离原来的位置之后，其他的元素就会看不到这个元素。同时，<font color="red">absolute也可以触发bfc</font>。</p>
-<p>• 同时，当我们改变定位之后，这个元素就有四个属性可以使用了，分别是<font color="red">left、right、top、bottom</font>。这四个属性分别可以设置当前元素距离左边、右边、上边和下边的距离为多少，但是四个属性很少一起出现，一般都是两两一对出现，其中left和top是一对，right和bottom是一对。</p>
-<pre><code>div{
-    width: 100px;
-    height: 100px;
-    position: absolute;
-    left: 100px;
-    top: 100px;
-}
-</code></pre><p>这个div就会脱离原来的位置，然后距离浏览器上边框和左边框分别100px的距离。</p>
-<p>• 最后一点，absolute的参照物是<font color="red">距离它最近的有定位（除了static）的父级</font>，当每一个父级都没有定位的时候，元素会相对于<font color="red">浏览器边框</font>进行定位。</p>
-<p><strong><font color="red">relative</font></strong></p>
-<p>• relative是<font color="red">相对定位</font>的意思，它会让元素保留原来的位置再进行定位，后面的元素可以看到它本来的位置。</p>
-<p>• 当position改成relative之后，left、top、right、bottom进行的定位就会变成<font color="red">相对于自身的位置</font>进行移动了。</p>
-<p>• relative的<font color="red">参照物是元素自身</font>。</p>
-<p>• 当我们仅仅给元素设置position:relative;并没有设置left、right、top、bottom属性的时候，元素的定位是没有发生任何改变的，因为这个特性，一般在开发中，<font color="red">relative都是用作设置参照物的</font>，一个absolute元素要相对于那个元素进行移动，就给那个元素设置relative的定位就可以了。</p>
-<font color="red">我们通过例子来看一下absolute和relative的区别。</font><br>我们现在有这样一个结构:<br><br>    <div class="wrapper"><br>        <div class="box"><br>            <div class="content"></div><br>        </div><br>    </div><br><br>    .wrapper{<br>        width: 200px;<br>        height: 200px;<br>        background-color: orange;<br>        margin-top: 100px;<br>        margin-left: 100px;<br>    }<br>    .box{<br>        width: 100px;<br>        height: 100px;<br>        background-color: black;<br>        margin-left: 100px;<br>    }<br>    .content{<br>        width: 50px;<br>        height: 50px;<br>        background-color: yellow;<br>    }<br><br>这个时候时候我们在浏览器中看到的样式是这个样子的：<br><br><img src="https://i.imgur.com/qx7jaAd.png" alt=""><br><br>现在我们给content加上定位的样式。<br><br>    .content{<br>        position: absolute;<br>        left: 50px;<br>        width: 50px;<br>        height: 50px;<br>        background-color: yellow;<br>    }<br><br>这个时候浏览器中的样式就会发生改变，content那个黄色的小方块会跑到橘黄色的方块外面：<br><br><img src="https://i.imgur.com/a6ip5NV.png" alt=""><br><br>这是因为，当我们给content设置position:absolute;之后，浏览器在渲染的时候，会先向上找到box这个div，看看这个div有没有定位，因为没有，所以继续向上找wrapper，依然没有，再向上找body，还是没有，所以最后就是<font color="red">相对于浏览器边框定位</font>，这个时候content的left属性就是相对于浏览器边框左边有50px的距离的意思。<br><br>现在我们把content的定位换成relative，浏览器中的结果变成了这个样子：<br><br><img src="https://i.imgur.com/d9fpGrk.png" alt=""><br><br>本来content黄色小方块在黑色方块的左上角，然后relative相对与自身的位置进行定位，这个时候的left属性的意思就是相对于本来在黑色左上角的那个位置向右移动了50px的距离，也就是现在这个黄色小方块所在的位置。<br><br>因此，总结一下absolute和relative的特点如下：<br><br><br>• <font color="red">absolute：<br><br>1.脱离原来位置进行定位<br><br>2.相对于最近的有定位的父级进行定位，如果没有那么相对于浏览器边框定位。</font>
-
-
-<p>• <font color="red">relative：</font></p>
-<font color="red">1.保留原来位置定位<br><br>2.相对于最近的有定位的父级进行定位<br><br>一般被用来设置参照物</font>
-
-<p><strong><font color="red">fixed</font></strong></p>
-<p>fixed定位是<font color="red"><strong>相对于视口</strong></font>的定位，我们在网页上都见过左右两边不随着滚轮滚动而改变位置的<font color="red">广告栏</font>，这种广告栏就是用fixed定位的。</p>
-<pre><code>&lt;div class=&quot;fixed&quot;&gt;&lt;/div&gt;
-
-.fixed{
-    position: fixed;
-    right: 0px;
-    top: 200px;
-    height: 200px;
-    width: 50px;
-    background-color: red;
-}
-</code></pre><p>这段代码中，div.fixed这个元素就是一直在视口的右边，不随着我们滚动而改变相对于视口的位置。</p>
-<font color="red">最后提一点</font>
-
-<p>• 值得注意的是，当我们写这样一段代码的时候：</p>
-<pre><code>&lt;div class=&quot;demo&quot;&gt;&lt;/div&gt;
-.demo{
-    position: absolute;
-    margin-top: 200px;
-    height: 200px;
-    width: 50px;
-    background-color: red;
-}
-</code></pre><p>我们把absolute换成relative之后，会发现整个div会向上移动一小段距离，这是为什么呢？</p>
-<p>答案其实就在上一篇的文章里，<font color="red">margin合并问题</font>——body标签本身有8px的margin，而四个方向的margin自然包括了margin-bottom，我们为div.demo设置了margin-top，就会导致margin合并的问题发生，当position是relative的时候，并没有触发bfc，所以中间的距离会取二者的最大值，也就是200px，当position是absolute的时候，因为触发了bfc效果，从而消除掉margin合并的bug，因此中间的距离是200+8=208px。</p>
-<pre><code>我们还可以实现多栏布局了！
-&lt;div class=”left”&gt;&lt;/div&gt;
-&lt;div class=”right”&gt;&lt;/div&gt;
-&lt;div class=”mid”&gt;&lt;/div&gt;
-*{
-    margin: 0px;
-    padding: 0px;
-}
-div{
-    height: 100px;
-}
-.left{
-    position: absolute;
-    left: 0;
-    width: 100px;
-    background-color: yellow;
-}
-.right{
-    position: absolute;
-    right: 0;
-    width: 100px;
-    background-color: #ffc;
-}
-.mid{
-    margin-left: 100px;
-    margin-right: 100px;
-    background-color: #fcc;
-}
-</code></pre><p>• 要注意的是，div.mid记得<font color="red">写在后面</font>，如果写在最前面的话，因为div是block块级元素会独占一行，这样就会把左侧和右侧的div给挤到下一行了。当然我们给.left和.right都加上<font color="red">top:0px;</font>之后，这个问题也就不用考虑了。</p>
-]]></content>
   </entry>
   <entry>
     <title>对象与构造函数与包装类</title>
