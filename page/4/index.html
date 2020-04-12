@@ -335,6 +335,277 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/16/CSS3之calc()/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wanghai">
+      <meta itemprop="description" content="Wanghai个人站，主要涉及前端知识共享、实践教程、前沿技术共同学习等方面">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="welcome">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2018/11/16/CSS3之calc()/" class="post-title-link" itemprop="http://yoursite.com/page/4/index.html">CSS3之calc()</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-11-16 17:18:33" itemprop="dateCreated datePublished" datetime="2018-11-16T17:18:33+08:00">2018-11-16</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2018-12-13 15:39:40" itemprop="dateModified" datetime="2018-12-13T15:39:40+08:00">2018-12-13</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><font color="red"></font></p>
+<h4 id="什么是calc"><a href="#什么是calc" class="headerlink" title="什么是calc()?"></a><font color="red">什么是calc()?</font></h4><p><strong>calc()</strong>从字面我们可以把他理解为一个函数function.其实calc是英文单词calculate(计算)的缩写,是css3的一个新增的功能,用来指定元素的长度.比如说,你可以使用calc()给元素的border、margin、pading、font-size和width等属性设置<font color="red">动态值</font>.为何说是动态值呢?因为我们使用的表达式来得到的值.不过calc()最大的好处就是用在流体布局上,可以通过calc()计算得到元素的宽度.</p>
+<h4 id="calc-能做什么"><a href="#calc-能做什么" class="headerlink" title="calc()能做什么?"></a><font color="red">calc()能做什么?</font></h4><p><font color="red">calc()能让你给元素的做计算</font>,你可以给一个div元素,使用百分比、em、px和rem单位值计算出其宽度或者高度,比如说”width:calc(50% + 2em)”,这样一来你就不用考虑元素DIV的宽度值到底是多少,而把这个烦人的任务交由浏览器去计算.</p>
+<h4 id="calc-语法"><a href="#calc-语法" class="headerlink" title="calc()语法"></a><font color="red">calc()语法</font></h4><p>calc()语法非常简单,就像我们小时候学加(+)、减(-)、乘(*)、除(/)一样,使用数学表达式来表示:</p>
+<pre><code>.elm{
+    width: calc(expression)
+}
+</code></pre><p>其中”expression”是一个表达式，用来计算长度的表达式.</p>
+<h4 id="calc-的运算规则"><a href="#calc-的运算规则" class="headerlink" title="calc()的运算规则"></a><font color="red">calc()的运算规则</font></h4><p>calc()使用通用的数学运算规则,但是也提供更智能的功能:</p>
+<p>• 使用”+”、”-“、”*” 和 “/“四则运算;</p>
+<p>• 可以使用百分比、px、em、rem等单位;</p>
+<p>• 可以混合使用各种单位进行计算;</p>
+<p>• 表达式中有”+”和”-“时,其<font color="red">前后必须要有空格</font>,如”widht: calc(12%+5em)”这种没有空格的写法是错误的;</p>
+<p>• 表达式中有”*”和”/“时,其<font color="red">前后可以没有空格</font>,但建议留有空格.</p>
+<h4 id="浏览器的兼容性"><a href="#浏览器的兼容性" class="headerlink" title="浏览器的兼容性"></a><font color="red">浏览器的兼容性</font></h4><p>浏览器对calc()的兼容性还算不错,在IE9+、FF4.0+、Chrome19+、Safari6+都得到较好支持,同样需要在其前面加上各浏览器厂商的识别符,不过可惜的是,移动端的浏览器还没仅有“firefox for android 14.0”支持,其他的全军覆没.大家在实际使用时,同样需要添加浏览器的前缀</p>
+<pre><code>.elm {
+    //Firefox
+    -moz-calc(expression);
+    //chrome safari
+    -webkit-calc(expression);
+    //Standard
+    calc();
+}
+</code></pre><p><strong>例1.</strong></p>
+<pre><code>.demo{
+    width: 300px;
+    background: #60f;
+    padding: 3px 0;
+}
+.box{
+    background: #f60;
+    height: 50px;
+    padding: 10px;
+    border: 5px solid green;
+    width: 90%;/*写给不支持calc()的浏览器*/
+    width: -moz-calc(100% - (10px + 5px) * 2);
+    width: -webkit-calc(100% - (10px + 5px) * 2);
+    width: calc(100% - (10px + 5px) * 2);
+}
+&lt;div class=&quot;demo&quot;&gt;
+    &lt;div class=&quot;box&quot;&gt;&lt;/div&gt;
+&lt;/div&gt;&lt;hr&gt;
+</code></pre><p><img src="https://i.imgur.com/HugB59A.png" alt=""></p>
+<p><strong>例2.</strong></p>
+<pre><code>body{
+       background: #E8EADD;
+       color: #3C323A;
+       padding: 20px;
+   }
+   /*设置主容器&quot;wrapper&quot;
+     主容器的宽度是:&quot;100% - 20px * 2,并且水平居中&quot;
+   */
+   .wrapper{
+       width: 1024px;/*写给不支持calc()的浏览器*/
+       width: -moz-calc(100% - 40px);
+       width: -webkit-calc(100% - 40px);
+       width: calc(100% - 40px);
+       margin: auto;
+   }
+   /*给header和footer设置样式
+     对应的宽度是:&quot;100% - 20px * 2
+   */
+   #header{
+       background: #f60;
+       padding: 20px;
+       width: 984px;
+       width: -moz-calc(100% - 40px);
+       width: -webkit-calc(100% - 40px);
+       width: calc(100% - 40px);
+   }
+   #footer{
+       clear: both;
+       background: #000;
+       padding: 20px;
+       color: #fff;
+       width: 984px;
+       width: -moz-calc(100% - 40px);
+       width: -webkit-calc(100% - 40px);
+       width: calc(100% - 40px);
+   }
+   /*给主内容设置样式
+     给主内容设置一个8px的边框,20px的内距,并且向左浮动,同时设置一个向右的外边距&quot;20&quot;px
+     关键之处,我们主内容占容器宽度的75%,这样一来,主内容的宽度应该是:
+     &quot;75% - 8px * 2 - 20px * 2&quot;
+   */
+   #main{
+       border: 8px solid #B8C172;
+       float: left;
+       padding: 20px;
+       margin-right: 20px;
+       margin-bottom: 20px;
+       width: 704px;
+       width: -moz-calc(75% - 20px * 2 - 8px * 2);
+       width: -webkit-calc(75% - 20px * 2 - 8px * 2);
+       width: calc(75% - 20px * 2 - 8px * 2);
+   }
+   /*设置右边栏样式
+     给边栏设置一个25%的宽度,其除了包含8px的边框,10px的内距外,还有主内容外距20px也要去掉
+     不然整个宽度与容器会相差20px,换句话说就会撑破容器掉下来.因此边栏的实际宽度应该是:
+     &quot;25% - 10px * 2 - 8px * 2 -20px&quot;  
+   */
+   #accessory{
+       border: 8px solid #B8C172;
+       float: left;
+       padding: 10px;
+       width: 208px;
+       width: -moz-calc(25% - 10px * 2 - 8px * 2 - 20px);
+       width: -webkit-calc(25% - 10px * 2 - 8px * 2 - 20px);
+       width: calc(25% - 10px * 2 - 8px * 2 - 20px);
+   }
+
+   &lt;div class=&quot;wrapper&quot;&gt;
+       &lt;div id=&quot;header&quot;&gt;header&lt;/div&gt;
+       &lt;div id=&quot;main&quot;&gt;main&lt;/div&gt;
+       &lt;div id=&quot;accessory&quot;&gt;accessory&lt;/div&gt;
+       &lt;div id=&quot;footer&quot;&gt;footer&lt;/div&gt;
+   &lt;/div&gt;
+</code></pre><p><img src="https://i.imgur.com/gF8nD6v.png" alt=""></p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/15/CSS3之阴影/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -2448,190 +2719,6 @@ div::after{
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/06/blog6/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Wanghai">
-      <meta itemprop="description" content="Wanghai个人站，主要涉及前端知识共享、实践教程、前沿技术共同学习等方面">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="welcome">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2018/11/06/blog6/" class="post-title-link" itemprop="http://yoursite.com/page/4/index.html">CSS常用布局</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2018-11-06 16:29:58" itemprop="dateCreated datePublished" datetime="2018-11-06T16:29:58+08:00">2018-11-06</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2018-12-13 15:37:44" itemprop="dateModified" datetime="2018-12-13T15:37:44+08:00">2018-12-13</time>
-              
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h4 id="常用布局"><a href="#常用布局" class="headerlink" title="常用布局"></a><font color="red">常用布局</font></h4><p><strong><font color="red">“display”属性</font></strong></p>
-<p>  display 是CSS中最重要的用于控制布局的属性</p>
-<ol>
-<li><font color="red">display:block</font>
-
-<p>div 是一个标准的<font color="red">块级</font>元素。一个块级元素会新开始一行并且尽可能撑满容器。而且block元素可以设置其高度与宽度。</p>
-<p>(h1-h6 p ol ul li div form table address等)</p>
-</li>
-<li><font color="red">display:inline</font>
-
-<p>span 是一个标准的<font color="red">行内</font>元素。一个行内元素可以在段落中 <span> 像这样 </span> 包裹一些文字而不会打乱段落的布局</p>
-<p>inline元素无法设置其高度与宽度，它的高度和宽度完全取决于其内容的高和宽(a em strong br span select)</p>
-</li>
-<li><font color="red">display:inline-block</font>
-
-<p>inline-block 综合了inline和block两种属性的特质,既可以给其设置宽高，又让其不会独占行。而且可以用这个属性模拟float进行布局</p>
-</li>
-<li><font color="red">display:none</font>
-
-<p>display:none 通常被 JavaScript 用来在<font color="red">不删除元素的情况下隐藏或显示元素</font>。它和visibility属性不一样,把display设置成none元素不会占据它本来应该显示的空间,但是设置成visibility: hidden;<font color="red">还会占据空间</font>。</p>
-</li>
-</ol>
-<p><strong><font color="red">水平居中</font></strong></p>
-<p>  #main{ width: 600px; margin: 0 auto;}</p>
-<p><font color="red">设置块级元素的 width 可以防止它从左到右撑满整个容器</font>。然后你就可以设置左右外边距为auto来使其<font color="red">水平居中</font>。<br>元素会占据你所指定的宽度,然后剩余的宽度会一分为二成为左右外边距。</p>
-<p>  #main{ max-width: 600px; margin: 0 auto;}</p>
-<p><font color="red">当浏览器窗口比元素的宽度还要窄时</font> 在这种情况下使用max-width替代width可以使浏览器更好地处理小窗口的情况。</p>
-<p><strong><font color="red">盒模型</font></strong></p>
-<p>当你设置了元素的宽度，实际展现的元素却超出你的设置:这是因为元素的边框和内边距会撑开元素。<br>看下面的例子，两个相同宽度的元素显示的实际宽度却不一样。</p>
-<p>  <style><br>  .small{<br>            width: 500px;<br>            height: 300px;<br>            margin: 20px auto;<br>            background-color: pink;<br>            box-sizing: border-box;<br>        }<br>        .big{<br>            width: 500px;<br>            height: 300px;<br>            margin: 20px auto;<br>            padding: 50px;<br>            border: 10px solid black;<br>            background-color: crimson;<br>        }<br>  </style><br>  <div class="small"></div><br>  <div class="big"></div></p>
-<p><img src="https://i.imgur.com/pU3yaUM.png" alt=""></p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2679,7 +2766,7 @@ div::after{
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">45</span>
+                    <span class="site-state-item-count">46</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>

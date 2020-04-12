@@ -4706,4 +4706,27 @@ git config --global user.email  &quot;你希望的邮箱名&quot;
 hexo d
 </code></pre>]]></content>
   </entry>
+  <entry>
+    <title>work-edge浏览器兼容</title>
+    <url>/2020/04/12/edge%E6%B5%8F%E8%A7%88%E5%99%A8%E5%85%BC%E5%AE%B9/</url>
+    <content><![CDATA[<h1 id="edge浏览器兼容-栏目"><a href="#edge浏览器兼容-栏目" class="headerlink" title="edge浏览器兼容(栏目)"></a>edge浏览器兼容(栏目)</h1><pre><code>var ua = window.navigator.userAgent;
+var edge = ua.indexOf(&apos;Edge/&apos;);
+var wechat = ua.indexOf(&apos;Wechat&apos;);
+if (edge &gt; 0 || wechat &gt; 0) {
+    $(&apos;.has-dropdown.is-hoverable&apos;).hover(
+        function() {
+            $(this).find(&apos;.navbar-dropdown&apos;).show()
+        },
+        function() {
+            $(this).find(&apos;.navbar-dropdown&apos;).hide()
+        }
+    )
+}
+</code></pre><h1 id="301重定向的可以先在首页加这段代码："><a href="#301重定向的可以先在首页加这段代码：" class="headerlink" title="301重定向的可以先在首页加这段代码："></a>301重定向的可以先在首页加这段代码：</h1><pre><code>&lt;script&gt;
+    if (location.hostname === &apos;wwzsg.com&apos;) {
+        location.href = &apos;http://www.wwzsg.com&apos;
+    }
+&lt;/script&gt;
+</code></pre>]]></content>
+  </entry>
 </search>

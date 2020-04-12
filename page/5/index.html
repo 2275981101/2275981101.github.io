@@ -335,6 +335,190 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/06/blog6/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wanghai">
+      <meta itemprop="description" content="Wanghai个人站，主要涉及前端知识共享、实践教程、前沿技术共同学习等方面">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="welcome">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2018/11/06/blog6/" class="post-title-link" itemprop="http://yoursite.com/page/5/index.html">CSS常用布局</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-11-06 16:29:58" itemprop="dateCreated datePublished" datetime="2018-11-06T16:29:58+08:00">2018-11-06</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2018-12-13 15:37:44" itemprop="dateModified" datetime="2018-12-13T15:37:44+08:00">2018-12-13</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="常用布局"><a href="#常用布局" class="headerlink" title="常用布局"></a><font color="red">常用布局</font></h4><p><strong><font color="red">“display”属性</font></strong></p>
+<p>  display 是CSS中最重要的用于控制布局的属性</p>
+<ol>
+<li><font color="red">display:block</font>
+
+<p>div 是一个标准的<font color="red">块级</font>元素。一个块级元素会新开始一行并且尽可能撑满容器。而且block元素可以设置其高度与宽度。</p>
+<p>(h1-h6 p ol ul li div form table address等)</p>
+</li>
+<li><font color="red">display:inline</font>
+
+<p>span 是一个标准的<font color="red">行内</font>元素。一个行内元素可以在段落中 <span> 像这样 </span> 包裹一些文字而不会打乱段落的布局</p>
+<p>inline元素无法设置其高度与宽度，它的高度和宽度完全取决于其内容的高和宽(a em strong br span select)</p>
+</li>
+<li><font color="red">display:inline-block</font>
+
+<p>inline-block 综合了inline和block两种属性的特质,既可以给其设置宽高，又让其不会独占行。而且可以用这个属性模拟float进行布局</p>
+</li>
+<li><font color="red">display:none</font>
+
+<p>display:none 通常被 JavaScript 用来在<font color="red">不删除元素的情况下隐藏或显示元素</font>。它和visibility属性不一样,把display设置成none元素不会占据它本来应该显示的空间,但是设置成visibility: hidden;<font color="red">还会占据空间</font>。</p>
+</li>
+</ol>
+<p><strong><font color="red">水平居中</font></strong></p>
+<p>  #main{ width: 600px; margin: 0 auto;}</p>
+<p><font color="red">设置块级元素的 width 可以防止它从左到右撑满整个容器</font>。然后你就可以设置左右外边距为auto来使其<font color="red">水平居中</font>。<br>元素会占据你所指定的宽度,然后剩余的宽度会一分为二成为左右外边距。</p>
+<p>  #main{ max-width: 600px; margin: 0 auto;}</p>
+<p><font color="red">当浏览器窗口比元素的宽度还要窄时</font> 在这种情况下使用max-width替代width可以使浏览器更好地处理小窗口的情况。</p>
+<p><strong><font color="red">盒模型</font></strong></p>
+<p>当你设置了元素的宽度，实际展现的元素却超出你的设置:这是因为元素的边框和内边距会撑开元素。<br>看下面的例子，两个相同宽度的元素显示的实际宽度却不一样。</p>
+<p>  <style><br>  .small{<br>            width: 500px;<br>            height: 300px;<br>            margin: 20px auto;<br>            background-color: pink;<br>            box-sizing: border-box;<br>        }<br>        .big{<br>            width: 500px;<br>            height: 300px;<br>            margin: 20px auto;<br>            padding: 50px;<br>            border: 10px solid black;<br>            background-color: crimson;<br>        }<br>  </style><br>  <div class="small"></div><br>  <div class="big"></div></p>
+<p><img src="https://i.imgur.com/pU3yaUM.png" alt=""></p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/05/blog5/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1544,7 +1728,7 @@ c.e
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">45</span>
+                    <span class="site-state-item-count">46</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>

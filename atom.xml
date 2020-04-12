@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2020-04-12T08:49:17.454Z</updated>
+  <updated>2020-04-12T09:02:44.582Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>work-edge浏览器兼容</title>
+    <link href="http://yoursite.com/2020/04/12/edge%E6%B5%8F%E8%A7%88%E5%99%A8%E5%85%BC%E5%AE%B9/"/>
+    <id>http://yoursite.com/2020/04/12/edge浏览器兼容/</id>
+    <published>2020-04-12T09:00:00.000Z</published>
+    <updated>2020-04-12T09:02:44.582Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="edge浏览器兼容-栏目"><a href="#edge浏览器兼容-栏目" class="headerlink" title="edge浏览器兼容(栏目)"></a>edge浏览器兼容(栏目)</h1><pre><code>var ua = window.navigator.userAgent;var edge = ua.indexOf(&apos;Edge/&apos;);var wechat = ua.indexOf(&apos;Wechat&apos;);if (edge &gt; 0 || wechat &gt; 0) {    $(&apos;.has-dropdown.is-hoverable&apos;).hover(        function() {            $(this).find(&apos;.navbar-dropdown&apos;).show()        },        function() {            $(this).find(&apos;.navbar-dropdown&apos;).hide()        }    )}</code></pre><h1 id="301重定向的可以先在首页加这段代码："><a href="#301重定向的可以先在首页加这段代码：" class="headerlink" title="301重定向的可以先在首页加这段代码："></a>301重定向的可以先在首页加这段代码：</h1><pre><code>&lt;script&gt;    if (location.hostname === &apos;wwzsg.com&apos;) {        location.href = &apos;http://www.wwzsg.com&apos;    }&lt;/script&gt;</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;edge浏览器兼容-栏目&quot;&gt;&lt;a href=&quot;#edge浏览器兼容-栏目&quot; class=&quot;headerlink&quot; title=&quot;edge浏览器兼容(栏目)&quot;&gt;&lt;/a&gt;edge浏览器兼容(栏目)&lt;/h1&gt;&lt;pre&gt;&lt;code&gt;var ua = window.navi
+      
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>hexo常用命令和问题</title>
@@ -419,27 +440,6 @@ s
         &lt;p&gt;克隆和我们前面所讲的继承有一些区别，克隆是复制出来一个一模一样的目标对象，而克隆又分为浅层克隆和深层克隆。&lt;/p&gt;
 &lt;p&gt;• &lt;strong&gt;&lt;font color=&quot;red&quot;&gt;浅层克隆&lt;/font&gt;&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;克隆大致就是我们的源对象里面有什么属性，
-      
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>严格模式与try-catch</title>
-    <link href="http://yoursite.com/2018/11/26/%E4%B8%A5%E6%A0%BC%E6%A8%A1%E5%BC%8F%E4%B8%8Etry-catch/"/>
-    <id>http://yoursite.com/2018/11/26/严格模式与try-catch/</id>
-    <published>2018-11-26T09:16:33.000Z</published>
-    <updated>2018-12-18T09:32:43.278Z</updated>
-    
-    <content type="html"><![CDATA[<h4 id="ES5-0严格模式"><a href="#ES5-0严格模式" class="headerlink" title="ES5.0严格模式"></a><font color="red">ES5.0严格模式</font></h4><p>• 浏览器 基于的es3.0的 + es5.0的新增方法 使用的<br>• es3.0 和 es5.0产生冲突的部分<br>• es5.0严格模式: 那么es3.0和es5.0产生冲突的部分就是用es5.0，否则会用es3.0</p><p><strong>es5.0严格模式的启动</strong>: 必须写在页面逻辑的最顶端 或 方法里面最顶端(局部)</p><pre><code>&quot;use strict&quot;;局部使用function test(){    &quot;use strict&quot;;    console.log(arguments.callee);}test();</code></pre><p><strong>严格模式下: • with, arguments.callee, caller(不能使用)<br>             • 变量赋值必须声明,局部this必须赋值<br>             • 拒绝重复属性和参数<br>             • es3.0 都不能使用eval();</strong></p><pre><code>如:function test(name, name){    &quot;use strict&quot;;    console.log(name);}test(1,2);var obj = {    name : &apos;123&apos;,    name : &apos;234&apos;}</code></pre><h4 id="try…catch"><a href="#try…catch" class="headerlink" title="try…catch"></a><font color="red">try…catch</font></h4><p><strong>三段式:</strong></p><pre><code>try{}catch(e){    }finally{    }</code></pre><p><strong>error对象 ——&gt; error.massage error.name<br>Error.name的六种值对应的信息</strong></p><p>  1.EvalError: eval()的使用与定义不一致<br>  2.RangeError: 数值越界<br>  3.ReferenceError: 非法或不能识别的引用数值<br>  4.SyntaxError: 发生语法解析错误<br>  5.TypeError: 操作数类型错误<br>  6.URIError: URI处理函数使用不当</p><pre><code>console.log(b);// ReferenceError    没定义就使用test();        // ReferenceError var str = abcd;// ReferenceErrorfunction demo(){      :}//SyntaxError       语法解析错误//在try里面的发生错误,不会执行错误后的try里面的代码try{    console.log(&apos;a&apos;);    console.log(b);    console.log(&apos;c&apos;);}catch(e){    console.log(e.massage+&quot; &quot;+e.name);//出错走这里}    console.log(&apos;d&apos;);</code></pre>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h4 id=&quot;ES5-0严格模式&quot;&gt;&lt;a href=&quot;#ES5-0严格模式&quot; class=&quot;headerlink&quot; title=&quot;ES5.0严格模式&quot;&gt;&lt;/a&gt;&lt;font color=&quot;red&quot;&gt;ES5.0严格模式&lt;/font&gt;&lt;/h4&gt;&lt;p&gt;• 浏览器 基于的es3.0的 +
       
     
     </summary>
