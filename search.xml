@@ -1,0 +1,4666 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>CSS3之calc()</title>
+    <url>/2018/11/16/CSS3%E4%B9%8Bcalc()/</url>
+    <content><![CDATA[<p><font color="red"></font></p>
+<h4 id="什么是calc"><a href="#什么是calc" class="headerlink" title="什么是calc()?"></a><font color="red">什么是calc()?</font></h4><p><strong>calc()</strong>从字面我们可以把他理解为一个函数function.其实calc是英文单词calculate(计算)的缩写,是css3的一个新增的功能,用来指定元素的长度.比如说,你可以使用calc()给元素的border、margin、pading、font-size和width等属性设置<font color="red">动态值</font>.为何说是动态值呢?因为我们使用的表达式来得到的值.不过calc()最大的好处就是用在流体布局上,可以通过calc()计算得到元素的宽度.</p>
+<h4 id="calc-能做什么"><a href="#calc-能做什么" class="headerlink" title="calc()能做什么?"></a><font color="red">calc()能做什么?</font></h4><p><font color="red">calc()能让你给元素的做计算</font>,你可以给一个div元素,使用百分比、em、px和rem单位值计算出其宽度或者高度,比如说”width:calc(50% + 2em)”,这样一来你就不用考虑元素DIV的宽度值到底是多少,而把这个烦人的任务交由浏览器去计算.</p>
+<h4 id="calc-语法"><a href="#calc-语法" class="headerlink" title="calc()语法"></a><font color="red">calc()语法</font></h4><p>calc()语法非常简单,就像我们小时候学加(+)、减(-)、乘(*)、除(/)一样,使用数学表达式来表示:</p>
+<pre><code>.elm{
+    width: calc(expression)
+}
+</code></pre><p>其中”expression”是一个表达式，用来计算长度的表达式.</p>
+<h4 id="calc-的运算规则"><a href="#calc-的运算规则" class="headerlink" title="calc()的运算规则"></a><font color="red">calc()的运算规则</font></h4><p>calc()使用通用的数学运算规则,但是也提供更智能的功能:</p>
+<p>• 使用”+”、”-“、”*” 和 “/“四则运算;</p>
+<p>• 可以使用百分比、px、em、rem等单位;</p>
+<p>• 可以混合使用各种单位进行计算;</p>
+<p>• 表达式中有”+”和”-“时,其<font color="red">前后必须要有空格</font>,如”widht: calc(12%+5em)”这种没有空格的写法是错误的;</p>
+<p>• 表达式中有”*”和”/“时,其<font color="red">前后可以没有空格</font>,但建议留有空格.</p>
+<h4 id="浏览器的兼容性"><a href="#浏览器的兼容性" class="headerlink" title="浏览器的兼容性"></a><font color="red">浏览器的兼容性</font></h4><p>浏览器对calc()的兼容性还算不错,在IE9+、FF4.0+、Chrome19+、Safari6+都得到较好支持,同样需要在其前面加上各浏览器厂商的识别符,不过可惜的是,移动端的浏览器还没仅有“firefox for android 14.0”支持,其他的全军覆没.大家在实际使用时,同样需要添加浏览器的前缀</p>
+<pre><code>.elm {
+    //Firefox
+    -moz-calc(expression);
+    //chrome safari
+    -webkit-calc(expression);
+    //Standard
+    calc();
+}
+</code></pre><p><strong>例1.</strong></p>
+<pre><code>.demo{
+    width: 300px;
+    background: #60f;
+    padding: 3px 0;
+}
+.box{
+    background: #f60;
+    height: 50px;
+    padding: 10px;
+    border: 5px solid green;
+    width: 90%;/*写给不支持calc()的浏览器*/
+    width: -moz-calc(100% - (10px + 5px) * 2);
+    width: -webkit-calc(100% - (10px + 5px) * 2);
+    width: calc(100% - (10px + 5px) * 2);
+}
+&lt;div class=&quot;demo&quot;&gt;
+    &lt;div class=&quot;box&quot;&gt;&lt;/div&gt;
+&lt;/div&gt;&lt;hr&gt;
+</code></pre><p><img src="https://i.imgur.com/HugB59A.png" alt=""></p>
+<p><strong>例2.</strong></p>
+<pre><code>body{
+       background: #E8EADD;
+       color: #3C323A;
+       padding: 20px;
+   }
+   /*设置主容器&quot;wrapper&quot;
+     主容器的宽度是:&quot;100% - 20px * 2,并且水平居中&quot;
+   */
+   .wrapper{
+       width: 1024px;/*写给不支持calc()的浏览器*/
+       width: -moz-calc(100% - 40px);
+       width: -webkit-calc(100% - 40px);
+       width: calc(100% - 40px);
+       margin: auto;
+   }
+   /*给header和footer设置样式
+     对应的宽度是:&quot;100% - 20px * 2
+   */
+   #header{
+       background: #f60;
+       padding: 20px;
+       width: 984px;
+       width: -moz-calc(100% - 40px);
+       width: -webkit-calc(100% - 40px);
+       width: calc(100% - 40px);
+   }
+   #footer{
+       clear: both;
+       background: #000;
+       padding: 20px;
+       color: #fff;
+       width: 984px;
+       width: -moz-calc(100% - 40px);
+       width: -webkit-calc(100% - 40px);
+       width: calc(100% - 40px);
+   }
+   /*给主内容设置样式
+     给主内容设置一个8px的边框,20px的内距,并且向左浮动,同时设置一个向右的外边距&quot;20&quot;px
+     关键之处,我们主内容占容器宽度的75%,这样一来,主内容的宽度应该是:
+     &quot;75% - 8px * 2 - 20px * 2&quot;
+   */
+   #main{
+       border: 8px solid #B8C172;
+       float: left;
+       padding: 20px;
+       margin-right: 20px;
+       margin-bottom: 20px;
+       width: 704px;
+       width: -moz-calc(75% - 20px * 2 - 8px * 2);
+       width: -webkit-calc(75% - 20px * 2 - 8px * 2);
+       width: calc(75% - 20px * 2 - 8px * 2);
+   }
+   /*设置右边栏样式
+     给边栏设置一个25%的宽度,其除了包含8px的边框,10px的内距外,还有主内容外距20px也要去掉
+     不然整个宽度与容器会相差20px,换句话说就会撑破容器掉下来.因此边栏的实际宽度应该是:
+     &quot;25% - 10px * 2 - 8px * 2 -20px&quot;  
+   */
+   #accessory{
+       border: 8px solid #B8C172;
+       float: left;
+       padding: 10px;
+       width: 208px;
+       width: -moz-calc(25% - 10px * 2 - 8px * 2 - 20px);
+       width: -webkit-calc(25% - 10px * 2 - 8px * 2 - 20px);
+       width: calc(25% - 10px * 2 - 8px * 2 - 20px);
+   }
+
+   &lt;div class=&quot;wrapper&quot;&gt;
+       &lt;div id=&quot;header&quot;&gt;header&lt;/div&gt;
+       &lt;div id=&quot;main&quot;&gt;main&lt;/div&gt;
+       &lt;div id=&quot;accessory&quot;&gt;accessory&lt;/div&gt;
+       &lt;div id=&quot;footer&quot;&gt;footer&lt;/div&gt;
+   &lt;/div&gt;
+</code></pre><p><img src="https://i.imgur.com/gF8nD6v.png" alt=""></p>
+]]></content>
+  </entry>
+  <entry>
+    <title>CSS3之阴影</title>
+    <url>/2018/11/15/CSS3%E4%B9%8B%E9%98%B4%E5%BD%B1/</url>
+    <content><![CDATA[<h4 id="1-盒子阴影"><a href="#1-盒子阴影" class="headerlink" title="1. 盒子阴影"></a><font color="red">1. 盒子阴影</font></h4><font color="red"><strong>box-shadow: X轴偏移量 Y轴偏移量 [阴影模糊半径] [阴影扩展半径] [阴影颜色] [投影方式];</strong></font>
+
+<p>例如  box-shadow:4px 2px 6px 7px #333333 inset;</p>
+<p>同一盒子，可以同时加多个阴影，阴影之间用”,”隔开</p>
+<p>例如  box-shadow:4px 2px 6px #f00,-4px -2px 6px #000,0px 0px 12px 5px #33CC00 inset;</p>
+<h4 id="2-字体阴影"><a href="#2-字体阴影" class="headerlink" title="2. 字体阴影"></a><font color="red">2. 字体阴影</font></h4><p>text-shadow:X-Offset Y-Offset blur color;</p>
+<ol>
+<li><font color="red">X-Offset</font>:表示阴影的水平偏移距离,其值为正值时阴影向右偏移,反之向左偏移;</li>
+<li><font color="red">Y-Offset</font>:是指阴影的垂直偏移距离,如果其值是正值时,阴影向下偏移,反之向上偏移;</li>
+<li><font color="red">Blur</font>:是指阴影的模糊程度,其值不能是负值,如果值越大,阴影越模糊,反之阴影越清晰,如果不需要阴影模糊可以将Blur值设置为0;</li>
+<li><font color="red">Color</font>:是指阴影的颜色,其可以使用rgba色;</li>
+</ol>
+<pre><code>*{
+    margin: 0;
+    padding: 0;
+}
+div{
+    /*3. 实现书摆放在桌子上的效果*/
+    width: 200px;
+    height: 200px;
+    background-color: red;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    background: #e0e1dc;
+    text-align: center;
+    line-height: 200px;
+    color: #fff;
+    font-weight: 900;
+    font-size: 24px;
+    text-shadow: 5px 2px 3px grey;
+    box-shadow: 10px 0 10px 0 grey;
+}
+&lt;div&gt;This is a page&lt;/div&gt;
+</code></pre><p><img src="https://i.imgur.com/nllEayT.png" alt=""></p>
+]]></content>
+  </entry>
+  <entry>
+    <title>CSS3动画</title>
+    <url>/2018/12/13/CSS3%E5%8A%A8%E7%94%BB/</url>
+    <content><![CDATA[<p><strong>CSS3，我们可以创建动画，它可以取代许多网页动画图像，Flash动画，和JAVAScripts。</strong></p>
+<style>
+            #ppxiong{
+                width: 76px;
+                height: 47px;
+                background: #92B901 none repeat scroll 0% 0%;
+                position: relative;
+                color: #fff;
+                font-weight: bold;
+                font-size: 20px;
+                padding: 10px;
+                border-radius: 5px;
+                animation: first 5s ease 0s normal none 3 running;
+            }
+
+            @keyframes first
+            {
+                0% {background: red;  transform: rotate(0deg);left: 0;}
+
+                25%{background: pink; transform: rotate(20deg);left: 0;}
+
+                50%{background: blue; transform: rotate(0deg);left: 500px;}
+
+                55%{background: green; transform: rotate(0deg);left: 500px;}
+
+                70%{background: #1ec7e6; transform: rotate(0deg);left: 500px;}
+
+                100% {background: yellow; transform: rotate(-360deg);left: 0;}
+            }
+</style>
+
+<div id="ppxiong">CSS3</div>
+
+<p>浏览器支持<br>Internet Explorer 10、Firefox 以及 Opera 支持 @keyframes 规则和 animation 属性。</p>
+<p>当在@keyframe创建动画，把它绑定到一个选择器，否则动画不会有任何效果。<br>指定至少这两个CSS3的动画属性绑定向一个选择器：</p>
+<ul>
+<li><p>规定动画的名称</p>
+</li>
+<li><p>规定动画的时长</p>
+</li>
+</ul>
+<style>
+        #showtime{
+            width: 100px;
+            height: 100px;
+            background: red;
+            animation: myfirst 5s;
+        }
+
+        @keyframes myfirst
+        {
+            from {background: red;}
+            to {background: yellow;}
+        }
+</style>
+
+<div id="showtime"></div>
+
+
+
+<pre><code>把 &quot;myfirst&quot; 动画捆绑到 div 元素，时长：5 秒：
+&lt;style&gt;
+   div{
+        width: 100px;
+        height: 100px;
+        background: red;
+        animation: myfirst 5s;
+    }
+
+   @keyframes myfirst
+   {
+        from {background:red;}
+        to {background:yellow;}
+    }
+&lt;/style&gt;
+&lt;div&gt;&lt;/div&gt;
+</code></pre><p>必须定义动画的名称和动画的持续时间。如果省略的持续时间，动画将无法运行，因为默认值是0。</p>
+<font color="red"><strong>CSS3动画是什么？</strong></font>
+
+<p>• 动画是使元素从一种样式逐渐变化为另一种样式的效果。</p>
+<p>• 您可以改变任意多的样式任意多的次数。</p>
+<p>• 请用百分比来规定变化发生的时间，或用关键词 “from” 和 “to”，等同于 0% 和 100%。</p>
+<p>• 0% 是动画的开始，100% 是动画的完成。</p>
+<p>• 为了得到最佳的浏览器支持，您应该始终定义 0% 和 100% 选择器。</p>
+<pre><code>&lt;style&gt; 
+div
+{
+    width:100px;
+    height:100px;
+    background:red;
+    animation:myfirst 5s;
+    -moz-animation:myfirst 5s; /* Firefox */
+    -webkit-animation:myfirst 5s; /* Safari and Chrome */
+    -o-animation:myfirst 5s; /* Opera */
+}
+
+@keyframes myfirst
+{
+    0%   {background:red;}
+    25%  {background:yellow;}
+    50%  {background:blue;}
+    100% {background:green;}
+}
+
+@-moz-keyframes myfirst /* Firefox */
+{
+    0%   {background:red;}
+    25%  {background:yellow;}
+    50%  {background:blue;}
+    100% {background:green;}
+}
+
+@-webkit-keyframes myfirst /* Safari and Chrome */
+{
+    0%   {background:red;}
+    25%  {background:yellow;}
+    50%  {background:blue;}
+    100% {background:green;}
+}
+
+@-o-keyframes myfirst /* Opera */
+{
+    0%   {background:red;}
+    25%  {background:yellow;}
+    50%  {background:blue;}
+    100% {background:green;}
+}
+&lt;/style&gt;
+
+&lt;div&gt;&lt;/div&gt; 
+</code></pre><font color="red"><strong>CSS3的动画属性</strong></font>
+
+<pre><code>@keyframes                  关键帧: 规定动画
+animation                   所有动画属性的简写属性,除了animation-play-state 
+animation-name              规定 @keyframes 动画的名称
+animation-duration          规定动画完成一个周期所花费的秒或毫秒。默认是 0
+animation-timing-function   规定动画的速度曲线(运动速度函数)。默认是 &quot;ease&quot;
+animation-delay             规定动画何时开始(延迟时间)。默认是 0
+animation-iteration-count   规定动画执行的次数  infinite(无限循环)
+animation-direction         规定动画是否在下一周期逆向地播放。默认是 &quot;normal&quot;
+animation-fill-mode         属性规定动画在播放之前或之后，其动画效果是否可见
+animation-play-state        规定动画是否正在运行或暂停。默认是 &quot;running&quot;
+</code></pre><style>
+    #CSS3animation{
+        width: 100px;
+        height: 100px;
+        background: red;
+        position: relative;
+        animation: animationdemo 3s ease 2s infinite alternate-reverse running;
+    }  
+    @keyframes animationdemo
+    {
+        0%   {background:red; left:0px; top:0px;}
+        15%  {background:yellow; left:300px; top:0px;}
+        30%  {background:blue; left:300px; top:100px;}
+        45%  {background:green; left:600px; top:100px;}
+        60%  {background:green; left:300px; top:100px;}
+        75%  {background:yellow; left:300px; top:0px;}
+        100%   {background:red; left:0px; top:0px;}
+    }
+    @-webkit-keyframes animationdemo
+    {
+        0%   {background:red; left:0px; top:0px;}
+        15%  {background:yellow; left:300px; top:0px;}
+        30%  {background:blue; left:300px; top:100px;}
+        45%  {background:green; left:600px; top:100px;}
+        60%  {background:green; left:300px; top:100px;}
+        75%  {background:yellow; left:300px; top:0px;}
+        100%   {background:red; left:0px; top:0px;}
+    }   
+</style>
+
+<div id="CSS3animation"></div>
+
+<pre><code>&lt;style&gt;
+#demo{
+    width: 100px;
+    height: 100px;
+    background: red;
+    position: relative;
+    animation: animationdemo 3s ease 2s infinite alternate-reverse running;
+}  
+@keyframes animationdemo
+{
+    0%   {background:red; left:0px; top:0px;}
+    15%  {background:yellow; left:300px; top:0px;}
+    30%  {background:blue; left:300px; top:100px;}
+    45%  {background:green; left:600px; top:100px;}
+    60%  {background:green; left:300px; top:100px;}
+    75%  {background:yellow; left:300px; top:0px;}
+    100%   {background:red; left:0px; top:0px;}
+}
+@-webkit-keyframes animationdemo
+{
+    0%   {background:red; left:0px; top:0px;}
+    15%  {background:yellow; left:300px; top:0px;}
+    30%  {background:blue; left:300px; top:100px;}
+    45%  {background:green; left:600px; top:100px;}
+    60%  {background:green; left:300px; top:100px;}
+    75%  {background:yellow; left:300px; top:0px;}
+    100%   {background:red; left:0px; top:0px;}
+}   
+&lt;/style&gt;
+&lt;div id=&quot;demo&quot;&gt;&lt;/div&gt;
+</code></pre>]]></content>
+  </entry>
+  <entry>
+    <title>CSS3图片翻书展示()</title>
+    <url>/2018/11/17/CSS3%E5%9B%BE%E7%89%87%E7%BF%BB%E4%B9%A6%E5%B1%95%E7%A4%BA/</url>
+    <content><![CDATA[<pre><code>&lt;style&gt;
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        body{
+            background-color: #fde3A7;
+            font-family: &apos;Indie Flower&apos;, cursive;/*字体  草书*/
+        }
+        .card{
+            width: 270px;
+            height: 400px;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            /* transform: translateX(-50%) translateY(-50%);CSS3 平移 */
+            margin-top: -200px;
+            margin-left: -150px;
+            box-shadow: inset 300px 0px 50px rgba(0, 0, 0, .5),20px 0 60px rgba(0, 0, 0, .5);/*阴影*/
+            perspective: 2000px;
+            transform-style: preserve-3d;
+            /* transform-origin: center center; */
+            transition:  all 1s ease-in-out;
+            background-color: #fff;
+        }
+        .card::before{  /*伪类和伪元素的区别  伪元素是真实存在的元素,能在html元素中存在的*/
+            content: &quot;&quot;;
+            display: inline-block;
+            width: 100%;
+            height: 5px;
+            background-color: #BAC1BA;
+            position: absolute;
+            top: -5px;
+            transform: skewX(-45deg);/*CSS3 扭曲*/
+            transform-origin: bottom;/*改变旋转中心*/
+        }
+        .card::after{
+            position: absolute;
+            right: -5px; 
+            top: 0;
+            content: &quot;&quot;;
+            display: inline-block;
+            height: 100%;
+            width: 5px;
+            background-color: #BAC1BA;
+            transform: skewY(-45deg);/*CSS3 扭曲*/
+            transform-origin: left;
+        }
+        .card .imgBox{
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            transform-origin: left;
+            transition:  all .7s ease-in-out;/*过渡*/
+        }
+        .card .imgBox .bark{
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: #fff;
+            opacity: 0;
+            transition: all .6s ease-in-out;
+        }
+        .card .imgBox img{
+            width: 100%;
+        }
+        .card .details{
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+        .card:hover{   /*伪类是当前动作触发的*/ 
+            transform: rotateZ(15deg) scale(1.2);   
+            box-shadow: inset 30px 0px 50px rgba(0, 0, 0, .5), 20px 0px 60px rgba(0, 0, 0, .5);
+        }
+        .card:hover .imgBox{
+            transform: rotateY(-135deg);
+        }
+        .card:hover .imgBox .bark{
+            opacity: 1;
+            transition:  all .6s ease-in-out;
+            box-shadow: inset 300px 200px 100px rgba(0, 0, 0, .5); 
+        }
+    &lt;/style&gt;
+
+
+    &lt;div class=&quot;card&quot;&gt;
+        &lt;div class=&quot;imgBox&quot;&gt;
+            &lt;div class=&quot;bark&quot;&gt;&lt;/div&gt;
+            &lt;img src=&quot;./images/pic.jpg&quot; alt=&quot;&quot;&gt;
+        &lt;/div&gt;
+        &lt;!-- 翻开展示内容 --&gt;
+        &lt;div class=&quot;details&quot;&gt;
+            &lt;!-- 这里没有写第二页内容用图片代替 --&gt;
+            &lt;img src=&quot;./images/pic_.jpg&quot; alt=&quot;&quot;&gt;
+
+            &lt;!-- &lt;h4 class=&quot;title1&quot;&gt;内容标题1&lt;/h4&gt;
+            &lt;h4 class=&quot;title2&quot;&gt;内容标题2&lt;/h4&gt;
+            &lt;p&gt;内容...&lt;/p&gt;
+            &lt;p&gt;内容...&lt;/p&gt; --&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+</code></pre>]]></content>
+  </entry>
+  <entry>
+    <title>CSS3弹性盒子</title>
+    <url>/2018/12/11/CSS3%E5%BC%B9%E6%80%A7%E7%9B%92%E5%AD%90/</url>
+    <content><![CDATA[]]></content>
+  </entry>
+  <entry>
+    <title>CSS之div居中方式</title>
+    <url>/2018/11/12/CSS%E4%B9%8Bdiv%E5%B1%85%E4%B8%AD%E6%96%B9%E5%BC%8F/</url>
+    <content><![CDATA[<pre><code>    方法一:
+.wrapper {
+    position: relative;
+  }
+  .demo {
+    width: 200px;
+    height: 100px;
+    background: red;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -50px;
+    margin-left: -100px;
+  }
+&lt;div class=&quot;wrapper&quot;&gt;
+  &lt;div class=&quot;demo&quot;&gt;&lt;/div&gt;
+&lt;/div&gt;
+
+方法二:
+.wrapper {
+    position: relative;
+  }
+  .demo {
+    width: 200px;
+    height: 100px;
+    background: red;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+&lt;div class=&quot;wrapper&quot;&gt;
+  &lt;div class=&quot;demo&quot;&gt;&lt;/div&gt;
+&lt;/div&gt;
+
+方法三:
+ .wrapper {
+    width: 500px;
+    height: 500px;
+    border: 1px solid black;
+    position: relative;
+  }
+  .demo {
+    width: 200px;
+    height: 100px;
+    background: red;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+  }
+&lt;div class=&quot;wrapper&quot;&gt;
+  &lt;div class=&quot;demo&quot;&gt;&lt;/div&gt;
+&lt;/div&gt;
+
+方法四:
+.wrapper {
+    width: 500px;
+    height: 500px;
+    border: 1px solid black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .demo {
+    width: 200px;
+    height: 100px;
+    background: red;
+  }
+&lt;div class=&quot;wrapper&quot;&gt;
+  &lt;div class=&quot;demo&quot;&gt;&lt;/div&gt;
+&lt;/div&gt;
+
+方法五:
+.wrapper {
+    width: 500px;
+    height: 500px;
+    border: 1px solid black;
+    line-height: 500px;
+    text-align: center;
+  }
+  .demo {
+    width: 200px;
+    height: 100px;
+    background: red;
+    display: inline-block;
+    vertical-align: middle;
+  }
+&lt;div class=&quot;wrapper&quot;&gt;
+  &lt;div class=&quot;demo&quot;&gt;&lt;/div&gt;
+&lt;/div&gt;
+</code></pre>]]></content>
+  </entry>
+  <entry>
+    <title>CSS之switch控件</title>
+    <url>/2018/11/11/CSS%E4%B9%8Bswitch%E6%8E%A7%E4%BB%B6/</url>
+    <content><![CDATA[<p><img src="https://i.imgur.com/p6gJepo.png" alt=""><img src="https://i.imgur.com/C2YEtAp.png" alt=""></p>
+<pre><code>&lt;style&gt;
+    .switch{
+        width: 400px;
+        height: 400px;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        margin-top: -200px;
+        margin-left: -100px;
+    }
+    .switch input{
+        display: none;
+    }
+    .switch label{
+        font-size: 100px;
+        position: absolute;
+        top: 20px;
+        display: block;
+    }
+    .switch label::before{
+        content: &apos;&apos;;
+        position: absolute;
+        width: 2em;
+        height: 1em; 
+        left: 0;
+        border-radius: 50px;
+        background: #ff5000;
+        box-shadow: inset 0px 2px 5px rgba(238, 93, 10, 0.993);
+    }
+    .switch label::after{
+        content: &apos;&apos;;
+        position: absolute;
+        width: 1em;
+        height: 1em;
+        left: 0;
+        border-radius: 50px;
+        background: #fcfff4;
+        box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, .3);
+        transition: .8s;
+    }
+    #ckbx:checked +label::before{
+        background: #70c183;
+        box-shadow: inset 0px 1px 1px rgba(84, 153, 0, .3);
+    }
+    #ckbx:checked +label::after{
+        left: 1.1em;
+    }
+&lt;/style&gt;
+&lt;div class=&quot;switch&quot;&gt;
+    &lt;input type=&quot;checkbox&quot; id=&quot;ckbx&quot;&gt;
+    &lt;label for=&quot;ckbx&quot;&gt;&lt;/label&gt;
+&lt;/div&gt;
+</code></pre>]]></content>
+  </entry>
+  <entry>
+    <title>CSS图片代替文本</title>
+    <url>/2018/11/10/CSS%E5%9B%BE%E7%89%87%E4%BB%A3%E6%9B%BF%E6%96%87%E6%9C%AC/</url>
+    <content><![CDATA[<p><strong><font color="red">在浏览网站时</font>有这样一种情况:</strong></p>
+<p>如果可能网速不好的时候，如果本来要加载图片的位置加载不出来，而且用户需要点击改图片实现其他操作这个时候，无法点击图片怎么办?</p>
+<p>我们用图片代替文本，在网速不好的时候或者没有CSS，JS的时候依然能使用或展示出来功能</p>
+<pre><code>方法一:
+&lt;style&gt;
+ a{
+      display: inline-block;
+      text-decoration: none;
+      color: #424242;
+      border:1px solid black;
+      background-image:url();
+      background-size: 190px 90px;
+      width: 190px;
+      height: 0px;      
+      padding-top: 90px;    
+      overflow: hidden; 
+    }
+&lt;/style&gt;
+&lt;a href=&quot;http://www.taobao.com&quot; target=&quot;_blank&quot;&gt;淘宝网&lt;/a&gt;
+
+方法二:
+&lt;style&gt;
+ a{
+      display: inline-block;
+      text-decoration: none;
+      color: #424242;
+      border:1px solid black;
+      background-image:url();
+      background-size: 190px 90px;
+      width: 190px;
+      height: 90px;
+      text-indent: 200px;   
+      white-space: nowrap;  
+      overflow: hidden; 
+    }
+&lt;/style&gt;
+&lt;a href=&quot;http://www.taobao.com&quot; target=&quot;_blank&quot;&gt;淘宝网&lt;/a&gt;
+</code></pre><p>  因为padding可以展示图片</p>
+]]></content>
+  </entry>
+  <entry>
+    <title>CSS常用命名规范</title>
+    <url>/2018/12/10/CSS%E5%B8%B8%E7%94%A8%E5%91%BD%E5%90%8D%E8%A7%84%E8%8C%83/</url>
+    <content><![CDATA[<h4 id="class的命名"><a href="#class的命名" class="headerlink" title="class的命名"></a>class的命名</h4><p>头：header<br>内容：content/container<br>尾：footer<br>导航：nav navigation n.航行；航海<br>侧栏：sidebar<br>栏目：column<br>页面外围控制整体佈局宽度：wrapper<br>左右中：left right center<br>登录条：loginbar<br>标志：logo<br>广告：banner<br>页面主体：main<br>热点：hot<br>新闻：news<br>下载：download<br>子导航：subnav<br>菜单：menu<br>子菜单：submenu<br>搜索：search<br>友情链接：friendlink<br>页脚：footer<br>版权：copyright<br>滚动：scroll<br>内容：content<br>标签：tags<br>文章列表：list<br>提示信息：msg–message<br>小技巧：tips<br>栏目标题：title<br>加入：joinus<br>指南：guide<br>服务：service<br>注册：regsiter<br>状态：status<br>投票：vote<br>合作伙伴：partner</p>
+<h4 id="id的命名"><a href="#id的命名" class="headerlink" title="id的命名"></a>id的命名</h4><p><strong>页面结构</strong></p>
+<p>容器: container<br>页头：header<br>内容：content/container<br>页面主体：main<br>页尾：footer<br>导航：nav<br>侧栏：sidebar<br>栏目：column<br>页面外围控制整体佈局宽度：wrapper<br>左右中：left right center</p>
+<p><strong>导航</strong></p>
+<p>导航：nav<br>主导航：mainnav<br>子导航：subnav<br>顶导航：topnav<br>边导航：sidebar<br>左导航：leftsidebar<br>右导航：rightsidebar<br>菜单：menu<br>子菜单：submenu<br>标题: title<br>摘要: summary</p>
+<p><strong>功能</strong></p>
+<p>标志：logo<br>广告：banner<br>登陆：login<br>登录条：loginbar<br>注册：register<br>搜索：search<br>功能区：shop<br>标题：title<br>加入：joinus<br>状态：status<br>按钮：btn<br>滚动：scroll<br>标籤页：tab<br>文章列表：list<br>提示信息：msg<br>当前的: current<br>小技巧：tips<br>图标: icon<br>注释：note<br>指南：guild<br>服务：service<br>热点：hot<br>新闻：news<br>下载：download<br>投票：vote<br>合作伙伴：partner<br>友情链接：link<br>版权：copyright</p>
+]]></content>
+  </entry>
+  <entry>
+    <title>DOM基础练习</title>
+    <url>/2018/11/29/DOM%E5%9F%BA%E7%A1%80%E7%BB%83%E4%B9%A0/</url>
+    <content><![CDATA[<p><strong>遍历元素节点树</strong></p>
+<pre><code>function retChild(node) {
+     var child = node.childNodes,
+           len = child.length;
+     for(var i = 0; i &lt; len; i++){
+           if(child[i].nodeType === 1) {
+                console.log(child[i]);
+               child[i].hasChildNodes() &amp;&amp; retChild(child[i]);
+           }
+      }
+ }   
+</code></pre><p><strong>返回元素elem的第n层父元素的节点</strong></p>
+<pre><code>function retParent(elem, n){
+    //与elem 解决兼容性容错  比如n足够大会报错而此时会返回null
+    while(elem &amp;&amp; n){       
+        elem = elem.parentElement;
+        n --;
+    }
+    return elem;
+}
+var i = document.getElementsByTagName(&apos;i&apos;)[0];
+</code></pre><p><strong>封装myChildren功能,解决以前部分浏览器的兼容性问题</strong></p>
+<pre><code>Element.prototype.myChildren = function(){
+    var child = this.childNodes;
+    var len = child.length;
+    var arr = [];
+    for(var i = 0;i &lt; len;i++){
+        if(child[i].nodeType == 1){
+            arr.push(child[i]);
+        }
+    }
+    return arr;
+}
+var div = document.getElementsByTagName(&apos;div&apos;)[0];
+</code></pre><p><strong>封装函数,返回元素e的第n个兄弟元素节点n为正,返回后面的兄弟节点,n为负,返回前面的,n为0,返回自己</strong></p>
+<pre><code>function retSibling(e, n){
+    while( e &amp;&amp; n){//n = 0 循环退出     e &amp;&amp;: 解决兼容性容错
+        if( n &gt; 0){
+            if(0 &amp;&amp; e.nextElementSibling){
+                e = e.nextElementSibling;
+            }else{
+                // 将e的下一个兄弟节点赋值给e 然后看e节点类型是否是元素节点 不是就一直重复
+                // e &amp;&amp; :e如果为null会报错 e得有意义
+                for(e = e.nextSibling; e &amp;&amp; e.nodeType != 1;e = e.nextSibling);
+            }
+            n --;
+        }else{
+            if(e.previousElementSibling){
+                e = e.previousElementSibling;
+            }else{
+                for(e = e.previousElementSibling; e &amp;&amp; e.nodeType !=1;
+                e = e.previousElementSibling);
+            }
+            n ++;
+        }
+    }
+    return e;
+}
+</code></pre><p><strong>封装是否有元素子节点的方法</strong></p>
+<pre><code>Element.prototype.hasChildren = function () {
+      var child = this.childNodes,
+            len = child.length;
+      for( var i = 0; i &lt; len; i++){
+            if(child[i].nodeType == 1) {
+                  return true;
+            }
+      }
+      return false;
+}   
+</code></pre><p><strong>封装insertAfter方法,与insertBefore方法类似</strong></p>
+<pre><code>Element.prototype.insertAfter = function(targetNode, afterNode){
+    var beforeNode = afterNode.nextElementSibling;
+    if(beforeNode == null){//如果afterNode的下一个兄弟元素不存在
+        this.appendChild(targetNode);//直接添加在最后面
+    }else{
+        this.insertBefore(targetNode, beforeNode);
+    }
+}
+</code></pre>]]></content>
+  </entry>
+  <entry>
+    <title>Date对象与定时器</title>
+    <url>/2018/11/30/Date%E5%AF%B9%E8%B1%A1%E4%B8%8E%E5%AE%9A%E6%97%B6%E5%99%A8/</url>
+    <content><![CDATA[<p><strong><font color="red">日期对象</font></strong></p>
+<p>日期对象的方法在w3c上其实有介绍<br><a href="http://www.w3school.com.cn/jsref/jsref_obj_date.asp" target="_blank" rel="noopener">http://www.w3school.com.cn/jsref/jsref_obj_date.asp</a></p>
+<pre><code>var date = new Date();
+date.getFullyear();
+</code></pre><p><strong><font color="red">时间戳</font></strong></p>
+<pre><code>var firstTime = new Date().getTime();
+for(var i = 0;i &lt; 1000000000;i++){
+
+}
+var lastTime = new Date().getTime();
+console.log(lastTime-firstTime);
+</code></pre><p><strong><font color="red">定时器</font></strong></p>
+<p><strong>setInterval()</strong><br>setInterval()里面的第二个参数是<font color="red">不能修改</font>就算你修改变量定时器内的time依然是1000,如下</p>
+<pre><code>var time = 1000;
+setInterval(function(){
+    consloe.log(&quot;a&quot;);
+}, time);
+time = 2000;
+</code></pre><p><strong>clearInterval();清除定时器</strong><br>1代表就是这个定时器,依次类推后面的定时器就是2…</p>
+<pre><code>var i = 0;
+setInterval(function(){
+    console.log(i++);
+    if(i &gt; 10){
+        clearInterval(1);
+    }
+}, 100);
+</code></pre><p><strong>setTimeout()和clearTimeout() 仅执行一次</strong></p>
+<pre><code>var timer = setTimeout(function(){
+   console.log(&quot;a&quot;);
+}, 1000);
+clearTimeout(timer);
+</code></pre><p>setInterval() setTimeout() clearInterval() clearTimeout() 都是全局对象window上的方法<br>内部函数this指向window</p>
+<p>例</p>
+<pre><code>minutes: &lt;input type=&quot;text&quot; value=&quot;0&quot;&gt;
+seconds: &lt;input type=&quot;text&quot; value=&quot;0&quot;&gt;
+&lt;script&gt;
+    var minutesNode = document.getElementsByTagName(&apos;input&apos;)[0];
+    var secondsNode = document.getElementsByTagName(&apos;input&apos;)[1];
+    var minutes = 0,
+        seconds = 0;
+    var timer = setInterval(function(){
+        seconds ++;
+        if(seconds == 60){
+            seconds = 0;
+            minutes ++;
+        }
+        secondsNode.value = seconds;
+        minutesNode.value = minutes;
+        if(minutes == 3){
+            clearInterval(timer);
+        }
+    }, 100);
+&lt;/script&gt;
+</code></pre>]]></content>
+  </entry>
+  <entry>
+    <title>html初识</title>
+    <url>/2018/11/01/blog1/</url>
+    <content><![CDATA[<p> 最近在复习以前学习的所有的前端知识点，总结一下，希望也对初学者有一些帮助。</p>
+<h4 id="首先我们都听说过html，那么什么东西是html呢"><a href="#首先我们都听说过html，那么什么东西是html呢" class="headerlink" title="首先我们都听说过html，那么什么东西是html呢?"></a><font color="red">首先我们都听说过html，那么什么东西是html呢?</font></h4><ul>
+<li>html的全称是hyperText markup language， 超文本标记语言，在网页中所有的文字图片和组织架构都是由html来编写的，当然html能够完成的工作不止有这些。</li>
+<li>需要注意的是html并不是一种编程语言，它只是一种计算机语言，html不具备像c/c++/java等编程语言中的变量或者函数等东西，它仅仅由标签组成。 <code>&lt;html&gt; &lt;/html&gt;</code></li>
+<li>标签中的闭合标签可以和前面的标签直接写成一个单标签形式，或者直接不写，浏览器也是可以识别的，但是这样不规范，最好写完整的闭合标签。</li>
+<li>最后，由于html并不是编程语言，没有编译过程，所以我们可以用任何可以写字的软件来编写比如txt，不过我们一般使用<font color="green">sublime</font> 或者<font color="green"> vs code</font> 这两个软件编写前端程序~</li>
+</ul>
+<h4 id="其次，我们可能会听说过css样式这个词语，那么什么又是css呢？"><a href="#其次，我们可能会听说过css样式这个词语，那么什么又是css呢？" class="headerlink" title="其次，我们可能会听说过css样式这个词语，那么什么又是css呢？"></a><font color="red">其次，我们可能会听说过css样式这个词语，那么什么又是css呢？</font></h4><ul>
+<li>css是层叠样式表的意思，html的布局、样式修饰和一些简单的动画都是由css完成的。</li>
+</ul>
+<h4 id="最后我们还知道一门语言叫做javascript，那么javascript又是做什么的呢？"><a href="#最后我们还知道一门语言叫做javascript，那么javascript又是做什么的呢？" class="headerlink" title="最后我们还知道一门语言叫做javascript，那么javascript又是做什么的呢？"></a><font color="red">最后我们还知道一门语言叫做javascript，那么javascript又是做什么的呢？</font></h4><ul>
+<li>javascript作用是实现人机交互作用，具体的我们在javascript部分介绍。(其实javascript与java并没有什么关系哟~)</li>
+</ul>
+<h4 id="认识了html、css和js以及他们的功能之后，我们正式进入html的学习部分。"><a href="#认识了html、css和js以及他们的功能之后，我们正式进入html的学习部分。" class="headerlink" title="认识了html、css和js以及他们的功能之后，我们正式进入html的学习部分。"></a><font color="red">认识了html、css和js以及他们的功能之后，我们正式进入html的学习部分。</font></h4><ul>
+<li>前面我们提到过html语言里面的都是标签，而html这个标签则是根标签，其他的东西都要放在这个标签里面编写，次一级的两个结构是head标签和body标签 –&gt; <code>&lt;head&gt;&lt;/head&gt; , &lt;body&gt;&lt;/body&gt;</code> ， head是给浏览器看的，body是给整个页面的主体部分，我们其他的展示出来的东西一般都放在body标签下面。</li>
+</ul>
+<p>这个时候我们创建一个txt文件，把后缀改成html在里面写好html、head、body标签之后就可以在body里面随便写一些文字了，然后用自己的浏览器打开这个文件，我们就可以发现在页面上显示出来我们所写的文字了。</p>
+<pre><code>&lt;html&gt;
+
+&lt;head&gt;&lt;/head&gt;
+
+&lt;body&gt;qwert...&lt;/body&gt;
+
+&lt;/html&gt;
+</code></pre><p>但是这个时候有一个问题，我们输入英文是没有问题很正常的显示，<font color="red">但是中文就会变成一堆乱码</font>，这是由于此时的浏览器还不识别中文字符，我们还需要加一些东西，设置编码格式。</p>
+<ul>
+<li>编码格式是通过<code>&lt;meta&gt;</code>标签来设置的，我们在<code>&lt;head&gt;</code>中添加一个<code>&lt;meta&gt;</code>标签，注意这个标签不需要写闭合标签，然后我们为meta设置一个属性chatset=”utf-8″ : <code>&lt;meta charset = “utf-8”&gt;</code></li>
+<li>我们再来介绍一下编码集。编码集主要有gbk、gb2312、unicode、utf-8。gb2312是国标2312条，可以识别简中日韩等亚洲语言，gbk是国标扩展，可以识别繁体中文，unicode是万国码，世界各国语言都包括在内，现在的unicode的升级版本是<font color="red">utf-8</font>， 全称是 unicode transformation format 公用的是这个编码格式，可以识别所有的语言，所以前面三个基本不用(反正我没见过…)。</li>
+<li>我们还可以在根标签<code>&lt;html&gt;</code>里面来加一条属性lang 来告诉搜索引擎爬虫我们网站使用什么语言写的，zh-cn是中文，en是英文，一般二者一起写en,zn-cn ——&gt;<code>&lt;html lang=”en, zh-cn”&gt;</code></li>
+<li>其实meta还有很多其他的用处，比如设置移动端的页面显示大小，为网页被搜索的时候设置关键字等等。</li>
+</ul>
+<p>下面我们介绍一下<code>&lt;head&gt;</code>标签里面的另一个标签，<code>&lt;title&gt;</code></p>
+<ul>
+<li><code>&lt;title&gt;</code>标签是用来改变页面的标题的，每一个网页都有自己的名字，这个名字就是通过<code>&lt;title&gt;</code>标签设置的。我们现在在<code>&lt;head&gt;&lt;/head&gt;</code>里面加一个<code>&lt;title&gt;</code>HelloWorld<code>&lt;/title&gt;</code>来看看效果，网页的标题已经变成HelloWorld了哟~ </li>
+</ul>
+<h4 id="最后我们介绍一下非常非常重要的专业素养：当前世界上的主流浏览器都有什么呢？"><a href="#最后我们介绍一下非常非常重要的专业素养：当前世界上的主流浏览器都有什么呢？" class="headerlink" title="最后我们介绍一下非常非常重要的专业素养：当前世界上的主流浏览器都有什么呢？"></a><font color="red">最后我们介绍一下非常非常重要的专业素养：当前世界上的主流浏览器都有什么呢？</font></h4><ul>
+<li>ie这个我们都知道,微软的绑定浏览器</li>
+<li>chrome 这个我们也都知道，谷歌浏览器，我们开发一般都用chrome来调试，因此每一个前端工程师都要有一个chrome哟~</li>
+<li>firefox 火狐浏览器</li>
+<li>opera 这是欧洲的一个浏览器，特点是兼容性很强</li>
+<li>safari 我们也都知道</li>
+<li>主流浏览器只有以上5个！(UC搜狗什么的都不是哟~)</li>
+</ul>
+<font color="red">&nbsp;&nbsp;&nbsp;&nbsp;浏览器  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;内核</font>
+
+<ul>
+<li><font color="red">ie  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;trident</font></li>
+<li><font color="red">chrome  &nbsp;&nbsp;Blink/webkit</font></li>
+<li><font color="red">firefox  &nbsp;&nbsp;&nbsp;&nbsp;Gecko</font></li>
+<li><font color="red">opera  &nbsp;&nbsp;&nbsp;&nbsp;presto</font></li>
+<li><font color="red">safari  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;webkit</font>
+
+</li>
+</ul>
+<p>谷歌以前和safari一起开发过所以以前用的是webkit，现在已经把webkit里面的核心内容提取出来单独做了一款新的内核叫做Blink。</p>
+]]></content>
+  </entry>
+  <entry>
+    <title>CSS3之盒子模型</title>
+    <url>/2018/11/03/blog3/</url>
+    <content><![CDATA[<h4 id="盒子模型"><a href="#盒子模型" class="headerlink" title="盒子模型"></a><font color="red">盒子模型</font></h4><p>css中的每个元素都是一个盒模型,包括html body元素,浏览器解析css的时候也会把每个元素看成一个盒子来解析</p>
+<p>盒模型具备的属性有：<font color="red"> content 、padding 、margin、border 、background</font> 等</p>
+<h4 id="盒模型的分类"><a href="#盒模型的分类" class="headerlink" title="盒模型的分类"></a><font color="red">盒模型的分类</font></h4><ol>
+<li><font color="red">border-box</font>: 俗称混杂盒模型</li>
+<li><font color="red">content-box</font>: 是w3c组织定义的盒模型</li>
+</ol>
+<p>IE6混杂盒模型: 触发怪异模式 怪异模式下可以给行内元素加宽高,图片的padding值会失效 margin:0 auto不好使</p>
+<p>触发怪异模式并不能让页面对页面中的盒子用IE6混杂盒模型来解析 怎么能用IE6混杂模式盒模型来解析呢 ? 怪异模式 + IE6浏览器<br>css3中的可以选择盒模型的类型: box-sizing: border-box/content-box;</p>
+<pre><code>&lt;style&gt;
+ *{
+        margin: 0;
+        padding: 0;
+    }
+    .wrapper{
+        width: 960px;
+        color: #fff;
+        font-size: 30px;
+        text-align: center;
+        /* 后加 */
+        background: #ccc;
+        box-sizing: border-box;
+    }
+    #header{
+        height: 100px;
+        background: black;
+        margin-bottom: 10px;
+        /* 后加 */
+        padding: 10px;
+        width: 100%;
+        box-sizing: border-box;
+    }
+    .sidebar{
+        float: left;
+        width: 220px;
+        height: 300px;
+        margin-right: 20px;
+        margin-bottom: 10px;
+        background: greenyellow;
+        /* 后加 */ 
+        padding: 10px;
+        border: 1px solid #000; 
+        box-sizing: border-box;
+    }
+    .content{
+        float: left;
+        width: 720px;
+        height: 300px;
+        margin-bottom: 10px;
+        background: red;
+        box-sizing: border-box;
+    }
+    #footer{
+        background: burlywood;
+        height: 100px;
+        clear: both;
+        box-sizing: border-box;
+    }
+&lt;/style&gt;
+&lt;div class=&quot;wrapper&quot;&gt;
+    &lt;div id=&quot;header&quot;&gt;header&lt;/div&gt;
+    &lt;div class=&quot;sidebar&quot;&gt;侧边栏&lt;/div&gt;
+    &lt;div class=&quot;content&quot;&gt;内容区&lt;/div&gt;
+    &lt;div id=&quot;footer&quot;&gt;底部&lt;/div&gt;
+&lt;/div&gt;
+</code></pre><p><img src="https://i.imgur.com/ekky5oz.png" alt=""></p>
+]]></content>
+  </entry>
+  <entry>
+    <title>CSS美化checkbox</title>
+    <url>/2018/11/04/blog4/</url>
+    <content><![CDATA[<p><img src="https://i.imgur.com/G7TYoeP.png" alt=""></p>
+<pre><code>&lt;style&gt;
+    .myCheck{
+        display: none;
+    }
+    .myleb{
+        display: inline-block;
+        width: 16px;
+        height: 16px;
+        position: relative;
+        border: 1px solid #abcdef;
+        border-radius: 15%;
+        margin-right: 3px;
+        vertical-align: middle;
+    }
+    .myleb::before{
+        content: &quot;&quot;;
+        width: 10px;
+        height: 10px;
+        position: absolute;
+        top: 3px;
+        left: 3px;
+        background-color: #abcdef;
+        border-radius: 15%;
+        display: none;
+    }
+    .myCheck:checked+.myleb::before{
+        display: block;
+    }
+&lt;/style&gt;
+
+&lt;label for=&quot;cb1&quot;&gt;
+    &lt;input type=&quot;checkbox&quot; class=&quot;myCheck&quot; name=&quot;cb1&quot; id=&quot;cb1&quot;&gt;
+    &lt;span for=&quot;cb1&quot; class=&quot;myleb&quot;&gt;&lt;/span&gt;熊猫
+&lt;/label&gt;
+&lt;label for=&quot;cb2&quot;&gt;
+        &lt;input type=&quot;checkbox&quot; class=&quot;myCheck&quot; name=&quot;cb2&quot; id=&quot;cb2&quot;&gt;
+        &lt;span for=&quot;cb2&quot; class=&quot;myleb&quot;&gt;&lt;/span&gt;老虎
+&lt;/label&gt;
+&lt;label for=&quot;cb3&quot;&gt;
+        &lt;input type=&quot;checkbox&quot; class=&quot;myCheck&quot; name=&quot;cb3&quot; id=&quot;cb3&quot;&gt;
+        &lt;span for=&quot;cb3&quot; class=&quot;myleb&quot;&gt;&lt;/span&gt;大象
+&lt;/label&gt;
+</code></pre>]]></content>
+  </entry>
+  <entry>
+    <title>CSS溢出文本打点展示</title>
+    <url>/2018/11/05/blog5/</url>
+    <content><![CDATA[<p><img src="https://i.imgur.com/B4Yhu4R.png" alt=""></p>
+<h4 id="1-单行文本"><a href="#1-单行文本" class="headerlink" title="1.单行文本"></a>1.单行文本</h4><pre><code>p{
+   white-space: nowrap;//强制不换行
+      overflow: hidden;
+      text-overflow: ellipsis;
+}
+</code></pre><h4 id="2-多行文本"><a href="#2-多行文本" class="headerlink" title="2.多行文本"></a>2.多行文本</h4><p>多行文本要<font color="red">截断</font></p>
+<pre><code>p{
+    height: n;
+    line-height: n/2; //要放几行就除多少
+    voerflow: hidden;
+  }
+</code></pre>]]></content>
+  </entry>
+  <entry>
+    <title>CSS常用布局</title>
+    <url>/2018/11/06/blog6/</url>
+    <content><![CDATA[<h4 id="常用布局"><a href="#常用布局" class="headerlink" title="常用布局"></a><font color="red">常用布局</font></h4><p><strong><font color="red">“display”属性</font></strong></p>
+<p>  display 是CSS中最重要的用于控制布局的属性</p>
+<ol>
+<li><font color="red">display:block</font>
+
+<p>div 是一个标准的<font color="red">块级</font>元素。一个块级元素会新开始一行并且尽可能撑满容器。而且block元素可以设置其高度与宽度。</p>
+<p>(h1-h6 p ol ul li div form table address等)</p>
+</li>
+<li><font color="red">display:inline</font>
+
+<p>span 是一个标准的<font color="red">行内</font>元素。一个行内元素可以在段落中 <span> 像这样 </span> 包裹一些文字而不会打乱段落的布局</p>
+<p>inline元素无法设置其高度与宽度，它的高度和宽度完全取决于其内容的高和宽(a em strong br span select)</p>
+</li>
+<li><font color="red">display:inline-block</font>
+
+<p>inline-block 综合了inline和block两种属性的特质,既可以给其设置宽高，又让其不会独占行。而且可以用这个属性模拟float进行布局</p>
+</li>
+<li><font color="red">display:none</font>
+
+<p>display:none 通常被 JavaScript 用来在<font color="red">不删除元素的情况下隐藏或显示元素</font>。它和visibility属性不一样,把display设置成none元素不会占据它本来应该显示的空间,但是设置成visibility: hidden;<font color="red">还会占据空间</font>。</p>
+</li>
+</ol>
+<p><strong><font color="red">水平居中</font></strong></p>
+<p>  #main{ width: 600px; margin: 0 auto;}</p>
+<p><font color="red">设置块级元素的 width 可以防止它从左到右撑满整个容器</font>。然后你就可以设置左右外边距为auto来使其<font color="red">水平居中</font>。<br>元素会占据你所指定的宽度,然后剩余的宽度会一分为二成为左右外边距。</p>
+<p>  #main{ max-width: 600px; margin: 0 auto;}</p>
+<p><font color="red">当浏览器窗口比元素的宽度还要窄时</font> 在这种情况下使用max-width替代width可以使浏览器更好地处理小窗口的情况。</p>
+<p><strong><font color="red">盒模型</font></strong></p>
+<p>当你设置了元素的宽度，实际展现的元素却超出你的设置:这是因为元素的边框和内边距会撑开元素。<br>看下面的例子，两个相同宽度的元素显示的实际宽度却不一样。</p>
+<p>  <style><br>  .small{<br>            width: 500px;<br>            height: 300px;<br>            margin: 20px auto;<br>            background-color: pink;<br>            box-sizing: border-box;<br>        }<br>        .big{<br>            width: 500px;<br>            height: 300px;<br>            margin: 20px auto;<br>            padding: 50px;<br>            border: 10px solid black;<br>            background-color: crimson;<br>        }<br>  </style><br>  <div class="small"></div><br>  <div class="big"></div></p>
+<p><img src="https://i.imgur.com/pU3yaUM.png" alt=""></p>
+]]></content>
+  </entry>
+  <entry>
+    <title>CSS实现微信对话框</title>
+    <url>/2018/11/07/blog7/</url>
+    <content><![CDATA[<h4 id="实现原理"><a href="#实现原理" class="headerlink" title="实现原理"></a><font color="red">实现原理</font></h4><p><strong>此效果利用了一个高度、宽度均为0的伪元素实现。</strong></p>
+<p><strong>当某元素的高度、宽度均为0,并且设置边框之后,其边框将变为4个顶角相对的三角形,如下图</strong></p>
+<p><img src="https://i.imgur.com/hAfGuSn.png" alt=""></p>
+<pre><code>&lt;style&gt;
+    .box{
+        height: 0;
+        width: 0;
+        border: 100px solid;
+        border-color: #25a23b #abcdef #0000ff crimson;
+    }
+&lt;/style&gt;
+&lt;div class=&quot;box&quot;&gt;&lt;/div&gt;
+</code></pre><p><img src="https://i.imgur.com/7nd7UsQ.png" alt=""></p>
+<pre><code>&lt;style&gt;
+.demo{
+      position: relative;
+      left: 200px;
+      max-width: 150px;
+      max-height: 90px;
+      background: #25a23b;
+      -webkit-border-radius: 5px;
+      -moz-border-radius: 5px;
+      border-radius: 5px;
+      font-size: 14px;
+      padding: 5px;
+      color: white;
+      word-break: break-word;
+    }
+    .demo::before{
+        content: &quot;&quot;;
+        position: absolute;
+        width: 0;
+        height: 0;
+        left: -18px;
+        top: 17px;
+        border: 9px solid;
+        border-color: transparent #25a23b transparent transparent;
+    }
+&lt;/style&gt;
+&lt;div class=&quot;demo&quot;&gt;background background background background background   background 
+&lt;/div&gt;
+</code></pre>]]></content>
+  </entry>
+  <entry>
+    <title>CSS实现六边形效果</title>
+    <url>/2018/11/08/blog8/</url>
+    <content><![CDATA[<h4 id="实现方案"><a href="#实现方案" class="headerlink" title="实现方案"></a><font color="red">实现方案</font></h4><p><strong>思路:拆分成一个长方形和两个正方形</strong></p>
+<ol>
+<li><strong>三角形是正方形的一半</strong></li>
+</ol>
+<ol start="2">
+<li><strong>用伪元素实现一个正方形</strong></li>
+</ol>
+<ol start="3">
+<li><strong>旋转45度(transform:rotate(45deg))</strong></li>
+</ol>
+<p><img src="https://i.imgur.com/7LhlkSW.png" alt=""></p>
+<pre><code>&lt;style&gt;
+    *{
+    margin: 0;
+    padding: 0;
+}
+div{
+    border-top: 2px solid #00f;
+    border-bottom: 2px solid #00f;
+    width: 200px;
+    height: 100px;
+    line-height: 100px;
+    position: relative;
+    top: 100px;
+    margin: 0 auto;
+    text-align: center;
+    vertical-align: middle;
+    background-color: crimson;
+}
+div::before{
+    content: &quot;&quot;;
+    width: 71px;
+    height: 71px;
+    position: absolute;
+    top: 14px;
+    left: -36px;
+    transform: rotate(45deg);
+    background-color: crimson;
+    border-left: 2px solid #00f;
+    border-bottom: 2px solid #00f;
+}
+div::after{
+    content: &quot;&quot;;
+    width: 71px;
+    height: 71px;
+    position: absolute;
+    top: 14px;
+    right: -36px;
+    transform: rotate(45deg);
+    background-color: crimson;
+    border-right: 2px solid #00f;
+    border-top: 2px solid #00f;
+}       
+&lt;/style&gt;                      
+&lt;div&gt;aaa&lt;/div&gt;
+</code></pre>]]></content>
+  </entry>
+  <entry>
+    <title>margin合并与塌陷BUG及解法</title>
+    <url>/2018/11/13/margin%E5%90%88%E5%B9%B6%E4%B8%8E%E5%A1%8C%E9%99%B7BUG%E5%8F%8A%E8%A7%A3%E6%B3%95/</url>
+    <content><![CDATA[<p>其实css也不是极其完善的，其中也存在着或多或少的bug，有些我们可能从来不会遇到，有些我们可能会经常遇到，这次介绍的两个bug是属于cssbug中的很经典的两个bug——margin合并与margin塌陷问题。</p>
+<h4 id="margin合并现象"><a href="#margin合并现象" class="headerlink" title="margin合并现象"></a><font color="red">margin合并现象</font></h4><p>   • 我们现在写两个span标签，并且给它们两个分别加上margin-right和margin-left的样式。</p>
+<pre><code> &lt;span class=&quot;left&quot;&gt;left&lt;/span&gt;
+ &lt;span class=&quot;right&quot;&gt;right&lt;/span&gt;
+ .left {
+    margin-right: 10px;
+    background-color: red;
+}
+ .right {
+    margin-left: 10px;
+    background-color: yellow;
+}
+</code></pre><p><img src="https://i.imgur.com/hZPjk7D.png" alt=""></p>
+<p>我们会发现，这两个span之间的距离正是我们所想的那样是20px的宽度，但是我们现在再写两个div，然后分别给它们加上<font color="red">margin-bottom</font>和<font color="red">margin-top</font>的样式，我们再来看看效果。</p>
+<pre><code>&lt;div class=&quot;top&quot;&gt;top&lt;/div&gt;
+&lt;div class=&quot;bottom&quot;&gt;bottom&lt;/div&gt;
+
+ .top {
+    margin-bottom: 10px;
+    background-color: red;
+}
+.bottom {
+    margin-top: 10px;
+    background-color: yellow;
+}
+</code></pre><p><img src="https://i.imgur.com/stB73S6.png" alt=""></p>
+<p>这次我们惊奇的发现，<font color="red">这两个div上下之间的距离，并不是我们所想的那样是相加的20px，而是只有10px！</font></p>
+<p>这个现象就是标题所说的<font color="red">margin上下合并现象</font>。</p>
+<p>我们尝试改变每一个div的margin-top或者margin-bottom的值，最后发现：二者上下之间的距离是取得两个数值之中的<font color="red">最大值</font>。</p>
+<p>如果div.top的margin-bottom是100px，div.bottom的margin-top是50px的话，那么二者之间的距离就是100px。</p>
+<h4 id="margin塌陷现象"><a href="#margin塌陷现象" class="headerlink" title="margin塌陷现象"></a><font color="red">margin塌陷现象</font></h4><p>  • 我们现在写两个span标签，并且给它们两个分别加上margin-right和margin-left的样式。</p>
+<pre><code>&lt;div class=&quot;wrapper&quot;&gt;
+  &lt;div class=&quot;content&quot;&gt;&lt;/div&gt;
+&lt;/div&gt;
+
+ .wrapper {
+      width: 100px;
+      height: 100px;
+      margin-top: 100px;
+      margin-left: 100px;
+      background-color: yellow;
+    }
+ .content {
+        width: 50px;
+        height: 50px;
+        margin-top: 50px;
+        margin-left: 50px;
+        background-color: red;
+    }
+</code></pre><p>我们写这段代码的原意是想要一个100100大小的父级div，然后里面有一个5050大小的子级div，然后让这个div在父级div的右下角，同时父级div距离浏览器的边框有100px的距离。</p>
+<p><img src="https://i.imgur.com/zFVpZHv.png" alt=""></p>
+<p>当我们运行这段代码的时候，我们会发现，子级div的margin-left生效了但是好像margin-top并没有生效？</p>
+<p><img src="https://i.imgur.com/SyDpNRF.png" alt=""></p>
+<p>其实并不是，margin-top也生效了，但是这里的margin-top的效果并不是我们所想的那样距离父级div的距离是50px，而是子级的div距离浏览器边框的距离是50px，由于本身父级div有一个margin-top的值，所以就导致了我们子级的margin-top的效果并没有显现出来，我们再改变一下子级div的margin-top的值，改成200px，我们又会惊奇的发现，子级div不仅没有距离父级div有了一段距离，<font color="red">反而带动了父级div一起向下移动了</font>！这就是margin塌陷现象。</p>
+<h4 id="那么对于这两个问题我们要怎么解决呢？"><a href="#那么对于这两个问题我们要怎么解决呢？" class="headerlink" title="那么对于这两个问题我们要怎么解决呢？"></a><font color="red">那么对于这两个问题我们要怎么解决呢？</font></h4><p><strong><font color="red">margin塌陷的解法</font></strong></p>
+<p>解法一共有两种：</p>
+<p>1.利用<font color="red">border</font>来触发<font color="red">bfc</font>的效果。</p>
+<p>2.利用<font color="red">overflow</font>属性来触发<font color="red">bfc</font>的效果。</p>
+<p>• <font color="red">那么什么是bfc呢？</font></p>
+<p>bfc全称是block format context——块级格式化上下文，我们有一些css语法会触发bfc，从而带来的效果是我们触发bfc的元素的渲染规则和普通元素的渲染规则变得不一样，从而可以解决塌陷问题。</p>
+<p>margin塌陷的问题很容易让我们联想到，子级div之所以没有相对父级移动，是因为它看不到父级的边界，只能看到浏览器的边界，这样我们给父级加一个子级能看到的边界，这个问题是不是就解决了？</p>
+<p>所以我们在父级div.wrapper里面添加一个属性<font color="blue">：border-top: 1px solid red;</font>现在我们再来看一下效果，发现果然content和wrapper解除了绑定，子级div能看到父级的边界了。但是这样就会改变父级div的样式，不符合开发要求，<font color="red">因此这种方法虽然可以解决问题但是是完全无法使用的</font>。</p>
+<p>• <font color="red">什么又是overflow呢？</font></p>
+<p>overflow是一个css属性，它可以设置当内容区超过了当前元素的区域的时候，我们采取怎样的处理方式，这个属性也可以触发bfc。</p>
+<p>现在我们可以在父级div.wrapper里面加一条属性<font color="blue">：overflow:hidden;</font>这条属性的意思是溢出隐藏。现在我们可以发现，在外观没有改变的同时，子级div和父级div解除了绑定，也可能正常移动了！<font color="red">因此我们一般采用这种方式来解决margin塌陷的问题</font>。</p>
+<p>虽然overflow:hidden;的方式可以采用，但是也不是没有缺点的，一旦我们用过js代码改变了子级div的位置，就会有导致子级一部分内容因为溢出被隐藏的风险。</p>
+<p><strong><font color="red">margin合并的解法</font></strong></p>
+<p>了解了margin塌陷的解法之后，我们就很容易可以理解margin合并的解法了。</p>
+<p>我们给每一个div分别加上一个父级包裹层，然后给父级包裹层都加上<font color="red">overflow:hidden;</font></p>
+<pre><code>&lt;div class=&quot;wrapper&quot;&gt;
+  &lt;div class=&quot;top&quot;&gt;top&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;wrapper&quot;&gt;
+  &lt;div class=&quot;bottom&quot;&gt;bottom&lt;/div&gt;
+&lt;/div&gt;
+
+  .wrapper{
+    overflow: hidden;
+  }
+  .top {
+    margin-bottom: 100px;
+    background-color: red;
+  }
+  .bottom {
+     margin-top: 100px;
+     background-color: red;
+  }
+</code></pre><p>这样通过父级div来触发bfc就可以解决margin合并的问题了。</p>
+]]></content>
+  </entry>
+  <entry>
+    <title>this</title>
+    <url>/2018/11/25/this/</url>
+    <content><![CDATA[<h4 id="this"><a href="#this" class="headerlink" title="this"></a><font color="red">this</font></h4><p><strong>  1.函数预编译过程 this ——&gt;window<br>    2.全局作用域里   this ——&gt;window<br>    3.call/apply可以改变函数运行时this指向<br>    4.obj.func();    func()里面的this指向obj </strong>    </p>
+<p><strong>总结: 四种this绑定的权重</strong></p>
+<p><strong>  1,默认绑定(空函数执行,函数单纯执行,this指向window) 默认权重<br>    2,隐式帮定(谁调用this指向谁) 第三权重<br>    3,显式绑定 (call apply bind) 第二高权重<br>    4,new 绑定this 权重是最高的</strong></p>
+<p><strong>升级知识：ES6箭头函数中的this如何邦定？<br>  1,箭头函数没有this 没有arguments surper(class)；<br>  2,箭头函数不能new ,不当成构造函数来 没有prototye；<br>  3,可以表示数据流向 方便JavaScript引擎优化扫码；</strong></p>
+<p>例1</p>
+<pre><code>var name = &quot;222&quot;;
+var a = {
+    name : &quot;111&quot;,
+    say : function(){
+        console.log(this.name);
+    }
+}
+var fun = a.say;
+fun();//预编译this指向window
+a.say();//a执行this指向对象a
+var b = {
+    name : &quot;333&quot;,
+    say : function(fun){
+        fun();//预编译this指向window
+    }
+}
+b.say(a.say);
+b.say = a.say;
+b.say();//b执行this指向对象b
+</code></pre><p>例2</p>
+<pre><code>var foo = 132;
+function print(){
+    this.foo = 234;
+    console.log(foo);
+}
+print();
+</code></pre><p>例3</p>
+<pre><code>var foo = 132;
+function print(){
+    //var this = Object.create(print.prototype)
+    this.foo = 234;
+    console.log(foo);
+}
+new print();
+</code></pre><p>例4</p>
+<pre><code>var a = 5;
+function test(){
+    a = 0;
+    console.log(a);
+    console.log(this.a);
+    var a;
+    console.log(a);
+}
+test();
+</code></pre><p>例5</p>
+<pre><code> var a = 5;
+function test(){
+    a = 0;
+    console.log(a);
+    console.log(this.a);
+    var a;
+    console.log(a);
+}
+new test();
+</code></pre><p>例6</p>
+<pre><code>var bar = {
+    a : &quot;002&quot;
+}
+function print(){
+    bar.a = &apos;a&apos;;
+    Object.prototype.b = &apos;b&apos;;
+    return function inner(){
+        console.log(bar.a);
+        console.log(bar.b);
+    }
+}
+print()();
+</code></pre><h4 id="call-apply"><a href="#call-apply" class="headerlink" title="call/apply"></a><font color="red">call/apply</font></h4><p>call/apply的第一个参数会<font color="red">改变this的指向</font><br>• call 需要把实参按照形参的个数传进去<br>• apply 需要传一个arguments(数组)<br>其实方法的执行test()，实际上就是隐式转换成test.call();</p>
+<pre><code>function Person(name, age){
+     this.name = name;
+     this.age = age;
+}
+var person = new Person(&apos;deng&apos;, 100);
+var obj = {};
+Person.call(obj, &apos;cheng&apos;, 300);
+console.log(obj.name);// &apos;cheng&apos;
+</code></pre><p>例1</p>
+<pre><code>function Person(name, age, sex){
+    this.name = name;
+    this.age = age;
+    this.sex = sex;
+}         
+function Student(name, age, sex, tel, grade){
+    //this指向Student  本来是没有name/age/sex属性 用Person的方法实现自己的功能   
+    //var this = {name : &quot;&quot;, age : &quot;&quot;, sex : &quot;&quot;}
+    Person.call(this, name, age, sex);
+    this.tel = tel;
+    this.grade = grade;
+}
+var student = new Student(&apos;sunny&apos;, 123, &apos;male&apos;, 139, 2017);
+</code></pre><p>例2</p>
+<pre><code>function Wheel(wheelSize, style){
+    this.style = style;
+    this.wheelSize = wheelSize;
+}
+function Sit(c, sitColor){
+    this.c = c;
+    this.sitColor = sitColor;
+}
+function Model(height, width, len){
+    this.height = height;
+    this.width = width;
+    this.len = len;
+}
+function Car(wheelSize, style, c, sitColor, height, width, len){
+    Wheel.call(this, wheelSize, style);
+    Sit.call(this, c, sitColor);
+    Model.call(this, height, width, len);
+}
+var car = new Car(100, &quot;花里胡哨的&quot;, &quot;真皮&quot;, &quot;red&quot;, 1800, 1900, 4900);
+</code></pre>]]></content>
+  </entry>
+  <entry>
+    <title>严格模式与try-catch</title>
+    <url>/2018/11/26/%E4%B8%A5%E6%A0%BC%E6%A8%A1%E5%BC%8F%E4%B8%8Etry-catch/</url>
+    <content><![CDATA[<h4 id="ES5-0严格模式"><a href="#ES5-0严格模式" class="headerlink" title="ES5.0严格模式"></a><font color="red">ES5.0严格模式</font></h4><p>• 浏览器 基于的es3.0的 + es5.0的新增方法 使用的<br>• es3.0 和 es5.0产生冲突的部分<br>• es5.0严格模式: 那么es3.0和es5.0产生冲突的部分就是用es5.0，否则会用es3.0</p>
+<p><strong>es5.0严格模式的启动</strong>: 必须写在页面逻辑的最顶端 或 方法里面最顶端(局部)</p>
+<pre><code>&quot;use strict&quot;;
+
+局部使用
+function test(){
+    &quot;use strict&quot;;
+    console.log(arguments.callee);
+}
+test();
+</code></pre><p><strong>严格模式下: • with, arguments.callee, caller(不能使用)<br>             • 变量赋值必须声明,局部this必须赋值<br>             • 拒绝重复属性和参数<br>             • es3.0 都不能使用eval();</strong></p>
+<pre><code>如:
+function test(name, name){
+    &quot;use strict&quot;;
+    console.log(name);
+}
+test(1,2);
+
+var obj = {
+    name : &apos;123&apos;,
+    name : &apos;234&apos;
+}
+</code></pre><h4 id="try…catch"><a href="#try…catch" class="headerlink" title="try…catch"></a><font color="red">try…catch</font></h4><p><strong>三段式:</strong></p>
+<pre><code>try{
+
+}catch(e){
+
+    }finally{
+
+    }
+</code></pre><p><strong>error对象 ——&gt; error.massage error.name<br>Error.name的六种值对应的信息</strong></p>
+<p>  1.EvalError: eval()的使用与定义不一致<br>  2.RangeError: 数值越界<br>  3.ReferenceError: 非法或不能识别的引用数值<br>  4.SyntaxError: 发生语法解析错误<br>  5.TypeError: 操作数类型错误<br>  6.URIError: URI处理函数使用不当</p>
+<pre><code>console.log(b);// ReferenceError    没定义就使用
+test();        // ReferenceError 
+var str = abcd;// ReferenceError
+
+function demo(){
+      :
+}
+//SyntaxError       语法解析错误
+
+//在try里面的发生错误,不会执行错误后的try里面的代码
+try{
+    console.log(&apos;a&apos;);
+    console.log(b);
+    console.log(&apos;c&apos;);
+}catch(e){
+    console.log(e.massage+&quot; &quot;+e.name);//出错走这里
+}
+    console.log(&apos;d&apos;);
+</code></pre>]]></content>
+  </entry>
+  <entry>
+    <title>事件分类</title>
+    <url>/2018/12/03/%E4%BA%8B%E4%BB%B6%E5%88%86%E7%B1%BB/</url>
+    <content><![CDATA[<h4 id="鼠标事件"><a href="#鼠标事件" class="headerlink" title="鼠标事件"></a><font color="red">鼠标事件</font></h4><p>click、contextmenu(右键菜单)、mouseover、mouseout、mousedown、mousemove、mouseup移动端对应的(touchstart、touchmove、touchend)</p>
+<p>• 所有的鼠标事件都有clientX和clientY，代表的是鼠标点击的位置，我们可以通过e.clientX和e.clentY来查看。</p>
+<p>• 左键点击的顺序是：mousedown、mouseup、click</p>
+<p>• 当我们同时绑定了click事件和mousedown事件后，如何解决mousedown和click的冲突问题？</p>
+<pre><code>var firstTime = 0;
+var laseTime = 0;
+var key = false;
+document.onmousedown = function(){
+    firstTime = new Date().getTime();
+}    
+document.onmouseup = function(){
+    laseTime = new Date().getTime();
+    if(laseTime - firstTime &lt; 300){
+        key = true;
+    }
+}
+document.onclikc = function(){
+    if(key){
+        console.log(&apos;click&apos;);
+        key = false;
+    }
+}
+</code></pre><p>click事件永远都是左键，有左键和右键的区别的是mousedown事件。</p>
+<p>再mousedown的事件对象中有一个属性叫做button，这个属性的值是0的时候代表我们按下的是左键，1的时候代表按下的中键，2的时候代表按下的是右键。</p>
+<pre><code>document.onmousedown = function (e) {
+  if (e.button == 0) {
+      console.log(&apos;left&apos;);
+  }else if (e.button == 1) {
+      console.log(&apos;mid&apos;);
+  }else {
+      console.log(&apos;right&apos;);
+  }
+}
+</code></pre><p>这里我们就可以重新回顾一下拖拽事件了：</p>
+<pre><code>var div = document.getElementsByTagName(&apos;div&apos;)[0]
+function drag(elem){
+    var disX,
+        disY;
+    addEvent(elem, &apos;mousedown&apos;, function(e){// 之前封装的事件绑定函数
+        var event = e || window.event;
+        disX = event.clientX - parseInt(getStyle(elem, &apos;left&apos;));// 之前封装的查询元素样式函数
+        disY = event.clientY - parseInt(getStyle(elem, &apos;top&apos;));
+        addEvent(document, &apos;mousemove&apos;, mouseMove);
+        addEvent(document, &apos;mouseup&apos;, mouseUp);
+        stopBubble(e);
+        cancelHandler(e);
+    });
+    function mouseMove(e){
+        var event = e || window.event;
+        elem.style.left = event.clientX - disX + &quot;px&quot;;
+        elem.style.top = event.clientY - disY + &quot;px&quot;;
+    }
+    function mouseUp(e){
+        var event = e || window.event;
+        removeEvent(document, &apos;mousemove&apos;, mouseMove);
+        removeEvent(document, &apos;mouseup&apos;, mouseUp);   
+    }
+}
+</code></pre><h4 id="键盘事件"><a href="#键盘事件" class="headerlink" title="键盘事件"></a><font color="red">键盘事件</font></h4><p>键盘事件主要有三个：keydown、keypress、keyup。<br>触发顺序分别是keydown &gt; keypress &gt; keyup。</p>
+<p>keypress的范围和keydown有所区别：</p>
+<p>keydown可以响应任意键盘按键，keypress只能响应字符类按键，也就是有ASCII码的字符的按键，像字母数字回车空格之类的。</p>
+<p>事件对象的属性方面：只有keypress有charCode属性，这个属性代表的我们输入的这个字符的ASCII码，配合SHIFT之类的按键可以直接获取大写字母等。</p>
+<p>keyCode和which每个方法都有，表示的是这个键的唯一标示，可以告诉浏览器我们按下的是键盘上的哪一个键，比如空格是32，32就代表空格。不过我们一般都用which，keyCode用的较少。</p>
+<p>• String上有一个方法叫做fromCharCode，可以接受一个Unicode值（包含ASCII值），然后返回对应的字符串，我们可以配合这个方法和charCode来直接获取输入的字符。</p>
+<pre><code>document.onkeypress = function(e){
+    console.log(String.fromCharCode(e.charCode));
+}
+</code></pre><h4 id="文本操作事件"><a href="#文本操作事件" class="headerlink" title="文本操作事件"></a><font color="red">文本操作事件</font></h4><p>input,focus,blur,change</p>
+<pre><code>&lt;input type=&quot;text&quot; value=&quot;请输入用户名&quot; style=&quot;color: #999;position: absolute;top: 200px&quot;
+onfocus=&quot;if(this.value==&apos;请输入用户名&apos;){this.value=&apos;&apos;;this.style.color=&apos;#424242&apos;}&quot;
+onblur=&quot;if(this.value==&apos;&apos;){this.value=&apos;请输入用户名&apos;;this.style.color=&apos;#999&apos;}&quot;&gt;
+</code></pre><h4 id="窗体操作类-window上的事件"><a href="#窗体操作类-window上的事件" class="headerlink" title="窗体操作类(window上的事件)"></a><font color="red">窗体操作类(window上的事件)</font></h4><p><strong><font color="red">load事件</font></strong></p>
+<p>这个事件window.onload和在body标签上写onload是一样的效果，作用是等页面中所有的东西都下载完成再执行里面的代码。</p>
+<p><strong><font color="red">scroll事件</font></strong></p>
+<p>这个方法是监听滚轮滚动的事件，我们可以用这个事件来写一个兼容版的fix定位。</p>
+<pre><code>function beFixed(ele){
+  var initPosX = ele.getPosition().w,
+      initPosY = ele.getPosition().h;
+  addEvent(window, &apos;scroll&apos;, function(e){
+      ele.style.top =  initPosY + getScrollOffset().h + &apos;px&apos;;
+      ele.style.left =  initPosX + getScrollOffset().w + &apos;px&apos;;
+  })
+}
+</code></pre>]]></content>
+  </entry>
+  <entry>
+    <title>事件绑定</title>
+    <url>/2018/12/04/%E4%BA%8B%E4%BB%B6%E7%BB%91%E5%AE%9A/</url>
+    <content><![CDATA[<p><strong><font color="red">绑定事件</font></strong></p>
+<p>1.<strong><font color="red">div.onclick(句柄方式)</font></strong> </p>
+<p>虽然句柄方式的兼容性很好，但是一个元素的一种事件只能绑定一个函数。</p>
+<pre><code>div.onclick = function(){
+    console.log(&apos;a&apos;);
+}
+</code></pre><p>2.<strong><font color="red">div.addEventListener(‘事件类型’, 处理函数, false)</font></strong></p>
+<p>可以给一个事件绑定多个处理函数</p>
+<pre><code>div.addEventListener(&apos;click&apos;, function(){
+    console.log(&apos;a&apos;);
+}, false);
+div.addEventListener(&apos;click&apos;, function(){
+    console.log(&apos;b&apos;);
+}, false);
+</code></pre><p>3.<strong><font color="red">div.attachEvent(‘onclick’, function(){})</font></strong></p>
+<p>这个方法是IE独有的方法，一个事件同样可以绑定多个处理函数。</p>
+<pre><code>div.attachEvent(&apos;onclick&apos;, function (){
+      console.log(&apos;a&apos;);
+});
+</code></pre><p>基本和addEventListener差不多，但是有一点区别是，<font color="red">当同一个函数绑定多次的时候，addEventListener是只执行一次，但是attachEvent会绑定几次执行几次</font>。</p>
+<pre><code>function test () {
+        console.log(&apos;a&apos;);
+}
+div.attachEvent(&apos;onclick&apos;, test);
+div.attachEvent(&apos;onclick&apos;, test);
+</code></pre><p>现在点击一次会打印两个a。</p>
+<p>封装兼容性的 事件处理函数 </p>
+<pre><code>function addEvent(elem, type, handle){
+    if(elem.addEventListener){
+        elem.addEventListener(type, handle, false);
+    }else if(elem.attachEvent){
+        elem.attachEvent(&apos;on&apos;+type, function(){
+            handle.call(elem);
+        })
+    }else{
+        elem[&apos;on&apos;+type] = handle;
+    }
+}
+</code></pre><p>例: 使用原生js，addEventListener，为每一个li绑定一个点击事件，输出他们的顺序。这里就要注意这个题考察的不仅仅是绑定事件，更多的是<font color="red">闭包</font>的运用。</p>
+<pre><code>&lt;li&gt;a&lt;/li&gt;
+&lt;li&gt;b&lt;/li&gt;
+&lt;li&gt;c&lt;/li&gt;
+&lt;li&gt;d&lt;/li&gt;
+&lt;script&gt;
+    var li = document.getElementsByTagName(&apos;li&apos;);
+        for(var i = 0;i &lt; li.length;i++){
+            // 绑定事件 一但事件出现在循环里面要考虑是否出现闭包 
+            (function(i){// 用立即执行函数解决
+                li[i].addEventListener(&apos;click&apos;, function(){
+                    console.log(i);
+                }, false);
+            }(i))
+        }
+&lt;/script&gt;
+</code></pre><p><strong><font color="red">事件处理程序的运行环境</font></strong></p>
+<p>1.句柄绑定方式中，函数里面的<font color="red">this指向元素本身</font>。</p>
+<p>2.addEventListener方式中，函数里面的<font color="red">this也是指向元素本身</font>。</p>
+<p>3.attachEvent中，函数里面的<font color="red">this指向的是window而不是元素本身</font>，这算是IE的一个BUG。针对这种情况，我们就需要把函数提取出来，然后在attachEvent的时候用<font color="red">call</font>来改变函数内部this的指向。</p>
+<pre><code>div.attachEvent(&apos;onclick&apos;, function () {
+       test.call(div);
+}, false);
+</code></pre><p><strong><font color="red">解除事件</font></strong></p>
+<p>1.<strong><font color="red">ele.onclick = false/‘’/null;</font></strong></p>
+<pre><code>var div = document.getElementsByTagName(&apos;div&apos;)[0];
+div.onclick = function(){
+    console,log(&apos;a&apos;);
+    this.onclick = null;
+}
+</code></pre><p>2.<strong><font color="red">ele.removeEventListener(type, fn, false);</font></strong></p>
+<p>针对的addEventListener的解除绑定。<br>但是这里要注意，只有命名函数才可以解除绑定，当绑定的函数是匿名函数的时候，是没有办法解除绑定的。</p>
+<pre><code>div.addEventListener(&apos;click&apos;, test, false);
+function test(){
+    console.log(&apos;a&apos;);
+}
+div.removeEventListener(&apos;click&apos;, test, false);
+</code></pre><p>3.<strong><font color="red">ele.detachEvent(‘on’ + type, fn);</font></strong></p>
+<p>针对IE的attachEvent的解除绑定。也是同一个函数才可以解除绑定，匿名函数无法解除绑定。</p>
+<p>封装兼容性的解除绑定函数：</p>
+<pre><code>function remvoeEvent(ele, type, handle) {
+    if(ele.removeEventListener) {
+          ele.removeEventListener(type, handle, false);
+    }else if (ele.detachEvent) {
+          ele.detachEvent(&apos;on&apos; + type, handle);
+    }else {
+          ele[&apos;on&apos; + type] = null;
+    }
+}
+</code></pre>]]></content>
+  </entry>
+  <entry>
+    <title>克隆算法</title>
+    <url>/2018/11/27/%E5%85%8B%E9%9A%86%E7%AE%97%E6%B3%95/</url>
+    <content><![CDATA[<p>克隆和我们前面所讲的继承有一些区别，克隆是复制出来一个一模一样的目标对象，而克隆又分为浅层克隆和深层克隆。</p>
+<p>• <strong><font color="red">浅层克隆</font></strong></p>
+<p>克隆大致就是我们的源对象里面有什么属性，目标文件就有什么属性，依照这个原理，我们可以写出下面的代码：</p>
+<pre><code>function clone(src, tar) {
+var tar = tar || {};// 如果没有tar则默认是一个空对象
+for(var prop in src) {
+      if(src.hasOwnProperty(prop)){
+           tar[prop] = src[prop];
+      }
+ }
+ return tar; 
+}
+</code></pre><p>下面我们来测试一下:</p>
+<pre><code>var obj = {
+      name: &apos;scarlett&apos;,
+      age: 123
+}
+var obj2 = {}
+clone(obj, obj2);
+console.log(obj2.name);// scarlett
+</code></pre><p>然后我们改变一下obj这个源对象的name：</p>
+<pre><code>obj.name = &apos;test&apos;
+console.log(obj2.name);// scarlett
+</code></pre><p>我们可以发现，克隆出来的目标对象和本来的源对象之间没有关系了<br>但是，当我们有一个属性是引用值（数组或者对象）的时候，按照我们这种克隆方式，只是把这个引用值的指向赋给了新的目标对象，也就是说，我们一旦改变了源对象或者目标对象的引用值属性，另一个也会跟着改变，这一点就是浅层克隆的缺点。</p>
+<p>• <strong><font color="red">深层克隆</font></strong></p>
+<p><strong>思路:<br>    1.遍历对象<br>    2.判断是否是原始值 还是引用值<br>    3.判断引用值类似是数组还是对象<br>    4.建立相应的数组或对象<br>    5.递归</strong></p>
+<pre><code>function clone(origin, target){
+    var target = target || {},//防止用户不传target参数
+         toStr = Object.prototype.toString,
+         arrStr = &quot;[object Array]&quot;;
+    for(var prop in origin){
+        if(origin.hasOwnProperty(prop)){
+            if( origin[prop] !== &quot;null&quot; &amp;&amp; typeof(origin[prop]) == &apos;object&apos;){
+                if(toStr.call(origin[prop]) == arrStr){
+                    target[prop] = [];
+                }else{
+                    target[prop] = {};
+                }
+                clone(origin[prop], target[prop]);
+            }else{
+                target[prop] = origin[prop];
+            }
+        }
+    }
+}
+</code></pre><p>现在我们来测试一下：</p>
+<pre><code>var parent = {
+      name : &apos;ScarLet&apos;,
+      age : 123,
+      sex : &apos;male&apos;,
+      height : 190,
+      money: [1,2,3,4,5]
+}
+var child = {};
+deepCopy(parent,child);
+console.log(child.money);//1 2 3 4 5
+parent.money.push(10);
+console.log(child.money);// 1 2 3 4 5
+</code></pre><p>这个时候目标对象和源对象的引用值之间就没有了关系，自己都是独立值，可以进行修改了。</p>
+]]></content>
+  </entry>
+  <entry>
+    <title>其他小知识点</title>
+    <url>/2018/12/08/%E5%85%B6%E4%BB%96%E7%9F%A5%E8%AF%86%E7%82%B9/</url>
+    <content><![CDATA[<h4 id="如何像JQuery里面一样连续调用-return-this"><a href="#如何像JQuery里面一样连续调用-return-this" class="headerlink" title="如何像JQuery里面一样连续调用 (return this)"></a><font color="red">如何像JQuery里面一样连续调用 (return this)</font></h4><pre><code>var deng = {
+    smoke : function(){
+        console.log(&apos;Smoking...!!!&apos;);
+        return this;
+        //隐式 return undefined
+    },
+    drink : function(){
+        console.log(&apos;drinking...ye!&apos;);
+        return this;
+    },
+    perm : function(){
+        console.log(&apos;perming...cool!&apos;);
+        return this;
+    }
+}
+deng.smoke().drink().perm().smoke().drink();
+</code></pre><h4 id="arguments-callee"><a href="#arguments-callee" class="headerlink" title="arguments.callee"></a><font color="red">arguments.callee</font></h4><p>指向函数自身引用</p>
+<pre><code>//此时想用递归求阶乘 但是,函数是一个匿名函数
+var num = (function (n){
+    if(n ==1){
+        return 1;
+    }
+    return n * arguments.callee(n-1)
+}(10))
+</code></pre><h4 id="caller"><a href="#caller" class="headerlink" title="caller"></a><font color="red">caller</font></h4><pre><code> function test(){
+    demo();
+}
+function demo(){
+    console.log(demo.caller);
+}
+test();
+</code></pre><h4 id="label标签"><a href="#label标签" class="headerlink" title="label标签"></a><font color="red">label标签</font></h4><p>label标签的作用主要是用来<strong><font color="red">绑定</font></strong>的，它里面有一个<strong><font color="red">for属性</font></strong>。</p>
+<p>通过for属性，里面写上要绑定的标签的id，就可以把这个label标签绑定到相对应的标签上了。</p>
+<pre><code>&lt;label for=&quot;demo&quot;&gt;username:&lt;/label&gt;
+&lt;input type=&quot;text&quot; id=&quot;demo&quot; /&gt;
+</code></pre><p>现在我们点击username这个label标签，也可以触发input的聚焦事件，就好像这两个是一个东西一样，可以提高用户体验。<br>另外，我们如果在js代码中要表示label标签的for属性的话，要写<font color="red">htmlFor</font>，而不能直接写for。</p>
+<h4 id="属性映射"><a href="#属性映射" class="headerlink" title="属性映射"></a><font color="red">属性映射</font></h4><p>这里的映射是指标签的行间属性（特性）和DOM对象的属性之间的映射关系。</p>
+<pre><code>&lt;div class=&quot;demo&quot; id=&quot;only&quot; data-log=&quot;123&quot; abc=&quot;a&quot;&gt;&lt;/div&gt;
+</code></pre><p>class和id属性是系统自带的，后两个属性是我们自己写的属性。<br>而我们获取出来的DOM对象div，可以通过div.className和div.id的方式来改写行间的属性值，但是却没法通过div.data-log或者div.abc来改写行间属性。</p>
+<p>这是因为系统默认的属性之间是有一种映射关系的，我们可以直接修改DOM的属性来修改行间属性，但是对于我们自己设置的属性，就只能通过<font color="red">setAttribute</font>和<font color="red">getAttribute</font>来设置和获取了。</p>
+<p>js引擎特殊赋予的映射关系有：class、id、style、value等属性。</p>
+<h4 id="img图片预加载"><a href="#img图片预加载" class="headerlink" title="img图片预加载"></a><font color="red">img图片预加载</font></h4><p>其实图片预加载是一种<font color="red">思想</font>，而不是一种代码方式。</p>
+<pre><code>var count = 0,
+    img;
+var timer = setInterval(function () {
+    count++;
+    if(count == 5) {
+        img = document.createElement(&apos;img&apos;);
+        img.src=&apos;xxx&apos;;
+        document.body.appendChild(img);
+        clearInterval(timer);
+    }
+}, 1000);
+</code></pre><p>如果我们加入的图片很大的话，展示出来的效果将是一点一点的往下加载，导致很久图片整体才会显现出来。因此，我们为了让图片显示出来的时候就是整体，只需要让图片的src提前下载，等到需要展示的时候直接加入进来就可以。</p>
+<pre><code>var count = 0,
+    img = document.createElement(&apos;img&apos;);
+img.src = &apos;xxx&apos;;
+var timer = setInterval(function () {
+    count++;
+    if(count == 5) {
+        document.body.appendChild(img);
+        clearInterval(timer);
+    }
+}, 1000);
+</code></pre><p>但是凡事优化就会有利有弊，这种方式的<font color="red">弊端就在于前期会很占用网速</font>。</p>
+<h4 id="模拟提取类名"><a href="#模拟提取类名" class="headerlink" title="模拟提取类名"></a><font color="red">模拟提取类名</font></h4><pre><code>Document.prototype.getClassName = function (className) {
+    // 获取出来所有的元素
+    var allEle = document.getElementsByTagName(&apos;*&apos;),    
+        retArr = [];
+    // 遍历每一个元素
+    for (var i = 0, len = allEle.length; i &lt; len; i++) {
+        // 把这个元素的所有类名都提取出来
+        var classNameArr = [];
+        if (allEle[i].className) {
+            classNameArr = allEle[i].className.split(&apos; &apos;);
+            // 去除掉类名数组中的空字符串
+            classNameArr = classNameArr.filter(function (value, key) {
+                return classNameArr[key];
+            });
+        }
+
+        for (var j = 0, classlen = classNameArr.length; j &lt; classlen; j++) {
+
+            if(classNameArr[j] == className) {
+                retArr.push(allEle[i]);
+                break;
+            }
+        }
+
+    }
+    return retArr;
+}
+</code></pre><font color="red">getElementsByTagName(‘*’)</font>的意思是把文档中所有的标签都选择出来的意思。<br>这样我们就可以模拟jQuery的类名提取方式了。<br><br><strong> <font color="red">文档碎片documentFragment</font> </strong><br><br>这个文档碎片就是我们前面提到过nodeType区分节点时候的属性值11的那个文档碎片节点。<br><br>文档碎片可以当做<font color="red">容器</font>来进行<font color="red">效率的优化</font>。<br><br>当我们动态生成很多元素然后加入到文档的时候，因为每一次添加页面都会重新重绘重排一次，效率非常低。<br><br><font color="red">这个时候我们就可以把这些元素全部放到文档碎片里面，然后最后直接把整个文档碎片放进文档就可以了，这样页面只需要重绘重排一次即可。</font>
+
+<pre><code>var fragment = document.createDocumentFragment();
+var div = document.createElement(&apos;div&apos;);
+var span = document.createElement(&apos;span&apos;);
+var p = document.createElement(&apos;p&apos;);
+fragment.appendChild(div);
+fragment.appendChild(span);
+fragment.appendChild(p);
+document.body.appendChild(fragment);
+</code></pre><p>但是论时间添加事件的话，<font color="red">文档碎片的添加速度可能会比直接添加的速度要慢</font>，这只是理论上可以节省添加时间，但是在其他方面确实存在优化效果。</p>
+]]></content>
+  </entry>
+  <entry>
+    <title>原型</title>
+    <url>/2018/11/21/%E5%8E%9F%E5%9E%8B/</url>
+    <content><![CDATA[<h2 id="原型"><a href="#原型" class="headerlink" title="原型"></a><font color="red">原型</font></h2><p>1.<strong><font color="red">定义</font></strong>:原型是function对象的一个<font color="red">属性</font>，它定义了构造函数制造出的对象的<font color="red">公共祖先</font>。<br>通过该构造函数产生的对象，可以<font color="red">继承该原型的属性和方法</font>。<strong><font color="red">原型也是对象</font></strong><br>2.利用原型特点和概念，可以提取共有属性<br>3.对象如何查看原型–&gt;隐式属性<strong>proto</strong><br>4.对象如何查看对象的构造函数–&gt;constructor</p>
+<pre><code>//Person.prototype      -- 原型
+//Person.prototype = {}     是祖先
+</code></pre><p>1.<font color="red">增</font></p>
+<pre><code>Person.prototype.name = &quot;hehe&quot;;
+function Person() {
+
+}
+var person = new Person();
+console.log(person.name);// &quot;hehe&quot;
+</code></pre><p>2.<font color="red">改</font></p>
+<pre><code>Person.prototype.name = &quot;haha&quot;;
+console.log(person.name);// &quot;haha&quot;
+</code></pre><p>3.<font color="red">删</font></p>
+<pre><code>Person.prototype.name = &quot;hehe&quot;;
+function Person() {}
+var person = new Person();
+delete Person.prototype.name;
+console.log(person.name);// undefined
+</code></pre><p>我们可以在prototype上面添加属性和方法，每一个构造出来的对象都可以继承这些属性和方法。</p>
+<p>虽然每一个对象都是独立的，但是他们都有共同的祖先，当我们访问这个对象的属性的时候，<font color="red">如果它没有这个属性，就会向上找到它的原型，然后在原型上访问这个属性</font>。</p>
+<p><strong>例1.</strong>提取共有属性  </p>
+<pre><code>Car.prototype.height = 1400;
+Car.prototype.lang = 4900;
+Car.prototype.carName = &quot;BMW&quot;;
+function Car(color, owner){
+    this.color = color;
+    this.owner = owner;
+}
+var car = new Car(&apos;red&apos;, &apos;prof.ji&apos;);
+var car1 = new Car(&apos;blue&apos;, &apos;abc&apos;);
+</code></pre><p><strong>例2.</strong></p>
+<pre><code> Car.prototype = {
+    height : 1400,
+    lang : 4900,
+    carName : &quot;BMW&quot;
+}
+function Car(){
+}
+var car = new Car();
+</code></pre><p><strong><font color="red">对象如何查看原型</font></strong></p>
+<p>前面我们提到了构造函数可以通过.prototype的方法来查看构造函数的原型，那么我们怎么查看对象的原型呢？<br>我们前面提到过用构造函数构造对象的时候，会隐式创建一个this对象，这个this对象里面有一个默认的属性叫做<font color="red">proto</font>属性，这个属性的值就是指向的这个对象的原型。</p>
+<pre><code>var this = {
+    // xxx
+    __proto: Person.prototype;
+}
+</code></pre><p>注意:Person对象的原型<font color="red">未必一定</font>是Person.prototype 可以修改、<font color="red">prototype是函数的属性，proto是对象的属性</font>。</p>
+<p>当查找的属性是自身没有的属性的时候，就会先查找proto这个属性，然后这个属性指向了原型，所以就到原型上面继续查找属性了。</p>
+<p><strong><font color="red">对象如何查看构造自身的构造函数</font></strong></p>
+<p>在prototype里面，有一个隐式的属性叫做<font color="red">constructor</font>，这个属性记录的就是<font color="red">对象的构造器</font>，里面存的就是构造函数。</p>
+<pre><code>Person.prototype.name = &quot;hehe&quot;;
+function Person() {}
+var person = new Person();
+console.log(person.constructor);// Person();
+</code></pre><h2 id="原型链"><a href="#原型链" class="headerlink" title="原型链"></a><font color="red">原型链</font></h2><p>有了原型，原型还是一个对象，那么这个名为原型的对象自然还有自己的原型，这样的原型上还有原型的结构就构成了原型链。</p>
+<pre><code>Grand.prototype.lastName = &quot;Deng&quot;;
+function Grand(){
+}
+var grand = new Grand();
+Father.prototype = grand;
+function Father(){ 
+    this.name = &quot;xuming&quot;;
+    this.fortune = {
+        card1 : &apos;visa&apos;
+    };
+    this.num = 100;
+}
+var father = new Father();
+Son.prototype = father;
+function Son(){
+    this.hobbit = &quot;smoke&quot;;
+}
+var son = new Son();
+</code></pre><p>son可以访问到father以及grand的属性 甚至可以访问到Object.prototype的所有属性<br>调用引用值修改(仅限引用值)<br>其实，<font color="red">绝大部分的对象最终都会继承自<strong>Object.prototype</strong>这个对象</font>。</p>
+<p><font color="red">我们没有规定原型的对象，它们的原型就是<strong>Object.prototype</strong></font>。</p>
+<pre><code>son.fortune.card2 = &quot;master&quot;;
+son.num++
+console.log(son.num);// 101
+console.log(father.num);// 100
+</code></pre><p>但是<font color="red">并不是所有的对象都有原型</font>。</p>
+<p>我们上一篇提到过第三种构造对象的方法，使用<font color="red">Object.create</font>方法。</p>
+<p>Object.create()方法需要写一个参数，这个参数就是我们这个对象的<font color="red">原型</font>。如果我们想要构造和var obj = {};一样的空对象，那么就需要写：</p>
+<pre><code>var obj = Object.create(Object.prototype);
+</code></pre><p>但是，当我们写<font color="red">参数为null</font>的时候，我们就构造出来了一个<font color="red">没有原型的对象</font>。</p>
+<pre><code>var obj = Object.create(null);
+console.log(obj.proto);// undefined
+</code></pre><p><font color="red">undefined null也都没有原型</font>。它们之所以能打印出来，是因为不调用任何方法的，直接打印出来。</p>
+<h4 id="更多例子"><a href="#更多例子" class="headerlink" title="更多例子"></a><font color="red">更多例子</font></h4><p><strong>例1</strong></p>
+<pre><code>Person.prototype.name = &quot;sunny&quot;;
+function Person(){
+
+}
+var person = new Person();
+Person.prototype.name = &quot;cherry&quot;;//此处只是改变原对象里面的值 即Person.prototype = {name : &apos;xxx&apos;}
+console.log(person.name);
+</code></pre><p><strong>例2</strong></p>
+<pre><code>Person.prototype.name = &quot;sunny&quot;;
+function Person(){
+
+}
+var person = new Person();
+Person.prototype = {    // 新引用
+    name : &quot;cherry&quot;
+}
+console.log(person.name);
+
+//person.prototype的引用指向并没有发生改变
+//解释: Person.prototype = {name : &apos;a&apos;};
+//      __proto__ = Person.prototype;
+//      Person.prototype = {name : &apos;b&apos;};
+</code></pre><p><strong>例3</strong></p>
+<pre><code>Person.prototype.name = &quot;sunny&quot;;
+function Person(){
+
+}
+Person.prototype = {    
+   name : &quot;cherry&quot;
+}
+var person = new Person();
+console.log(person.name);
+
+//person.prototype的引用指向了新的Person.prototype
+</code></pre><p><strong>例4</strong></p>
+<pre><code>Person.prototype = {
+    name : &apos;a&apos;,
+    sayName : function(){
+        console.log(this.name);
+    }
+}
+function Person(){
+    this.name = &apos;b&apos;;
+}
+var person = new Person();
+
+//a.sayName()   sayName里面的this指向是，谁调用的这个方法，this就是指向谁
+//person.sayName();// b
+//person.prototype.sayName();// a
+</code></pre><p>方法的重写:将原型链上的toString方法重写</p>
+<pre><code>Person.prototype = {
+    toString : function(){
+        return &quot;hehe&quot;;
+    }
+}
+function Person(){
+}
+var person = new Person();
+person.toString();// &quot;hehe&quot;
+</code></pre>]]></content>
+  </entry>
+  <entry>
+    <title>定位与层模型</title>
+    <url>/2018/12/09/%E5%AE%9A%E4%BD%8D%E4%B8%8E%E5%B1%82%E6%A8%A1%E5%9E%8B/</url>
+    <content><![CDATA[<h2 id="层模型"><a href="#层模型" class="headerlink" title="层模型"></a><font color="red">层模型</font></h2><p>css中元素的层次模型主要是由<font color="red">position</font>这个属性来决定的。</p>
+<p>position属性：position的意思是定位，同样这个属性的作用就是<font color="red">给元素施加定位</font>。它一共有四个值，分别是<font color="red">static、absolute、relative、fixed</font>。</p>
+<p><strong><font color="red">static</font></strong></p>
+<p>• static是<font color="red">默认</font>的属性，当我们没有写position属性的时候，元素默认的定位就是static定位。</p>
+<p><strong><font color="red">absolute</font></strong></p>
+<p>• absolute是<font color="red">绝对定位</font>的意思，它会使元素<font color="red">脱离本来的位置</font>再进行定位，它会使元素像立交桥一样出现空间上的分层，当元素脱离原来的位置之后，其他的元素就会看不到这个元素。同时，<font color="red">absolute也可以触发bfc</font>。</p>
+<p>• 同时，当我们改变定位之后，这个元素就有四个属性可以使用了，分别是<font color="red">left、right、top、bottom</font>。这四个属性分别可以设置当前元素距离左边、右边、上边和下边的距离为多少，但是四个属性很少一起出现，一般都是两两一对出现，其中left和top是一对，right和bottom是一对。</p>
+<pre><code>div{
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    left: 100px;
+    top: 100px;
+}
+</code></pre><p>这个div就会脱离原来的位置，然后距离浏览器上边框和左边框分别100px的距离。</p>
+<p>• 最后一点，absolute的参照物是<font color="red">距离它最近的有定位（除了static）的父级</font>，当每一个父级都没有定位的时候，元素会相对于<font color="red">浏览器边框</font>进行定位。</p>
+<p><strong><font color="red">relative</font></strong></p>
+<p>• relative是<font color="red">相对定位</font>的意思，它会让元素保留原来的位置再进行定位，后面的元素可以看到它本来的位置。</p>
+<p>• 当position改成relative之后，left、top、right、bottom进行的定位就会变成<font color="red">相对于自身的位置</font>进行移动了。</p>
+<p>• relative的<font color="red">参照物是元素自身</font>。</p>
+<p>• 当我们仅仅给元素设置position:relative;并没有设置left、right、top、bottom属性的时候，元素的定位是没有发生任何改变的，因为这个特性，一般在开发中，<font color="red">relative都是用作设置参照物的</font>，一个absolute元素要相对于那个元素进行移动，就给那个元素设置relative的定位就可以了。</p>
+<font color="red">我们通过例子来看一下absolute和relative的区别。</font><br>我们现在有这样一个结构:<br><br>    <div class="wrapper"><br>        <div class="box"><br>            <div class="content"></div><br>        </div><br>    </div><br><br>    .wrapper{<br>        width: 200px;<br>        height: 200px;<br>        background-color: orange;<br>        margin-top: 100px;<br>        margin-left: 100px;<br>    }<br>    .box{<br>        width: 100px;<br>        height: 100px;<br>        background-color: black;<br>        margin-left: 100px;<br>    }<br>    .content{<br>        width: 50px;<br>        height: 50px;<br>        background-color: yellow;<br>    }<br><br>这个时候时候我们在浏览器中看到的样式是这个样子的：<br><br><img src="https://i.imgur.com/qx7jaAd.png" alt=""><br><br>现在我们给content加上定位的样式。<br><br>    .content{<br>        position: absolute;<br>        left: 50px;<br>        width: 50px;<br>        height: 50px;<br>        background-color: yellow;<br>    }<br><br>这个时候浏览器中的样式就会发生改变，content那个黄色的小方块会跑到橘黄色的方块外面：<br><br><img src="https://i.imgur.com/a6ip5NV.png" alt=""><br><br>这是因为，当我们给content设置position:absolute;之后，浏览器在渲染的时候，会先向上找到box这个div，看看这个div有没有定位，因为没有，所以继续向上找wrapper，依然没有，再向上找body，还是没有，所以最后就是<font color="red">相对于浏览器边框定位</font>，这个时候content的left属性就是相对于浏览器边框左边有50px的距离的意思。<br><br>现在我们把content的定位换成relative，浏览器中的结果变成了这个样子：<br><br><img src="https://i.imgur.com/d9fpGrk.png" alt=""><br><br>本来content黄色小方块在黑色方块的左上角，然后relative相对与自身的位置进行定位，这个时候的left属性的意思就是相对于本来在黑色左上角的那个位置向右移动了50px的距离，也就是现在这个黄色小方块所在的位置。<br><br>因此，总结一下absolute和relative的特点如下：<br><br><br>• <font color="red">absolute：<br><br>1.脱离原来位置进行定位<br><br>2.相对于最近的有定位的父级进行定位，如果没有那么相对于浏览器边框定位。</font>
+
+
+<p>• <font color="red">relative：</font></p>
+<font color="red">1.保留原来位置定位<br><br>2.相对于最近的有定位的父级进行定位<br><br>一般被用来设置参照物</font>
+
+<p><strong><font color="red">fixed</font></strong></p>
+<p>fixed定位是<font color="red"><strong>相对于视口</strong></font>的定位，我们在网页上都见过左右两边不随着滚轮滚动而改变位置的<font color="red">广告栏</font>，这种广告栏就是用fixed定位的。</p>
+<pre><code>&lt;div class=&quot;fixed&quot;&gt;&lt;/div&gt;
+
+.fixed{
+    position: fixed;
+    right: 0px;
+    top: 200px;
+    height: 200px;
+    width: 50px;
+    background-color: red;
+}
+</code></pre><p>这段代码中，div.fixed这个元素就是一直在视口的右边，不随着我们滚动而改变相对于视口的位置。</p>
+<font color="red">最后提一点</font>
+
+<p>• 值得注意的是，当我们写这样一段代码的时候：</p>
+<pre><code>&lt;div class=&quot;demo&quot;&gt;&lt;/div&gt;
+.demo{
+    position: absolute;
+    margin-top: 200px;
+    height: 200px;
+    width: 50px;
+    background-color: red;
+}
+</code></pre><p>我们把absolute换成relative之后，会发现整个div会向上移动一小段距离，这是为什么呢？</p>
+<p>答案其实就在上一篇的文章里，<font color="red">margin合并问题</font>——body标签本身有8px的margin，而四个方向的margin自然包括了margin-bottom，我们为div.demo设置了margin-top，就会导致margin合并的问题发生，当position是relative的时候，并没有触发bfc，所以中间的距离会取二者的最大值，也就是200px，当position是absolute的时候，因为触发了bfc效果，从而消除掉margin合并的bug，因此中间的距离是200+8=208px。</p>
+<pre><code>我们还可以实现多栏布局了！
+&lt;div class=”left”&gt;&lt;/div&gt;
+&lt;div class=”right”&gt;&lt;/div&gt;
+&lt;div class=”mid”&gt;&lt;/div&gt;
+*{
+    margin: 0px;
+    padding: 0px;
+}
+div{
+    height: 100px;
+}
+.left{
+    position: absolute;
+    left: 0;
+    width: 100px;
+    background-color: yellow;
+}
+.right{
+    position: absolute;
+    right: 0;
+    width: 100px;
+    background-color: #ffc;
+}
+.mid{
+    margin-left: 100px;
+    margin-right: 100px;
+    background-color: #fcc;
+}
+</code></pre><p>• 要注意的是，div.mid记得<font color="red">写在后面</font>，如果写在最前面的话，因为div是block块级元素会独占一行，这样就会把左侧和右侧的div给挤到下一行了。当然我们给.left和.right都加上<font color="red">top:0px;</font>之后，这个问题也就不用考虑了。</p>
+]]></content>
+  </entry>
+  <entry>
+    <title>对象与构造函数与包装类</title>
+    <url>/2018/11/20/%E5%AF%B9%E8%B1%A1%E4%B8%8E%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E4%B8%8E%E5%8C%85%E8%A3%85%E7%B1%BB/</url>
+    <content><![CDATA[<h2 id="对象创建方法"><a href="#对象创建方法" class="headerlink" title="对象创建方法"></a><font color="red">对象创建方法</font></h2><p>对象的创建方法有三种：</p>
+<ol>
+<li><p><strong><font color="red">对象字面量</font></strong></p>
+<pre><code>var obj = {}
+</code></pre></li>
+</ol>
+<p>这样的方式就叫做字面量，也是我们<font color="red">创建对象最简单最常用</font>的方法。</p>
+<p>对象里面有属性，属性之间用逗号分隔，每一条属性都有属性名和属性值，属性名和属性值之间用分号分隔。</p>
+<ol start="2">
+<li><strong><font color="red">构造函数</font></strong></li>
+</ol>
+<p>构造函数也分两种：<font color="red">系统自带的构造函数</font>和我们<font color="red">自定义的构造函数</font>。</p>
+<p>• <font color="red">系统自带的构造函数</font></p>
+<p>创建对象的构造函数是Object()。</p>
+<pre><code>var obj = new Object();
+</code></pre><p>它的作用和var obj = {};的作用是一样的。</p>
+<p>系统自带的构造函数还有很多，比如Number()、String()、Boolean()、Array()这些都是构造函数。</p>
+<p>• <font color="red">自定义构造函数</font></p>
+<p>自定义的构造函数是我们平时<font color="red">最常用的一种构造函数</font>。</p>
+<p>构造函数也是正常的函数，我们为了区分它和别的正常函数，把构造函数的首字母大写。</p>
+<pre><code>function Persion(){}
+</code></pre><p>有了构造函数之后，我们就可以用new操作符来创建对象了。</p>
+<pre><code>var oPerson = new Person();
+typeof oPerson;// object
+</code></pre><p>这样我们也创建了一个对象oPerson，不过现在这个对象是空对象，因为我们的构造函数什么都没有写，我们也没有给这个对象添加任何属性。</p>
+<p>另外，用new操作符创建出来的对象，尽管都是使用的同一个构造函数，但是之间是没有关联的。</p>
+<pre><code>var person1 = new Person();
+var person2 = new Person();
+person1.name = &apos;111&apos;;
+console.log(person2.name);// undefined
+</code></pre><p>我们可以在构造函数里面写一些对象天生就有的默认属性。</p>
+<pre><code>function Person() {
+    this.name = &apos;scarlett&apos;,
+    this.age = 17
+}
+var person = new Person();
+person.name;// scarlett
+</code></pre><p>当然构造函数既然是函数，那么就可以传参数。</p>
+<pre><code>function Person(name, age) {
+    this.name = name,
+    this.age = age
+}
+var person = new Person(&apos;scarlett&apos;, 18);
+person.age;// 18
+</code></pre><p>创建对象的时候，<font color="red">只有new才会有this</font>。</p>
+<p>这里有一个重点，<font color="red">为什么我们通过new操作符可以创建互相独立的对象呢</font>？</p>
+<p>其实，当我们用new操作符的时候，这个new在我们的构造函数里面隐式创建了一个this对象，并且最后返回了这个this对象，这也就是为什么我们通过new可以最后创建一个对象的原因了。</p>
+<pre><code>function Person(name) {
+    // var this = {};
+    this.name = name;
+    // return this;
+}
+</code></pre><p>如果我们在构造函数首行手动创建一个对象，比如that对象，然后最后返回了that，那么里面的this就没有用了，我们要为属性赋值就要用that了。</p>
+<pre><code>function person(name) {
+       var that = {
+            name : &apos;scarlett&apos;
+       };
+       that.name = name;
+       return that;
+}
+var person = new Person(&apos;demo&apos;);
+person.name;// demo
+</code></pre><font color="red">重点：如果我们最后返回的对象，那么this就失效，但是如果最后显示返回的是原始值，那么this还是有效的。</font>
+
+<pre><code>function person(name) {
+       var that = {};
+       that.name = &apos;that&apos;;
+       this.name = &apos;this&apos;;
+       return 123;
+}
+var person = new Person();
+person.name;// this
+</code></pre><ol start="3">
+<li><strong><font color="red">Object.create(原型)</font></strong></li>
+</ol>
+<p>后面原型里面在具体说明</p>
+<h2 id="属性的增删改查"><a href="#属性的增删改查" class="headerlink" title="属性的增删改查"></a><font color="red">属性的增删改查</font></h2><p>1.<strong>增</strong></p>
+<pre><code>var obj = {};
+obj.name = &apos;scarlett&apos;;
+obj.name;// scarlett
+</code></pre><p>我们可以通过对象名+点+属性名的方法来给对象添加新的属性并且赋值。</p>
+<p>这个时候如果我们调用obj.age属性的话，这个属性并不存在，但是obj这个对象是存在的，因此浏览器不会报错，只会打印undefined。</p>
+<p>2.<strong>改</strong></p>
+<p>修改的操作和增加的操作其实是一样的，只要调用相同的属性名然后赋一个新的值就可以了。</p>
+<pre><code>var obj = {
+    name : &apos;scarlett&apos;
+};
+obj.name = &apos;demo&apos;;
+obj.name;// demo
+</code></pre><p>3.<strong>查</strong></p>
+<pre><code>obj.name = &apos;demo&apos;;
+console.log(obj.name);// demo
+</code></pre><p>4.<strong>删</strong></p>
+<p>删除属性的操作我们需要借助<font color="red">delete</font>操作符，这个操作符的作用就是来删除属性的。</p>
+<pre><code>var obj = {
+    name : &apos;scarlett&apos;
+}
+obj.name;// scarlett
+delete obj.name;
+obj.name;// undefined
+</code></pre><h2 id="内置对象和包装类型"><a href="#内置对象和包装类型" class="headerlink" title="内置对象和包装类型"></a><font color="red">内置对象和包装类型</font></h2><p><strong><font color="red">内置对象</font></strong></p>
+<p><strong>内置对象</strong>:就是ES标准中规定的浏览器厂商已经实现的API都叫做内置对象。一共11个</p>
+<p><strong><font color="red">String Number Boolean Array Date Math RegExp Error  Function Object Global全局(Window)</font></strong></p>
+<p>这十一个对象都干了两件事,第一是装数据的,第二为了简化你的操作,提供了很多现成的API让你去操作数据</p>
+<p><strong><font color="red">包装类型</font></strong></p>
+<p><strong>包装类型</strong>:专门封装原始类型的值,并提供操作值得API的对象.</p>
+<p>包装类型的值做了两件事,第一件事:封装一个值,然后还提供了对这个值操作的API.</p>
+<p>如何使用:他都是自动创建,自动销毁</p>
+<p>什么时候创建:在试图用原始类型的值,调用函数时,会自动创建对应类型的包装类型对象.调用完函数后自动释放</p>
+<pre><code>var str = &apos;abcd&apos;;
+// var str1 = String(&apos;abcd&apos;);
+str.length = 2; // str1.length = 2;
+//销毁str1
+console.log(str); // abcd 长度还是4
+
+var n = 123.456;
+n.toFixed(2);// &quot;123.46&quot; 内部其实是 new Number(n).toFixed(2);
+
+&quot;张&quot;.charCodeAt();// 24352 内部其实发生了 new String(&quot;张&quot;).charCodeAt();
+
+// 为什么要有包装类型:因为原始类型的值本身不能有任何属性和函数,放不下
+
+var str = &quot;abc&quot;;
+str += 1;
+var test = typeof(str);
+if(test.length == 6){
+    test.sign = &quot;typeof的返回结果可能为String&quot;;
+    // new String(test).sign = &apos;xxx&apos;;
+}
+// new String(test).sign
+console.log(test.sign);// undefined
+</code></pre>]]></content>
+  </entry>
+  <entry>
+    <title>对象枚举及访问属性的第二种方法</title>
+    <url>/2018/11/24/%E5%AF%B9%E8%B1%A1%E6%9E%9A%E4%B8%BE%E5%8F%8A%E8%AE%BF%E9%97%AE%E5%B1%9E%E6%80%A7%E7%9A%84%E7%AC%AC%E4%BA%8C%E7%A7%8D%E6%96%B9%E6%B3%95/</url>
+    <content><![CDATA[<h4 id="对象的枚举"><a href="#对象的枚举" class="headerlink" title="对象的枚举"></a><font color="red">对象的枚举</font></h4><p>在介绍对象的枚举方法之前，我们要理解一个概念。</p>
+<p>查看对象属性我们知道可以用obj.name这样的点操作符来查看，但是我们还有一种其他的方式：</p>
+<p><strong><font color="red">obj[字符串]</font></strong></p>
+<p>这种方法类似数组的查看，但其实事实是数组模仿了对象的查看方式。<br>这种方法是在系统底层里面的查看对象属性的写法，我们常用的点操作符obj.name在系统底层其实也隐式转换成了obj[‘name’]这种形式。</p>
+<p><strong>例</strong></p>
+<pre><code>var deng = {
+    wife1 : {name : &quot;xiaoliu&quot;},
+    wife2 : {name : &quot;xiaozhang&quot;},
+    wife3 : {name : &quot;xiaomeng&quot;},
+    wife4 : {name : &quot;xiaowang&quot;},
+    sayWife : function (num){
+        return this[&apos;wife&apos;+num]
+    }
+}
+// 我们调用sayWife的时候传入一个对应的数字就可以得到返回对应的名字
+</code></pre><p><strong><font color="red">for-in操作符</font></strong></p>
+<p>我们知道要枚举一个数组的所有元素，只要用一个for循环从头到尾遍历一遍就可以了。</p>
+<p>但是对象并不能用for循环来遍历属性，所以这里我们就要使用for-in操作了。</p>
+<pre><code>var obj = {
+    name : &apos;13&apos;,
+    age : 123,
+    sex : &quot;male&quot;,
+    height : 180,
+    weight : 75
+}
+for(var prop in obj){
+    //obj是要遍历的对象  prop变量名写什么都行
+    //console.log(obj.prop);    结果全是undefined 
+    //因为 obj.prop ——&gt;obj[&apos;prop&apos;] 而prop是个变量所以 改为下面访问属性方式
+    console.log(obj[prop]);
+}
+</code></pre><p>下面我们来介绍三种操作符：</p>
+<p>1.<strong><font color="red">hasOwnProperty</font></strong></p>
+<p>这个操作符的作用是查看当前这个属性是不是对象自身的属性，在原型链上的属性则会被过滤掉。如果是自身的，就返回true，否则返回false。    </p>
+<pre><code>function Person(){
+    this.name = &apos;scarlett&apos;
+}
+Person.prototype = {
+    age : 10
+}
+var operson = new Person();
+for(var prop in operson){
+    if(operson.hasOwnProperty(prop)){
+        console.log(operson[prop]);
+    }
+}
+</code></pre><p>这样，我们的for-in循环就会只打印自身的属性而不会去打印原型上的lastName属性。</p>
+<p>2.<strong><font color="red">in操作符</font></strong></p>
+<p>这个操作符的作用是查看一个属性是不是在这个对象或者它的原型里面。</p>
+<pre><code>&apos;name&apos; in operson;// true
+&apos;age&apos; in operson;// true
+&apos;sex&apos; in operson;// false
+</code></pre><p>3.<strong><font color="red">instanceof操作符</font></strong></p>
+<p>看A对象的原型链上 有没有 B的原型</p>
+<pre><code>function Person(){
+
+}
+var person = new Person();
+person instanceof Person;// true
+person instanceof Object;// true
+</code></pre><h4 id="判断一个变量是数组还是对象"><a href="#判断一个变量是数组还是对象" class="headerlink" title="判断一个变量是数组还是对象"></a>判断一个变量是数组还是对象</h4><p><strong><font color="red">三种方法:</font></strong></p>
+<p><strong>方法1.</strong></p>
+<pre><code>数组的 [].constructor  
+对象的 var obj={}, obj.constructor
+</code></pre><p><strong>方法2.</strong></p>
+<pre><code>[] instanceof Array   返回true   
+obj instanceof Array  返回false
+</code></pre><p><strong>方法3.</strong></p>
+<pre><code>Object.prototype.toString.call([]);
+Object.prototype.toString.call({});
+</code></pre>]]></content>
+  </entry>
+  <entry>
+    <title>异步加载JS</title>
+    <url>/2018/12/06/%E5%BC%82%E6%AD%A5%E5%8A%A0%E8%BD%BDJS/</url>
+    <content><![CDATA[<h2 id="先介绍一下JSON"><a href="#先介绍一下JSON" class="headerlink" title="先介绍一下JSON"></a><font color="red">先介绍一下JSON</font></h2><p>我们传输数据就两种格式：<font color="red">xml和json</font>。</p>
+<p>xml是以<font color="red">html</font>为模板，自定义标签名作为数据名来传递数据，书写起来很麻烦，现在多用json，很少使用xml。</p>
+<p>json是传输数据的另一种格式，它是以<font color="red">对象</font>为模板（本质上就是对象，但是用途有所区别，对象是本地使用，json是用来传输数据）。</p>
+<p>不过我们传输数据的时候并不能将一个json对象直接传过去，我们只能传过去json形式的字符串，这个时候我们就需要用到JSON上的两个方法了。</p>
+<font color="red">JSON.parse() —&gt; string-&gt;json</font>
+
+<font color="red">JSON.stringify() —&gt; json-&gt;string</font>
+
+<p>通过JSON上的这两个方法，我们就可以进行数据传输了。</p>
+<pre><code>var obj = {
+    &quot;name&quot; : &quot;abc&quot;,
+    &quot;age&quot; : 123
+}
+// 将json转换为字符串 传给后端
+var str = JSON.stringify(obj);
+// 将后端传过来的json字符串转换为json对象
+var str1 = JSON.parse(str);
+</code></pre><p>• 我们的页面有三个树：DOMTree、CSSTree、renderTree。（实际上多于三个），renderTree上有两个规则：repaint和reflow，重绘和重排。</p>
+<p>repaint是元素自身的位置和宽高不变，只改变颜色的之类的属性而不会导致后面的元素位置的变化的时候，renderTree发生的动作。</p>
+<p>reflow是元素自身的位置或者宽高改变了从而导致的整个页面的大范围移动的时候，renderTree发生的动作。</p>
+<p>所以我们在DOM操作的时候，要<font color="red">尽量避免重排</font>。</p>
+<h2 id="JS异步加载部分"><a href="#JS异步加载部分" class="headerlink" title="JS异步加载部分"></a><font color="red">JS异步加载部分</font></h2><p>我们前面知道script标签的特点是会阻塞后面的DOM解析，只有当script标签下载完成并且全部执行完之后，浏览器才会继续解析DOM。</p>
+<p>这样就导致了js加载有这样的缺点：加载工具方法本身没有必要阻塞文档，js加载会影响整个页面效率，一旦网速不好，那么整个网站将等待js加载而不进行后续渲染。</p>
+<p>DOMTree就是解析DOM结构的，当我们在解析DOM的时候突然碰到一个script标签，那么这个script标签就会阻断DOMTree和CSSTree，然而我们有一些js的工具库并不操作DOM，这个时候我们就需要让这些工具库进行异步加载或者按需加载了。</p>
+<p>以前有一种写法是将script标签写在body的最后面，等在DOM全部解析完成之后才加载js。</p>
+<p>现在有了html5标准之后，就有了另一套异步加载js的方法了。</p>
+<p>js异步加载的三种方案：</p>
+<p>1.<font color="red"><strong>defer</strong></font>异步加载</p>
+<p>我们在script标签的行间写一个defer=”defer”或者直接写defer，就可以让这个script变成异步加载了。但是这种异步只是针对下载方面，<font color="red"><strong>只有等DOMTree全部解析完成（不包括下载完里面的资源）后才会异步执行</strong></font>。而且这个方法<font color="red">只有IE和一些高版本的firefox和chrome可以用</font>。</p>
+<pre><code>&lt;script type=&quot;text/javascript&quot; defer=&quot;defer&quot;&gt;
+    console.log(&apos;hello&apos;);
+&lt;/script&gt;
+</code></pre><p>不过这一种方式<font color="red">可以在script标签里面写代码</font>。</p>
+<p>注意：IE6和IE7的异步加载最多只能有2个，当多余两个的时候必须等前两个加载完才会加载第三个。</p>
+<p>所有defer的js代码都<font color="red">保证按照顺序执行</font>。</p>
+<p>2.async异步加载</p>
+<p>async是<font color="red"><strong>asynchronous</strong></font>的缩写，它是html5的标准，<font color="red"><strong>下载完成之后就会立即异步执行</strong></font>，这种方法<font color="red">除了IE6-IE8其他的浏览器都好用</font>。</p>
+<pre><code>&lt;script type=&quot;text/javascript&quot; async=&quot;async&quot;&gt;&lt;/script&gt;
+</code></pre><p>不过这种方式<font color="red">不能把代码写在script标签里面</font>，只能引用。（虽然标准是这么写的，但是现在随着内核升级，async里面也可以写代码了，在没有src的情况下）。</p>
+<p>而且async的js代码<font color="red">不能保证是顺序执行的</font>。</p>
+<p>• 这两个属性<font color="red">不能一起使用</font>！</p>
+<p>兼容性写法：</p>
+<p>1.<strong>直接写两个script标签，一个是defer，一个是async</strong>。</p>
+<p>但是这种方法有缺陷：IE高版本会加载两遍引起冲突，有些浏览器两个都没有会一个都加载不出来。</p>
+<p>所以我们就需要用第二种方法了。</p>
+<p>2.<strong>通过动态添加script标签</strong>。</p>
+<p>“Script-inserted script elements now have async default to true, which can be set to false to make the scripts execute in insertion order.”</p>
+<p>w3c的标准规定：<font color="red">动态添加的script标签是异步的</font>。</p>
+<p>通过这个特性，我们这里就可以封装一个兼容性的异步加载js的函数了。</p>
+<pre><code>function loadScript(url, callback){
+    var script = document.createElement(&apos;script&apos;);
+    script.type = &quot;text/javascript&quot;;     
+    // 如果网速够快 url在瞬间下载完毕 而readyState瞬间在最终状态  
+    // 所以onreadystatechange这个事件不可能在触发
+    // 即绑定事件之前绑定就已经完事了,此时绑定没有任何意义了 所以把src加载放在绑定事件之后
+    if(script.readyState){// 兼容性:仅IE
+        script.onreadystatechange = function(){
+            if(script.readyState == &quot;complete&quot; || script.readyState == &quot;loaded&quot;){
+                tools[callback]();
+            }
+        }
+    }else{// 兼容性:Safari chrome firefox opera
+        script.onload = function(){
+            tools[callback]();
+        }
+    }
+    script.src = url;// 下载
+    // 当把标签添加到页面的时候才会执行这个脚本(否则只是下载完)
+    document.head.appendChild(script);
+}
+loadScript(&apos;demo.js&apos;, &quot;test&quot;);
+</code></pre><p>或者如下调用</p>
+<pre><code>loadScript(&apos;demo.js&apos;, function(){
+     test();
+})
+</code></pre><p>但是不能写成 </p>
+<pre><code>loadScript(&apos;demo.js&apos;, test);// test is not defined
+</code></pre><p>• 异步加载js<font color="red"><strong>不允许使用document.write</strong></font>这个方法。它会清除文档流，一旦执行就会把全部的标签都清除掉，包括自身的script标签。</p>
+<h2 id="JS加载时间线（performace-timing-line）"><a href="#JS加载时间线（performace-timing-line）" class="headerlink" title="JS加载时间线（performace timing line）"></a><font color="red">JS加载时间线（performace timing line）</font></h2><p>1、创建Document对象，开始解析web页面。解析HTML元素和他们的文本内容后添加Element对象和Text节点到文档中。这个阶段document.readyState = ‘loading’。</p>
+<p>2、遇到link外部css，创建线程加载，并继续解析文档。</p>
+<p>3、遇到script外部js，并且没有设置async、defer，浏览器加载，并阻塞，等待js加载完成并执行该脚本，然后继续解析文档。</p>
+<p>4、遇到script外部js，并且设置有async、defer，浏览器创建线程加载，并继续解析文档。 对于async属性的脚本，脚本加载完成后立即执行。（异步禁止使用document.write()）</p>
+<p>5、遇到img等，先正常解析dom结构，然后浏览器异步加载src，并继续解析文档。</p>
+<p>6、当文档解析完成，document.readyState = ‘interactive’。</p>
+<p>7、文档解析完成后，所有设置有defer的脚本会按照顺序执行。（注意与async的不同,</p>
+<p>但同样禁止使用document.write()）;</p>
+<p>8、document对象触发DOMContentLoaded事件，这也标志着程序执行从同步脚本执行阶段，</p>
+<p>转化为事件驱动阶段。</p>
+<p>9、当所有async的脚本加载完成并执行后、img等加载完成后，document.readyState = ‘complete’，window</p>
+<p>对象触发load事件。</p>
+<p>10、从此，以异步响应方式处理用户输入、网络事件等。</p>
+<p>JS的时间线是非常重要的知识点，希望大家能背下来这一块哟~</p>
+]]></content>
+  </entry>
+  <entry>
+    <title>类型转换</title>
+    <url>/2018/11/18/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2/</url>
+    <content><![CDATA[<h4 id="显示类型转换"><a href="#显示类型转换" class="headerlink" title=" 显示类型转换"></a><font color="red"> 显示类型转换</font></h4><p>类型转换，自然是把数据的类型改变了，那么我们怎么才能知道数据的类型是否发生了改变呢？</p>
+<p>我们有一个操作符<font color="red">typeof</font>可以检测数据的类型。</p>
+<pre><code>console.log(typeof(123)); // number
+</code></pre><p>typeof能返回的类型一共只有6种：</p>
+<font color="red"><strong>numner、string、boolean、undefined、object、function</strong></font>
+
+<p>• <font color="red">数组和null</font>类型的都属于<font color="red">object</font>。其实null并不是一种对象，只是因为历史遗留性的问题，null通常用来作为对象占位符，所以被浏览器归到了object里面了。</p>
+<p>• <font color="red">NaN</font>属于<font color="red">number</font>类型。虽然是非数，但是非数也是数字的一种。</p>
+<p>• 同时，typeof返回的结果其实是一种字符串，我们可以用typeof来测试。</p>
+<pre><code>console.log( typeof(typeof(a))); // string
+</code></pre><h4 id="1、转字符串"><a href="#1、转字符串" class="headerlink" title="1、转字符串"></a>1、转字符串</h4><p> 其实在js中，一切数据除了null 和undefined之外都自带一个函数，toString </p>
+<pre><code>var n = 132.456
+n.toString();// &quot;123.456&quot;
+</code></pre><p>任何东西，都有toString 函数，toString函数可以将任何类型转换为string类型。</p>
+<font color="red">但是</font>，有两个值没有toString ，<font color="red">null</font> 和 <font color="red">undefined</font>
+
+<p>事实上在开发当中，String（x）这个用的绝对多，.toString(x)这个用的反而不多。</p>
+<p>而且String(x)他是万能的，他可以转null 和 undefined</p>
+<pre><code>var n = null;
+String(n);// &quot;null&quot;
+var a = undefined;
+String(n);// &quot;undefined&quot;
+</code></pre><h4 id="2、转数字"><a href="#2、转数字" class="headerlink" title="2、转数字"></a>2、转数字</h4><p>两种情况，第一种任意类型转数字，第二种专门的字符串转数字。<br>第一种 Number(x) 。它跟String(x)可不一样，它可不是万能的<br>只能转换纯数字组成的内容。还可以转布尔值。强调几点如下:</p>
+<pre><code>Number(null); // 0
+Number(undefined); //NaN
+Number(&quot;&quot;); // 0
+Number([]); // 0
+</code></pre><p>接下来字符串转数字，parseInt(str) 和 parseFloat(str)</p>
+<font color="red"><strong>parseInt(string, radix)</strong></font>
+
+<p>这个方法是将字符串转换成整型类型数字的。其中第二个参数radix基底是可以选择的参数。<br>当radix为空的时候，这个函数的作用仅仅是将字符串转换成数字。<br>当参数string里面既包括数字字符串又包括其他字符串的时候，它会将看到其他字符串就停止了，不会继续转换后面的数字型字符串了。</p>
+<p>当radix不为空的时候，这个函数可以用来作为进制转换，第二个参数的作用则是，我们把第一个参数的数字<font color="red">当成几进制的数字来转换成十进制</font>。</p>
+<p>• radix参数的范围是2-36。</p>
+<pre><code>parseInt(3, 8);     //3       3以8进制为基础转换成10进制
+parseInt(3, 2);     //NaN     2进制里面没有三
+parseInt(3, 0);     //NaN     不存在0进制
+parseInt(&quot;010&quot;);    //未定：返回 10 或 8
+parseInt(&quot;1a&quot;);    //1
+parseInt(&quot;1234blue&quot;); //1234
+parseInt(&apos;abc123&apos;) // NaN
+parseInt(&quot;&quot;);       //NaN
+parseInt(&quot;0xA&quot;)     //10(十六进制)
+parseInt(&quot;22.5&quot;);   //22
+</code></pre><h4 id="3、转布尔"><a href="#3、转布尔" class="headerlink" title="3、转布尔"></a>3、转布尔</h4><p>只有一个Boolean(x)，这个函数太强大了其他任何类型几乎都能转成布尔，只有五个值会被转成false</p>
+<pre><code>Boolean(0);
+Boolean(NaN);
+Boolean(null);
+Boolean(undefined);
+Boolean(&quot;&quot;);
+</code></pre><h4 id="隐式类型转换"><a href="#隐式类型转换" class="headerlink" title=" 隐式类型转换"></a><font color="red"> 隐式类型转换</font></h4><p><strong>1.<font color="red">isNaN()</font></strong></p>
+<p>这个方法可以检测数据是不是非数类型。</p>
+<pre><code>isNaN(NaN); // true
+isNaN(&apos;abc&apos;); // true
+isNaN(123); // false
+</code></pre><p>这中间隐含了一个隐式转换，它会先将你传的参数调用一下<font color="red">Number</font>方法之后，再看看结果是不是NaN，不过这个方法可以检测NaN本身。</p>
+<p><strong>2.<font color="red">算术运算符</font></strong></p>
+<p><strong>• ++就是现将数据调用一遍Number之后，再自加一。</strong></p>
+<pre><code>var demo = &apos;abc&apos;;
+demo ++;// NaN
+demo = &apos;123&apos;;
+++demo;// 124
+demo = &apos;123&apos;;
+demo ++;// 123
+</code></pre><p><strong>• 同样一目运算符也可以进行类型转换。</strong></p>
+<pre><code>var num = false;
++num ;// 0
+var demo = true;
+-demo ;// -1
+var demo = &apos;abc&apos;;
++demo ;// NaN
+1 * &apos;2&apos; ;// 2
+true * false ;// 0
+false / false ;// NaN
+true / false ;// infinity无穷大
+-true / false ;// -infinity
+</code></pre><p><strong>• 逻辑运算符也会隐式调用类型转换</strong></p>
+<p>&amp;&amp;和||都是先把表达式调用Boolean，换成布尔值再进行判断，看看是true还是false，不过返回的结果还是本身表达式的结果。</p>
+<pre><code>!&apos;abc&apos;;// false
+</code></pre><p><strong>• 当然也有不发生类型转换的比较运算符</strong></p>
+<font color="red">===严格等于</font>
+
+<font color="red">!==严格不等于</font>
+
+<pre><code>&apos;123&apos; === 123; // false;
+ true === &apos;true&apos;; // false
+ 1 !== &apos;1&apos;; // true
+ 1 !== 1; // false
+</code></pre>]]></content>
+  </entry>
+  <entry>
+    <title>正则表达式</title>
+    <url>/2018/12/07/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/</url>
+    <content><![CDATA[<p><strong>正则表达式</strong></p>
+<pre><code>var reg = /[1234567890][1234567890][1234567890]/g;
+var str = &quot;12309u86451akbjdakndkja&quot;;
+str.match(reg);// [&quot;123&quot;, &quot;864&quot;]
+</code></pre><p>i(ignoreCase) 忽视大小写<br>g(global) 全局匹配<br>全局属性g下一次进行查找时，在正则表达式内部有一个lastIndex来记录匹配的位置<br>m(multiline) 执行多行匹配 </p>
+<pre><code>var str = &quot;AbCd&quot;;
+var reg = /abc/i;  
+str.match(reg);// [&quot;AbC&quot;]
+var reg1 = new RegExp(&quot;abc&quot;, &quot;m&quot;);
+</code></pre><p>匹配以a开头的字符</p>
+<pre><code>var reg = /^a/gm;
+var str = &quot;abcde\na&quot;;
+str.match(reg);// [&quot;a&quot;, &quot;a&quot;]
+</code></pre><p>非a非b全局匹配</p>
+<pre><code>var reg = /[^a][^b]/g;
+var str = &quot;ab1cd&quot;;
+str.match(reg);// [&quot;b1&quot;, &quot;cd&quot;]
+</code></pre><p>| 表示或 匹配该符号的左边或者右边<br>abc或bcd 0到9</p>
+<pre><code>var reg = /(abc|bcd)[0-9]/g;
+var str = &quot;abc2&quot;;
+str.match(reg);// [&quot;abc2&quot;]
+</code></pre><p><strong>元字符</strong></p>
+<pre><code>\n:换行 \r:行结束 \t:制表符 \f:换页符 \v:垂直制表符
+\w === [0-9A-z_]     单词字符
+\W === [^\w]         非单词字符
+\d === [0-9]         数字
+\D === [^\d]         非数字
+\s === [\t\n\r\v\f ] 空白字符
+\S === [^\s]         非空白字符
+\b === 单词边界      
+\B === 非单词边界
+.  === [^\r\n]        单个字符,除了换行和行结束符
+\uxxx   查找以十六进制数xxxx规定的Unicode字符
+</code></pre><p><strong>量词</strong>  </p>
+<pre><code>n+       {1, 多次}
+n*       {0, 多次}
+n?       {0, 1}
+n{x}     {x}
+n{x, y}  {x, y}
+n{x, }   {x, }
+n$       以n结尾
+^n       以n开头
+?=n      后面紧接着指定字符串n的字符串
+?!n      后面没有紧接着指定字符串n的字符串
+</code></pre><p><strong>贪婪匹配</strong>:匹配字符是尽可能多的匹配，同时允许后续的表达式继续匹配。<br><strong>非贪婪匹配</strong>:加?   n+?   n*? …等</p>
+<p>例</p>
+<pre><code>var reg = /[\bcde\B]/g;
+var str = &quot;abc cdefgh&quot;;
+str.match(reg);// [&quot;c&quot;, &quot;c&quot;, &quot;d&quot;, &quot;e&quot;]
+</code></pre><p>例</p>
+<pre><code>var reg = /[\u0000-\uffff]/g;
+var str = &quot;老邓身体好&quot;;
+str.match(reg);// [&quot;老&quot;, &quot;邓&quot;, &quot;身&quot;, &quot;体&quot;, &quot;好&quot;]
+</code></pre><p>例</p>
+<pre><code>var reg = /\d*/g;
+var str = &quot;abc&quot;;
+str.match(reg);// &quot;&quot; &quot;&quot; &quot;&quot; &quot;&quot;
+</code></pre><p>例</p>
+<pre><code>var reg = /^abc$/g;// 以当前abc开头并且以abc结尾
+var str = &quot;abcabc&quot;;
+str.match(reg);// null
+</code></pre><p>如何匹配 aaaa 4个一样的?<br><strong>()子表达式</strong>  \1反向引用第一个子表达式里面的内容(即跟全面的完全相同)</p>
+<pre><code>var reg = /(\w)\1\1\1/g;
+var str = &quot;aaaa&quot;;
+str.match(reg);// [&quot;aaaa&quot;]
+</code></pre><p>如何匹配 aabb?</p>
+<pre><code>var reg = /(\w)\1(\w)\2/g;
+var str = &quot;aabb&quot;;
+str.match(reg);// [&quot;aabb&quot;]
+</code></pre><p>正则表达式方法 <strong>reg.exec()</strong>;<br>该函数返回一个数组，其中存放匹配的结果。如果未找到匹配，则返回值为 null</p>
+<pre><code>var reg = /ab/g;
+var str = &quot;abababab&quot;;
+console.log(reg.exec(str));// 第一次游标指向0   加g游标下次会向后挪
+console.log(reg.lastIndex);// 游标
+</code></pre><p>字符串方法 <strong>str.search()</strong><br>用于检索字符串中指定的子字符串,或检索与正则表达式相匹配的子字符串,并返回子串的起始位置。<br>search()方法不支持全局搜索,因为会忽略正则表达式参数的标识g,并且也忽略了regexp的lastIndex属性，总是从字符串的开始位置进行检索，所以它会总是返回str的第一个匹配的位置。</p>
+<pre><code>var str = &quot;javaScript&quot;;
+str.search(&quot;Script&quot;);// 4
+</code></pre><p><strong>replace(reg,replacement)</strong> 方法是执行查找并替换的操作。<br>它将正则表达式regexp匹配到的字串，然后用replacement的字符串替换掉字串，<br>如果有全局标识g，则替换全部匹配的字串，否则只替换第一个匹配字串。<br>使用replacement中的特殊字符替换，replacement中$字符有特殊的意义</p>
+<pre><code>1) $1、$2 ...$99         与regexp中的第1个到99个子表达式相匹配的文本
+2) $&amp;                    与regexp相匹配的字串
+3) $`                    位于匹配子串左侧的文本
+4) $&apos;                    位于匹配子串右侧的文本
+5) $$                    直接量符号
+</code></pre><p>例</p>
+<pre><code>var str = &quot;javascript&quot;;
+str.replace(/(java)(script)/, &apos;$2$1&apos;);// &quot;scriptjava&quot;
+</code></pre><p>把所有的aabb 匹配成bbaa</p>
+<pre><code>var reg = /(\w)\1(\w)\2/g;
+var str = &quot;aabb&quot;;
+console.log(str.replace(reg, &quot;$2$2$1$1&quot;));
+
+console.log(str.replace(reg, function($, $1,$2){// $(全局) $1(子表达式1) $2(子表达式2)
+    return $2+$2+$1+$1;
+}));
+</code></pre><p>the-first-name 匹配成小驼峰式</p>
+<pre><code>var reg = /-(\w)/g;
+var str = &quot;the-first-name&quot;;
+console.log(str.replace(reg, function($, $1){
+    return $1.toUpperCase();
+}));
+</code></pre><p>正向预查 正向断言</p>
+<pre><code>var str = &quot;abaaaaa&quot;;
+var reg = /a(?=b)/g;// 后面跟着b的a
+</code></pre><p>将10000000以10.000.000的形式匹配</p>
+<pre><code>var str = &quot;100000000&quot;;
+var reg = /(?=(\B\d{3})+$)/g;
+console.log( str.replace(reg, &quot;.&quot;));
+</code></pre>]]></content>
+  </entry>
+  <entry>
+    <title>滚动条与元素尺寸</title>
+    <url>/2018/12/01/%E6%BB%9A%E5%8A%A8%E6%9D%A1%E4%B8%8E%E5%85%83%E7%B4%A0%E5%B0%BA%E5%AF%B8/</url>
+    <content><![CDATA[<h4 id="查看滚动条的滚动距离"><a href="#查看滚动条的滚动距离" class="headerlink" title="查看滚动条的滚动距离"></a><font color="red">查看滚动条的滚动距离</font></h4><p>js中有两套方法可以查看当前滚动条的滚动距离。</p>
+<p>1.<strong>window.pageXOffset/window.pageYOffset</strong></p>
+<p>这个方法可以查看滚动条的横轴和纵轴的滚动距离，但是很遗憾的是IE8以及以下的版本不兼容。用以下两种</p>
+<p>2.<strong>document.body.scrollLeft/doucment.body.scrollTop<br>  和document.documentElement.scrollLeft/document.documentElement.scrollTop</strong></p>
+<p>这里要说明的是，<font color="red">这两种方法要一起使用</font>，因为浏览器的兼容性问题，有的浏览器是document.body有值，有的是document.documentElement有值，<font color="red">但是所有的浏览器都只有一个有值，不会两个都有或者一个都没有</font>，而且这里的没有值不代表是null，而是0，因此我们使用的时候一般都是两个一起使用。</p>
+<p>针对兼容性的问题，我们现在就可以封装一个函数，求滚动条滚动距离的方法。</p>
+<pre><code>function getScrollOffset(){
+    if(window.pageXOffset){
+        return {
+            x : window.pageXOffset,
+            y : window.pageYOffset
+        }
+    }else{
+        return {
+            x : document.body.scrollLeft + document.documentElement.scrollLeft,
+            y : document.body.scrollTop + document.documentElement.scrollTop
+        }
+    }
+}
+</code></pre><h4 id="查看视口的尺寸"><a href="#查看视口的尺寸" class="headerlink" title="查看视口的尺寸"></a><font color="red">查看视口的尺寸</font></h4><p><strong>window.innerWidth/window.innerHeight</strong><br>但IE8及IE8以下不兼容   </p>
+<p><strong>标准模式下(有 &lt;!DOCTYPE html&gt; 声明)</strong><br><strong>document.documentElement.clientWidth/clientHeight</strong><br><strong>怪异模式下(无 &lt;!DOCTYPE html&gt; 声明)</strong><br><strong>document.body.clientWidth/clientHeight</strong></p>
+<p>• 什么是怪异模式和标准模式呢？</p>
+<p>浏览器的渲染模式有两种：<font color="red">标准模式和怪异模式</font>。我们常用的是标准模式，怪异模式是防止浏览器升级版本过高对后面版本你的代码不兼容，让浏览器可以向后兼容其他低版本的代码的法规则，比如IE6的怪异模式下可以兼容IE5个IE4的语法。</p>
+<p>•  我们如何变成怪异模式呢？</p>
+<p>其实很简单，只需要把我们html代码的第一行的<font color="red">&lt;!DOCTYPE HTML&gt;</font>去掉就可以变成怪异模式了，而加上这一行代码就可以变成标准模式。</p>
+<p>• 如何判断怪异模式还是标准模式？</p>
+<p>document上中有一个方法叫做<font color="red">compatMode</font>，当浏览器处于怪异模式的时候会返回字符串”<font color="red">BackCompat</font>“，在标准模式下可以返回”<font color="red">CSS1Compat</font>“，通过这个方法我们就可以判断了。</p>
+<p>封装兼容性方法,返回浏览器视口尺寸</p>
+<pre><code>function getViewportOffset(){
+    if(window.innerWidth){
+        return {
+            x : window.innerWidth,
+            y : window.innerHeight
+        }
+    }else{
+        if(document.compatMode === &quot;BackCompat&quot;){
+            return {
+                w : document.body.clientWidth,
+                h : document.body.clientHeight
+            }
+        }else{
+            return {
+                w : document.documentElement.clientWidth,
+                h : document.documentElement.clientHeight
+            }
+        }
+    }
+}
+</code></pre><h4 id="查看元素的几何尺寸"><a href="#查看元素的几何尺寸" class="headerlink" title="查看元素的几何尺寸"></a><font color="red">查看元素的几何尺寸</font></h4><p><strong><font color="red">domEle.getBoundingClientRect()</font></strong></p>
+<p>在获取的dom元素上，有一个getBoundingClientRect方法，这个方法可以获取到元素的宽高和左上点的位置以及有下点的位置（width、height、top、left、right、bottom）</p>
+<p>但是<font color="red">老版本的IE浏览器没有实现width和height</font>，那么我们在老版本的IE计算宽高的时候就需要用<font color="red">bottom-top</font>和<font color="red">right-left</font>来计算宽高值了。</p>
+<p>还有一点需要注意的是，这里的宽高也不是实时更新的，数据只是一个副本。<br>我们依然可以封装一个函数，可以返回元素的宽高。</p>
+<pre><code>Element.getElementOffset() {
+      var objData = this.getBoundingClientRect();
+      if(objData.width) {
+            return {
+                  w: objData.width,
+                  h: objData.height
+            }
+      }else {
+            return {
+                  w: objData.right - objData.left,
+                  h: objData.bottom - objData.top
+            }
+      }
+}
+</code></pre><p><strong><font color="red">查看元素的尺寸</font></strong></p>
+<p><strong>dom.offsetWidth<br>dom.offsetHeight</strong></p>
+<p><strong><font color="red">查看元素的位置</font></strong></p>
+<p><strong>dom.offsetLeft<br>dom.offsetTop</strong><br>对于无定位父级的元素，返回相对文档的坐标。对于有定位父级的元素，返回相对于最近的有定位的父级的坐标。</p>
+<p><strong>dom.offsetParent</strong><br>返回最近的有定位的父级，如无，返回body, body.offsetParent 返回null</p>
+<p><strong><font color="red">滚动条滚动</font></strong></p>
+<p>window上有三个方法<br><strong>scroll()、scrollTo()、scrollBy();</strong><br>三个方法功能类似，用法都是将x,y坐标传入。即实现让滚动轮滚动到当前位置。<br>区别：scrollBy()会在之前的数据基础之上做累加。</p>
+<p>利用scrollBy() 快速阅读的功能</p>
+<pre><code>function scrollBy(){
+    var start = document.getElementsByTagName(&apos;div&apos;)[0];
+    var stop = document.getElementsByTagName(&apos;div&apos;)[1];
+    var timer = 0;
+    var key = true;
+    start.onclick = function(){
+        if(key){
+            timer = setInterval(function(){
+                window.scrollBy(0, 10);
+            }, 100);
+            key = false;
+        }
+    }
+    stop.onclick = function(){
+        clearInterval(timer);
+        key = true;
+    }
+}
+</code></pre>]]></content>
+  </entry>
+  <entry>
+    <title>继承</title>
+    <url>/2018/11/23/%E7%BB%A7%E6%89%BF/</url>
+    <content><![CDATA[<p>1.<strong>传统形式 ——原型链 (过多的继承了没用的属性)</strong></p>
+<p>2.<strong>借用构造函数 (不能继承借用构造函数的原型,每次构造函数都要多走一个函数)</strong></p>
+<p>3.<strong>共享原型 (不能随便改动自己的原型)</strong></p>
+<p>4.<strong>圣杯模式 (以上三种模式都不用)</strong></p>
+<h4 id="模式一"><a href="#模式一" class="headerlink" title="模式一"></a><font color="red">模式一</font></h4><pre><code>Grand.prototype.lastName = &quot;Deng&quot;;
+function Grand(){
+}
+var grand = new Grand();
+Father.prototype = grand;
+function Father(){ 
+    this.name = &quot;hehe&quot;;
+}
+var father = new Father();
+Son.prototype = father;
+function Son(){
+
+}
+var son = new Son();
+</code></pre><h4 id="模式二"><a href="#模式二" class="headerlink" title="模式二"></a><font color="red">模式二</font></h4><pre><code>function Person(name, age, sex){
+    this.name = name;
+    this.age = age;
+    this.sex = sex;
+}
+function Student(name, age, sex, grade){
+    Person.call(this, name, age, sex);
+    this.grade = grade;
+}
+var student = new Student();
+</code></pre><h4 id="模式三"><a href="#模式三" class="headerlink" title="模式三"></a><font color="red">模式三</font></h4><pre><code>Father.prototype.lastName = &quot;Deng&quot;;
+function Father(){ 
+
+}
+function Son(){
+}
+Son.prototype = Father.prototype; 
+var son = new Son();
+//或抽象出一个继承方法    但是如果son想修改原型father也会发生改变
+Father.prototype.lastName = &quot;Deng&quot;;
+function Father(){ 
+
+}
+function Son(){
+}
+function inherit(Target, Origin){
+    Target.prototype = Origin.prototype;
+}
+inherit(Son, Father);
+var son = new Son();
+var father = new Father();
+</code></pre><h4 id="模式四"><a href="#模式四" class="headerlink" title="模式四"></a><font color="red">模式四</font></h4><pre><code>function inherit(Target, Origin){
+    function F(){};
+    F.prototype = Origin.prototype;
+    Target.prototype = new F();
+    Target.prototype.constuctor = Target;//将构造器归位
+    Target.prototype.uber = Origin.prototype;//继承自 找到自己的超类(uber==super)
+}
+Father.prototype.lastName = &quot;Deng&quot;;
+function Father(){ 
+
+}
+function Son(){
+}
+inherit(Son, Father);
+var son = new Son();
+var father = new Father();
+Son.prototype.sex = &quot;male&quot;;
+//此时修改son的原型上的属性不会影响father
+</code></pre>]]></content>
+  </entry>
+  <entry>
+    <title>脚本化CSS</title>
+    <url>/2018/12/02/%E8%84%9A%E6%9C%AC%E5%8C%96CSS/</url>
+    <content><![CDATA[<p><strong><font color="red">读写元素css属性</font></strong></p>
+<p>每一个dom元素都有一个属性style，dom.style里面存放的这个元素的行间样式，我们可以通过这个属性来读写元素的行间样式。</p>
+<p>1.碰到float这样的关键字属性的时候，前面要加一个css前缀。<font color="red">float — &gt; cssFloat</font></p>
+<p>2.复合属性必须拆解，组合单词变成小驼峰式写法，写入的值必须是字符串格式.如</p>
+<p>border: 1px solid red;只能写border-width、border-color、border-style。<br>background-color —&gt; backgroundColor;</p>
+<p><strong><font color="red">查询计算样式</font></strong></p>
+<pre><code>window.getComputedStyle(ele, null);
+</code></pre><p>这个方法有两个参数，第一个参数是我们要获取的元素。<br>第二个参数是一个字符串，代表我们是否要获取这个元素上面的某一个伪元素，如果不的话，就填写null，否则就填写要获取的这个元素的哪一个伪元素。</p>
+<p>这里的样式是<font color="red">取优先级最高的(即最终展示样式)</font>，不只是行间样式，所有的只要是表现出来的样式都可以获取出来。<br>同时，返回的计算样式的值都是<font color="red">绝对值</font>，没有相对单位。IE8 及 IE8以下不兼容</p>
+<pre><code>div:after{
+    width: 100px;
+    height; 100px;
+    background-color: red;
+}
+window.getComputedStyle(div, &apos;after&apos;).width;// 100px
+</code></pre><p>IE8有一个特殊的查询样式<font color="red">ele.currentStyle</font>。</p>
+<p>计算样式只读，IE独有的属性，返回的计算样式的值不是经过转换的绝对值</p>
+<p>封装兼容性方法getStyle(obj,prop);</p>
+<pre><code>function getStyle(obj, prop){
+    if(window.getComputedStyle){
+        return window.getComputedStyle(obj, null)[prop];
+    }else{
+        return obj.currentStyle[prop];
+    }
+}
+</code></pre><p>例1: 我们可以写一个小方块运动的函数</p>
+<pre><code>var div = document.createElement(&apos;div&apos;);
+document.body.appendChild(div);
+div.style.width = &quot;100px&quot;;
+div.style.height = &quot;100px&quot;;
+div.style.backgroundColor = &quot;blue&quot;;
+div.style.position = &quot;absolute&quot;;
+div.style.left = &quot;0&quot;;
+div.style.top = &quot;0&quot;;
+var speed = 1;
+var time = setInterval(function(){
+    speed += speed/20;
+    div.style.left = parseInt(div.style.left) + speed +&quot;px&quot;;
+    div.style.top = parseInt(div.style.top) + speed +&quot;px&quot;;
+    if(parseInt(div.style.left)&gt;200&amp;&amp;parseInt(div.style.top)&gt;200){
+        clearInterval(time);
+    }
+}, 50)
+</code></pre><p>例2: 利用计数器变量 实现状态变换</p>
+<pre><code>&lt;div&gt;&lt;/div&gt;
+&lt;script&gt;
+    var div = document.getElementsByTagName(&apos;div&apos;)[0];
+    div.style.width = &quot;100px&quot;;
+    div.style.height = &quot;100px&quot;;
+    div.style.backgroundColor = &quot;red&quot;;
+    var count = 0;
+    div.onclick = function(){
+        count ++;
+        if(count % 2 ==1){
+            this.style.backgroundColor = &quot;green&quot;;
+        }else{
+            this.style.backgroundColor = &quot;red&quot;;
+        }
+    }
+&lt;/script&gt;
+</code></pre><p>例3: 实现用键盘控制小方块</p>
+<pre><code>var div = document.createElement(&quot;div&quot;);
+document.body.appendChild(div);
+div.style.width = &quot;100px&quot;;
+div.style.height = &quot;100px&quot;;
+div.style.backgroundColor = &quot;green&quot;;
+div.style.position = &quot;absolute&quot;;
+div.style.left = &quot;0&quot;;
+div.style.top = &quot;0&quot;;
+document.onkeydown = function(e) {
+  switch (e.which) {
+    case 38:
+      div.style.top = parseInt(div.style.top) - 5 + &quot;px&quot;;
+      break;
+    case 40:
+      div.style.top = parseInt(div.style.top) + 5 + &quot;px&quot;;
+      break;
+    case 37:
+      div.style.left = parseInt(div.style.left) - 5 + &quot;px&quot;;
+      break;
+    case 39:
+      div.style.left = parseInt(div.style.left) + 5 + &quot;px&quot;;
+      break;
+  }
+};
+</code></pre><p>例4: 实现鼠标点击切换不同图片</p>
+<pre><code>&lt;style&gt;
+    .content{
+        display: none;
+        width: 200px;
+        height: 200px;
+        border: 2px solid red;
+    }
+    .active{
+        background-color: yellow;
+    }
+&lt;/style&gt;
+
+&lt;div class=&quot;wrapper&quot;&gt;
+    &lt;button class=&quot;active&quot;&gt; 1 &lt;/button&gt;
+    &lt;button&gt; 2 &lt;/button&gt;
+    &lt;button&gt; 3 &lt;/button&gt;
+    &lt;div class=&quot;content&quot; style=&quot;display: block;&quot;&gt;one&lt;/div&gt;
+    &lt;div class=&quot;content&quot;&gt;two&lt;/div&gt;
+    &lt;div class=&quot;content&quot;&gt;three&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+    var btn = document.getElementsByTagName(&apos;button&apos;);
+    var div = document.getElementsByClassName(&apos;content&apos;);
+    for(var i = 0; i &lt; btn.length; i++){
+        (function(n){ //循环里面绑定事件要考虑闭包。 解决方法:立即执行函数
+            btn[n].onclick = function (){
+                for(var j = 0; j &lt; btn.length; j++){
+                    btn[j].className = &quot;&quot;;
+                    div[j].style.display = &quot;none&quot;;
+                }
+                this.className = &quot;active&quot;;
+                div[n].style.display = &quot;block&quot;;
+            }
+        }(i))   
+    }
+&lt;/script&gt;
+</code></pre>]]></content>
+  </entry>
+  <entry>
+    <title>CSS3新增背景属性</title>
+    <url>/2018/11/14/CSS3%E6%96%B0%E5%A2%9E%E8%83%8C%E6%99%AF%E5%B1%9E%E6%80%A7/</url>
+    <content><![CDATA[<h4 id="1-background-origin-背景的起始位置"><a href="#1-background-origin-背景的起始位置" class="headerlink" title="1.background-origin 背景的起始位置"></a><font color="red">1.background-origin 背景的起始位置</font></h4><p> background-origin: border-box || padding-box || content-box;</p>
+<p> background-Origin属性指定了背景图像的位置区域。</p>
+<p> content-box, padding-box,和 border-box区域内可以放置背景图像。</p>
+<p><img src="https://i.imgur.com/6sqcM3E.png" alt=""></p>
+<p>效果: 设置的盒子存在 border padding content(用户设置的width height)</p>
+<p>1.padding-box(默认值); 设置背景图片的位置从padding(内边距)开始放置</p>
+<pre><code>将border设置为透明，方便查看不同属性的效果
+
+div{
+        width: 600px;
+        height: 400px; 
+        padding: 30px;
+        border: 50px solid rgba(104, 104, 98, .3);
+        background-image: url(&apos;./images/g.jpg&apos;);
+        background-repeat: no-repeat;
+        background-size: 100%;
+        background-origin: padding-box;
+    }
+&lt;div&gt;&lt;/div&gt;
+</code></pre><p><img src="https://i.imgur.com/FfrdQdM.png" alt=""></p>
+<p>2.border-box; 设置背景图片的起始位置从border开始 </p>
+<pre><code>div{
+        width: 600px;
+        height: 400px; 
+        padding: 30px;
+        border: 50px solid rgba(104, 104, 98, .3);
+        background-image: url(&apos;./images/g.jpg&apos;);
+        background-repeat: no-repeat;
+        background-size: 100%;
+        background-origin: border-box;
+    }
+</code></pre><p><img src="https://i.imgur.com/HqhZHyP.png" alt=""></p>
+<p>3.content-box; 设置背景图片的位置从用户设置的内容区开始放置</p>
+<pre><code>div{
+        width: 600px;
+        height: 400px; 
+        padding: 30px;
+        border: 50px solid rgba(104, 104, 98, .3);
+        background-image: url(&apos;./images/g.jpg&apos;);
+        background-repeat: no-repeat;
+        background-size: 100%;
+        background-origin: content-box
+    }
+</code></pre><p><img src="https://i.imgur.com/cGEPCMS.png" alt=""></p>
+<h4 id="2-background-clip-背景裁剪"><a href="#2-background-clip-背景裁剪" class="headerlink" title="2.background-clip 背景裁剪"></a><font color="red">2.background-clip 背景裁剪</font></h4><p>   background-clip: border-box || padding-box || content-box || no-clip</p>
+<p>效果:背景图片默认不裁剪 案例设置了背景图片的起始位置 为boder部分开始 </p>
+<p>1.no-clip（默认值）; 不裁剪背景图片。</p>
+<pre><code>div{
+    width: 600px;
+    height: 400px; 
+    padding: 30px;
+    border: 50px solid rgba(104, 104, 98, .3);
+    background-image: url(&apos;./images/g.jpg&apos;);
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-clip: no-clip;
+}
+&lt;div&gt;&lt;/div&gt;
+</code></pre><p><img src="https://i.imgur.com/cIcEAfG.png" alt=""></p>
+<p>2.padding-box; 保留padding + content 部分的背景图片将padding以外的背景图片裁剪掉</p>
+<pre><code>div{
+    width: 600px;
+    height: 400px; 
+    padding: 30px;
+    border: 50px solid rgba(104, 104, 98, .3);
+    background-image: url(&apos;./images/g.jpg&apos;);
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-clip: padding-box;
+}
+</code></pre><p><img src="https://i.imgur.com/5TTaZxn.png" alt=""></p>
+<p>3.content-box; 保留content 部分的背景图片将content以外的背景图片裁剪掉</p>
+<pre><code>    div{
+    width: 600px;
+    height: 400px; 
+    padding: 30px;
+    border: 50px solid rgba(104, 104, 98, .3);
+    background-image: url(&apos;./images/g.jpg&apos;);
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-clip: content-box;
+}
+</code></pre><p><img src="https://i.imgur.com/JDUlVmS.png" alt=""></p>
+<p>4.border-box; 保留border以内的背景图片将border以外的背景图片裁剪掉。</p>
+<pre><code>        div{
+    width: 600px;
+    height: 400px; 
+    padding: 30px;
+    border: 50px solid rgba(104, 104, 98, .3);
+    background-image: url(&apos;./images/g.jpg&apos;);
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-clip: border-box;
+}
+</code></pre><p><img src="https://i.imgur.com/fpuDeW0.png" alt=""></p>
+<p> 注意: border-box和no-clip 的效果相同 但是含义不同</p>
+<h4 id="3-background-size-背景图片大小"><a href="#3-background-size-背景图片大小" class="headerlink" title="3.background-size 背景图片大小"></a><font color="red">3.background-size 背景图片大小</font></h4><p>  background-size: cover || contain || 百分比 || 像素值</p>
+<pre><code>div{
+    width: 600px;
+    height: 400px; 
+    padding: 30px;
+    border: 10px solid rgba(104, 104, 98, .5);
+    background-image: url(&apos;./images/g.jpg&apos;);
+    background-repeat: no-repeat;
+}
+&lt;div&gt;&lt;/div&gt;
+</code></pre><p><img src="https://i.imgur.com/JmaEys4.png" alt=""></p>
+<p>1.cover: 覆盖 图片会按照指定比例放大或缩小的填充,放大缩小的比例取决于图片的宽:放置的盒子的内容区的宽和图片的高:放置在盒子的内容区的高的大小的取较大的一个。</p>
+<pre><code>div{
+        width: 600px;
+        height: 400px; 
+        padding: 30px;
+        border: 10px solid rgba(104, 104, 98, .5);
+        background-image: url(&apos;./images/g.jpg&apos;);
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+</code></pre><p><img src="https://i.imgur.com/48yV8Pg.png" alt=""></p>
+<p>2.contain: 包含 图片会按照指定比例扩大或缩小的填充,放大缩小的比例取决于图片的宽:放置的盒子的内容区的宽和图片的高:放置在盒子的内容区的高的大小的取较小的一个。</p>
+<pre><code>div{
+        width: 600px;
+        height: 400px; 
+        padding: 30px;
+        border: 10px solid rgba(104, 104, 98, .5);
+        background-image: url(&apos;./images/g.jpg&apos;);
+        background-repeat: no-repeat;
+        background-size: contain;
+    }
+</code></pre><p><img src="https://i.imgur.com/CHOZHYs.png" alt=""></p>
+<p>3.一个具体像素值(若是百分比则表示相对于可显示区的大小)代表的是图片的宽度扩大或缩放到该像素值,而图片的宽高比是不变的</p>
+<pre><code>div{
+        width: 600px;
+        height: 400px; 
+        padding: 30px;
+        border: 10px solid rgba(104, 104, 98, .5);
+        background-image: url(&apos;./images/g.jpg&apos;);
+        background-repeat: no-repeat;
+        background-size: 210px;
+    }
+</code></pre><p><img src="https://i.imgur.com/Dmn7xVl.png" alt=""></p>
+<p>4.两个具体像素值(若是百分比则表示相对于可显示区的大小)代表的是图片的宽度和高度分别缩放或扩大到指定像素值,图片的宽高比取决于设置的像素比</p>
+<pre><code>div{
+        width: 600px;
+        height: 400px; 
+        padding: 30px;
+        border: 10px solid rgba(104, 104, 98, .5);
+        background-image: url(&apos;./images/g.jpg&apos;);
+        background-repeat: no-repeat;
+        background-size: 400px 400px;
+    }
+</code></pre><p><img src="https://i.imgur.com/bRo38OL.png" alt=""></p>
+<h4 id="4-background-image-背景图片"><a href="#4-background-image-背景图片" class="headerlink" title="4.background-image 背景图片"></a><font color="red">4.background-image 背景图片</font></h4><p>CSS3中可以通过background-image属性添加背景图片。</p>
+<p>不同的背景图像和图像用逗号隔开，所有的图片中显示在最顶端的为第一张。</p>
+<pre><code>&lt;style&gt;
+#examplel{
+        width: 658px;
+        height: 1059px;
+        background-image: url(&apos;./images/bg2.png&apos;), 
+        url(&apos;./images/cat1.png&apos;), url(&apos;./images/cat2.png&apos;), 
+        url(&apos;./images/cat3.png&apos;), url(&apos;./images/cat4.png&apos;), 
+        url(&apos;./images/cat5.png&apos;), url(&apos;./images/cat6.png&apos;);
+        background-position: left top ,
+        left top, right top, center top, 
+        left center, center, 200px 200px;
+        background-repeat: no-repeat;
+        padding: 15px;
+}
+&lt;/style&gt;
+&lt;div id=&quot;examplel&quot;&gt;&lt;/div&gt;
+</code></pre><p><img src="https://i.imgur.com/DlCySK9.png" alt=""></p>
+<h4 id="5-background-position-背景定位"><a href="#5-background-position-背景定位" class="headerlink" title="5.background-position 背景定位"></a><font color="red">5.background-position 背景定位</font></h4><p>  background-position: left top || left bottom || right top || right bottom || center center || 像素值 || 百分比</p>
+<p>(注: 没写的参数都是默认值center)</p>
+<p>1.设置background-position:left top 代表背景图片要放在内容区的左上角的位置（默认值）</p>
+<p>2.设置background-position: left; 将背景图片要放在内容区的左侧中间的位置 </p>
+<p>   设置background-position: left bottom; 将背景图片要放在内容区的左下角的位置</p>
+<p>3.设置background-position: right; 将背景图片要放在内容区的右侧中间的位置</p>
+<p>4.设置background-position: right top; 将背景图片要放在内容区的右侧上角的位置</p>
+<p>5.设置background-position: right bottom; 将背景图片要放在内容区的右侧下角的位置</p>
+<p>6.设置background-position: center; 将背景图片要放在内容区中间的位置</p>
+<p>7.设置background-position: 100px;       即沿x轴平移100px;</p>
+<p>8.设置background-position: 100px 100px; 将背景图片要放在内容区水平位置100px 垂直位置100px的位置,即沿x轴平移100px，沿y轴平移100px</p>
+<p>9.设置background-position: 20%;      将背景图片要放在内容区水平位置20%的位置。 </p>
+<p>10.设置background-position: 20% 20%; 将背景图片要放在内容区水平位置20%，竖直位置20% 的位置。</p>
+<p>第一个参数:0%是最左边 100%是最右边 中间平分。第二个参数： 0%是最上边，100%是最下边 中间平分。</p>
+]]></content>
+  </entry>
+  <entry>
+    <title>CSS3渐变</title>
+    <url>/2018/12/12/CSS3%E6%B8%90%E5%8F%98/</url>
+    <content><![CDATA[<h4 id="CSS3-渐变（Gradients）"><a href="#CSS3-渐变（Gradients）" class="headerlink" title="CSS3 渐变（Gradients）"></a>CSS3 渐变（Gradients）</h4><div id="gradl11" style="font-size: 36px ;text-align: center;height: 55px;line-height:55px;background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet);">Gradient Background</div>
+
+
+<ul>
+<li>CSS3 渐变（gradients）可以让你在两个或多个指定的颜色之间显示平稳的过渡。</li>
+<li>以前，你必须使用图像来实现这些效果。但是，通过使用 CSS3 渐变（gradients），你可以减少下载的事件和宽带的使用。此外，渐变效果的元素在放大时看起来效果更好，因为渐变（gradient）是由浏览器生成的。</li>
+<li>CSS3 定义了两种类型的渐变（gradients）：<br>1.<font color="red"><strong>线性渐变（Linear Gradients）</strong></font>- 向下/向上/向左/向右/对角方向<br>2.<font color="red"><strong>径向渐变（Radial Gradients）</strong></font>- 由它们的中心定义</li>
+</ul>
+<p><strong>浏览器支持</strong></p>
+<p>后边跟 -webkit-、-moz- 或 -o- 的数字指定了需加上前缀才能支持属性的第一个版本。</p>
+<p>完全支持该属性(4个属性)的第一个浏览器版本。</p>
+<pre><code>IE          10.0
+chrome      26.0  10.0-webkit-
+Firefox     16.0  3.6 -moz-
+Safari      6.1   5.1 -webkit-
+Opera       12.1  11.1 -o-
+</code></pre><h4 id="CSS3-线性渐变"><a href="#CSS3-线性渐变" class="headerlink" title="CSS3 线性渐变"></a>CSS3 线性渐变</h4><p>为了创建一个线性渐变，你必须至少定义两种颜色结点。颜色结点即你想要呈现平稳过渡的颜色。同时，你也可以设置一个起点和一个方向（或一个角度）。</p>
+<p><strong>语法</strong></p>
+<pre><code>background: linear-gradient(direction, color-stop1, color-stop2, ...);  
+</code></pre><p><strong>线性渐变 - 从上到下（默认情况下）</strong></p>
+<div id="gradl1" style="height: 200px;background: linear-gradient(red, blue);"></div>
+
+<pre><code>&lt;style&gt;
+    #grad1 {
+        height: 200px;
+        background: -webkit-linear-gradient(red, blue); /* Safari 5.1 - 6.0 */
+        background: -o-linear-gradient(red, blue); /* Opera 11.1 - 12.0 */
+        background: -moz-linear-gradient(red, blue); /* Firefox 3.6 - 15 */
+        background: linear-gradient(red, blue); /* 标准的语法（必须放在最后） */
+    }
+&lt;/style&gt;
+&lt;div id=&quot;grad1&quot;&gt;&lt;/div&gt;
+</code></pre><p><strong>线性渐变 - 从左到右</strong></p>
+<div style="height: 200px; background: linear-gradient(to right, red, blue);"></div>
+
+<pre><code>#grad1 {
+    height: 200px;
+    background: linear-gradient(to right, red , blue); 
+}
+</code></pre><p><strong>线性渐变 - 对角</strong><br>从左上角开始（到右下角）的线性渐变。起点是红色，慢慢过渡到蓝色：</p>
+<div style="height: 200px;background: linear-gradient(to bottom right, red, blue);"></div>
+
+<pre><code>#grad1 {
+    height: 200px;
+    background: linear-gradient(to bottom right, red , blue); 
+}
+</code></pre><p><strong>使用角度</strong></p>
+<p>如果你想要在渐变的方向上做更多的控制，你可以定义一个角度，而不用预定义方向（to bottom、to top、to right、to left、to bottom right，等等）。</p>
+<pre><code>background: linear-gradient(angle, color-stop1, color-stop2);     
+</code></pre><p>角度是指水平线和渐变线之间的角度，逆时针方向计算。换句话说，0deg 将创建一个从下到上的渐变，90deg 将创建一个从左到右的渐变。</p>
+<p><img src="https://i.imgur.com/NhvHymM.png" alt=""></p>
+<p>下面的实例演示了如何在线性渐变上使用角度：</p>
+<pre><code>0deg - 从下到上
+background: linear-gradient(0deg, red, blue);
+</code></pre><div style="height: 100px;background: linear-gradient(0deg, red, blue);"></div>
+
+<pre><code>90deg - 从左到右
+background: linear-gradient(90deg, red, blue);
+</code></pre><div style="height: 100px;background: linear-gradient(90deg, red, blue);"></div><br>        180deg - 从上到下<br>        background: linear-gradient(180deg, red, blue);<br><div style="height: 100px;background: linear-gradient(180deg, red, blue);"></div><br>        -90deg - 从右到左<br>        background: linear-gradient(-90deg, red, blue);<br><div style="height: 100px;background: linear-gradient(-90deg, red, blue);"></div><br><br><br><br><strong>使用多个颜色结点</strong><br><br><br><div style=" height: 200px;background: linear-gradient(red, green, blue);"></div>    
+
+<pre><code>3 个颜色结点（均匀分布）
+background: linear-gradient(red, green, blue);
+</code></pre><div style="height: 200px;background: linear-gradient(red 10%, green 85%, blue 90%);"></div>
+
+<pre><code>3 个颜色结点（不均匀分布）
+background: linear-gradient(red 10%, green 85%, blue 90%);
+</code></pre><div style="height: 200px;background: linear-gradient(red, orange,  yellow, green, blue,indigo, violet);"></div>
+
+<pre><code>7 个颜色结点（均匀分布）
+background: linear-gradient(red, orange,  yellow, green, blue, indigo, violet);
+</code></pre><h4 id="创建一个带有彩虹颜色和文本的线性渐变"><a href="#创建一个带有彩虹颜色和文本的线性渐变" class="headerlink" title="创建一个带有彩虹颜色和文本的线性渐变"></a>创建一个带有彩虹颜色和文本的线性渐变</h4><pre><code>#grad1 {
+    height: 55px;
+    background: -webkit-linear-gradient(left, red, orange, yellow, green, blue, indigo, violet); /* Safari 5.1 - 6.0 */
+    background: -o-linear-gradient(left, red, orange, yellow, green, blue, indigo, violet); /* Opera 11.1 - 12.0 */
+    background: -moz-linear-gradient(left, red, orange, yellow, green, blue, indigo, violet); /* Firefox 3.6 - 15 */
+    background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet); /* 标准的语法（必须放在最后） */
+}
+</code></pre><p><strong>使用透明度（Transparency）</strong></p>
+<p>CSS3 渐变也支持透明度（transparency），可用于创建减弱变淡的效果。</p>
+<p>为了添加透明度，我们使用 rgba() 函数来定义颜色结点。rgba() 函数中的最后一个参数可以是从 0 到 1 的值，它定义了颜色的透明度：0 表示完全透明，1 表示完全不透明。</p>
+<p>下面的实例演示了从左边开始的线性渐变。起点是完全透明，慢慢过渡到完全不透明的红色：</p>
+<div style="height: 200px;background: linear-gradient(to right, rgba(255, 0, 0, 0), rgba(255, 0, 0, 1));"></div>
+
+<pre><code>background: linear-gradient(to right, rgba(255, 0, 0, 0), rgba(255, 0, 0, 1));
+</code></pre><p><strong>重复的线性渐变</strong></p>
+<p>repeating-linear-gradient() 函数用于重复线性渐变：</p>
+<div style="height: 200px;background: repeating-linear-gradient(red, yellow 10%, green 20%);"></div>
+
+<pre><code>background: repeating-linear-gradient(red, yellow 10%, green 20%);
+</code></pre><h4 id="CSS3-径向渐变"><a href="#CSS3-径向渐变" class="headerlink" title="CSS3 径向渐变"></a>CSS3 径向渐变</h4><p>径向渐变由它的中心定义。</p>
+<p>为了创建一个径向渐变，你也必须至少定义两种颜色结点。颜色结点即你想要呈现平稳过渡的颜色。同时，你也可以指定渐变的中心、形状（圆形或椭圆形）、大小。默认情况下，渐变的中心是 center（表示在中心点），渐变的形状是 ellipse（表示椭圆形），渐变的大小是 farthest-corner（表示到最远的角落）。</p>
+<p><strong>语法</strong></p>
+<pre><code>background: radial-gradient(center, shape size, start-color, ..., last-color);
+</code></pre><p><strong>径向渐变 - 颜色结点均匀分布（默认情况下）</strong></p>
+<div style="height: 150px;width: 200px;background: radial-gradient(red, orange, violet);"></div>
+
+<pre><code>#gradl1{
+       height: 150px;
+       width: 200px;
+       background: radial-gradient(red, orange, violet);
+   }   
+</code></pre><p><strong>径向渐变 - 颜色结点不均匀分布</strong></p>
+<div style="height: 150px;width: 200px;background: radial-gradient(red 5%, orange 15%, violet 60%);"></div>
+
+<pre><code>#gradl1{
+       height: 150px;
+       width: 200px;
+       background: radial-gradient(red 5%, orange 15%, violet 60%);
+   } 
+</code></pre><p><strong>设置形状</strong></p>
+<p>shape 参数定义了形状。它可以是值 circle 或 ellipse。其中，circle 表示圆形，ellipse 表示椭圆形。默认值是 ellipse。</p>
+<div style="height: 150px;width: 200px;background: radial-gradient( red, yellow, green);"></div>
+
+<pre><code>#gradl1{
+        height: 150px;
+        width: 200px;
+        background: radial-gradient(red, yellow, green);
+    }
+</code></pre><div style="height: 150px;width: 200px;background: radial-gradient(circle ,  red, yellow, green);"></div>
+
+<pre><code>#gradl1{
+        height: 150px;
+        width: 200px;
+        background: radial-gradient(circle, red, yellow, green);
+    }
+</code></pre><p><strong>不同尺寸大小关键字的使用</strong></p>
+<p>size 参数定义了渐变的大小。它可以是以下四个值：</p>
+<p><strong>• closest-side</strong><br><strong>• farthest-side</strong><br><strong>• closest-corner</strong><br><strong>• farthest-corner</strong></p>
+<div style="height: 150px;width: 150px;background: -webkit-radial-gradient(60% 55%, closest-side,blue,green,yellow,black);"></div>
+
+<pre><code>background: -webkit-radial-gradient(60% 55%, closest-side,blue,green,yellow,black);
+</code></pre><div style="height: 150px;width: 150px;background: -webkit-radial-gradient(60% 55%, farthest-side,blue,green,yellow,black);"></div>
+
+<pre><code>background: -webkit-radial-gradient(60% 55%, farthest-side,blue,green,yellow,black);
+</code></pre><div style="height: 150px;width: 150px;background: -webkit-radial-gradient(60% 55%, closest-corner,blue,green,yellow,black);"></div>
+
+<pre><code>background: -webkit-radial-gradient(60% 55%, closest-corner,blue,green,yellow,black);
+</code></pre><div style="height: 150px;width: 150px;background: -webkit-radial-gradient(60% 55%, farthest-corner,blue,green,yellow,black);"></div>
+
+<pre><code>background: -webkit-radial-gradient(60% 55%, farthest-corner,blue,green,yellow,black);
+</code></pre><p><strong>重复的径向渐变</strong></p>
+<p>repeating-radial-gradient() 函数用于重复径向渐变：</p>
+<div style="height: 150px;width: 200px;background: repeating-radial-gradient(   #EE2C2C, black 20%)"></div>
+
+<pre><code>#gradl{
+    height: 150px;
+    width: 200px;
+    background: repeating-radial-gradient(#EE2C2C, black 20%);
+}
+</code></pre>]]></content>
+  </entry>
+  <entry>
+    <title>DOM基本操作</title>
+    <url>/2018/11/29/DOM%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/</url>
+    <content><![CDATA[<h2 id="什么是DOM"><a href="#什么是DOM" class="headerlink" title="什么是DOM"></a><font color="red">什么是DOM</font></h2><p>• DOM的全称是<font color="red">Document Object Model 文档对象模型</font>，DOM定义了表示和修改文档所需的对象、这些对象的行为和属性以及这些对象之间的关系。</p>
+<p>• DOM对象即为宿主对象，由浏览器厂商定义，用来操作html的css功能的一类对象和集合。不过浏览器厂商之间大部分都遵循w3c标准</p>
+<p>• 简单来说，<font color="red">DOM就是用来操作html和css的，它是一系列对象的集合</font>。</p>
+<h2 id="DOM如何操作HTML"><a href="#DOM如何操作HTML" class="headerlink" title="DOM如何操作HTML"></a><font color="red">DOM如何操作HTML</font></h2><p>document代表整个文档，它也是一个dom元素，我们dom对html的操作，即使对html的增删改查。下面我就介绍一下dom都是如何增删改查html的。</p>
+<p>那么我们如何查看元素节点？</p>
+<p>•  <font color="red"><strong>document.getElementById();</strong></font>   元素id 在Ie8以下的浏览器,不区分id大小写,而且也返回匹配name属性的元素<br>•  <font color="red"><strong>getElementsByTagName();</strong></font>    标签名<br>•  <font color="red"><strong>getElementByName();</strong></font>       需注意,只有部分标签name可生效(表单,表单元素,img,iframe)<br>•  <font color="red"><strong>getElementsByClassName();</strong></font>  类名 ie8和ie8以下的ie版本中没有,可以多个class一起</p>
+<pre><code>var div = document.getElementsByClassName(&apos;demo demo1&apos;)[0];
+</code></pre><p>注意: 以上都是’实时’的</p>
+<p>•  <font color="red"><strong>querySelector();</strong></font><br>•  <font color="red"><strong>querySelectorAll();</strong></font></p>
+<p>我们知道选择元素最强的是css，而这两个里面写的参数就是我们css选择器的写法。<br>不过querySelector永远选择一组里面的第一个，所以返回的不是一个类数组而是一个具体的元素。<br>而我们如果要返回一个类数组的集合的话，那么就用第二个querySelectorAll()方法。</p>
+<pre><code>document.querySelector(&apos;div p #demo .demo&apos;);
+</code></pre><p>不过这两个方法的问题在于，他们返回的不像前面四个是一个实时改变的元素，而是一个副本。当我们用这两个方法选择出来元素之后，我们把本身那个元素修改一下，会发现我们选择出来的那个元素没有变化。<br>注意: css选择器 在ie7和ie7以下的版本中没有</p>
+<h2 id="节点"><a href="#节点" class="headerlink" title="节点"></a><font color="red">节点</font></h2><p>•  节点类型 ———— nodeType<br>•  元素节点 ———— 1<br>•  属性节点 ———— 2<br>•  文本节点 ———— 3<br>•  注释节点 ———— 8<br>•  document ———— 9<br>•  DocumentFragment ———— 11</p>
+<p><strong><font color="red">节点的四个属性</font></strong></p>
+<ol>
+<li>nodeName     元素的标签名,以大写形式表示 只读</li>
+<li>nodeValue    Text节点或Comment节点的文本内容 可读写</li>
+<li>nodeType     该节点的类型 只读</li>
+<li>attributes   Element 节点的属性集合</li>
+</ol>
+<p><strong><font color="red">节点的一个方法</font></strong><br>  Node.hasChildNodes();  判断是否有子节点</p>
+<p><strong><font color="red">遍历节点树</font></strong></p>
+<p>•  parentNode      ——&gt; 父节点<br>•  childNodes      ——&gt; 子节点<br>•  firstChild      ——&gt; 第一个子节点<br>•  lastChild       ——&gt; 最后一个子节点<br>•  nextSibling     ——&gt; 下一个兄弟节点<br>•  previousSibling ——&gt; 前一个兄弟节点</p>
+<p><strong><font color="red">元素节点树的遍历</font></strong></p>
+<p>•  parentElement          ——&gt; 返回当前元素的父元素节点 (IE不兼容)<br>•  children               ——&gt; 只返回当前元素的元素子节点<br>•  node.childElementCount === node.children.length当前元素节点的子元素节点个数(IE不兼容)<br>•  firstElementChild      ——&gt; 返回的是第一个元素节点(IE不兼容)<br>•  lastElementChild       ——&gt; 返回的是最后一个元素节点(IE不兼容)<br>•  nextElementSibling     ——&gt; 返回后一个元素节点（IE不兼容)<br>•  previousElementSibling ——&gt; 前一个兄弟元素节点（IE不兼容)</p>
+<p>例</p>
+<pre><code>&lt;div&gt;
+    &lt;!-- This is comment --&gt;
+    &lt;strong&gt;&lt;/strong&gt;
+    &lt;span&gt;&lt;/span&gt;
+&lt;/div&gt;
+该div里面有多少个节点?
+var div = document.getElementsByTagName(&apos;div&apos;);
+div.childNodes;// 7个节点
+</code></pre><h2 id="DOM树结构"><a href="#DOM树结构" class="headerlink" title="DOM树结构"></a><font color="red">DOM树结构</font></h2><p><img src="https://i.imgur.com/gLybWJ7.png" alt=""></p>
+<p>1.<strong>getElementById</strong>         方法定义在Document.prototype上，即Element节点上不能使用。<br>2.<strong>getElementsByName</strong>       方法定义在HTMLDocument.prototype上，即非html中的document以外不能使用(xml document,Element)<br>3.<strong>getElementsByTagName</strong>    方法定义在Document.prototype 和 Element.prototype上<br>4.<strong>HTMLDocument.prototype</strong>  定义了一些常用的属性，body,head,分别指代HTML文档中的<body><head><meta name="generator" content="Hexo 3.8.0">标签。<br>5.<strong>Document.prototype</strong>      上定义了documentElement属性，指代文档的根元素，在HTML文档中，他总是指代<html>元素<br>6.<strong>getElementsByClassName、querySelectorAll、querySelector</strong> 在Document,Element类中均有定义</html></head></body></p>
+<h2 id="DOM的增删改查"><a href="#DOM的增删改查" class="headerlink" title="DOM的增删改查"></a><font color="red">DOM的增删改查</font></h2><p><strong><font color="red">增加操作</font></strong></p>
+<p>1.<font color="red"><strong>创建元素节点 createElement</strong></font></p>
+<pre><code>var div = document.createElement(&apos;div&apos;);
+</code></pre><p>2.<font color="red"><strong>创建文本节点 document.createTextNode</strong></font></p>
+<pre><code>var text = document.createTextNode(&apos;hello&apos;);   
+</code></pre><p>3.<font color="red"><strong>创建注释节点 document.createComment</strong></font></p>
+<pre><code>var comment = document.createComment(&apos;comment&apos;);   
+</code></pre><p>4.<font color="red"><strong>创建文档碎片 document.createDocumentFragment</strong></font><br>这个方法可以创建一个文档碎片，我们在后面讲的有关提高性能的部分会用到这个方法。</p>
+<p><strong><font color="red">插入操作</font></strong></p>
+<p>1.<font color="red"><strong>appendChild(child);</strong></font></p>
+<p>这个是父级调用的方法，它会将child元素插入到父级里面，而且是放到逻辑后面的位置上。</p>
+<pre><code>div.appendChild(text);
+div.appendChild(comment);
+</code></pre><p>2.<font color="red"><strong>insertBefore(a, b);</strong></font></p>
+<p>这个依然是父节点调用的方法，它的意思是将a插入到b前面的位置上，其中b要求是这个父级的子节点。这个方法可以记作为 insert a before b;</p>
+<pre><code>var span = document.createElement(&apos;span&apos;);
+div.insertBefore(span, comment);// 把一个span元素插入到了刚才的注释文本前面
+</code></pre><p><strong><font color="red">删除操作</font></strong></p>
+<font color="red"><strong>removeChild</strong></font>
+
+<p>这个方法依然是父级调用的，参数就是要删除的子节点，其实实际上是剪切，这个方法会把我们删除掉的元素给返回，我们可以用一个变量去保存这个被删除的元素。</p>
+<pre><code>var div = document.body.remove(div);
+</code></pre><p><strong><font color="red">替换操作</font></strong></p>
+<font color="red"><strong>replaceChild(new, origin)</strong></font>
+
+<p>这个方法同样是父级调用，用新的元素new来替换原来的origin元素，原来的被替换掉的元素可以被返回，我们可以像删除操作那样用一个变量来保存。</p>
+<h2 id="Element节点的属性和方法"><a href="#Element节点的属性和方法" class="headerlink" title="Element节点的属性和方法"></a><font color="red">Element节点的属性和方法</font></h2><p><strong>属性:</strong></p>
+<p>1.<strong><font color="red">innerHTML</font></strong></p>
+<pre><code>div.innerHML = &apos;&lt;div&gt;123&lt;/div&gt;&apos;;
+</code></pre><p>我们可以直接通过这个属性来改变元素内部的结构和内容，不过注意它会直接删除掉以前的所有结构</p>
+<p>2.<strong><font color="red">innerText/textContent</font></strong></p>
+<p>innerText(火狐不兼容) / textContent(老版本IE不兼容)<br>这个属性可以直接调出来元素内部的文本信息，若果这个元素还有很多的子元素的话，那么会把子元素里面的文本信息一起返回。<br>不过需要注意的是，如果我们要改写innerText或者textContent的话，它会像innerHTML一样，<strong>先把内部的所有html结构先删除掉</strong>，然后再写入text文本</p>
+<p>• 这里提一下，如果我们有很多字符串要添加到一个元素的内部的话，虽然用innerHTML或者innerText方法，但是却不是用innerHML += str的方法，因为+=操作符的效率极低，当字符串很多的时候会非常非常消耗性能。</p>
+<p>遇到这种情况我们一般是用数组的join方法将字符串全部连接成一个字符串，然后一次性写入innerHTML。</p>
+<p><strong>方法:</strong></p>
+<p>1.<strong><font color="red">ele.setAttribute();</font></strong><br>这个方法可以设置元素的属性（特性），比如class、id等一些行间属性。</p>
+<pre><code>div.setAttribute(&apos;id&apos;, &apos;demo&apos;);   
+</code></pre><p>2.<strong><font color="red">ele.getAttribute();</font></strong><br>这个方法是获取元素的行间属性。</p>
+<pre><code>&lt;div&gt;&lt;/div&gt;
+&lt;span&gt;&lt;/span&gt;
+&lt;strong&gt;&lt;/strong&gt;
+
+var all = document.getElementsByTagName(&apos;*&apos;);//选中所有标签
+for(var i = 0;i &lt; all.length;i++){
+    all[i].setAttribute(&apos;this-name&apos;, all[i].nodeName);
+}
+</code></pre>]]></content>
+  </entry>
+  <entry>
+    <title>CSS定位与层模型</title>
+    <url>/2018/11/09/blog9/</url>
+    <content><![CDATA[<h3 id="层模型"><a href="#层模型" class="headerlink" title="层模型"></a><center><font color="red" size="5">层模型</font></center></h3><p>css中元素的层次模型主要是由<font color="red">position</font>这个属性来决定的。</p>
+<p>position属性：position的意思是定位，同样这个属性的作用就是<font color="red">给元素施加定位</font>。它一共有四个值，分别是<font color="red">static、absolute、relative、fixed</font>。</p>
+<p><strong><font color="red" size="4">static</font></strong></p>
+<p>• static是<font color="red">默认</font>的属性，当我们没有写position属性的时候，元素默认的定位就是static定位。</p>
+<p><strong><font color="red" size="4">absolute</font></strong></p>
+<p> • absolute是<font color="red">绝对定位</font>的意思，它会使元素<font color="red">脱离本来的位置</font>再进行定位，它会使元素像立交桥一样出现空间上的分层，当元素脱离原来的位置之后，其他的元素就会看不到这个元素。同时，<font color="red">absolute也可以触发bfc</font>。</p>
+<p>• 同时，当我们改变定位之后，这个元素就有四个属性可以使用了，分别是<font color="red">left、right、top、bottom</font>。这四个属性分别可以设置当前元素距离左边、右边、上边和下边的距离为多少，但是四个属性很少一起出现，一般都是两两一对出现，其中left和top是一对，right和bottom是一对。</p>
+<pre><code>div {
+
+  width: 100px;
+
+  height:100px;
+
+  position: absolute;
+
+  left: 100px;
+
+  top: 100px;
+
+}
+</code></pre><p>这个div就会脱离原来的位置，然后距离浏览器上边框和左边框分别100px的距离。</p>
+<p> • 最后一点，absolute的参照物是<font color="red">距离它最近的有定位（除了static）的父级</font>，当每一个父级都没有定位的时候，元素会相对于<font color="red">浏览器边框</font>进行定位。</p>
+<p><strong><font color="red" size="4">relative</font></strong></p>
+<p>• relative是<font color="red">相对定位</font>的意思，它会让元素保留原来的位置再进行定位，后面的元素可以看到它本来的位置。</p>
+<p>• 当position改成relative之后，left、top、right、bottom进行的定位就会变成<font color="red">相对于自身的位置</font>进行移动了。</p>
+<p>• relative的<font color="red">参照物是元素自身</font>。</p>
+<p>• 当我们仅仅给元素设置position:relative;并没有设置left、right、top、bottom属性的时候，元素的定位是没有发生任何改变的，因为这个特性，一般在开发中，<font color="red">relative都是用作设置参照物的</font>，一个absolute元素要相对于那个元素进行移动，就给那个元素设置relative的定位就可以了。</p>
+<font color="red">我们通过例子来看一下absolute和relative的区别。</font>
+
+<pre><code>&lt;div class=”wrapper”&gt;
+
+  &lt;div class=”box”&gt;
+
+        &lt;div class=”content”&gt;&lt;/div&gt;
+
+  &lt;/div&gt;
+
+&lt;/div&gt;
+
+.wrapper { 
+  width: 200px;
+  height: 200px;
+  background-color: orange;
+  margin-top: 100px;
+  margin-left: 100px;
+}
+.box{
+      width:100px;
+      height: 100px;
+      background-color: black;
+      margin-left:100px;
+}
+.content{
+      width: 50px;
+      height: 50px;
+      background-color: yellow;
+}
+</code></pre><p>这个时候时候我们在浏览器中看到的样式是这个样子的：</p>
+<p><img src="https://i.imgur.com/CqeccHD.png" alt=""></p>
+<p>现在我们给content加上定位的样式。</p>
+<pre><code>.content{
+  position:absolute;
+  left: 50px;
+  width: 50px;
+  height: 50px;
+  background-color: yellow;
+}
+</code></pre><p>这个时候浏览器中的样式就会发生改变，content那个黄色的小方块会跑到橘黄色的方块外面：</p>
+<p><img src="https://i.imgur.com/gBrUDKu.png" alt=""></p>
+<p>这是因为，当我们给content设置position:absolute;之后，浏览器在渲染的时候，会先向上找到box这个div，看看这个div有没有定位，因为没有，所以继续向上找wrapper，依然没有，再向上找body，还是没有，所以最后就是<font color="red">相对于浏览器边框定位</font>，这个时候content的left属性就是相对于浏览器边框左边有50px的距离的意思。</p>
+<p>现在我们把content的定位换成relative，浏览器中的结果变成了这个样子：</p>
+<p><img src="https://i.imgur.com/rHbXfuf.png" alt=""></p>
+<p>本来content黄色小方块在黑色方块的左上角，然后relative相对与自身的位置进行定位，这个时候的left属性的意思就是相对于本来在黑色左上角的那个位置向右移动了50px的距离，也就是现在这个黄色小方块所在的位置。</p>
+<p>因此，总结一下absolute和relative的特点如下：</p>
+<p>• <font color="red"><strong>absolute：</strong></font></p>
+<font color="red">1.脱离原来位置进行定位</font>
+
+<font color="red">2.相对于最近的有定位的父级进行定位，如果没有那么相对于浏览器边框定位。</font>
+
+<p>• <font color="red"><strong>relative：</strong></font></p>
+<font color="red">1.保留原来位置定位</font>
+
+<font color="red">2.相对于最近的有定位的父级进行定位</font>
+
+<font color="red">一般被用来设置参照物</font>
+
+
+<p><strong><font color="red" size="4">fixed</font></strong></p>
+<p>fixed定位是<font color="red">相对于视口</font>的定位，我们在网页上都见过左右两边不随着滚轮滚动而改变位置的广告栏，这种广告栏就是用fixed定位的。</p>
+<p><code>&lt;div class=”fixed”&gt;&lt;/div&gt;</code></p>
+<pre><code>.fixed {
+  position: fixed;
+  right: 0px;
+  top: 200px;
+  height: 200px;
+  width: 50px;
+  background-color: red;
+}
+</code></pre><p>这段代码中，div.fixed这个元素就是一直在视口的右边，不随着我们滚动而改变相对于视口的位置。</p>
+<p><strong><font color="red" size="4">最后提一点</font></strong></p>
+<p>• 值得注意的是，当我们写这样一段代码的时候：</p>
+<p><code>&lt;div class=”demo”&gt;&lt;/div&gt;</code></p>
+<pre><code>.demo{
+  position: absolute;
+  margin-top: 200px;
+  height: 200px;
+  width: 50px;
+  background-color: red;
+}
+</code></pre><p>我们把absolute换成relative之后，会发现整个div会向上移动一小段距离，这是为什么呢？</p>
+<p>答案其实就是<font color="red">margin合并</font>问题——body标签本身有8px的margin，而四个方向的margin自然包括了margin-bottom，我们为div.demo设置了margin-top，就会导致margin合并的问题发生，当position是relative的时候，并没有触发bfc，所以中间的距离会取二者的最大值，也就是200px，当position是absolute的时候，因为触发了bfc效果，从而消除掉margin合并的bug，因此中间的距离是200+8=208px。</p>
+<p><strong><font color="red" size="4">一点小应用</font></strong></p>
+<p>1.我们学习了定位之后，就可以实现前面文章提到的<font color="red">元素水平垂直居中</font>的效果了哟~</p>
+<p>  只要我们给一个div加上下面的样式：</p>
+<pre><code>div {
+  width: 100px;
+  height: 100px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin-left: -50px;
+  margin-top: -50px;
+  background-color: red;
+}
+</code></pre><p>这个div就会在<font color="red">有定位的父级</font>里面是<font color="red">水平垂直居中</font>了哟~</p>
+<p>2.我们还可以实现多栏布局了！</p>
+<p>首先我们写三个div，分别起类名为left、mid、right，然后分别加上如下的样式：</p>
+<font color="blue"><code>&lt;div class=”left”&gt;&lt;/div&gt;</code></font>
+
+<font color="blue"><code>&lt;div class=”right”&gt;&lt;/div&gt;</code></font>
+
+<font color="red"><code>&lt;div class=”mid”&gt;&lt;/div&gt;</code></font>
+
+
+<pre><code>    * {
+  margin: 0px;
+  padding: 0px;
+}
+div {
+  height: 100px;
+}
+.left {
+  position: absolute;
+  left: 0;
+  width: 100px;
+  background-color: yellow;
+}
+.right {
+  position: absolute;
+  right: 0;
+  width: 100px;
+  background-color: #ffc;
+}
+.mid {
+  margin-left: 100px;
+  margin-right: 100px;
+  background-color: #fcc;
+}
+</code></pre><p><img src="https://i.imgur.com/78XewWd.png" alt=""></p>
+<p>我们首先固定左侧和右侧的两个div，然后让中间的div分别给左侧和右侧留出一个固定宽度的margin之后，让自身自适应屏幕的大小即可实现三栏布局效果。</p>
+<p>• 要注意的是，div.mid记得<font color="red">写在后面</font>，如果写在最前面的话，因为div是block块级元素会独占一行，这样就会把左侧和右侧的div给挤到下一行了。当然我们给.left和.right都加上<font color="red">top:0px;</font>之后，这个问题也就不用考虑了。</p>
+<p>这次的层模型总结就到这里了，希望对大家有帮助哟~</p>
+<font color="red"></font>]]></content>
+  </entry>
+  <entry>
+    <title>预编译</title>
+    <url>/2018/11/19/js%E9%A2%84%E7%BC%96%E8%AF%91/</url>
+    <content><![CDATA[<p>• 我们在书写js代码的时候，会发现两点和c/c++语言不同的地方。第一个是当我们在后面定义了一个函数之后，我们在定义函数之前使用这个函数也是可以的。第二个是我们在后面声明的一个变量，但是在前面调用这个变量的时候并不会报错而是undefiend。</p>
+<p>这两点不同在js中被称为<font color="red"><strong>函数声明提升</strong></font>和<font color="red"><strong>变量声明提升</strong></font>，函数声明提升是一种<font color="red"><strong>整体提升</strong></font>，它会把函数声明和函数体一起提升到前面。变量声明提升则是一种<font color="red"><strong>局部提升</strong></font>，它仅仅将变量的声明提前了，但是并没有将赋值也一起提前。</p>
+<p>那么为什么会出现这种提升的现象呢？</p>
+<p>这是因为js运行的时候有一个阶段叫做预编译阶段，而我们的声明提升现象都是发生在预编译的时候哟~</p>
+<h4 id="预编译"><a href="#预编译" class="headerlink" title="预编译"></a><font color="red">预编译</font></h4><p>• js运行三部曲</p>
+<p>1.语法分析</p>
+<p>2.<font color="red">预编译</font></p>
+<p>3.解释执行</p>
+<p>语法分析：js引擎在解析js代码之前，会先通篇扫描一下，找出低级的语法错误，比如写错大括号之类的。</p>
+<p>编译执行：js是一种解释型语言，编译一行执行一行，当语法分析没有问题，并且已经完成预编译阶段之后，就开始解释执行代码。</p>
+<p>这里我们着重介绍预编译。</p>
+<font color="red">预编译前奏</font>
+
+<p>在介绍预编译之前，我们有两个重要概念需要掌握。</p>
+<p>1.<font color="red">imply global 暗示全局变量。</font></p>
+<p>如果任何变量未经声明就赋值使用，此变量就会为全局对象window所有，并且成为window对象的一个属性。</p>
+<pre><code>window.a = 123;
+window.a === a ;// true
+</code></pre><p>或者</p>
+<pre><code>a = 123;
+window.a === a ;// true
+</code></pre><p>2.一切<font color="red">声明</font>的全局变量，都是window的属性。</p>
+<pre><code>var a = 123;
+console.log(window.a);// 123
+</code></pre><p>•这样看不论全局变量有没有声明，似乎都会成为全局对象上的属性，那么两者之间有什么区别呢？<br>区别在于：<font color="red">经过声明的全局变量不能通过delete操作来删除，但是未经声明的全局变量可以被删除。</font></p>
+<pre><code>a = 123;
+console.log(window.a === a);// true
+delete window.a;
+console.log(window.a);// undefiend
+var b = 123;
+delete window.b;
+console.log(window.b);// 123
+</code></pre><p>正是这一种特性，导致es5有一种弊端，我们总会在无形中声明一些全局变量。</p>
+<pre><code>function test(){
+    var a = b = 0;
+}
+</code></pre><p>这段代码的原意是：在函数体中声明两个变量a、b，然后初始化a、b都是0。但是我们这么写之后，a经过了声明，但是b却没有声明，这时候b就会成为一个全局变量。</p>
+<font color="red">预编译的过程我总结为以下四步：</font>
+
+<p>1.创建<font color="red">AO对象</font>。</p>
+<p>2.<font color="red">寻找形参和变量声明</font>，将变量和形参作为AO对象的属性名添加到对象中，值为undefined。值得注意的是，函数声明不叫变量。</p>
+<p>3.将<font color="red">实参值和形参值</font>相统一。</p>
+<p>4.在函数体里面寻找<font color="red">函数声明</font>，将函数名作为属性名，值为这个函数的函数体。</p>
+<p>函数在执行的前一刻会<font color="red">产生一个上下文</font>，这个上下文就是Activeaction Object对象，简称AO对象。</p>
+<pre><code>即AO = {}
+</code></pre><p>这个对象是空的，但是里面有一些我们看不到的却存在的隐式属性，比如<font color="red">this: window</font>属性和<font color="red">arguments: [];</font>属性</p>
+<p>这个对象用来存放一些属性和方法，这些属性和方法就按照前面的四步来产生。</p>
+<p>这里我们用这一个样例代码来简单介绍一下预编译的过程。</p>
+<pre><code>function fn(a, b){              
+         console.log(a);    
+         function a(){}      
+         a = 222;        
+         console.log(a);                         
+         function b (){}    
+         console.log(b);
+         var b = 111;
+         var a ;                 
+ }                               
+ fn(1);  
+</code></pre><p>第一步:创建一个AO对象</p>
+<pre><code>var AO = {};
+</code></pre><p>第二步:寻找形参值和变量声明，并且将值赋为undefined</p>
+<pre><code>AO = {
+      a: undefiend,  
+      b: undefiend
+}
+</code></pre><p>第三步:将实参值和形参值相统一</p>
+<pre><code>AO = {
+     a: 1,
+     b: undefiend
+}
+</code></pre><p>第四步:寻找函数声明，将函数体赋值给属性</p>
+<pre><code>AO = {
+     a: function(){},
+     b: function(){}
+}
+</code></pre><p>第一个console.log a –&gt; function () {}</p>
+<p>第二个console.log a –&gt; 222 因为执行了a = 222这一行代码，所以重新赋值了。</p>
+<p>第三个console.log b –&gt; function () {}</p>
+<p>• <font color="red">var b = function () {}</font>这种不叫做函数声明，这个函数是赋值给b变量的，b变量是声明。</p>
+<h4 id="更多例子"><a href="#更多例子" class="headerlink" title="更多例子"></a><font color="red">更多例子</font></h4><p>例1</p>
+<pre><code>function test(a, b){
+        console.log(a);
+        c = 0;
+        var c;
+        a = 3;
+        b = 2;
+        console.log(b);
+        function b(){}
+        function d(){}
+        console.log(b);
+}
+test(1);// 可以只传一个参数，即a=1 b=undefined
+
+AO = {
+     a : 1
+     b : function b(){}
+     c : undefined
+     d : function d(){}
+}
+函数执行
+AO = {
+     a : 3
+     b : 2
+     c : 0
+     d : function d(){}
+}
+
+输出结果:1 2 2
+</code></pre><p>例2</p>
+<pre><code>function test(a, b){
+        console.log(a);
+        console.log(b);
+        var b = 234;
+        console.log(b);
+        a = 123;
+        console.log(a);
+        function a(){}
+        var a;
+        b = 567;
+        var b = function(){}
+        console.log(a);
+        console.log(b);
+}
+test(1);
+
+AO = {
+     a : function a(){}
+     b : undefined 
+}
+函数执行
+ AO = {
+     a : 123 
+     b : function(){}
+}
+
+输出结果: function a(){} undefined 234 123 123 function(){}
+</code></pre><p>例3</p>
+<pre><code>var a = 123;
+function a(){} 
+此时生成了一个GO 对象 Global Object     即GO===window   
+GO = {
+     a : 123
+} 
+</code></pre><p>例4</p>
+<pre><code>function test(){
+    var a = b = 123;
+    console.log(window.b);
+    console.log(window.a);
+}
+test();
+
+GO = {
+    b : 123
+}
+AO = {
+    a : undefiend
+}
+
+输出结果: 123 undefined
+</code></pre><p>例5</p>
+<pre><code>console.log(test);
+function test(test){
+        console.log(test);
+        var test = 234;
+        console.log(test);
+        function test(){}
+}
+test(1);
+var test = 123;
+
+GO = {
+    test : function(){
+        // ...
+    }
+}
+AO = {
+    test : function test(){}
+}
+
+输出结果: function test(test){ ... } function test(){} 234
+</code></pre><p>例6</p>
+<pre><code>global = 100;
+function fn(){
+        console.log(global);
+        global = 200;
+        console.log(global);
+        var global = 300;
+}
+fn();
+var global;
+
+GO = {
+    global : 100
+    fn : function fn(){}
+}
+AO = {
+    global : undefiend
+}
+
+输出结果: undefined 200
+</code></pre><p>例7</p>
+<pre><code>function test(){
+        console.log(b);
+        if(a){          // a = undefined 不走if
+            var b = 100;
+        }
+        console.log(b);
+        c = 234;
+        console.log(c);
+}
+var a;
+test();
+a = 10;
+console.log(c);
+
+GO = {
+    a : undefiend
+    test : function test(){}
+    c : undefiend
+}
+AO = {
+    b : undefiend
+}
+
+输出结果: undefiend undefiend 234 234
+</code></pre><p>例8</p>
+<pre><code>function bar(){
+        return foo;// 后面不走 直接返回
+        foo = 10;
+        function foo(){}
+        var foo = 11;
+}
+console.log(bar());
+
+GO = {
+    bar : function(){}
+}
+AO = {
+    foo : function foo(){} 
+}
+
+输出结果: function foo(){}
+</code></pre><p>例9</p>
+<pre><code>console.log(bar());
+function bar(){
+        foo = 10;
+        function foo(){}
+        var foo = 11;
+        return foo;
+}   
+
+GO = {
+    bar : function bar(){}
+}
+AO = {
+    foo : function foo(){}
+}
+
+输出结果: 11
+</code></pre><p>例10</p>
+<pre><code>a = 100;
+function demo(e){
+    function e(){}
+    arguments[0] = 2;
+    console.log(e);
+    if(a){
+        var b = 123;
+        function c(){}
+    }
+    var c;
+    a = 10;
+    var a;
+    console.log(b);
+    f = 123;
+    console.log(c);
+    console.log(a);
+}
+var a;
+demo(1);
+console.log(a);
+console.log(f);
+
+GO = {
+    a : 100
+    demo : function (){}
+    f : 123
+}
+AO = {
+    a : undefiend
+    b : undefiend
+    c : undefiend
+    e : function e(){}
+}
+
+输出结果: 2 undefined undefined 10 100 123
+</code></pre><p>例11</p>
+<pre><code>var x = 1,y = z = 0;
+function add(n){
+    return n = n +1;
+}
+y = add(x);
+function add(n){
+    return n = n + 3;
+}
+z = add(x);
+
+输出结果: x = 1 y = 4 z = 4
+</code></pre>]]></content>
+  </entry>
+  <entry>
+    <title>事件处理模型与事件委托</title>
+    <url>/2018/12/05/%E4%BA%8B%E4%BB%B6%E5%A4%84%E7%90%86%E6%A8%A1%E5%9E%8B%E4%B8%8E%E4%BA%8B%E4%BB%B6%E5%A7%94%E6%89%98/</url>
+    <content><![CDATA[<h2 id="事件处理模型——事件冒泡、事件捕获"><a href="#事件处理模型——事件冒泡、事件捕获" class="headerlink" title="事件处理模型——事件冒泡、事件捕获"></a><font color="red">事件处理模型——事件冒泡、事件捕获</font></h2><p>上一篇介绍了事件的绑定，我们这里先写一个三层div嵌套的结构并且给每一个div都加一个点击事件。</p>
+<pre><code>.wrapper{
+    width: 200px;
+    height: 200px;
+    background-color: red;
+}
+.box{
+    width: 100px;
+    height: 100px;
+    background-color: green;
+}
+.content{
+    width: 50px;
+    height: 50px;
+    background-color: black;
+}
+
+var wrapper = document.getElementsByClassName(&apos;wrapper&apos;)[0],
+        box = document.getElementsByClassName(&apos;box&apos;)[0],
+    content = document.getElementsByClassName(&apos;content&apos;)[0];
+wrapper.onclick = function () {
+  console.log(&apos;wrapper&apos;);
+}
+box.onclick = function () {
+  console.log(&apos;box&apos;);
+}
+content.onclick = function () {
+  console.log(&apos;content&apos;);
+}
+</code></pre><p>• 现在我们点击最外层的wrapper，控制台打印的wrapper。</p>
+<p>• 点击box，却打印出来box和wrapper</p>
+<p>• 点击content打印出来content、box、wrapper</p>
+<p>这个现象就是我们所说的事件冒泡。</p>
+<p><strong>事件冒泡</strong>：在<font color="red">结构上</font>（非视觉上）嵌套关系的元素，会存在事件冒泡的功能，即同一事件，<font color="red">子元素冒泡向父元素</font>，结构上的自底向上。（这里的底是结构上的底，视觉上是自顶向下）</p>
+<p>大部分事件都有事件冒泡现象，并且<font color="red">所有的浏览器都有事件冒泡</font>。</p>
+<p>结构上的冒泡，和视觉的位置没有关系，我们看一下三个方块视觉上分开的例子：</p>
+<pre><code>.wrapper{
+        width: 200px;
+        height: 200px;
+        background-color: red;
+        position: absolute;
+    }
+    .box{
+        width: 100px;
+        height: 100px;
+        background-color: green;
+        position: absolute;
+        left: 200px;
+        top: 200px;
+    }
+    .content{
+        width: 50px;
+        height: 50px;
+        background-color: black;
+        position: absolute;
+        left: 100px;
+        top: 100px;
+    }
+</code></pre><p>我们点击content部分之后依然会把box和wrapper都打印出来。</p>
+<p><font color="red">并不是所有的事件都有冒泡</font>，focus、blur、change、submit、reset、select等方法就没有事件冒泡现象。</p>
+<p><strong>事件捕获</strong>：<font color="red">结构上</font>（非视觉上）嵌套关系的元素，会存在事件捕获功能，即同一事件，<font color="red">自父元素捕获至子元素</font>（事件源元素），结构上的自顶向下。</p>
+<p><strong>addEventListener最后一个参数就是是否开始事件捕获</strong>，当我们填true的时候，就代表开启了事件捕获。只要开启了事件捕获，就不会冒泡了，如果不捕获的话，就遵循事件冒泡。</p>
+<p>因为addEventListener只有chrome有，因此<font color="red">事件捕获也只有chrome浏览器有</font>。</p>
+<p>依然是上面的那个例子：</p>
+<pre><code>var wrapper = document.getElementsByClassName(&apos;wrapper&apos;)[0],
+    box = document.getElementsByClassName(&apos;box&apos;)[0],
+    content = document.getElementsByClassName(&apos;content&apos;)[0];
+wrapper.addEventListener(&apos;click&apos;, function (e) {
+    console.log(&apos;wrapper&apos;);
+}, true);
+box.addEventListener(&apos;click&apos;, function (e) {
+    console.log(&apos;box&apos;);
+}, true);
+content.addEventListener(&apos;click&apos;, function (e) {
+    console.log(&apos;content&apos;);
+}, true);
+</code></pre><p>现在点击content之后，顺序是wrapper、box、content。</p>
+<p>当事件冒泡和事件捕获同时存在的时候，事件冒泡和事件捕获的触发顺序则为：<strong><font color="red">先捕获，再冒泡</font></strong>。</p>
+<pre><code>var wrapper = document.getElementsByClassName(&apos;wrapper&apos;)[0],
+        box = document.getElementsByClassName(&apos;box&apos;)[0],
+    content = document.getElementsByClassName(&apos;content&apos;)[0];
+wrapper.onclick = function () {
+  console.log(&apos;wrapperBubbler&apos;);
+}
+box.onclick = function () {
+  console.log(&apos;boxBubbler&apos;);
+}
+content.onclick = function () {
+  console.log(&apos;contentBubbler&apos;);
+}
+ wrapper.addEventListener(&apos;click&apos;, function (e) {
+    console.log(&apos;wrapper&apos;);
+}, true);
+box.addEventListener(&apos;click&apos;, function (e) {
+    console.log(&apos;box&apos;);
+}, true);
+content.addEventListener(&apos;click&apos;, function (e) {
+    console.log(&apos;content&apos;);
+}, true);
+</code></pre><p>结果是先捕获再冒泡。</p>
+<p>但是当我们把捕获写到冒泡前面的时候，顺序好像发生了变化。</p>
+<p>wrapper–&gt;box–&gt;<font color="red">contentBubble</font>–&gt;content–&gt;boxBubble–&gt;wrapperBubble</p>
+<p>这里是因为点击content，并不属于冒泡，而是属于<font color="red">事件执行</font>，我们先绑定的boxBubble，所以就先捕获，再事件执行，再冒泡，这与我们的结论没有冲突。</p>
+<h2 id="取消冒泡和阻止默认事件"><a href="#取消冒泡和阻止默认事件" class="headerlink" title="取消冒泡和阻止默认事件"></a><font color="red">取消冒泡和阻止默认事件</font></h2><p>• 有时候冒泡或者默认事件会对我们的功能造成影响，因此我们需要适时地取消冒泡和默认事件。</p>
+<p>• 我们绑定事件的处理函数的时候，可以传递一个形参，代表我们的事件对象，一般是e或者event，<font color="red">系统会自动帮我们捕获事件源对象并且把事件源对象传入</font>。</p>
+<p><strong><font color="red">取消冒泡的方法</font></strong></p>
+<p>1.<strong><font color="red">w3c标准方法：event.stopPropagation()</font></strong></p>
+<pre><code>var wrapper = document.getElementsByClassName(&apos;wrapper&apos;)[0],
+        box = document.getElementsByClassName(&apos;box&apos;)[0],
+    content = document.getElementsByClassName(&apos;content&apos;)[0];
+content.onclick = function (e) {
+    console.log(&apos;content&apos;);
+    e.stopPropagation();
+}
+</code></pre><p><strong>IE9以及以下的版本不支持这个方法。</strong></p>
+<p>2.<strong><font color="red">event.cancelBubble = true</font></strong></p>
+<p>这个属性是IE的，不过一些高版本的浏览器也有这个属性，只要让这个属性的值等于true，同样也可以取消事件冒泡。</p>
+<p>封装一个兼容性的取消事件冒泡的方法：</p>
+<pre><code>function stopBubble(event){
+    if(event.stopPropagation){
+        event.stopPropagation();
+    }else{
+        event.cancelBubble = true;
+    }
+}
+</code></pre><p><strong><font color="red">默认事件</font></strong></p>
+<p>当我们在浏览器中点击右键，会弹出一个菜单，这就是一个默认事件contextmenu。还有a标签，即使我们不写跳转的页面，也会自动刷新页面，这也是一个默认事件。<br>默认事件有好的也有不好的，这就需要我们把不需要的默认事件阻止掉。</p>
+<p><strong><font color="red">阻止默认事件</font></strong></p>
+<p>1.<strong><font color="red">return false</font></strong><br>不过要注意的是，这种写法只能用在句柄方式绑定的事件上。</p>
+<pre><code>document.oncontextmenu = function () {
+    console.log(&apos;menu&apos;);
+    return false;
+}
+</code></pre><p>2.<strong><font color="red">event.preventDefault()</font></strong><br>这是w3c标准的阻止默认事件的方法，句柄也同样可以使用。不过IE9以下不兼容。</p>
+<pre><code>documet.addEventListener(&apos;contextmenu&apos;, function (e) {
+    console.log(&apos;menu&apos;);
+    e.preventDefault();
+},false);
+</code></pre><p>3.<strong><font color="red">event.returnValue = false</font></strong><br>这个是IE的方法，事件源对象上的属性returnValue代表是否有默认事件，直接返回false就可以阻止默认事件了。</p>
+<pre><code>document.attachEvent(&apos;oncontextmenu&apos;, function (e) {
+    e.returnValue = false;
+});
+</code></pre><p>现在我们也可以封装一个兼容性的阻止默认事件的方法了：</p>
+<pre><code>function cancelHandler(event){
+    if(event.preventDefault){
+        event.preventDefault();
+    }else{
+        event.returnValue = false;
+    }
+}
+</code></pre><p>小例子: 阻止a标签不跳转</p>
+<pre><code>var a = document.links[0];
+a.addEventListener(&apos;click&apos;, funciton (e) {
+    e.cancelHandler(e);
+},false);
+</code></pre><p>同时我们还可以用a标签的第四个用处，协议限定符来阻止默认事件。</p>
+<pre><code>&lt;a href=&quot;javascript: void(0); &quot;&gt;www.baidu.com&lt;/a&gt;
+</code></pre><p>不仅仅是0，只要填写一个代表false的值，就可以取消掉默认事件。</p>
+<h2 id="事件对象"><a href="#事件对象" class="headerlink" title="事件对象"></a><font color="red">事件对象</font></h2><p><font color="red">在IE中，系统不会把事件对象传到方法中，因此我们的参数e或者event在IE中是不好用的，IE会把事件对象传递到window.event上</font>，所以当我们使用事件对象的时候，就要写兼容性的写法：</p>
+<pre><code>var event = e || window.event;
+</code></pre><p><font color="red"><strong>event.target</strong></font> 是<font color="red">火狐</font>的获取事件源对象</p>
+<p><font color="red"><strong>event.srcElement</strong></font> 是<font color="red">IE</font>的获取事件源对象</p>
+<p>chrome两种都有</p>
+<p>因此我们在获取事件源对象的时候也需要写兼容性写法</p>
+<pre><code>wrapper.onclik = function(e){
+    var event = e || window.event;
+    var target = event.target || event.srcElement;
+    console.log(target);
+}
+</code></pre><h2 id="事件委托"><a href="#事件委托" class="headerlink" title="事件委托"></a><font color="red">事件委托</font></h2><p>我们现在有一个ul，下面有十万个li，当我们给父级的ul添加第一个点击事件之后，由于<font color="red">事件冒泡</font>的存在，不论我们点击哪一个li都会调用父级的点击事件处理函数，这个时候触发父级ul的点击函数的那个li就被称之为事件源对象。</p>
+<p>我们<font color="red">利用事件源对象和事件冒泡来处理的方式就叫做事件委托</font>。</p>
+<pre><code>&lt;ul&gt;
+    &lt;li&gt;1&lt;/li&gt;
+    &lt;li&gt;2&lt;/li&gt;
+    &lt;li&gt;3&lt;/li&gt;
+    &lt;li&gt;4&lt;/li&gt;
+    &lt;li&gt;5&lt;/li&gt;
+    &lt;li&gt;6&lt;/li&gt;
+    &lt;li&gt;7&lt;/li&gt;
+    &lt;li&gt;8&lt;/li&gt;
+    &lt;li&gt;9&lt;/li&gt;
+    &lt;li&gt;10&lt;/li&gt;
+    &lt;li&gt;...&lt;/li&gt;
+&lt;/ul&gt;
+&lt;script&gt;
+// 此处不选中li而是选中父级的ul 因为li会冒泡给ul 然后根据事件源对象找到该li
+var ul = document.getElementsByTagName(&apos;ul&apos;)[0];
+ul.onclick = function(e){
+    var event = e || window.event;
+    var target = event.target || event.srcElement;
+    console.log(target.innerText);
+}
+&lt;/script&gt;
+</code></pre><p>事件委托的<font color="red">优点</font>：</p>
+<ol>
+<li><font color="red">性能</font> 不需要循环所有的元素一个个绑定事件</li>
+<li><font color="red">灵活</font> 当有新的子元素时不需要重新绑定事件</li>
+</ol>
+]]></content>
+  </entry>
+  <entry>
+    <title>函数作用域与闭包</title>
+    <url>/2018/11/22/%E5%87%BD%E6%95%B0%E4%BD%9C%E7%94%A8%E5%9F%9F%E4%B8%8E%E9%97%AD%E5%8C%85/</url>
+    <content><![CDATA[<h2 id="函数部分"><a href="#函数部分" class="headerlink" title="函数部分"></a><font color="red">函数部分</font></h2><p>我们的函数声明有两种方式：</p>
+<p>1.<font color="red">var demo = function () {} 函数表达式</font></p>
+<pre><code>注意: 下面这些也属于函数表达式  
+       = function(){}     
+       ! function(){}
+       + function(){}
+       - function(){}
+</code></pre><p>2.<font color="red">function demo () {} 函数声明</font></p>
+<p>3.var demo = function xxx() {} 命名函数表达式</p>
+<p>• 每一个函数里面都有一个类似数组的<font color="red">类数组属性arguments</font>，这个属性里面存的就是<font color="red">实参</font>。</p>
+<p>arguments[0]就可以查看我们传递的第一个实参了。</p>
+<p>函数有一个<font color="red">length属性</font>，这个length储存的是<font color="red">形参的数量</font>。</p>
+<p>• 每一个函数都会有一个return，如果不写的话函数会自动加上一个return;</p>
+<p>return的功能有两个：</p>
+<p>1.返回这个函数的<font color="red">执行结果</font>。</p>
+<p>2.<font color="red">终止函数的执行</font>。</p>
+<pre><code>function test(a, b){
+    console.log(a + b);
+    return ;
+    console.log(&apos;hello&apos;);
+}
+test(1, 2);// 3 没有打印hello
+</code></pre><h2 id="作用域"><a href="#作用域" class="headerlink" title="作用域"></a><font color="red">作用域</font></h2><p>定义：变量（变量作用域又称为上下文）和函数生效（能被访问）的区域。</p>
+<p><font color="red"><strong>javascript的函数，是可以产生作用域的！！</strong></font><br>es5中的作用域大概只有全局作用域和函数作用域两种，es6中新添加了块级作用域。</p>
+<pre><code>var demo = 123;// 全局变量
+function test(){
+    var demo = 234;// 局部变量
+    console.log(demo);
+    var demo1 = &apos;hello&apos;;
+}
+test();// 234 就近打印局部变量，没有局部变量的时候才会打印全局的。
+console.log(demo1); // 报错 我们的全局作用域无法访问函数的局部作用域
+</code></pre><p>• 有一点要注意的是，如果在函数作用域里面声明变量<font color="red">没有用var的话</font>，那么就声明了一个全局变量。<br>• 同时，两个不同作用域（除了全局作用域）之间是不能互相访问的。</p>
+<h2 id="作用域链"><a href="#作用域链" class="headerlink" title="作用域链"></a><font color="red">作用域链</font></h2><p>既然函数存在函数作用域，函数又可以嵌套，那么作用域之间自然就会产生嵌套关系，这个时候就产生了作用域链。<br>当代码在一个环境中执行时，会创建变量对象的一个作用域链（scope chain）来保证对执行环境<font color="red">有权</font>访问的变量和函数的<font color="red">有序</font>访问。作用域第一个对象始终是当前执行代码所在环境的变量对象。</p>
+<pre><code>function demo() {
+    var demo_a = 1;
+    function test() {
+        var demo_a = 2;
+        console.log(demo_a);
+    }
+    test();
+}
+demo();
+</code></pre><p>• 在这个例子中，demo运行的时候，首先创建了一个demo的作用域，但是window本身还有一个全局作用域，这就让demo产生了一个作用域链。本着对执行环境的有权和有序访问，每个函数的自身的作用域总是在作用域链的最顶层，下一层是这个函数的父级函数的作用域，再下面是父级的父级的作用域，直到全局作用域。</p>
+<p>• 因此这个例子中的test函数执行时候打印的demo_a是它本身的作用域中的demo_a，而不是demo函数作用域下的demo_a，如果test函数作用域中没有demo_a这个变量的话，系统才会沿着作用域链向下找到demo作用域中的demo_a变量。</p>
+<h2 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a><font color="red">闭包</font></h2><p>闭包是一个非常非常重要的知识点，我在网上看到过许多的定义，但是都有点繁琐，这里的知识点是我简单化的总结的。</p>
+<p>什么是闭包？</p>
+<p>我的理解是，<font color="red"><strong>闭包就是能够读取其他函数内部变量的函数</strong></font>。</p>
+<p>我们前面提到过，不同作用域之间不能够互相访问，但是我们如果在一个<font color="red">函数内部再定义一个函数</font>，并且这个<font color="red">内部函数与外部函数的变量有关联</font>，那么我们就可以通过<font color="red">返回这个内部的函数</font>，然后<font color="red">来访问外部函数里面的变量</font>。</p>
+<p>所以，在本质上，闭包就是将函数内部和函数外部连接起来的一座桥梁。</p>
+<pre><code>function a(){
+    var demo1 = 123;
+    add = function(){
+        demo1++;
+    } 
+    return function(){
+        console.log(demo1);
+    };
+}
+var demo = a();
+demo();// 123
+add();
+demo();// 124
+</code></pre><p>当函数执行完之后，函数的执行上下文就会被销毁，自然我们就无法访问里面的变量了，但是我们这个函数返回了一个<font color="red">依赖于这个函数的新函数，也就是说这个没有被销毁的新函数的作用域链中还存在着对原本函数的作用域的引用</font>，就导致我们原本的函数的上下文不会被销毁，我们<font color="red">称返回的这个新函数是原本函数的闭包函数</font>。</p>
+<p>在上面的例子中，a函数内部有一个全局的函数add和一个局部变量demo1，我们这个把返回函数给了一个全局变量demo进入到了内存中，但是由于这个返回的新函数依赖于本来的a函数，这就导致本来的a函数的上下文不会被销毁。</p>
+<p>这里我们的打印函数一共运行了两次，都能打印出来值，说明a函数的demo1变量在函数执行完之后并没有被销毁而是存到了内存中。</p>
+<p>其次，add的值是一个匿名函数，而这个匿名函数本身也是一个闭包，所以add相当于是一个setter叠加器，可以在函数外部对函数内部的局部变量进行操作。</p>
+<p><strong><font color="red">使用闭包的注意点</font></strong></p>
+<p>1.由于闭包会使得函数中的变量都被保存在内存中，<font color="red">内存消耗很大</font>，所以不能滥用闭包，否则会造成网页的性能问题，在IE中可能导致<font color="red">内存泄露</font>。</p>
+<p>解决方法是，<font color="red">在退出函数之前，将不使用的局部变量全部删除</font>。</p>
+<p>2.闭包会在父函数外部，改变父函数内部变量的值。所以，如果你把<font color="red">父函数当作对象</font>使用，把<font color="red">闭包当作它的公用方法</font>，把<font color="red">内部变量当作它的私有属性</font>，这时一定要小心，<strong><font color="red">不要随便改变父函数内部变量的值</font></strong>。</p>
+<p><strong><font color="red">闭包的作用</font></strong></p>
+<p><strong>1.实现公有变量</strong></p>
+<pre><code>function add(){
+    var count = 0;
+    function demo(){
+        count ++;
+        console.log(count);
+    }
+    return demo;
+}
+var counter = add();
+counter();counter();counter();counter();
+</code></pre><p><strong>2.可以做缓存</strong></p>
+<pre><code> function test(){
+    var num = 100;
+    function a(){
+        num ++;
+        console.log(num);
+    }   
+    function b(){
+        num --;
+        console.log(num);
+    }
+    return [a, b];
+}
+var myArr = test();
+myArr[0]();
+myArr[1]();
+</code></pre><p><strong>3.可以实现封装，属性私有化</strong></p>
+<pre><code>function Deng(name, wife){
+     var prepareWife = &quot;xiaozhang&quot;
+    this.name = name;
+    this.wife = wife;
+    this.divorce = function (){
+        this.wife = prepareWife;
+    }
+    this.changePrepareWife = function(target){
+        prepareWife = target;
+    }
+    this.sayPrepareWife = function(){
+        console.log(prepareWife);
+    }
+
+}
+var deng = new Deng(&apos;deng&apos;, &apos;xiaoliu&apos;)
+//里面三个函数和Deng这个函数都形成了闭包,只能通过函数去修改prepareWife属性
+</code></pre><h2 id="立即执行函数"><a href="#立即执行函数" class="headerlink" title="立即执行函数"></a><font color="red">立即执行函数</font></h2><p>立即执行函数是解闭包的一个重要方法。但是注意<font color="red">闭包是没有办法解除</font>的，我们只能通过另一个新闭包来消除上一个闭包的影响。</p>
+<p><strong>定义：立即执行函数不需要被定义，直接执行，执行完毕之后直接释放。</strong></p>
+<p>立即执行函数的写法：</p>
+<p><strong>1.(function (a) {})(num);</strong></p>
+<p><strong>2.(function (a) {} (num))</strong>   W3C建议第二种</p>
+<p>传递的参数是a，a的实参值是num，num是我们在外面定义的变量。</p>
+<p><strong>例</strong></p>
+<pre><code>(function (a,b,c){
+    var d = a+b+c;
+    return d;
+}(1,2,3));
+// 打印6
+</code></pre>]]></content>
+  </entry>
+  <entry>
+    <title>数组</title>
+    <url>/2018/11/28/%E6%95%B0%E7%BB%84/</url>
+    <content><![CDATA[<h4 id="数组"><a href="#数组" class="headerlink" title="数组"></a><font color="red">数组</font></h4><p><strong><font color="red">两种构造方法:</font></strong></p>
+<p>1.字面量</p>
+<pre><code>var arr = [1,2,,,,3,4];
+</code></pre><p> 上面这种数组属于<font color="red">稀松数组</font></p>
+<p>2.构造函数</p>
+<pre><code>var arr = new Array(1,2,3,4);
+</code></pre><p> JavaScript里的数组是基于对象的  即数组是一种特殊的对象</p>
+<pre><code>var arr = new Array(10);
+var arr1 = [10];
+</code></pre><p> 这里arr创建了10个空数组，而arr1创建了1个参数为10的数组</p>
+<h4 id="判断数组类型"><a href="#判断数组类型" class="headerlink" title="判断数组类型"></a><font color="red">判断数组类型</font></h4><p> 给定一个未知对象,判定他是否为数组 在es5中可以使用Array.isArray()函数来判断</p>
+<pre><code>Array.isArray([]);// true
+Array.isArray({});// false
+Array.isArray(1);// false
+</code></pre><p>在es5之前,大家可能想到利用typeof操作符来判断,但是无论是数组还是对象,均返回对象</p>
+<pre><code>typeof [];// object
+typeof {};// object
+</code></pre><p>在es3中isArray()可以使用Object.prototype.toString.call(arr) === ‘[object Array]’代替</p>
+<pre><code>Object.prototype.toString.call([]);// &apos;[object Array]&apos;
+Object.prototype.toString.call({});// &apos;[object Object]&apos;
+</code></pre><p><strong><font color="red">数组的添加和删除</font></strong></p>
+<p>• <strong>添加</strong><br>    1.最简单的方法：为新索引赋值<br>    2.使用push()和unshift()方法</p>
+<p>• <strong>删除</strong><br>    1.delete运算符删除数组元素(不会修改数组的length属性)<br>    2.使用pop()和shuift()方法</p>
+<h4 id="数组的常用方法"><a href="#数组的常用方法" class="headerlink" title="数组的常用方法"></a><font color="red">数组的常用方法</font></h4><p> • <strong><font color="red">改变原数组: push, pop, shift, unshift, sort, reverse, splice</font></strong></p>
+<p> • <strong><font color="red">不改变原数组: concat, join , split, toString, slice</font></strong></p>
+<h4 id="push-在最后一位添加"><a href="#push-在最后一位添加" class="headerlink" title="push (在最后一位添加)"></a><font color="red">push (在最后一位添加)</font></h4><pre><code>var arr = [1,2];
+Array.prototype.push = function (){
+for(var i=0;i&lt;arguments.length;i++){
+    this[this.length] = arguments[i];
+}
+    return this.length;
+}
+</code></pre><h4 id="pop-在最后一位剪切"><a href="#pop-在最后一位剪切" class="headerlink" title="pop (在最后一位剪切)"></a><font color="red">pop (在最后一位剪切)</font></h4><h4 id="shift-在最前面剪切"><a href="#shift-在最前面剪切" class="headerlink" title="shift (在最前面剪切)"></a><font color="red">shift (在最前面剪切)</font></h4><h4 id="unshift-在最前面添加"><a href="#unshift-在最前面添加" class="headerlink" title="unshift (在最前面添加)"></a><font color="red">unshift (在最前面添加)</font></h4><h4 id="reverse-反转"><a href="#reverse-反转" class="headerlink" title="reverse (反转)"></a><font color="red">reverse (反转)</font></h4><pre><code>var arr = [1, 2, 3, 4, 5];
+arr.reverse();// [5, 4, 3, 2, 1]
+</code></pre><h4 id="splice"><a href="#splice" class="headerlink" title="splice"></a><font color="red">splice</font></h4><p><strong>arr.splice(从第几位开始, 截取多少的长度, 在切口处添加新的数据);</strong></p>
+<pre><code>var arr = [1, 1, 2, 2, 3, 3];
+arr.splice(1, 2);// 删除 arr = [1,2,3,3]  
+arr.splice(1, 1, 0,0,0);// 替换 arr = [1, 0, 0, 0, 2, 2, 3, 3]
+arr.splice(3, 0, 4);// 等同于在第三位添加4
+var arr = [1,2,3,4]
+arr.splice(-1, 1);//arr = [1,2,3]   -1+length
+arr.splice(-1, 2);//arr = [1,2] 
+</code></pre><h4 id="sort-排序"><a href="#sort-排序" class="headerlink" title="sort (排序)"></a><font color="red">sort (排序)</font></h4><pre><code>var arr = [1,3,5,4,10];
+arr.sort();//按照ascll码排序
+</code></pre><p><strong>自定义排序:<br>            1.必须写两形参<br>            2.看返回值:<br>                       1)当返回值为负数时,那么前面的数放在前面<br>                       2) 为正数,那么后面的数在前<br>                       3) 为0,不动</strong></p>
+<pre><code>var arr = [3,1,5,10,4];
+arr.sort(function(a, b){
+    if(a &gt; b){  
+        return 1;
+    }else{
+        return -1;
+    }
+});
+//升序 a &gt; b ; 降序a &lt; b
+
+
+var arr = [3,1,5,10,4];
+arr.sort(function(a, b){
+    return a - b;
+});
+// return a - b;升序    
+// return b - a;降序  
+</code></pre><p>给一个有序的数组,乱序:</p>
+<pre><code>var arr = [1,2,3,4,5,6,7,8];
+arr.sort(function(a, b){
+    return Math.random()-0.5;
+});
+</code></pre><p>按照对象年龄大小排序:</p>
+<pre><code>var cheng = {
+    name : &quot;cheng&quot;,
+    age : 30,
+    sex : &quot;male&quot;
+}
+var deng = {
+    name : &quot;deng&quot;,
+    age : 50,
+    sex : &quot;male&quot;
+}
+var zhang = {
+    name : &quot;zhang&quot;,
+    age : 40,
+    sex : &quot;female&quot;
+}
+var arr = [cheng, deng, zhang];
+arr.sort(function(a, b){
+    return a.age - b.age;
+});
+</code></pre><p>按照字符串长度排序:</p>
+<pre><code>function retBytes(str){
+    var num = str.length;
+    for(var i=0;i&lt;str.length;i++){
+        if(str.charCodeAt(i)&gt;255){
+            num ++;
+        }
+    }
+    return num;
+}
+var  arr = [&apos;a邓&apos;, &apos;bd邓&apos;, &apos;cc老邓&apos;, &apos;ddddd&apos;, &apos;slkhadkhja&apos;];
+arr.sort(function(a, b){
+    return retBytes(a) - retBytes(b);
+});
+</code></pre><h4 id="concat-拼接-连接"><a href="#concat-拼接-连接" class="headerlink" title="concat (拼接/连接)"></a><font color="red">concat (拼接/连接)</font></h4><pre><code>var arr = [1,2,3];
+var arr1 = [3,2,1];
+var arr2 = arr.concat(arr1);// [1,2,3,3,2,1]
+</code></pre><h4 id="slice"><a href="#slice" class="headerlink" title="slice "></a><font color="red">slice </font></h4><p>从该位开始截取, 截取到该位(不包括)</p>
+<pre><code>var arr = [5,4,3,2,1,6];
+var newArr = arr.slice(1, 4);// [4, 3, 2]
+var newArr1 = arr.slice(1);// [4, 3, 2, 1, 6]
+</code></pre><h4 id="join"><a href="#join" class="headerlink" title="join"></a><font color="red">join</font></h4><p>将数组中所有元素都转化成字符串并连接在一起，返回最后生成的字符串<br>可以选择一个可选的字符串在生成的字符串中来分隔数组的各个元素。<br>如果不指定使用分隔符，默认使用逗号。不修改原数组。</p>
+<pre><code>var arr = [1,2,3];
+var newArr = arr.join(&quot;-&quot;);//&quot;1-2-3&quot;
+</code></pre><p>利用join(“”)可以实现大量字符串拼接</p>
+<pre><code>var str = &quot;das&quot;;
+var str1 = &quot;dqqd&quot;;
+var str2 = &quot;fvmixk&quot;;
+var str3 = &quot;qqqmlx&quot;;
+var str4 = &quot;zmcxol&quot;;
+var str5 = &quot;qpuh&quot;;
+var str6 = &quot;lough&quot;;
+var f = &quot;&quot;;
+var arr = [str,str1,str2,str3,str4,str5,str6,f];
+var newArr = arr.join(&quot;&quot;);
+</code></pre><h4 id="split"><a href="#split" class="headerlink" title="split"></a><font color="red">split</font></h4><p>split()方法是按照给定的字符串将字符串分割成若干块来创建一个数组。</p>
+<pre><code>var arr1 = newArr.split(&quot;-&quot;);//[&quot;1&quot;, &quot;2&quot;, &quot;3&quot;]
+</code></pre><h4 id="indexOf"><a href="#indexOf" class="headerlink" title="indexOf"></a><font color="red">indexOf</font></h4><p>返回某个指定的字符串值在数组中首次出现的位置，从头至尾搜索，没有则返回-1</p>
+<pre><code>var arr = [1, 1, 2, 3, 5, 5];
+arr.indexOf(1);// 0
+</code></pre><h4 id="lastIndexOf"><a href="#lastIndexOf" class="headerlink" title="lastIndexOf"></a><font color="red">lastIndexOf</font></h4><p>返回某个指定的字符串值在数组中最后一次出现的位置，从尾至头搜索，没有则返回-1</p>
+<pre><code>arr.lastIndexOf(5);// 5
+</code></pre><p>同时我们可以在方法中传入两个参数，第一个参数代表需要搜索的值，第二个参数代表从哪一位开始搜索</p>
+<pre><code>arr.indexOf(1,1);// 1
+</code></pre><p>重写myIndexOf函数</p>
+<pre><code>Array.prototype.myIndexOf = function(){
+    var startIndex = 0;
+    var args = arguments;
+    var len = this.length;
+    if(args[1]){// 如果有第二个参数 
+        startIndex = args[1];
+    }
+    for(var i = startIndex;i &lt; len;i++){
+        if(this[i] == args[0]){// 参数一
+            return i;// 返回参数一的索引值
+        }
+    }
+    return -1;
+}
+</code></pre><h4 id="reduce-和reduceRight"><a href="#reduce-和reduceRight" class="headerlink" title="reduce()和reduceRight()"></a><font color="red">reduce()和reduceRight()</font></h4><p>1.reduce()和reduceRight()方法使用指定的函数将数组元素进行组合,生成单个值。</p>
+<p>reduce()可以传入两个参数,第一个是执行化简操作的函数.同样这个函数可以有参数,<br> • 第一个参数代表之前所有元素的累积结果<br> • 第二个参数代表当前进行运算的元素<br> • 第三个参数代表当前运算参数的索引值<br> • 第四个参数代表调用方法的原数组<br>第二个参数是可选的,是一个传递给函数的初始值.如果第二个参数有值,那么作为运算的初始值参与函数运算,如果第二个参数没有值,那么数组中的首位将作为函数运算的初始值,参与函数运算的数组其他位向后平移一位</p>
+<p>reduceRight()和reduce()使用方法一致,但是reduceRight()进行函数运算从右到左.传参形式均一致.</p>
+<pre><code>var arr = [1, 2, 3, 4, 5];
+var b = arr.reduce(function(last, now, index, arr){
+    console.log(last, now, index, arr);
+    return last + now;
+}, 10);
+</code></pre><p>重写myReduce函数</p>
+<pre><code>Array.prototype.myReduce = function(func, init){
+    var len = this.length;
+    var prev = init;
+    var i = 0;
+    if(init == undefined){// 不传第二个参数
+        prev = this[0];
+        i = 1;
+    }
+    for(i;i &lt; len;i++){
+        prev = func(prev, this[i], i,this);
+    }
+    return prev;
+};
+</code></pre><p>例: 获得当前时间并将其转换成字符串形式,个位数用零补齐.例如8点45分零五秒转化成084505.</p>
+<pre><code>var date = new Date();
+var arr = [date.getHours(), date.getMinutes(), date.getSeconds()];
+var str = arr.reduce(function(last, now){
+    return last + (&apos;0&apos; + now).slice(-2);
+}, &apos;&apos;);
+</code></pre><h4 id="filter"><a href="#filter" class="headerlink" title="filter"></a><font color="red">filter</font></h4><p><strong>数组的过滤</strong></p>
+<p>filter()方法返回的数组元素是调用的数组的一个子集。<br>传递函数是用来逻辑判断的,该函数返回true或false.如果返回值为true或能转化成true的值,那么传递给判定函数的元素就是这个子集的成员,将被添加到一个作为返回值的数组中。<br>filter()方法的结果返回一个满足条件的数组，不修改原数组。<br>注意：filter()方法会跳过稀疏数组中缺少的元素，他的返回值总是非稀疏的。</p>
+<pre><code>var arr = [0, 1, 2, 3, 45, 5];
+var a = arr.filter(function(ele){
+    return ele &gt; 3;
+});
+</code></pre><p>重写myFilter函数</p>
+<pre><code>Array.prototype.myFilter = function(func){
+    var newArr = [];
+    for(var i = 0;i &lt; this.length;i++){// 遍历原数组
+        if(func(this[i], i)){  
+            newArr.push(this[i]);
+        }
+    }
+    return newArr;
+}
+</code></pre><h4 id="every"><a href="#every" class="headerlink" title="every"></a><font color="red">every</font></h4><p><strong>数组的逻辑判定</strong></p>
+<p>返回true或false,every()相当于与,当且仅当数组中的所有元素都满足调用函数的条件,返回true</p>
+<pre><code>var arr = [1, 1, 2, 3, 45, 5, 5, 5];
+arr.every(function(ele){
+    return ele &lt; 10;
+});// false
+
+arr.every(function(ele){
+    return ele &lt; 100;
+});// true
+</code></pre><h4 id="some"><a href="#some" class="headerlink" title="some"></a><font color="red">some</font></h4><p>返回true或false,some()相当于或,当数组中至少有一个元素调用判定函数返回true,它的返回值就是true,所有元素均不满足函数条件，则返回false</p>
+<pre><code>var arr = [1, 1, 2, 3, 45, 5, 5, 5];
+arr.some(function(ele){
+    return ele &lt; 10;
+});// true
+
+arr.some(function(ele){
+    return ele &lt; 0;
+});// false
+</code></pre><p>注意：一旦every()和some()确认返回值的时候就会停止遍历数组</p>
+<h4 id="forEach"><a href="#forEach" class="headerlink" title="forEach"></a><font color="red">forEach</font></h4><p>数组遍历 forEach()方法</p>
+<p>forEach()的使用方法：forEach方法从头至尾遍历数组，对每个元素调用指定的函数。<br>forEach方法传入参数为一个函数，函数 可以传入三个参数，按照顺序分别为,数组元素、元素索引和数组本身。不强制同时传入三个参数，可以按照需求传入参数个数。</p>
+<p>重写myForEach函数</p>
+<pre><code>Array.prototype.myForEach = function(fn){
+    for(var i = 0;i &lt; this.length;i++){// this代表调用myForEach方法的数组
+        fn(this[i], i);// 将数组的每一位this[i]及代表数组索引 i 作为函数参数
+    }// 同时在for循环中执行参数fn函数
+}
+</code></pre><h4 id="类数组"><a href="#类数组" class="headerlink" title="类数组"></a><font color="red">类数组</font></h4><p>我们知道有两种数据叫做数组和对象，但是我们其实可以用对象来模拟出数组的效果，我们把这种对象叫做类数组。我们前面提到的<font color="red">arguments实参列表就是一个类数组</font>。</p>
+<p>类数组<font color="red">并不是一个数组</font>，但是它可以表现出数组的特性。</p>
+<p><font color="red">属性要为索引(数字)属性</font>,<font color="red">必须有length属性</font>,最好加上push<br>好处:将数组和对象的方法都拼到一起,但不是所有方法都可以用</p>
+<pre><code>var obj = {
+    &quot;0&quot; : &apos;a&apos;,
+    &quot;1&quot; : &apos;b&apos;,
+    &quot;2&quot; : &apos;c&apos;,
+    &quot;length&quot; : 3,
+    &quot;push&quot; : Array.prototype.push,
+    &quot;splice&quot; : Array.prototype.splice
+}
+Array.prototype.push = function (target){
+    this[this.length] = target;
+    this.length ++;
+}
+</code></pre><p>这样我们就创造了一个类数组，现在它就可以表现出数组的特性了。</p>
+<pre><code>obj.push(d);
+console.log(obj);
+var obj = {
+    &quot;0&quot; : &apos;a&apos;,
+    &quot;1&quot; : &apos;b&apos;,
+    &quot;2&quot; : &apos;c&apos;,
+    &quot;3&quot; : &apos;d&apos;,
+    &quot;length&quot; : 4,
+    &quot;push&quot; : Array.prototype.push,
+    &quot;splice&quot; : Array.prototype.splice
+}
+</code></pre><p>其实类数组的<font color="red">关键就在这个length属性</font>上，如果没有length属性，那么就是一个普通的对象，即使有push方法也不能使用。</p>
+<p>现在我们有一个这样的题：</p>
+<pre><code>var arrobj = {
+    &quot;3&quot; : 1,
+    &quot;4&quot; : 2,
+    &quot;a&quot; : 3,
+    &quot;b&quot; : 4,
+    &quot;length&quot; : 2,
+    &quot;push&quot; : Array.prototype.push,
+}
+arrobj.push(3);
+arrobj.push(6);
+</code></pre><p>仔细看一下push的方法之后，我们就知道了，最后的arrObj应该是这个样子的：</p>
+<pre><code>var arrobj = {
+    &quot;2&quot; : 3,
+    &quot;3&quot; : 6,
+    &quot;4&quot; : 2,
+    &quot;a&quot; : 3,
+    &quot;b&quot; : 4,
+    &quot;length&quot; : 4,
+    &quot;push&quot; : Array.prototype.push,
+}
+</code></pre><p>这里的length是2，所以一开始push(3)的时候把arrObj[2]改成了3，因为本身没有2这个下标，所以添加一条属性2:3，然后length变成了3，push(6)之后，arrObj[3]变成了6，本身有3这一条属性所以覆盖，然后把length变成4。</p>
+<p>再来看一题：</p>
+<pre><code>var obj = {
+    &quot;2&quot; : &quot;a&quot;,
+    &quot;3&quot; : &quot;b&quot;,
+    &quot;length&quot; : 2,
+    &quot;push&quot; : Array.prototype.push
+}
+obj.push(&apos;c&apos;);
+obj.push(&apos;d&apos;);
+</code></pre><p>执行obj.push(‘c’)之后 obj变成</p>
+<pre><code>var obj = {
+    &quot;2&quot; : &quot;c&quot;,
+    &quot;3&quot; : &quot;b&quot;,
+    &quot;length&quot; : 3,
+    &quot;push&quot; : Array.prototype.push
+}
+</code></pre><p>接着执行obj.push(‘c’)之后 obj变成</p>
+<pre><code>var obj = {
+    &quot;2&quot; : &quot;c&quot;,
+    &quot;3&quot; : &quot;d&quot;,
+    &quot;length&quot; : 4,
+    &quot;push&quot; : Array.prototype.push
+}
+</code></pre><h4 id="封装一个type工具方法"><a href="#封装一个type工具方法" class="headerlink" title="封装一个type工具方法"></a><font color="red">封装一个type工具方法</font></h4><p> 1.分两类  原始值 引用值<br> 2.区分引用值<br> 1)数组 2)对象 3)包装类</p>
+<pre><code>function type(target){
+    var template = {
+        &quot;[object Array]&quot; : &quot;array&quot;,
+        &quot;[object Object]&quot; : &quot;object&quot;,
+        &quot;[object Number]&quot; : &quot;number - object&quot;,
+        &quot;[object Boolean]&quot; : &quot;boolean - object&quot;,
+        &quot;[object String]&quot; : &quot;string - object&quot;
+    }
+    if(target === null){
+        return null;
+    }else if(typeof(target) == &apos;object&apos;){
+        var str = Object.prototype.toString.call(target);
+        return template[str];
+    }else{
+        return typeof(target);
+    }
+}
+</code></pre><h4 id="数组去重"><a href="#数组去重" class="headerlink" title="数组去重"></a><font color="red">数组去重</font></h4><pre><code>var arr = [1,1,1,1,1,2,2,2,2,1];
+Array.prototype.unique = function(){
+    var temp = {};
+    var arr = [];
+    var len = this.length;
+    for(var i=0;i&lt;len;i++){
+        if(!temp[this[i]]){
+            temp[this[i]] = &quot;abc&quot;;
+            arr.push(this[i]);
+        }
+    }
+    return arr;
+}
+var newArr = arr.unique();
+</code></pre>]]></content>
+  </entry>
+  <entry>
+    <title>html标签介绍</title>
+    <url>/2018/11/02/blog2/</url>
+    <content><![CDATA[<p>上一篇文章大概介绍了一下html的一些知识，这一篇打算开始正式介绍html里面的一些标签结构了。</p>
+<p> html中的标签数量是很多的，据人统计大概有300个左右，并且每年都会以20-30个的速度增加着，但是这么多的标签我们不必都去记住，因为很多标签都是不常用的或者可以用基础的标签搭配组合，实际上我们需要掌握的大概在<font color="red">30</font>个左右。</p>
+<font color="red">在前端开发中我们要知道，并不是你用的技术多么先进就显得多么厉害，我们要考虑到代码的可读性以及后期的可维护性，用常见的标签来写才会让其他人都能读懂你的代码。</font>
+
+<p>代码中还有一点很重要的就是要勤写<font color="red">注释</font>哟~ 顺便一提在html中的注释形式是&lt;! – – your code – – &gt;</p>
+<p>（这里的标签都是属于html4中的内容，html5会有新的标签和新的内容，我在后面的文章中再介绍。）</p>
+<h4 id="几个基础的标签"><a href="#几个基础的标签" class="headerlink" title="几个基础的标签"></a><font color="red">几个基础的标签</font></h4><ul>
+<li><strong><font color="red">p标签</font></strong></li>
+</ul>
+<p><code>&lt;p&gt;&lt;/p&gt;</code>是段落标签，在<code>&lt;p&gt;&lt;/p&gt;</code>中间写的内容会当做一个段落来处理。<br>p标签的特点是<font color="red">独占一行</font>，并且段落上下都会有一定的<font color="red">间隔</font>距离。</p>
+<ul>
+<li><strong><font color="red">标题标签 h1-h6</font></strong></li>
+</ul>
+<p>标题标签的作用是着重显示文字，一般用在标题上，它会将里面的文字<font color="red">加粗放大</font>并且<font color="red">独占一行</font>。其中<font color="red">h4</font>的默认大小是<font color="red">正常的文字大小</font>，不过是加粗的。<br><code>&lt;h1&gt;&lt;/h1&gt;&lt;h2&gt;&lt;/h2&gt;&lt;h3&gt;&lt;/h3&gt;&lt;h4&gt;&lt;/h4&gt;&lt;h5&gt;&lt;/h5&gt;&lt;h6&gt;&lt;/h6&gt;</code></p>
+<ul>
+<li><strong><font color="red">strong标签</font></strong></li>
+</ul>
+<p><code>&lt;strong&gt;&lt;/strong&gt;</code>标签的作用是将里面的文字<font color="red">加粗</font>处理。</p>
+<ul>
+<li><strong><font color="red">em标签</font></strong></li>
+</ul>
+<p><code>&lt;em&gt;&lt;/em&gt;</code>的作用是将里面的文字变成<font color="red">斜体</font>。</p>
+<ul>
+<li><strong><font color="red">del标签</font></strong></li>
+</ul>
+<p><code>&lt;del&gt;&lt;/del&gt;</code>是删除标签，它会在里面的文字的<font color="red">中间画一条横线</font>，一般在<font color="red">打折</font>的时候使用。</p>
+<ul>
+<li><strong><font color="red">address 标签</font></strong></li>
+</ul>
+<p><code>&lt;address&gt;&lt;/address&gt;</code>是地址标签，它会将里面的内容变成<font color="red">斜体</font>并且<font color="red">独占一行</font>。</p>
+<p>这六个是很基础很简单的标签，作用也是显而易见，还有另外一种<font color="red">结构化标签</font>，它们没有特殊的效果，而是用来<font color="red">当做容器来盛放其他的标签</font>，这有点类似于每个家庭中都会单独分出来厨房卧室大厅等区域，然后每个区域中还有各种各样的设备，这里的家庭中的区域就是我们的结构化标签的作用。</p>
+<p>结构化标签还有另外一个作用就是用来<font color="red">为里面的子元素设置样式</font>。一般的元素如果某一条属性没有被开发者设置样式的话，它会自动继承父级元素的相应属性的样式。</p>
+<p>比如我们现在有三个p标签，我们想让三个p标签里面的文字都变成红色，给三个p标签都写上color:red 是非常麻烦的，最简单的方法是将三个p标签都放到一个结构化标签里面，给这个结构化标签一个color:red的样式，这样里面的三个p标签就都会有这个样式了。</p>
+<p>这两点作用是最常见的，因此我们在写一个页面之前，<font color="red">最先考虑的就是结构问题</font>，因此一般<font color="red">先写结构化标签</font>。</p>
+<h4 id="下面我们就介绍最常见的两个结构化标签。"><a href="#下面我们就介绍最常见的两个结构化标签。" class="headerlink" title="下面我们就介绍最常见的两个结构化标签。"></a><font color="red">下面我们就介绍最常见的两个结构化标签。</font></h4><ul>
+<li><strong><font color="red">div</font></strong></li>
+</ul>
+<p><code>&lt;div&gt;&lt;/div&gt;</code>标签可以说是我们在前端开发中用的最多的标签了。</p>
+<ul>
+<li><strong><font color="red">span</font></strong></li>
+</ul>
+<p><code>&lt;span&gt;&lt;/span&gt;</code>标签里面多数情况下盛放文字或者小icon之类的小物件。</p>
+<p>我们现在为div标签设置一下样式，并且在中间加一些文字。</p>
+<p><code>&lt;div style=”width: 100px; height:100px; background-color: red”&gt;</code>这是一个实例的结构化标签，一切正常<code>&lt;/div&gt;</code></p>
+<p>我们发现文字会在这个div标签的<font color="red">边界处自动换行</font>，也就是说这个div标签圈定了一个范围，里面的文字或者其他标签都默认在这个范围里面显示。</p>
+<p>但是当我们在中间书写的不是中文而是<font color="red">一串英文字符</font>的时候，我们会发现这一串英文字符在div的边界处并没有换行，而是一直显示下去，这是为什么呢？</p>
+<h4 id="文字分隔符与编码集"><a href="#文字分隔符与编码集" class="headerlink" title="文字分隔符与编码集"></a><font color="red">文字分隔符与编码集</font></h4><ul>
+<li>这是因为我们的每一个汉字，计算机都会认出来是一个单独的单词，每一个汉字都会默认地和其他汉字分隔开，但是英文字母却不会默认地分隔开，因为计算机不知道多少个英文字母才算是一个单词，因此我们需要手动为其添加分隔符。</li>
+</ul>
+<p>而这个分隔符我们也不陌生，就是我们常用的<font color="red">空格</font>，只要我们在这一串字符中间加几个空格，那么被空格隔开的字符就会被当做是一个单词从而与其他的单词分隔开。</p>
+<p>那么现在问题来了，空格的作用是当做分隔符来使用，并不是我们所想的那种空白的一个格，那么我们怎么在html中写空白格呢？</p>
+<ul>
+<li>这里我们就要提到一个名词叫做<font color="red">编码集</font>了。我们在书写html的时候，很多特殊的符号是无法写出来的，这个时候我们只能用编码来让浏览器识别我们所想的符号。编码的格式是<font color="red">&amp;编码;</font> 千万不能忘记后面的分号哟~</li>
+<li>空格的编码就是&nbsp; 当我们写多个&nbsp;的时候，在页面中我们也就可以看到多个空白格了。</li>
+<li>其次，用来当做标签的尖括号&lt;&gt;也是无法正常通过符号来显示出来的，我们同样需要用编码集让浏览器识别出来。&lt; 小于号的编码是<font color="red"><code>&amp;lt;</code></font> less than的意思，同理，&gt; 大于号的编码时<font color="red"><code>&amp;gt;</code></font> great than的意思。我们只要在html中写这两个编码，那么大于号和小于号就可以正常显示出来了哟~我记得有一个表情是 &gt;_&lt;~</li>
+<li>同样的，回车也是属于分隔符，在html中回车是没有作用的，我们想要在网页上让文字显示出回车换行的效果的话，编码同样也是没有办法实现的，我们需要一个标签叫做<font color="red"><code>&lt;br&gt;标签</code></font>，这个标签的作用就是换行。w3c标准中提到：<code>&lt;br&gt;</code> 标签是空标签（意味着它没有结束标签，因此这是错误的：<code>&lt;br&gt;&lt;/br&gt;</code>）。在 XHTML 中，把结束标签放在开始标签中，也就是 <code>&lt;br /&gt;</code>。</li>
+</ul>
+<h4 id="一些重要的标签"><a href="#一些重要的标签" class="headerlink" title="一些重要的标签"></a><font color="red">一些重要的标签</font></h4><ul>
+<li><strong><font color="red">ol li</font></strong></li>
+</ul>
+<p><code>&lt;ol&gt;&lt;li&gt;&lt;/li&gt;&lt;/ol&gt;</code>这是一组标签，它们二者都是成对出现的，每一个标签单独出现都是没有意义的事情。</p>
+<p>这一组标签叫做<font color="red">有序列表</font>，<strong>ol是外面的列表框，li是里面的子项，并且每一个li子项的前面都会带有序号。</strong></p>
+<pre><code>&lt;ol&gt;
+&lt;li&gt;q&lt;/li&gt;                      1.q
+&lt;li&gt;w&lt;/li&gt;                      2.w
+&lt;li&gt;e&lt;/li&gt;                      3.e
+&lt;/ol&gt;
+</code></pre><p>ol有一个属性叫做<font color="red">type属性</font>，这个属性的作用是用来设置每一个子项前面的显示内容的。默认情况下按照数字来排序的，我们可以改成type=”a” ，这样前面序号是按照小写字母来排序的。</p>
+<pre><code>a.q
+b.w
+c.e
+</code></pre><p>同样的，type的属性值还可以设置成<font color="red">A</font>–&gt;按照大写字母来排序；<font color="red">I</font>—&gt;按照i的个数来排序（罗马数字？）；I—&gt;大写I的个数来排序，除此之外，设置成其他的属性都是错误的，而错误的情况下ol会按照默认的数字来排序，2和b等都算是错误的值哟~</p>
+<ul>
+<li>ol的第二个属性叫做<font color="red">reversed</font>属性，当我们给ol加上<font color="red">reversed=”reversed”</font>的时候，子项就会变成倒序来排列。这个属性直接写reversed也是可以的，不过我同样认为reversed=”reversed”才是规范的写法。</li>
+<li>ol的第三个属性叫做<font color="red">start</font>属性，<strong>这个属性的意思是我们让子项从第几个序号开始显示，当我们写start=”2″的时候，前面的序号就会变成2、3、4 而不是默认的1、2、3，字母也是同样的道理。</strong></li>
+</ul>
+<p>但是有一个很重要的问题就是，我们在哪个网页看到文字前面有这些什么数字啊字母啊的序号吗？</p>
+<p>所以最后的结果就是，我们<font color="red">基本很少用到ol、li标签</font>哟~</p>
+<ul>
+<li><strong><font color="red">ul li</font></strong></li>
+</ul>
+<p><code>&lt;ul&gt;&lt;li&gt;&lt;/li&gt;&lt;/ul&gt;</code></p>
+<p>这一组标签是无序列表，除了前面的序号都变成了点（• ）之外，其他的和有序列表基本一样。</p>
+<ul>
+<li>ul同样有一个<font color="red">type属性</font>，这个属性的值设置的是每一个子项前面显示的符号的形式，默认的值是<font color="red">disc</font>圆点，当值是<font color="red">square</font>的时候，前面显示的就是小方块，值是<font color="red">circle</font> 的时候前面显示的就是空心圆圈。</li>
+</ul>
+<p>但是同样的道理，我们也没有在哪个网页上看到文字前面带有这些恶心的圆点方块之类的，因此我们在使用ul、li标签的时候，都会先把ul的默认样式list-style改成none，<font color="red">list-style: none</font>;不过这已经属于css的部分了~</p>
+<p>无序列表一般用来当做导航栏之类的，里面的结构样式都一样的部分，像淘宝什么的网页的导航栏就都是用ul、li来写的。</p>
+<pre><code>我的淘宝  购物车 收藏夹 商品分类  |  卖家中心 联系客服  网站导航
+</code></pre><ul>
+<li><strong><font color="red">a</font></strong></li>
+</ul>
+<p><code>&lt;a&gt;&lt;/a&gt;</code>标签是一个非常重要的标签，它有一个必须写的属性叫做<font color="red">href</font> —&gt;<font color="red">hyperText reference</font>  超文本链接，里面写的是地址。</p>
+<p>a的英文单词是anchor锚点的意思，因此这个标签的作用主要有两点：</p>
+<ol>
+<li><font color="red">定点跳转我们指定的id的元素位置</font>。这个用法需要我们在href中写上id的值  <code>&lt;a href=”#clickme”&gt;</code>点击我跳转<code>&lt;/a&gt;</code>这样就会跳转到那个id是clickme的元素的位置</li>
+<li><font color="red">超链接</font>。我们自href中写一个本地的或者网上的链接，比如<a href="http://www.baidu.com" target="_blank" rel="noopener">www.baidu.com</a> ，这样我们点击的时候就会跳转到这个网页上去了。</li>
+<li><font color="red">协议限定符</font>。在href中我们可以写javascript代码，比如href=”javascript:while(1){alert(‘你中毒了’)}”，当我们写上这行代码的时候，我们点击这个a标签之后浏览器就会一直弹出对话框。</li>
+</ol>
+<p>通常在<font color="red">移动端</font>我们都用a标签来<font color="red">调用接口</font>，比如：href=”<font color="red">phoneto</font>:12234512345″ 调用手机的拨号功能来拨打电话，像美团外卖之类的就是用的这个功能。</p>
+<p>a标签默认的是<font color="red">蓝色</font>的字体并且带有<font color="red">下划线</font>，我们在页面初始化的时候通常也习惯与将a标签的颜色和下划线的默认属性都去掉。</p>
+<ul>
+<li><strong><font color="red">img</font></strong></li>
+</ul>
+<p><code>&lt;img&gt;&lt;/img&gt;</code>标签是image图片的意思，它有一个必备的属性叫做<font color="red">src</font> –-&gt;source，这个src属性的值就是我们的图片的地址。一般来说我们给src填写两种值：</p>
+<ol>
+<li><font color="red">网上</font>的链接</li>
+<li><font color="red">本地</font>的链接</li>
+</ol>
+<p>说道本地的链接就不得不提到本地链接的书写形式。本地链接分为两种：<font color="red">相对地址</font>和<font color="red">绝对地址</font>绝对地址。而绝对地址我们通常是不用的，因为当文件上传到服务器上的时候，凡是用绝对地址写的链接统统都会失效的，因此我们都要<font color="red">选择相对地址</font>。</p>
+<p>相对地址中 <font color="red">../的意思是返回当前文件的上一层目录 ，./的意思是当前文件所在的目录</font>，比如说我们有一张图片和这个html文件在同一个文件夹下面，那么我们就可以写&lt;img src=”./tupian.png”&gt;</p>
+<p>同时这个图片标签还有两个属性。</p>
+<ol>
+<li><font color="red">alt属性</font>。<strong>这个属性是为其设置图片占位符，也就是说当图片因为网速或者链接错误等原因加载不出来的时候，就会显示alt里面我们设置的值。</strong></li>
+<li><font color="red">title属性</font>。<strong>图片提示符。当我们鼠标移入图片的时候，在鼠标旁边会出现一个黄色的小方块来显示这个title属性里面设置的值。</strong></li>
+</ol>
+<p>以上就是几个比较重要的标签的介绍了，还有一个不太常见也不太重要但是需要了解的标签，<font color="red">table标签</font>。</p>
+<ul>
+<li><strong><font color="red">table</font></strong></li>
+</ul>
+<p><code>&lt;table&gt;&lt;/table&gt;</code>是一个三级结构标签，它要搭配<code>&lt;tr&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;</code>这两个标签一起使用才可以。</p>
+<p>table是表格的意思，<code>&lt;table&gt;&lt;table&gt;</code>这个标签就是设置外层的表格，然后tr是表格的行，td是表格的数据单元，我们可以理解为列。</p>
+<pre><code>&lt;table&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+&lt;/table&gt;
+</code></pre><p>table标签的大概结构是这个样子的，同时td还有几个属性。</p>
+<ol>
+<li><font color="red">cellpadding</font> 内边距属性，我们可以为每一个单元格都设置内边距 cellpadding=”10px”;</li>
+<li>.<font color="red">cellspacing</font> 属性，这个属性的作用规定单元之间的空间，当我们设置为0的时候就可以去掉边线了。</li>
+<li><font color="red">colspan</font> 属性，这个属性规定了这一个td占了几个单位，默认的一个td占一个单位，类似于excel中的合并单元格的作用。</li>
+</ol>
+<p>我们现在一般都不用table标签了，这是一个<font color="red">结构化标签</font>，以前用这个标签来给页面进行<font color="red">布局</font>，但是现在我们直接用<font color="red">div + css</font>来对页面进行布局。</p>
+<p><strong><font color="red">那么为什么我们要弃用table标签呢？</font></strong></p>
+<p>说道这里我们就不得不提一下异步和同步的概念</p>
+<p>在生活中，我们常说的异步是指顺序的干两件事情，比如先吃饭，再玩游戏；同步的意思是同时干，一边吃饭一边打游戏。</p>
+<font color="red">但是在计算机领域中，异步指的是生活中的同步，同时加载的意思，同步则是生活中的顺序加载的意思。</font>
+
+<p>table的缺点在于服务器把代码加载到本地服务器的过程中，本来是加载一行执行一行，但是table标签是里面的东西<font color="red">全都下载完之后才会显示出来</font>，那么如果图片很多的话就会导致网页一直加载不出来，除非所有的图片和内容都加载完。以前的手机网速慢，厂家重视内容的展现而不是样式的展现，所以那个时候用table，而现在网速很快，大家都重视用户体验，当我们浏览淘宝店铺的时候，如果要等到所有的图片全都加载完之后才显示出来的话那也太蠢了，所以table标签现在我们基本放弃使用了。</p>
+<p>但是基本不使用不代表不使用，有些情况下还是可以用table标签的哟~</p>
+<h4 id="最后我们再来介绍一个非常重要的标签——表单"><a href="#最后我们再来介绍一个非常重要的标签——表单" class="headerlink" title="最后我们再来介绍一个非常重要的标签——表单"></a><font color="red">最后我们再来介绍一个非常重要的标签——表单</font></h4><font color="red"><code>&lt;form&gt;&lt;/form&gt;</code></font>表单元素，这个元素可以让我们实现前端和后台的数据交互。<br><br>我们通过form表单向后台发送数据，数据都是由两部分组成的：<font color="red">数据名+数据内容</font>。<br><br>表单都是成组出现的，里面有各种各样的元素。<br><br><font color="red">我们先介绍一下form表单元素拥有的属性：</font>
+
+<ol>
+<li><font color="red">action属性</font> 填写服务器地址，这个属性的意思是我们把数据传递到那个服务器。</li>
+<li><font color="red">method属性</font>传输方法，我们在这里填写通过什么方式来传输数据，一般填写的都是POST/GET这两种中的一个，虽然有其他的方式但是用的韩少，而post和get的区别我们在网络篇会有介绍，这里我们暂时都先写get方法吧。</li>
+</ol>
+<font color="red">介绍完属性之后，我们再介绍一下表单拥有的子元素：</font>
+
+<ul>
+<li><strong><font color="red">input标签</font></strong> 这个标签是一个单标签，不需要闭合。</li>
+</ul>
+<p>这个标签有一个type属性，而这个属性的值决定了这个input标签的类型是什么。</p>
+<ol>
+<li><font color="red">text</font>  如果type=”text”的话，这个input标签就是一个输入框，我们可以在里面输入文字信息。</li>
+<li><font color="red">password</font> 如果type=”password “的话，这个input标签就是一个密码框，我们在里面输入的文字信息都会以隐藏的形式展现出来。</li>
+<li><font color="red">submit</font> 如果type=”submit “的话，这个input标签就是一个提交按钮，我们点击这个提交按钮之后就会把整个表单的数据发送到后台服务器上了。</li>
+</ol>
+<p>我们刚才提到了发送数据一定要有数据名和<font color="red">数据内容</font>，数据内容就是我们给input标签设置的<font color="red">value属性</font>的值，而数据名我们就需要在input标签里面写一个<font color="red">name属性</font>来告诉浏览器我们这个数据的名字是什么了。</p>
+<p>这里我们写一个简单的<font color="red">用户提交的表单</font>：</p>
+<pre><code>&lt;form action=&quot;url&quot; method=&quot;get&quot;&gt;
+    &lt;input type=&quot;text&quot; name=&quot;uname&quot; id=&quot;name&quot;&gt;
+    &lt;input type=&quot;password&quot; name=&quot;pwd&quot; id=&quot;pwd&quot;&gt;
+    &lt;input type=&quot;submit&quot; value=&quot;确认提交&quot; class=&quot;btn&quot;&gt;
+&lt;/form&gt;
+</code></pre><p>在浏览器上的显示内容是这个样子的：</p>
+<form action="url" method="get"><br><input type="text" name="uname" id="name"><br><input type="password" name="pwd" id="pwd"><br><input type="submit" value="确认提交" class="btn"><br></form>
+
+<p>当我们随便写一个用户名和密码之后点击提交按钮，我们会发现我们的网页地址上后面出现了我们所传递的数据的信息。</p>
+<p>?username=123&amp;password=123 这里我们很容易就可以看出来数据的名字和数据的内容了。</p>
+<p><strong><font color="red">同时，input还有其他的数据形式：</font></strong></p>
+<ul>
+<li><font color="red">type=”radio”</font></li>
+<li><font color="red">type=”checkbox”</font>
+
+</li>
+</ul>
+<p>radio是<font color="red">单选框</font>的意思，当我们给一个input设置radio的type之后，它就会变成一个圆点，我们可以选择这个圆点，但是我们写很多的单选框的时候，他们似乎都可以被选中，并没有单选的作用。<font color="red">这里是因为我们还没有为这一组单选框设置名字</font>，<strong>当我们给几个radio都设置了同一个name的时候，它们就会变得只能选择一个了的单选框了。</strong></p>
+<pre><code>&lt;input type=&quot;radio&quot; name=&quot;r&quot; value=&quot;A&quot; checked=&quot;checked&quot;/&gt;A
+&lt;input type=&quot;radio&quot; name=&quot;r&quot; value=&quot;B&quot; checked=&quot;checked&quot;/&gt;B
+&lt;input type=&quot;radio&quot; name=&quot;r&quot; value=&quot;C&quot; checked=&quot;checked&quot;/&gt;C
+</code></pre><p><input type="radio" name="r" value="A" checked="checked">A</p>
+<p><input type="radio" name="r" value="B">B</p>
+<p><input type="radio" name="r" value="C">C</p>
+<p>checkbox是<font color="red">复选框</font>的意思，当input的type值设置成这个之后，和radio一样的道理，设置好数据的名字，我们可以同时选择很多的选项。    </p>
+<pre><code>&lt;input type=&quot;checkbox&quot; name=&quot;f&quot; value=&quot;&quot;/&gt;苹果
+&lt;input type=&quot;checkbox&quot; name=&quot;f&quot; value=&quot;&quot;/&gt;橘子
+&lt;input type=&quot;checkbox&quot; name=&quot;f&quot; value=&quot;&quot;/&gt;葡萄
+</code></pre><p><input type="checkbox" name="f" value="">苹果</p>
+<p><input type="checkbox" name="f" value="">橘子</p>
+<p><input type="checkbox" name="f" value="">葡萄</p>
+<ul>
+<li>当我们开发的时候，我们其实是需要为每一项属性都设置一个<font color="red">默认的值</font>的，像sex这种单选框，我们设置一个默认值之后，就会有一半的用户不需要去更改这个选项，会极大地提高用户体验。</li>
+<li>设置这个默认的值的方法就是添加一个<font color="red">checked=”checked”属性</font>，我们在哪一个input标签里面设置了这个属性，那么哪一个选项就是默认被选择的状态</li>
+</ul>
+<p>最后我们还有一个下拉列表的标签<code>&lt;select&gt;&lt;/select&gt;</code></p>
+<pre><code>&lt;select&gt;
+    &lt;option&gt;武汉&lt;/option&gt;
+    &lt;option&gt;上海&lt;/option&gt; 
+    &lt;option&gt;北京&lt;/option&gt;
+&lt;/select&gt;
+</code></pre><select><br><option>武汉</option><br><option>上海</option><br><option>北京</option><br></select>
+
+<p>下拉列表的<font color="red">name属性</font>是写在<font color="red"><code>&lt;select&gt;</code></font>标签上的，里面option中间填写的内容就是默认的数据值，但是如果我们给每一个option都加一个<font color="red">value属性</font>的话，那么option中间添加的文字则不作为传递的数据的值，value的值作为传递的数据的值，同时下拉列表的默认选中的是第一个选项，如果我们要改变默认选项的话，要添加的属性是<font color="red">selected=”selected”</font><strong>而不是上面的checked。</strong></p>
+<p>那么我所总结的比较常用的重要的标签主要就有以上几种了，希望对大家有帮助哟~</p>
+<h4 id="标签的分类"><a href="#标签的分类" class="headerlink" title="标签的分类"></a><font color="red">标签的分类</font></h4><p>html的标签主要分为两类：</p>
+<ol>
+<li><font color="red">行级/内联/行内元素 display: inline;</font>
+
+<p> 这一类元素的特点是：</p>
+ <font color="red">   •  不独占一行，元素所占空间完全由内容所控制</font>
+
+   <font color="red">• 不可以改变宽高</font>
+
+<p> 标签代表有：a em br select span strong select</p>
+</li>
+<li><font color="red">块级元素 display: block;</font>
+
+<p> 这一类元素的特点是：</p>
+  <font color="red">   • 独占一行，无论内容多还是少</font>
+
+   <font color="red">• 可以改变宽高</font>
+
+<p> 标签代表有：h1-h6 p ol ul li div form table address等</p>
+</li>
+</ol>
+<p>其实还有第三种标签，这一类标签<font color="red">既不属于行级元素也不属于块级元素</font>，它们<font color="red">既不独占一行</font><br>，又可以<font color="red">随意改变宽高</font>，比如<font color="red"><code>&lt;img&gt;&lt;input&gt;</code></font>标签。</p>
+<font color="red"></font>
+
+
+
+
+]]></content>
+  </entry>
+</search>
