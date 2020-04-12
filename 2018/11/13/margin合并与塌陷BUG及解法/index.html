@@ -115,15 +115,15 @@
 <meta property="og:site_name" content="welcome">
 <meta property="og:description" content="其实css也不是极其完善的，其中也存在着或多或少的bug，有些我们可能从来不会遇到，有些我们可能会经常遇到，这次介绍的两个bug是属于cssbug中的很经典的两个bug——margin合并与margin塌陷问题。 margin合并现象   • 我们现在写两个span标签，并且给它们两个分别加上margin-right和margin-left的样式。  &amp;lt;span class=&amp;quot;le">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="https://i.imgur.com/hZPjk7D.png">
-<meta property="og:image" content="https://i.imgur.com/stB73S6.png">
-<meta property="og:image" content="https://i.imgur.com/zFVpZHv.png">
-<meta property="og:image" content="https://i.imgur.com/SyDpNRF.png">
-<meta property="og:updated_time" content="2018-12-25T02:32:04.905Z">
+<meta property="og:image" content="http://yoursite.com/2018/11/13/margin合并与塌陷BUG及解法/images/marginbug1.png">
+<meta property="og:image" content="http://yoursite.com/2018/11/13/margin合并与塌陷BUG及解法/images/marginbug2.png">
+<meta property="og:image" content="http://yoursite.com/2018/11/13/margin合并与塌陷BUG及解法/images/marginbug3.png">
+<meta property="og:image" content="http://yoursite.com/2018/11/13/margin合并与塌陷BUG及解法/images/marginbug4.png">
+<meta property="og:updated_time" content="2020-04-12T10:21:05.237Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="margin合并与塌陷BUG及解法">
 <meta name="twitter:description" content="其实css也不是极其完善的，其中也存在着或多或少的bug，有些我们可能从来不会遇到，有些我们可能会经常遇到，这次介绍的两个bug是属于cssbug中的很经典的两个bug——margin合并与margin塌陷问题。 margin合并现象   • 我们现在写两个span标签，并且给它们两个分别加上margin-right和margin-left的样式。  &amp;lt;span class=&amp;quot;le">
-<meta name="twitter:image" content="https://i.imgur.com/hZPjk7D.png">
+<meta name="twitter:image" content="http://yoursite.com/2018/11/13/margin合并与塌陷BUG及解法/images/marginbug1.png">
 
 
 
@@ -400,7 +400,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2018-12-25 10:32:04" itemprop="dateModified" datetime="2018-12-25T10:32:04+08:00">2018-12-25</time>
+                <time title="Modified: 2020-04-12 18:21:05" itemprop="dateModified" datetime="2020-04-12T18:21:05+08:00">2020-04-12</time>
               
             
           </span>
@@ -445,7 +445,7 @@
     margin-left: 10px;
     background-color: yellow;
 }
-</code></pre><p><img src="https://i.imgur.com/hZPjk7D.png" alt=""></p>
+</code></pre><p><img src="images/marginbug1.png" alt=""></p>
 <p>我们会发现，这两个span之间的距离正是我们所想的那样是20px的宽度，但是我们现在再写两个div，然后分别给它们加上<font color="red">margin-bottom</font>和<font color="red">margin-top</font>的样式，我们再来看看效果。</p>
 <pre><code>&lt;div class=&quot;top&quot;&gt;top&lt;/div&gt;
 &lt;div class=&quot;bottom&quot;&gt;bottom&lt;/div&gt;
@@ -458,7 +458,7 @@
     margin-top: 10px;
     background-color: yellow;
 }
-</code></pre><p><img src="https://i.imgur.com/stB73S6.png" alt=""></p>
+</code></pre><p><img src="images/marginbug2.png" alt=""></p>
 <p>这次我们惊奇的发现，<font color="red">这两个div上下之间的距离，并不是我们所想的那样是相加的20px，而是只有10px！</font></p>
 <p>这个现象就是标题所说的<font color="red">margin上下合并现象</font>。</p>
 <p>我们尝试改变每一个div的margin-top或者margin-bottom的值，最后发现：二者上下之间的距离是取得两个数值之中的<font color="red">最大值</font>。</p>
@@ -483,9 +483,9 @@
         background-color: red;
     }
 </code></pre><p>我们写这段代码的原意是想要一个100100大小的父级div，然后里面有一个5050大小的子级div，然后让这个div在父级div的右下角，同时父级div距离浏览器的边框有100px的距离。</p>
-<p><img src="https://i.imgur.com/zFVpZHv.png" alt=""></p>
+<p><img src="images/marginbug3.png" alt=""></p>
 <p>当我们运行这段代码的时候，我们会发现，子级div的margin-left生效了但是好像margin-top并没有生效？</p>
-<p><img src="https://i.imgur.com/SyDpNRF.png" alt=""></p>
+<p><img src="images/marginbug4.png" alt=""></p>
 <p>其实并不是，margin-top也生效了，但是这里的margin-top的效果并不是我们所想的那样距离父级div的距离是50px，而是子级的div距离浏览器边框的距离是50px，由于本身父级div有一个margin-top的值，所以就导致了我们子级的margin-top的效果并没有显现出来，我们再改变一下子级div的margin-top的值，改成200px，我们又会惊奇的发现，子级div不仅没有距离父级div有了一段距离，<font color="red">反而带动了父级div一起向下移动了</font>！这就是margin塌陷现象。</p>
 <h4 id="那么对于这两个问题我们要怎么解决呢？"><a href="#那么对于这两个问题我们要怎么解决呢？" class="headerlink" title="那么对于这两个问题我们要怎么解决呢？"></a><font color="red">那么对于这两个问题我们要怎么解决呢？</font></h4><p><strong><font color="red">margin塌陷的解法</font></strong></p>
 <p>解法一共有两种：</p>
@@ -634,7 +634,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">46</span>
+                    <span class="site-state-item-count">47</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>

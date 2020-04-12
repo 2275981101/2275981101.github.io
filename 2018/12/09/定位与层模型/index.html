@@ -115,14 +115,14 @@
 <meta property="og:site_name" content="welcome">
 <meta property="og:description" content="层模型css中元素的层次模型主要是由position这个属性来决定的。 position属性：position的意思是定位，同样这个属性的作用就是给元素施加定位。它一共有四个值，分别是static、absolute、relative、fixed。 static • static是默认的属性，当我们没有写position属性的时候，元素默认的定位就是static定位。 absolute • abso">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="https://i.imgur.com/qx7jaAd.png">
-<meta property="og:image" content="https://i.imgur.com/a6ip5NV.png">
-<meta property="og:image" content="https://i.imgur.com/d9fpGrk.png">
-<meta property="og:updated_time" content="2019-01-02T03:26:14.237Z">
+<meta property="og:image" content="http://yoursite.com/2018/12/09/定位与层模型/images/position1.png">
+<meta property="og:image" content="http://yoursite.com/2018/12/09/定位与层模型/images/position2.png">
+<meta property="og:image" content="http://yoursite.com/2018/12/09/定位与层模型/images/position3.png">
+<meta property="og:updated_time" content="2020-04-12T10:21:55.065Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="定位与层模型">
 <meta name="twitter:description" content="层模型css中元素的层次模型主要是由position这个属性来决定的。 position属性：position的意思是定位，同样这个属性的作用就是给元素施加定位。它一共有四个值，分别是static、absolute、relative、fixed。 static • static是默认的属性，当我们没有写position属性的时候，元素默认的定位就是static定位。 absolute • abso">
-<meta name="twitter:image" content="https://i.imgur.com/qx7jaAd.png">
+<meta name="twitter:image" content="http://yoursite.com/2018/12/09/定位与层模型/images/position1.png">
 
 
 
@@ -399,7 +399,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-01-02 11:26:14" itemprop="dateModified" datetime="2019-01-02T11:26:14+08:00">2019-01-02</time>
+                <time title="Modified: 2020-04-12 18:21:55" itemprop="dateModified" datetime="2020-04-12T18:21:55+08:00">2020-04-12</time>
               
             
           </span>
@@ -453,7 +453,7 @@
 <p>• 当position改成relative之后，left、top、right、bottom进行的定位就会变成<font color="red">相对于自身的位置</font>进行移动了。</p>
 <p>• relative的<font color="red">参照物是元素自身</font>。</p>
 <p>• 当我们仅仅给元素设置position:relative;并没有设置left、right、top、bottom属性的时候，元素的定位是没有发生任何改变的，因为这个特性，一般在开发中，<font color="red">relative都是用作设置参照物的</font>，一个absolute元素要相对于那个元素进行移动，就给那个元素设置relative的定位就可以了。</p>
-<font color="red">我们通过例子来看一下absolute和relative的区别。</font><br>我们现在有这样一个结构:<br><br>    <div class="wrapper"><br>        <div class="box"><br>            <div class="content"></div><br>        </div><br>    </div><br><br>    .wrapper{<br>        width: 200px;<br>        height: 200px;<br>        background-color: orange;<br>        margin-top: 100px;<br>        margin-left: 100px;<br>    }<br>    .box{<br>        width: 100px;<br>        height: 100px;<br>        background-color: black;<br>        margin-left: 100px;<br>    }<br>    .content{<br>        width: 50px;<br>        height: 50px;<br>        background-color: yellow;<br>    }<br><br>这个时候时候我们在浏览器中看到的样式是这个样子的：<br><br><img src="https://i.imgur.com/qx7jaAd.png" alt=""><br><br>现在我们给content加上定位的样式。<br><br>    .content{<br>        position: absolute;<br>        left: 50px;<br>        width: 50px;<br>        height: 50px;<br>        background-color: yellow;<br>    }<br><br>这个时候浏览器中的样式就会发生改变，content那个黄色的小方块会跑到橘黄色的方块外面：<br><br><img src="https://i.imgur.com/a6ip5NV.png" alt=""><br><br>这是因为，当我们给content设置position:absolute;之后，浏览器在渲染的时候，会先向上找到box这个div，看看这个div有没有定位，因为没有，所以继续向上找wrapper，依然没有，再向上找body，还是没有，所以最后就是<font color="red">相对于浏览器边框定位</font>，这个时候content的left属性就是相对于浏览器边框左边有50px的距离的意思。<br><br>现在我们把content的定位换成relative，浏览器中的结果变成了这个样子：<br><br><img src="https://i.imgur.com/d9fpGrk.png" alt=""><br><br>本来content黄色小方块在黑色方块的左上角，然后relative相对与自身的位置进行定位，这个时候的left属性的意思就是相对于本来在黑色左上角的那个位置向右移动了50px的距离，也就是现在这个黄色小方块所在的位置。<br><br>因此，总结一下absolute和relative的特点如下：<br><br><br>• <font color="red">absolute：<br><br>1.脱离原来位置进行定位<br><br>2.相对于最近的有定位的父级进行定位，如果没有那么相对于浏览器边框定位。</font>
+<font color="red">我们通过例子来看一下absolute和relative的区别。</font><br>我们现在有这样一个结构:<br><br>    <div class="wrapper"><br>        <div class="box"><br>            <div class="content"></div><br>        </div><br>    </div><br><br>    .wrapper{<br>        width: 200px;<br>        height: 200px;<br>        background-color: orange;<br>        margin-top: 100px;<br>        margin-left: 100px;<br>    }<br>    .box{<br>        width: 100px;<br>        height: 100px;<br>        background-color: black;<br>        margin-left: 100px;<br>    }<br>    .content{<br>        width: 50px;<br>        height: 50px;<br>        background-color: yellow;<br>    }<br><br>这个时候时候我们在浏览器中看到的样式是这个样子的：<br><br><img src="images/position1.png" alt=""><br><br>现在我们给content加上定位的样式。<br><br>    .content{<br>        position: absolute;<br>        left: 50px;<br>        width: 50px;<br>        height: 50px;<br>        background-color: yellow;<br>    }<br><br>这个时候浏览器中的样式就会发生改变，content那个黄色的小方块会跑到橘黄色的方块外面：<br><br><img src="images/position2.png" alt=""><br><br>这是因为，当我们给content设置position:absolute;之后，浏览器在渲染的时候，会先向上找到box这个div，看看这个div有没有定位，因为没有，所以继续向上找wrapper，依然没有，再向上找body，还是没有，所以最后就是<font color="red">相对于浏览器边框定位</font>，这个时候content的left属性就是相对于浏览器边框左边有50px的距离的意思。<br><br>现在我们把content的定位换成relative，浏览器中的结果变成了这个样子：<br><br><img src="images/position3.png" alt=""><br><br>本来content黄色小方块在黑色方块的左上角，然后relative相对与自身的位置进行定位，这个时候的left属性的意思就是相对于本来在黑色左上角的那个位置向右移动了50px的距离，也就是现在这个黄色小方块所在的位置。<br><br>因此，总结一下absolute和relative的特点如下：<br><br><br>• <font color="red">absolute：<br><br>1.脱离原来位置进行定位<br><br>2.相对于最近的有定位的父级进行定位，如果没有那么相对于浏览器边框定位。</font>
 
 
 <p>• <font color="red">relative：</font></p>
@@ -544,8 +544,8 @@ div{
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/12/08/其他知识点/" rel="next" title="其他小知识点">
-                <i class="fa fa-chevron-left"></i> 其他小知识点
+              <a href="/2018/12/08/其他知识点/" rel="next" title="其他小知识点(jq连续调用/arguments.callee/caller/属性映射/img图片预加载/模拟提取类名)">
+                <i class="fa fa-chevron-left"></i> 其他小知识点(jq连续调用/arguments.callee/caller/属性映射/img图片预加载/模拟提取类名)
               </a>
             
           </div>
@@ -626,7 +626,7 @@ div{
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">46</span>
+                    <span class="site-state-item-count">47</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>

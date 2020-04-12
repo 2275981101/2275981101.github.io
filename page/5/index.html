@@ -335,6 +335,200 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/07/blog7/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wanghai">
+      <meta itemprop="description" content="Wanghai个人站，主要涉及前端知识共享、实践教程、前沿技术共同学习等方面">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="welcome">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2018/11/07/blog7/" class="post-title-link" itemprop="http://yoursite.com/page/5/index.html">CSS实现微信对话框</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-11-07 16:29:58" itemprop="dateCreated datePublished" datetime="2018-11-07T16:29:58+08:00">2018-11-07</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2020-04-12 17:23:39" itemprop="dateModified" datetime="2020-04-12T17:23:39+08:00">2020-04-12</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="实现原理"><a href="#实现原理" class="headerlink" title="实现原理"></a><font color="red">实现原理</font></h4><p><strong>此效果利用了一个高度、宽度均为0的伪元素实现。</strong></p>
+<p><strong>当某元素的高度、宽度均为0,并且设置边框之后,其边框将变为4个顶角相对的三角形,如下图</strong></p>
+<p><img src="images/blog7.1.png" alt=""></p>
+<pre><code>&lt;style&gt;
+    .box{
+        height: 0;
+        width: 0;
+        border: 100px solid;
+        border-color: #25a23b #abcdef #0000ff crimson;
+    }
+&lt;/style&gt;
+&lt;div class=&quot;box&quot;&gt;&lt;/div&gt;
+</code></pre><p><img src="images/blog7.2.png" alt=""></p>
+<pre><code>&lt;style&gt;
+.demo{
+      position: relative;
+      left: 200px;
+      max-width: 150px;
+      max-height: 90px;
+      background: #25a23b;
+      -webkit-border-radius: 5px;
+      -moz-border-radius: 5px;
+      border-radius: 5px;
+      font-size: 14px;
+      padding: 5px;
+      color: white;
+      word-break: break-word;
+    }
+    .demo::before{
+        content: &quot;&quot;;
+        position: absolute;
+        width: 0;
+        height: 0;
+        left: -18px;
+        top: 17px;
+        border: 9px solid;
+        border-color: transparent #25a23b transparent transparent;
+    }
+&lt;/style&gt;
+&lt;div class=&quot;demo&quot;&gt;background background background background background   background 
+&lt;/div&gt;
+</code></pre>
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/06/blog6/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -397,7 +591,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2018-12-13 15:37:44" itemprop="dateModified" datetime="2018-12-13T15:37:44+08:00">2018-12-13</time>
+                <time title="Modified: 2020-04-12 17:23:00" itemprop="dateModified" datetime="2020-04-12T17:23:00+08:00">2020-04-12</time>
               
             
           </span>
@@ -462,7 +656,6 @@
 <p><strong><font color="red">盒模型</font></strong></p>
 <p>当你设置了元素的宽度，实际展现的元素却超出你的设置:这是因为元素的边框和内边距会撑开元素。<br>看下面的例子，两个相同宽度的元素显示的实际宽度却不一样。</p>
 <p>  <style><br>  .small{<br>            width: 500px;<br>            height: 300px;<br>            margin: 20px auto;<br>            background-color: pink;<br>            box-sizing: border-box;<br>        }<br>        .big{<br>            width: 500px;<br>            height: 300px;<br>            margin: 20px auto;<br>            padding: 50px;<br>            border: 10px solid black;<br>            background-color: crimson;<br>        }<br>  </style><br>  <div class="small"></div><br>  <div class="big"></div></p>
-<p><img src="https://i.imgur.com/pU3yaUM.png" alt=""></p>
 
           
         
@@ -581,7 +774,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2018-12-13 15:37:37" itemprop="dateModified" datetime="2018-12-13T15:37:37+08:00">2018-12-13</time>
+                <time title="Modified: 2020-04-12 17:22:18" itemprop="dateModified" datetime="2020-04-12T17:22:18+08:00">2020-04-12</time>
               
             
           </span>
@@ -616,7 +809,7 @@
       
         
           
-            <p><img src="https://i.imgur.com/B4Yhu4R.png" alt=""></p>
+            <p><img src="images/blog5.png" alt=""></p>
 <h4 id="1-单行文本"><a href="#1-单行文本" class="headerlink" title="1.单行文本"></a>1.单行文本</h4><pre><code>p{
    white-space: nowrap;//强制不换行
       overflow: hidden;
@@ -746,7 +939,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2018-12-13 15:37:30" itemprop="dateModified" datetime="2018-12-13T15:37:30+08:00">2018-12-13</time>
+                <time title="Modified: 2020-04-12 17:21:55" itemprop="dateModified" datetime="2020-04-12T17:21:55+08:00">2020-04-12</time>
               
             
           </span>
@@ -781,7 +974,7 @@
       
         
           
-            <p><img src="https://i.imgur.com/G7TYoeP.png" alt=""></p>
+            <p><img src="images/blog4.png" alt=""></p>
 <pre><code>&lt;style&gt;
     .myCheck{
         display: none;
@@ -942,7 +1135,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2018-12-13 18:09:25" itemprop="dateModified" datetime="2018-12-13T18:09:25+08:00">2018-12-13</time>
+                <time title="Modified: 2020-04-12 17:21:27" itemprop="dateModified" datetime="2020-04-12T17:21:27+08:00">2020-04-12</time>
               
             
           </span>
@@ -1041,7 +1234,7 @@
     &lt;div class=&quot;content&quot;&gt;内容区&lt;/div&gt;
     &lt;div id=&quot;footer&quot;&gt;底部&lt;/div&gt;
 &lt;/div&gt;
-</code></pre><p><img src="https://i.imgur.com/ekky5oz.png" alt=""></p>
+</code></pre><p><img src="images/blog3.png" alt=""></p>
 
           
         
@@ -1728,7 +1921,7 @@ c.e
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">46</span>
+                    <span class="site-state-item-count">47</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>

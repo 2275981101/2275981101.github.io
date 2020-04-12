@@ -115,15 +115,15 @@
 <meta property="og:site_name" content="welcome">
 <meta property="og:description" content="层模型css中元素的层次模型主要是由position这个属性来决定的。 position属性：position的意思是定位，同样这个属性的作用就是给元素施加定位。它一共有四个值，分别是static、absolute、relative、fixed。 static • static是默认的属性，当我们没有写position属性的时候，元素默认的定位就是static定位。 absolute  • abs">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="https://i.imgur.com/CqeccHD.png">
-<meta property="og:image" content="https://i.imgur.com/gBrUDKu.png">
-<meta property="og:image" content="https://i.imgur.com/rHbXfuf.png">
-<meta property="og:image" content="https://i.imgur.com/78XewWd.png">
-<meta property="og:updated_time" content="2018-12-13T07:38:01.659Z">
+<meta property="og:image" content="http://yoursite.com/2018/11/09/blog9/images/blog9.1.png">
+<meta property="og:image" content="http://yoursite.com/2018/11/09/blog9/images/blog9.2.png">
+<meta property="og:image" content="http://yoursite.com/2018/11/09/blog9/images/blog9.3.png">
+<meta property="og:image" content="http://yoursite.com/2018/11/09/blog9/images/blog9.4.png">
+<meta property="og:updated_time" content="2020-04-12T09:24:23.202Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CSS定位与层模型">
 <meta name="twitter:description" content="层模型css中元素的层次模型主要是由position这个属性来决定的。 position属性：position的意思是定位，同样这个属性的作用就是给元素施加定位。它一共有四个值，分别是static、absolute、relative、fixed。 static • static是默认的属性，当我们没有写position属性的时候，元素默认的定位就是static定位。 absolute  • abs">
-<meta name="twitter:image" content="https://i.imgur.com/CqeccHD.png">
+<meta name="twitter:image" content="http://yoursite.com/2018/11/09/blog9/images/blog9.1.png">
 
 
 
@@ -400,7 +400,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2018-12-13 15:38:01" itemprop="dateModified" datetime="2018-12-13T15:38:01+08:00">2018-12-13</time>
+                <time title="Modified: 2020-04-12 17:24:23" itemprop="dateModified" datetime="2020-04-12T17:24:23+08:00">2020-04-12</time>
               
             
           </span>
@@ -491,7 +491,7 @@
       background-color: yellow;
 }
 </code></pre><p>这个时候时候我们在浏览器中看到的样式是这个样子的：</p>
-<p><img src="https://i.imgur.com/CqeccHD.png" alt=""></p>
+<p><img src="images/blog9.1.png" alt=""></p>
 <p>现在我们给content加上定位的样式。</p>
 <pre><code>.content{
   position:absolute;
@@ -501,10 +501,10 @@
   background-color: yellow;
 }
 </code></pre><p>这个时候浏览器中的样式就会发生改变，content那个黄色的小方块会跑到橘黄色的方块外面：</p>
-<p><img src="https://i.imgur.com/gBrUDKu.png" alt=""></p>
+<p><img src="images/blog9.2.png" alt=""></p>
 <p>这是因为，当我们给content设置position:absolute;之后，浏览器在渲染的时候，会先向上找到box这个div，看看这个div有没有定位，因为没有，所以继续向上找wrapper，依然没有，再向上找body，还是没有，所以最后就是<font color="red">相对于浏览器边框定位</font>，这个时候content的left属性就是相对于浏览器边框左边有50px的距离的意思。</p>
 <p>现在我们把content的定位换成relative，浏览器中的结果变成了这个样子：</p>
-<p><img src="https://i.imgur.com/rHbXfuf.png" alt=""></p>
+<p><img src="images/blog9.3.png" alt=""></p>
 <p>本来content黄色小方块在黑色方块的左上角，然后relative相对与自身的位置进行定位，这个时候的left属性的意思就是相对于本来在黑色左上角的那个位置向右移动了50px的距离，也就是现在这个黄色小方块所在的位置。</p>
 <p>因此，总结一下absolute和relative的特点如下：</p>
 <p>• <font color="red"><strong>absolute：</strong></font></p>
@@ -591,7 +591,7 @@ div {
   margin-right: 100px;
   background-color: #fcc;
 }
-</code></pre><p><img src="https://i.imgur.com/78XewWd.png" alt=""></p>
+</code></pre><p><img src="images/blog9.4.png" alt=""></p>
 <p>我们首先固定左侧和右侧的两个div，然后让中间的div分别给左侧和右侧留出一个固定宽度的margin之后，让自身自适应屏幕的大小即可实现三栏布局效果。</p>
 <p>• 要注意的是，div.mid记得<font color="red">写在后面</font>，如果写在最前面的话，因为div是block块级元素会独占一行，这样就会把左侧和右侧的div给挤到下一行了。当然我们给.left和.right都加上<font color="red">top:0px;</font>之后，这个问题也就不用考虑了。</p>
 <p>这次的层模型总结就到这里了，希望对大家有帮助哟~</p>
@@ -707,7 +707,7 @@ div {
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">46</span>
+                    <span class="site-state-item-count">47</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>

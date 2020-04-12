@@ -335,6 +335,264 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/17/CSS3图片翻书展示/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wanghai">
+      <meta itemprop="description" content="Wanghai个人站，主要涉及前端知识共享、实践教程、前沿技术共同学习等方面">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="welcome">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2018/11/17/CSS3图片翻书展示/" class="post-title-link" itemprop="http://yoursite.com/page/4/index.html">CSS3图片翻书展示()</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-11-17 17:20:12" itemprop="dateCreated datePublished" datetime="2018-11-17T17:20:12+08:00">2018-11-17</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2018-12-14 10:53:13" itemprop="dateModified" datetime="2018-12-14T10:53:13+08:00">2018-12-14</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <pre><code>&lt;style&gt;
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        body{
+            background-color: #fde3A7;
+            font-family: &apos;Indie Flower&apos;, cursive;/*字体  草书*/
+        }
+        .card{
+            width: 270px;
+            height: 400px;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            /* transform: translateX(-50%) translateY(-50%);CSS3 平移 */
+            margin-top: -200px;
+            margin-left: -150px;
+            box-shadow: inset 300px 0px 50px rgba(0, 0, 0, .5),20px 0 60px rgba(0, 0, 0, .5);/*阴影*/
+            perspective: 2000px;
+            transform-style: preserve-3d;
+            /* transform-origin: center center; */
+            transition:  all 1s ease-in-out;
+            background-color: #fff;
+        }
+        .card::before{  /*伪类和伪元素的区别  伪元素是真实存在的元素,能在html元素中存在的*/
+            content: &quot;&quot;;
+            display: inline-block;
+            width: 100%;
+            height: 5px;
+            background-color: #BAC1BA;
+            position: absolute;
+            top: -5px;
+            transform: skewX(-45deg);/*CSS3 扭曲*/
+            transform-origin: bottom;/*改变旋转中心*/
+        }
+        .card::after{
+            position: absolute;
+            right: -5px; 
+            top: 0;
+            content: &quot;&quot;;
+            display: inline-block;
+            height: 100%;
+            width: 5px;
+            background-color: #BAC1BA;
+            transform: skewY(-45deg);/*CSS3 扭曲*/
+            transform-origin: left;
+        }
+        .card .imgBox{
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            transform-origin: left;
+            transition:  all .7s ease-in-out;/*过渡*/
+        }
+        .card .imgBox .bark{
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: #fff;
+            opacity: 0;
+            transition: all .6s ease-in-out;
+        }
+        .card .imgBox img{
+            width: 100%;
+        }
+        .card .details{
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+        .card:hover{   /*伪类是当前动作触发的*/ 
+            transform: rotateZ(15deg) scale(1.2);   
+            box-shadow: inset 30px 0px 50px rgba(0, 0, 0, .5), 20px 0px 60px rgba(0, 0, 0, .5);
+        }
+        .card:hover .imgBox{
+            transform: rotateY(-135deg);
+        }
+        .card:hover .imgBox .bark{
+            opacity: 1;
+            transition:  all .6s ease-in-out;
+            box-shadow: inset 300px 200px 100px rgba(0, 0, 0, .5); 
+        }
+    &lt;/style&gt;
+
+
+    &lt;div class=&quot;card&quot;&gt;
+        &lt;div class=&quot;imgBox&quot;&gt;
+            &lt;div class=&quot;bark&quot;&gt;&lt;/div&gt;
+            &lt;img src=&quot;./images/pic.jpg&quot; alt=&quot;&quot;&gt;
+        &lt;/div&gt;
+        &lt;!-- 翻开展示内容 --&gt;
+        &lt;div class=&quot;details&quot;&gt;
+            &lt;!-- 这里没有写第二页内容用图片代替 --&gt;
+            &lt;img src=&quot;./images/pic_.jpg&quot; alt=&quot;&quot;&gt;
+
+            &lt;!-- &lt;h4 class=&quot;title1&quot;&gt;内容标题1&lt;/h4&gt;
+            &lt;h4 class=&quot;title2&quot;&gt;内容标题2&lt;/h4&gt;
+            &lt;p&gt;内容...&lt;/p&gt;
+            &lt;p&gt;内容...&lt;/p&gt; --&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+</code></pre>
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/16/CSS3之calc()/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -397,7 +655,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2018-12-13 15:39:40" itemprop="dateModified" datetime="2018-12-13T15:39:40+08:00">2018-12-13</time>
+                <time title="Modified: 2020-04-12 18:17:03" itemprop="dateModified" datetime="2020-04-12T18:17:03+08:00">2020-04-12</time>
               
             
           </span>
@@ -474,7 +732,7 @@
 &lt;div class=&quot;demo&quot;&gt;
     &lt;div class=&quot;box&quot;&gt;&lt;/div&gt;
 &lt;/div&gt;&lt;hr&gt;
-</code></pre><p><img src="https://i.imgur.com/HugB59A.png" alt=""></p>
+</code></pre><p><img src="images/CSS3calc1.png" alt=""></p>
 <p><strong>例2.</strong></p>
 <pre><code>body{
        background: #E8EADD;
@@ -549,7 +807,7 @@
        &lt;div id=&quot;accessory&quot;&gt;accessory&lt;/div&gt;
        &lt;div id=&quot;footer&quot;&gt;footer&lt;/div&gt;
    &lt;/div&gt;
-</code></pre><p><img src="https://i.imgur.com/gF8nD6v.png" alt=""></p>
+</code></pre><p><img src="images/CSS3calc2.png" alt=""></p>
 
           
         
@@ -668,7 +926,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2018-12-13 15:39:36" itemprop="dateModified" datetime="2018-12-13T15:39:36+08:00">2018-12-13</time>
+                <time title="Modified: 2020-04-12 18:17:32" itemprop="dateModified" datetime="2020-04-12T18:17:32+08:00">2020-04-12</time>
               
             
           </span>
@@ -738,7 +996,7 @@ div{
     box-shadow: 10px 0 10px 0 grey;
 }
 &lt;div&gt;This is a page&lt;/div&gt;
-</code></pre><p><img src="https://i.imgur.com/nllEayT.png" alt=""></p>
+</code></pre><p><img src="images/CSS3boxShadow.png" alt=""></p>
 
           
         
@@ -857,7 +1115,7 @@ div{
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2018-12-14 10:49:30" itemprop="dateModified" datetime="2018-12-14T10:49:30+08:00">2018-12-14</time>
+                <time title="Modified: 2020-04-12 18:15:11" itemprop="dateModified" datetime="2020-04-12T18:15:11+08:00">2020-04-12</time>
               
             
           </span>
@@ -895,7 +1153,7 @@ div{
             <h4 id="1-background-origin-背景的起始位置"><a href="#1-background-origin-背景的起始位置" class="headerlink" title="1.background-origin 背景的起始位置"></a><font color="red">1.background-origin 背景的起始位置</font></h4><p> background-origin: border-box || padding-box || content-box;</p>
 <p> background-Origin属性指定了背景图像的位置区域。</p>
 <p> content-box, padding-box,和 border-box区域内可以放置背景图像。</p>
-<p><img src="https://i.imgur.com/6sqcM3E.png" alt=""></p>
+<p><img src="images/background12.png" alt=""></p>
 <p>效果: 设置的盒子存在 border padding content(用户设置的width height)</p>
 <p>1.padding-box(默认值); 设置背景图片的位置从padding(内边距)开始放置</p>
 <pre><code>将border设置为透明，方便查看不同属性的效果
@@ -911,7 +1169,7 @@ div{
         background-origin: padding-box;
     }
 &lt;div&gt;&lt;/div&gt;
-</code></pre><p><img src="https://i.imgur.com/FfrdQdM.png" alt=""></p>
+</code></pre><p><img src="images/background-origin.png" alt=""></p>
 <p>2.border-box; 设置背景图片的起始位置从border开始 </p>
 <pre><code>div{
         width: 600px;
@@ -923,7 +1181,7 @@ div{
         background-size: 100%;
         background-origin: border-box;
     }
-</code></pre><p><img src="https://i.imgur.com/HqhZHyP.png" alt=""></p>
+</code></pre><p><img src="images/background-origin2.png" alt=""></p>
 <p>3.content-box; 设置背景图片的位置从用户设置的内容区开始放置</p>
 <pre><code>div{
         width: 600px;
@@ -935,7 +1193,7 @@ div{
         background-size: 100%;
         background-origin: content-box
     }
-</code></pre><p><img src="https://i.imgur.com/cGEPCMS.png" alt=""></p>
+</code></pre><p><img src="images/background-origin3.png" alt=""></p>
 <h4 id="2-background-clip-背景裁剪"><a href="#2-background-clip-背景裁剪" class="headerlink" title="2.background-clip 背景裁剪"></a><font color="red">2.background-clip 背景裁剪</font></h4><p>   background-clip: border-box || padding-box || content-box || no-clip</p>
 <p>效果:背景图片默认不裁剪 案例设置了背景图片的起始位置 为boder部分开始 </p>
 <p>1.no-clip（默认值）; 不裁剪背景图片。</p>
@@ -950,7 +1208,7 @@ div{
     background-clip: no-clip;
 }
 &lt;div&gt;&lt;/div&gt;
-</code></pre><p><img src="https://i.imgur.com/cIcEAfG.png" alt=""></p>
+</code></pre><p><img src="images/background-origin2.png" alt=""></p>
 <p>2.padding-box; 保留padding + content 部分的背景图片将padding以外的背景图片裁剪掉</p>
 <pre><code>div{
     width: 600px;
@@ -962,7 +1220,7 @@ div{
     background-size: 100%;
     background-clip: padding-box;
 }
-</code></pre><p><img src="https://i.imgur.com/5TTaZxn.png" alt=""></p>
+</code></pre><p><img src="images/background-clip.png" alt=""></p>
 <p>3.content-box; 保留content 部分的背景图片将content以外的背景图片裁剪掉</p>
 <pre><code>    div{
     width: 600px;
@@ -974,7 +1232,7 @@ div{
     background-size: 100%;
     background-clip: content-box;
 }
-</code></pre><p><img src="https://i.imgur.com/JDUlVmS.png" alt=""></p>
+</code></pre><p><img src="images/background-clip2.png" alt=""></p>
 <p>4.border-box; 保留border以内的背景图片将border以外的背景图片裁剪掉。</p>
 <pre><code>        div{
     width: 600px;
@@ -986,7 +1244,7 @@ div{
     background-size: 100%;
     background-clip: border-box;
 }
-</code></pre><p><img src="https://i.imgur.com/fpuDeW0.png" alt=""></p>
+</code></pre><p><img src="images/background-origin.png" alt=""></p>
 <p> 注意: border-box和no-clip 的效果相同 但是含义不同</p>
 <h4 id="3-background-size-背景图片大小"><a href="#3-background-size-背景图片大小" class="headerlink" title="3.background-size 背景图片大小"></a><font color="red">3.background-size 背景图片大小</font></h4><p>  background-size: cover || contain || 百分比 || 像素值</p>
 <pre><code>div{
@@ -998,7 +1256,7 @@ div{
     background-repeat: no-repeat;
 }
 &lt;div&gt;&lt;/div&gt;
-</code></pre><p><img src="https://i.imgur.com/JmaEys4.png" alt=""></p>
+</code></pre><p><img src="images/background-size.png" alt=""></p>
 <p>1.cover: 覆盖 图片会按照指定比例放大或缩小的填充,放大缩小的比例取决于图片的宽:放置的盒子的内容区的宽和图片的高:放置在盒子的内容区的高的大小的取较大的一个。</p>
 <pre><code>div{
         width: 600px;
@@ -1009,7 +1267,7 @@ div{
         background-repeat: no-repeat;
         background-size: cover;
     }
-</code></pre><p><img src="https://i.imgur.com/48yV8Pg.png" alt=""></p>
+</code></pre><p><img src="images/background-cover.png" alt=""></p>
 <p>2.contain: 包含 图片会按照指定比例扩大或缩小的填充,放大缩小的比例取决于图片的宽:放置的盒子的内容区的宽和图片的高:放置在盒子的内容区的高的大小的取较小的一个。</p>
 <pre><code>div{
         width: 600px;
@@ -1020,7 +1278,7 @@ div{
         background-repeat: no-repeat;
         background-size: contain;
     }
-</code></pre><p><img src="https://i.imgur.com/CHOZHYs.png" alt=""></p>
+</code></pre><p><img src="images/background-size-contain.png" alt=""></p>
 <p>3.一个具体像素值(若是百分比则表示相对于可显示区的大小)代表的是图片的宽度扩大或缩放到该像素值,而图片的宽高比是不变的</p>
 <pre><code>div{
         width: 600px;
@@ -1031,7 +1289,7 @@ div{
         background-repeat: no-repeat;
         background-size: 210px;
     }
-</code></pre><p><img src="https://i.imgur.com/Dmn7xVl.png" alt=""></p>
+</code></pre><p><img src="images/background-size-210.png" alt=""></p>
 <p>4.两个具体像素值(若是百分比则表示相对于可显示区的大小)代表的是图片的宽度和高度分别缩放或扩大到指定像素值,图片的宽高比取决于设置的像素比</p>
 <pre><code>div{
         width: 600px;
@@ -1042,7 +1300,7 @@ div{
         background-repeat: no-repeat;
         background-size: 400px 400px;
     }
-</code></pre><p><img src="https://i.imgur.com/bRo38OL.png" alt=""></p>
+</code></pre><p><img src="images/background-size-400.png" alt=""></p>
 <h4 id="4-background-image-背景图片"><a href="#4-background-image-背景图片" class="headerlink" title="4.background-image 背景图片"></a><font color="red">4.background-image 背景图片</font></h4><p>CSS3中可以通过background-image属性添加背景图片。</p>
 <p>不同的背景图像和图像用逗号隔开，所有的图片中显示在最顶端的为第一张。</p>
 <pre><code>&lt;style&gt;
@@ -1061,7 +1319,7 @@ div{
 }
 &lt;/style&gt;
 &lt;div id=&quot;examplel&quot;&gt;&lt;/div&gt;
-</code></pre><p><img src="https://i.imgur.com/DlCySK9.png" alt=""></p>
+</code></pre><p><img src="images/background11.png" alt=""></p>
 <h4 id="5-background-position-背景定位"><a href="#5-background-position-背景定位" class="headerlink" title="5.background-position 背景定位"></a><font color="red">5.background-position 背景定位</font></h4><p>  background-position: left top || left bottom || right top || right bottom || center center || 像素值 || 百分比</p>
 <p>(注: 没写的参数都是默认值center)</p>
 <p>1.设置background-position:left top 代表背景图片要放在内容区的左上角的位置（默认值）</p>
@@ -1194,7 +1452,7 @@ div{
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2018-12-25 10:32:04" itemprop="dateModified" datetime="2018-12-25T10:32:04+08:00">2018-12-25</time>
+                <time title="Modified: 2020-04-12 18:21:05" itemprop="dateModified" datetime="2020-04-12T18:21:05+08:00">2020-04-12</time>
               
             
           </span>
@@ -1241,7 +1499,7 @@ div{
     margin-left: 10px;
     background-color: yellow;
 }
-</code></pre><p><img src="https://i.imgur.com/hZPjk7D.png" alt=""></p>
+</code></pre><p><img src="images/marginbug1.png" alt=""></p>
 <p>我们会发现，这两个span之间的距离正是我们所想的那样是20px的宽度，但是我们现在再写两个div，然后分别给它们加上<font color="red">margin-bottom</font>和<font color="red">margin-top</font>的样式，我们再来看看效果。</p>
 <pre><code>&lt;div class=&quot;top&quot;&gt;top&lt;/div&gt;
 &lt;div class=&quot;bottom&quot;&gt;bottom&lt;/div&gt;
@@ -1254,7 +1512,7 @@ div{
     margin-top: 10px;
     background-color: yellow;
 }
-</code></pre><p><img src="https://i.imgur.com/stB73S6.png" alt=""></p>
+</code></pre><p><img src="images/marginbug2.png" alt=""></p>
 <p>这次我们惊奇的发现，<font color="red">这两个div上下之间的距离，并不是我们所想的那样是相加的20px，而是只有10px！</font></p>
 <p>这个现象就是标题所说的<font color="red">margin上下合并现象</font>。</p>
 <p>我们尝试改变每一个div的margin-top或者margin-bottom的值，最后发现：二者上下之间的距离是取得两个数值之中的<font color="red">最大值</font>。</p>
@@ -1279,9 +1537,9 @@ div{
         background-color: red;
     }
 </code></pre><p>我们写这段代码的原意是想要一个100100大小的父级div，然后里面有一个5050大小的子级div，然后让这个div在父级div的右下角，同时父级div距离浏览器的边框有100px的距离。</p>
-<p><img src="https://i.imgur.com/zFVpZHv.png" alt=""></p>
+<p><img src="images/marginbug3.png" alt=""></p>
 <p>当我们运行这段代码的时候，我们会发现，子级div的margin-left生效了但是好像margin-top并没有生效？</p>
-<p><img src="https://i.imgur.com/SyDpNRF.png" alt=""></p>
+<p><img src="images/marginbug4.png" alt=""></p>
 <p>其实并不是，margin-top也生效了，但是这里的margin-top的效果并不是我们所想的那样距离父级div的距离是50px，而是子级的div距离浏览器边框的距离是50px，由于本身父级div有一个margin-top的值，所以就导致了我们子级的margin-top的效果并没有显现出来，我们再改变一下子级div的margin-top的值，改成200px，我们又会惊奇的发现，子级div不仅没有距离父级div有了一段距离，<font color="red">反而带动了父级div一起向下移动了</font>！这就是margin塌陷现象。</p>
 <h4 id="那么对于这两个问题我们要怎么解决呢？"><a href="#那么对于这两个问题我们要怎么解决呢？" class="headerlink" title="那么对于这两个问题我们要怎么解决呢？"></a><font color="red">那么对于这两个问题我们要怎么解决呢？</font></h4><p><strong><font color="red">margin塌陷的解法</font></strong></p>
 <p>解法一共有两种：</p>
@@ -1682,7 +1940,7 @@ div{
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2018-12-13 18:18:15" itemprop="dateModified" datetime="2018-12-13T18:18:15+08:00">2018-12-13</time>
+                <time title="Modified: 2020-04-12 18:18:29" itemprop="dateModified" datetime="2020-04-12T18:18:29+08:00">2020-04-12</time>
               
             
           </span>
@@ -1717,7 +1975,7 @@ div{
       
         
           
-            <p><img src="https://i.imgur.com/p6gJepo.png" alt=""><img src="https://i.imgur.com/C2YEtAp.png" alt=""></p>
+            <p><img src="images/CSSswitch1.png" alt=""><img src="images/CSSswitch2.png" alt=""></p>
 <pre><code>&lt;style&gt;
     .switch{
         width: 400px;
@@ -2079,7 +2337,7 @@ div{
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2018-12-13 15:38:01" itemprop="dateModified" datetime="2018-12-13T15:38:01+08:00">2018-12-13</time>
+                <time title="Modified: 2020-04-12 17:24:23" itemprop="dateModified" datetime="2020-04-12T17:24:23+08:00">2020-04-12</time>
               
             
           </span>
@@ -2172,7 +2430,7 @@ div{
       background-color: yellow;
 }
 </code></pre><p>这个时候时候我们在浏览器中看到的样式是这个样子的：</p>
-<p><img src="https://i.imgur.com/CqeccHD.png" alt=""></p>
+<p><img src="images/blog9.1.png" alt=""></p>
 <p>现在我们给content加上定位的样式。</p>
 <pre><code>.content{
   position:absolute;
@@ -2182,10 +2440,10 @@ div{
   background-color: yellow;
 }
 </code></pre><p>这个时候浏览器中的样式就会发生改变，content那个黄色的小方块会跑到橘黄色的方块外面：</p>
-<p><img src="https://i.imgur.com/gBrUDKu.png" alt=""></p>
+<p><img src="images/blog9.2.png" alt=""></p>
 <p>这是因为，当我们给content设置position:absolute;之后，浏览器在渲染的时候，会先向上找到box这个div，看看这个div有没有定位，因为没有，所以继续向上找wrapper，依然没有，再向上找body，还是没有，所以最后就是<font color="red">相对于浏览器边框定位</font>，这个时候content的left属性就是相对于浏览器边框左边有50px的距离的意思。</p>
 <p>现在我们把content的定位换成relative，浏览器中的结果变成了这个样子：</p>
-<p><img src="https://i.imgur.com/rHbXfuf.png" alt=""></p>
+<p><img src="images/blog9.3.png" alt=""></p>
 <p>本来content黄色小方块在黑色方块的左上角，然后relative相对与自身的位置进行定位，这个时候的left属性的意思就是相对于本来在黑色左上角的那个位置向右移动了50px的距离，也就是现在这个黄色小方块所在的位置。</p>
 <p>因此，总结一下absolute和relative的特点如下：</p>
 <p>• <font color="red"><strong>absolute：</strong></font></p>
@@ -2272,7 +2530,7 @@ div {
   margin-right: 100px;
   background-color: #fcc;
 }
-</code></pre><p><img src="https://i.imgur.com/78XewWd.png" alt=""></p>
+</code></pre><p><img src="images/blog9.4.png" alt=""></p>
 <p>我们首先固定左侧和右侧的两个div，然后让中间的div分别给左侧和右侧留出一个固定宽度的margin之后，让自身自适应屏幕的大小即可实现三栏布局效果。</p>
 <p>• 要注意的是，div.mid记得<font color="red">写在后面</font>，如果写在最前面的话，因为div是block块级元素会独占一行，这样就会把左侧和右侧的div给挤到下一行了。当然我们给.left和.right都加上<font color="red">top:0px;</font>之后，这个问题也就不用考虑了。</p>
 <p>这次的层模型总结就到这里了，希望对大家有帮助哟~</p>
@@ -2394,7 +2652,7 @@ div {
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2018-12-13 15:37:56" itemprop="dateModified" datetime="2018-12-13T15:37:56+08:00">2018-12-13</time>
+                <time title="Modified: 2020-04-12 17:23:51" itemprop="dateModified" datetime="2020-04-12T17:23:51+08:00">2020-04-12</time>
               
             
           </span>
@@ -2439,7 +2697,7 @@ div {
 <ol start="3">
 <li><strong>旋转45度(transform:rotate(45deg))</strong></li>
 </ol>
-<p><img src="https://i.imgur.com/7LhlkSW.png" alt=""></p>
+<p><img src="images/blog8.png" alt=""></p>
 <pre><code>&lt;style&gt;
     *{
     margin: 0;
@@ -2484,200 +2742,6 @@ div::after{
 }       
 &lt;/style&gt;                      
 &lt;div&gt;aaa&lt;/div&gt;
-</code></pre>
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/07/blog7/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Wanghai">
-      <meta itemprop="description" content="Wanghai个人站，主要涉及前端知识共享、实践教程、前沿技术共同学习等方面">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="welcome">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2018/11/07/blog7/" class="post-title-link" itemprop="http://yoursite.com/page/4/index.html">CSS实现微信对话框</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2018-11-07 16:29:58" itemprop="dateCreated datePublished" datetime="2018-11-07T16:29:58+08:00">2018-11-07</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2018-12-13 15:37:49" itemprop="dateModified" datetime="2018-12-13T15:37:49+08:00">2018-12-13</time>
-              
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h4 id="实现原理"><a href="#实现原理" class="headerlink" title="实现原理"></a><font color="red">实现原理</font></h4><p><strong>此效果利用了一个高度、宽度均为0的伪元素实现。</strong></p>
-<p><strong>当某元素的高度、宽度均为0,并且设置边框之后,其边框将变为4个顶角相对的三角形,如下图</strong></p>
-<p><img src="https://i.imgur.com/hAfGuSn.png" alt=""></p>
-<pre><code>&lt;style&gt;
-    .box{
-        height: 0;
-        width: 0;
-        border: 100px solid;
-        border-color: #25a23b #abcdef #0000ff crimson;
-    }
-&lt;/style&gt;
-&lt;div class=&quot;box&quot;&gt;&lt;/div&gt;
-</code></pre><p><img src="https://i.imgur.com/7nd7UsQ.png" alt=""></p>
-<pre><code>&lt;style&gt;
-.demo{
-      position: relative;
-      left: 200px;
-      max-width: 150px;
-      max-height: 90px;
-      background: #25a23b;
-      -webkit-border-radius: 5px;
-      -moz-border-radius: 5px;
-      border-radius: 5px;
-      font-size: 14px;
-      padding: 5px;
-      color: white;
-      word-break: break-word;
-    }
-    .demo::before{
-        content: &quot;&quot;;
-        position: absolute;
-        width: 0;
-        height: 0;
-        left: -18px;
-        top: 17px;
-        border: 9px solid;
-        border-color: transparent #25a23b transparent transparent;
-    }
-&lt;/style&gt;
-&lt;div class=&quot;demo&quot;&gt;background background background background background   background 
-&lt;/div&gt;
 </code></pre>
           
         
@@ -2766,7 +2830,7 @@ div::after{
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">46</span>
+                    <span class="site-state-item-count">47</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
